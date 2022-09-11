@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--Backgrounds-->
+    <Color x:Key="MainBackground">#f0f8ff</Color>
+    <Color x:Key="HeaderBackground">#CFDEF2</Color>
+    <Color x:Key="SecondBackground">#DBEBFF</Color>
+
+    <!--Grey-->
+    <Color x:Key="SoftGrey">#d3d3d3</Color>
+    <Color x:Key="Border">#a9a9a9</Color>
+    <Color x:Key="LightText">#808080</Color>
+    <Color x:Key="DarkText">#454545</Color>
+
+    <!--Error-->
+    <Color x:Key="ErrorColor">#ff2b2b</Color>
+</ResourceDictionary>

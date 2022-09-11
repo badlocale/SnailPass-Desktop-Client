@@ -1,0 +1,102 @@
+﻿<Window x:Class="SnailPass_Desctop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SnailPass_Desctop"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="600"
+        Width="1000"
+        Background="#f0f8ff"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <ControlTemplate x:Key="SlideMenuButton"
+                         TargetType="Button">
+            <Grid Name="Btn"
+                  Height="45"
+                  Margin="0, 5, 0, 5">
+                <Border>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="30"
+                                   Height="30"
+                                   Fill="#454545">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" 
+                                    Visual="{StaticResource FolderIcon}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Name="TopMenu"
+              Grid.Row="0"
+              Grid.ColumnSpan="3">
+            <Border BorderThickness="1"
+                    BorderBrush="#a9a9a9"
+                    Background="#CFDEF2"
+                    MouseDown="TopMenu_MouseDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal">
+                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="File"/>
+                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Edit"/>
+                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="View"/>
+                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Account"/>
+                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Window"/>
+                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Help"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                FlowDirection="RightToLeft"
+                                Margin="0, 0, 10, 0">
+                        <Button x:Name="btnClose"
+                                Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                                FontSize="13"
+                                Content="X"
+                                Click="BtnClose_Click"/>
+
+                        <Button x:Name="btnMinimize"
+                                Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                                FontSize="18"
+                                Content="-"
+                                Click="BtnMinimize_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Name="SlideMenu"
+              Grid.Column="0"
+              Grid.Row="1">
+            <Border BorderThickness="1,0,1,1"
+                    BorderBrush="DarkGray"
+                    Background="Transparent"/>
+            <Border BorderThickness="0"
+                    Background="#DBEBFF"
+                    Opacity="1"/>
+            <StackPanel Orientation="Vertical">
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
