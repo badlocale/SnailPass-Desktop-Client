@@ -8,7 +8,7 @@
         Title="MainWindow"
         Height="600"
         Width="1000"
-        Background="#f0f8ff"
+        Background="Transparent"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize">
@@ -22,7 +22,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="30"
                                    Height="30"
-                                   Fill="#454545">
+                                   Fill="{StaticResource DarkTextColor}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill" 
                                     Visual="{StaticResource FolderIcon}" />
@@ -44,56 +44,53 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Border Style="{StaticResource HeaderBorderStyle}"
+                MouseDown="TopMenu_MouseDown"/>
+        <Border Style="{StaticResource BodyBorderStyle}"/>
+
         <Grid Name="TopMenu"
               Grid.Row="0"
-              Grid.ColumnSpan="3">
-            <Border BorderThickness="1"
-                    BorderBrush="#a9a9a9"
-                    Background="#CFDEF2"
-                    MouseDown="TopMenu_MouseDown">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0"
-                                Orientation="Horizontal">
-                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="File"/>
-                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Edit"/>
-                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="View"/>
-                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Account"/>
-                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Window"/>
-                        <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Help"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1"
-                                Orientation="Horizontal"
-                                FlowDirection="RightToLeft"
-                                Margin="0, 0, 10, 0">
-                        <Button x:Name="btnClose"
-                                Template="{StaticResource ResourceKey=TopMenuSmallButton}"
-                                FontSize="13"
-                                Content="X"
-                                Click="BtnClose_Click"/>
+              Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal">
+                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="File"/>
+                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Edit"/>
+                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="View"/>
+                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Account"/>
+                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Window"/>
+                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Help"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        FlowDirection="RightToLeft"
+                        Margin="0, 0, 10, 0">
+                <Button x:Name="btnClose"
+                        Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                        FontSize="13"
+                        Content="X"
+                        Click="BtnClose_Click"/>
 
-                        <Button x:Name="btnMinimize"
-                                Template="{StaticResource ResourceKey=TopMenuSmallButton}"
-                                FontSize="18"
-                                Content="-"
-                                Click="BtnMinimize_Click"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
+                <Button x:Name="btnMinimize"
+                        Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                        FontSize="18"
+                        Content="-"
+                        Click="BtnMinimize_Click"/>
+            </StackPanel>
         </Grid>
 
         <Grid Name="SlideMenu"
               Grid.Column="0"
               Grid.Row="1">
-            <Border BorderThickness="1,0,1,1"
-                    BorderBrush="DarkGray"
-                    Background="Transparent"/>
-            <Border BorderThickness="0"
-                    Background="#DBEBFF"
-                    Opacity="1"/>
+            <Border BorderThickness="0,0,1,0"
+                    CornerRadius="0, 0, 0, 6"
+                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                    Background="{StaticResource ResourceKey=SecondBackground}"/>
             <StackPanel Orientation="Vertical">
 
             </StackPanel>

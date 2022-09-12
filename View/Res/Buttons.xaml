@@ -4,18 +4,18 @@
         <Grid Name="Btn" Margin="10, 0, 10, 0">
             <Border Height="24"
                     CornerRadius="7">
-                <Grid>
-                    <Label Content="{TemplateBinding Content}"
+                <Label Content="{TemplateBinding Content}"
                            Background="Transparent"
                            FontSize="{TemplateBinding FontSize}"
                            VerticalAlignment="Center"
-                           Foreground="#454545"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center"
+                           Foreground="{StaticResource ResourceKey=DarkTextColor}"
                            FontFamily="Uncut Sans"
                            FontWeight="DemiBold"
                            Cursor="Hand"
                            HorizontalAlignment="Center">
-                    </Label>
-                </Grid>
+                </Label>
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Triggers>
@@ -23,7 +23,7 @@
                                             Mode=FindAncestor,
                                             AncestorType={x:Type Button}},
                                             Path=IsMouseOver}" Value="true">
-                                <Setter Property="Background" Value="#8D93A6"/>
+                                <Setter Property="Background" Value="{StaticResource ResourceKey=ActiveButtonColor}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -32,34 +32,34 @@
         </Grid>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="TopMenuSmallButton" TargetType="Button">
-        <Grid Name="Btn" Margin="2, 0, 2, 0">
+    <ControlTemplate x:Key="TopMenuSmallButton"
+                     TargetType="Button">
+        <Grid Name="Btn"
+              Margin="2, 0, 2, 0">
             <Border Width="24"
                     Height="24"
                     CornerRadius="7">
-                <Grid>
-                    <Label Content="{TemplateBinding Content}"
-                           Background="Transparent"
-                           FontSize="{TemplateBinding FontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalContentAlignment="Center"
-                           VerticalContentAlignment="Center"
-                           Foreground="#454545"
-                           FontFamily="Uncut Sans"
-                           FontWeight="DemiBold"
-                           Cursor="Hand"
-                           HorizontalAlignment="Center">
-                    </Label>
-                </Grid>
+                <Label Content="{TemplateBinding Content}"
+                       Background="Transparent"
+                       FontSize="{TemplateBinding FontSize}"
+                       VerticalAlignment="Center"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Foreground="{StaticResource ResourceKey=DarkTextColor}"
+                       FontFamily="Uncut Sans"
+                       FontWeight="DemiBold"
+                       Cursor="Hand"
+                       HorizontalAlignment="Center">
+                </Label>
                 <Border.Style>
                     <Style TargetType="Border">
-                        <Setter Property="Background" Value="#c2c2c2"/>
+                        <Setter Property="Background" Value="{StaticResource ResourceKey=PassiveButtonColor}"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource 
-                                            Mode=FindAncestor,
-                                            AncestorType={x:Type Button}},
-                                            Path=IsMouseOver}" Value="true">
-                                <Setter Property="Background" Value="#8D93A6"/>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                           AncestorType={x:Type Button}},
+                                                           Path=IsMouseOver}"
+                                         Value="true">
+                                <Setter Property="Background" Value="{StaticResource ResourceKey=ActiveButtonColor}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -80,7 +80,7 @@
                            VerticalAlignment="Center"
                            HorizontalContentAlignment="Center"
                            VerticalContentAlignment="Center"
-                           Foreground="AliceBlue"
+                           Foreground="{StaticResource ResourceKey=MainBackground}"
                            FontFamily="Uncut Sans"
                            FontWeight="DemiBold"
                            Cursor="Hand"
@@ -89,18 +89,11 @@
                 </Grid>
                 <Border.Style>
                     <Style TargetType="Border">
-                        <Setter Property="Background" Value="#c2c2c2"/>
+                        <Setter Property="Background" Value="{StaticResource ResourceKey=PassiveButtonColor}"/>
                         <Style.Triggers>
-                            <Trigger Property="IsMouseOver"
-                                     Value="True">
-                                <Setter Property="Background" Value="#8D93A6"/>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ResourceKey=ActiveButtonColor}"/>
                             </Trigger>
-                            <!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource 
-                                            Mode=FindAncestor,
-                                            AncestorType={x:Type Button}},
-                                            Path=IsMouseOver}" Value="true">
-                                <Setter Property="Background" Value="#8D93A6"/>
-                            </DataTrigger>-->
                         </Style.Triggers>
                     </Style>
                 </Border.Style>

@@ -1,0 +1,74 @@
+﻿<Window x:Class="SnailPass_Desctop.View.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SnailPass_Desctop.View"
+        mc:Ignorable="d"
+        Title="RegistrationWindow" Height="500" Width="400" Background="Transparent"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
+        MouseDown="Window_MouseDown">
+    <Border CornerRadius="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource HeaderBorderStyle}"/>
+            <Border Style="{StaticResource BodyBorderStyle}"/>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Registration"
+                           Foreground="{StaticResource ResourceKey=DarkTextColor}"
+                           FontSize="15"
+                           FontFamily="Uncut Sans"
+                           FontWeight="DemiBold"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Margin="15, 0, 0, 0"/>
+
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            FlowDirection="RightToLeft"
+                            Margin="0, 0, 10, 0">
+                    <Button x:Name="btnClose"
+                        Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                        FontSize="13"
+                        Content="X"
+                        Click="BtnClose_Click">
+                    </Button>
+
+                    <Button x:Name="btnMinimize"
+                        Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                        FontSize="18"
+                        Content="-"
+                        Click="BtnMinimize_Click">
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="1"
+                        Orientation="Vertical"
+                        Width="auto"
+                        Margin="30, 10, 30, 0">
+                <TextBlock Text="Enter e-mail"
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+
+                <TextBlock Text="Enter master password"
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
+
+                <TextBlock Text="Enter your e-mail"
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

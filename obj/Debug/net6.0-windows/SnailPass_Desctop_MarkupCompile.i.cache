@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\App.xaml
-8948728809
+10-2091557601
 
-1133124697
+132009326785
 1942030480316
-CustomControls\BindablePasswordBox.xaml;View\LoginWindow.xaml;View\MainWindow.xaml;View\Res\Buttons.xaml;View\Res\Colors.xaml;View\Res\Fonts\Fonts.xaml;View\Res\Icons\Icons.xaml;View\Res\Images\Images.xaml;
+CustomControls\BindablePasswordBox.xaml;View\LoginWindow.xaml;View\MainWindow.xaml;View\RegistrationWindow.xaml;View\Res\Buttons.xaml;View\Res\Colors.xaml;View\Res\Fonts\Fonts.xaml;View\Res\Icons\Icons.xaml;View\Res\Images\Images.xaml;View\Res\WindowElements.xaml;
 
 False
 

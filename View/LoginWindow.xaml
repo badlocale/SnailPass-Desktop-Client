@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:SnailPass_Desctop.ViewModel"
         xmlns:customControls="clr-namespace:SnailPass_Desctop.CustomControls"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="400" Width="300"
+        Title="LoginWindow" Height="400" Width="300" Background="Transparent"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown">
     <Window.DataContext>
@@ -24,31 +24,24 @@
                  Converter="{StaticResource BooleanToVisibility}"/>
     </Window.Visibility>
 
-    <Border Background="#f0f8ff"
-            BorderBrush="#a9a9a9"
-            BorderThickness="0"
-            CornerRadius="8">
+    <Border CornerRadius="8">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid>
+            <Border Style="{StaticResource HeaderBorderStyle}"/>
+            <Border Style="{StaticResource BodyBorderStyle}"/>
+
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Background="#CFDEF2"
-                        BorderBrush="#a9a9a9"
-                        BorderThickness="0, 0, 0, 1"
-                        CornerRadius="6, 6, 0, 0"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="2"/>
-
                 <TextBlock Text="Login"
-                           Foreground="#454545"
+                           Foreground="{StaticResource ResourceKey=DarkTextColor}"
                            FontSize="15"
                            FontFamily="Uncut Sans"
                            FontWeight="DemiBold"
@@ -77,12 +70,12 @@
             </Grid>
 
             <StackPanel Orientation="Vertical"
-                        Grid.Row="2"
+                        Grid.Row="1"
                         Width="220"
                         Margin="0, 10, 0, 0">
 
                 <TextBlock Text="SnailPass"
-                           Foreground="#808080"
+                           Foreground="{StaticResource ResourceKey=LightTextColor}"
                            FontSize="30"
                            FontFamily="Uncut Sans"
                            FontWeight="DemiBold"
@@ -94,7 +87,7 @@
                        Margin="-10, 0, 0, 0"/>
 
                 <TextBlock Text="E-mail"
-                           Foreground="#808080"
+                           Foreground="{StaticResource ResourceKey=LightTextColor}"
                            FontSize="15"
                            FontFamily="Uncut Sans"
                            FontWeight="DemiBold"
@@ -106,9 +99,9 @@
                          FontSize="15"
                          FontWeight="Medium"
                          FontFamily="Uncut Sans"
-                         Foreground="#454545"
-                         CaretBrush="LightGray"
-                         BorderBrush="#a9a9a9"
+                         Foreground="{StaticResource ResourceKey=DarkTextColor}"
+                         CaretBrush="{StaticResource ResourceKey=SoftGreyColor}"
+                         BorderBrush="{StaticResource ResourceKey=BorderColor}"
                          BorderThickness="0, 0, 0, 2"
                          Height="22"
                          Margin="0, 5, 0, 0"
@@ -121,12 +114,7 @@
                 </TextBox>
 
                 <TextBlock Text="Master password"
-                           Foreground="#808080"
-                           FontSize="15"
-                           FontFamily="Uncut Sans"
-                           FontWeight="DemiBold"
-                           HorizontalAlignment="Left"
-                           Margin="0, 20, 0, 0"/>
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
 
                 <customControls:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, 
@@ -136,13 +124,7 @@
                 </customControls:BindablePasswordBox>
 
                 <TextBlock Text="{Binding ErrorMessage}"
-                           Foreground="#ff2b2b"
-                           FontSize="15"
-                           FontFamily="Uncut Sans"
-                           FontWeight="Medium"
-                           HorizontalAlignment="Left"
-                           Margin="0, 10, 0, 0"
-                           TextWrapping="Wrap"/>
+                           Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
 
                 <Border Margin="60, 20, 60, 0">
                     <Button x:Name="btnLoginIn"
