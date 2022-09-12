@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\View",
+    "\\View\\Res"
   ],
-  "SelectedNode": "\\C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop",
+  "SelectedNode": "\\View\\Res\\Buttons.xaml",
   "PreviewInSolutionExplorer": false
 }

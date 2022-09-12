@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SnailPass_Desctop.View"
+        xmlns:local="clr-namespace:SnailPass_Desctop.View" xmlns:customControls="clr-namespace:SnailPass_Desctop.CustomControls"
         mc:Ignorable="d"
-        Title="RegistrationWindow" Height="500" Width="400" Background="Transparent"
+        Title="RegistrationWindow" Height="400" Width="300" Background="Transparent"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown">
     <Border CornerRadius="8">
@@ -18,7 +18,8 @@
             <Border Style="{StaticResource HeaderBorderStyle}"/>
             <Border Style="{StaticResource BodyBorderStyle}"/>
 
-            <Grid Grid.Row="0">
+            <Grid x:Name="Header"
+                  Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
@@ -53,21 +54,70 @@
                 </StackPanel>
             </Grid>
 
-            <StackPanel Grid.Row="1"
+            <StackPanel x:Name="Body"
+                        Grid.Row="1"
                         Orientation="Vertical"
                         Width="auto"
                         Margin="30, 10, 30, 0">
+
+                <TextBlock Text="Enter your name"
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+
+                <TextBox x:Name="Username"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ResourceKey=OpenTextBox}">
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="{StaticResource ResourceKey=AccountIcon}"
+                            Stretch="Uniform"
+                            AlignmentX="Left"/>
+                    </TextBox.Background>
+                </TextBox>
+
                 <TextBlock Text="Enter e-mail"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+
+                <TextBox x:Name="Email"
+                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ResourceKey=OpenTextBox}">
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="{StaticResource ResourceKey=MailIcon}"
+                            Stretch="Uniform"
+                            AlignmentX="Left"/>
+                    </TextBox.Background>
+                </TextBox>
 
                 <TextBlock Text="Enter master password"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
+                <customControls:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, 
+                                                               UpdateSourceTrigger=PropertyChanged}"
+                                                    Height="22"
+                                                    Margin="0, 5, 0, 0"/>
+
+                <TextBlock Text="Enter hint to your password"
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+
+                <TextBox x:Name="Hint"
+                         Text="{Binding Hint, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ResourceKey=OpenTextBox}">
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="{StaticResource ResourceKey=HintIcon}"
+                            Stretch="Uniform"
+                            AlignmentX="Left"/>
+                    </TextBox.Background>
+                </TextBox>
+
                 <TextBlock Text="{Binding ErrorMessage}"
+                           Height="40"
                            Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
 
-                <TextBlock Text="Enter your e-mail"
-                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+                <Border Margin="60, 10, 60, 0">
+                    <Button x:Name="btnLoginIn"
+                            Template="{StaticResource ResourceKey=BigButton}"
+                            Command="{Binding LoginCommand}"
+                            Content="SING UP">
+                    </Button>
+                </Border>
             </StackPanel>
         </Grid>
     </Border>

@@ -37,7 +37,7 @@ namespace SnailPass_Desctop.ViewModel
 
         public void Execute(object? parameter)
         {
-            _canExecuteAction(parameter);
+            _executeAction(parameter);
         }
     }
 }
