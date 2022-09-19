@@ -39,7 +39,7 @@
 
     <Style x:Key="ImportantTextStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ResourceKey=ErrorColor}"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Uncut Sans"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>

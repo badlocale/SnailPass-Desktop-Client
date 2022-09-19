@@ -12,17 +12,17 @@ namespace SnailPass_Desctop.Model
         public string ID { get; set; }
         public string Username { get; set; }    
         public string Email { get; set; }
-        public string Password { get; set; }
         public string Hint { get; set; }
         public string Nonce { get; set; }
 
-        public UserModel(string iD, string username, string email, string password, 
+        public UserModel() { }
+
+        public UserModel(string id, string username, string email, 
                          string hint, string nonce)
         {
-            ID = iD;
+            ID = id;
             Username = username;
             Email = email;
-            Password = password;
             Hint = hint;
             Nonce = nonce;
         }
