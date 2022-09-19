@@ -11,7 +11,8 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        ResizeMode="NoResize">
+        ResizeMode="CanResizeWithGrip"
+        AllowsTransparency="True">
     <Window.Resources>
         <ControlTemplate x:Key="SlideMenuButton"
                          TargetType="Button">

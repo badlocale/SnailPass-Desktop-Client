@@ -3,11 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SnailPass_Desctop.View" xmlns:customControls="clr-namespace:SnailPass_Desctop.CustomControls"
+        xmlns:local="clr-namespace:SnailPass_Desctop.View"
+        xmlns:customControls="clr-namespace:SnailPass_Desctop.CustomControls"
+        xmlns:viewModel="clr-namespace:SnailPass_Desctop.ViewModel"
         mc:Ignorable="d"
         Title="RegistrationWindow" Height="400" Width="300" Background="Transparent"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown">
+    <Window.DataContext>
+        <viewModel:UserViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible"
+                 Mode="TwoWay"
+                 Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
+    
     <Border CornerRadius="8">
         <Grid>
             <Grid.RowDefinitions>
@@ -89,7 +105,8 @@
                 <TextBlock Text="Enter master password"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <customControls:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, 
+                <customControls:BindablePasswordBox x:Name="Password"
+                                                    Password="{Binding Password, Mode=TwoWay, 
                                                                UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22"
                                                     Margin="0, 5, 0, 0"/>
@@ -114,7 +131,7 @@
                 <Border Margin="60, 10, 60, 0">
                     <Button x:Name="btnLoginIn"
                             Template="{StaticResource ResourceKey=BigButton}"
-                            Command="{Binding LoginCommand}"
+                            Command="{Binding RegistrationCommand}"
                             Content="SING UP">
                     </Button>
                 </Border>

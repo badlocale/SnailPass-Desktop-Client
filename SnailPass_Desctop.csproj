@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="View\Res\Fonts\UncutSans\Uncut-Sans-Regular.otf" />
     <Resource Include="View\Res\Icons\AccountIcon.png" />
     <Resource Include="View\Res\Icons\HintIcon.png" />

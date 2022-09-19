@@ -1,11 +1,15 @@
-﻿using System;
+﻿using SnailPass_Desctop.Model;
+using SnailPass_Desctop.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
 using System.Security;
+using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -13,12 +17,30 @@ namespace SnailPass_Desctop.ViewModel
 {
     public class UserViewModel : ViewModelBase
     {
-        private string _username;
-        private string _email;
+        private string _id = Guid.NewGuid().ToString();
+        private string _username = "iZelton";
+        private string _email = "shade.of.apple@gmail.com";
         private SecureString _password;
-        private string _hint;
+        private string _hint = "PUDGE";
+        private string _nonce = "3234";
+
         private string _errorMessage;
         private bool _isViewVisible = true;
+
+        private IUserRepository _userRepository;
+
+        public ICommand LoginCommand { get; }
+        public ICommand RegistrationCommand { get; }
+
+        public string ID
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Username
         {
@@ -50,6 +72,26 @@ namespace SnailPass_Desctop.ViewModel
             }
         }
 
+        public string Hint
+        {
+            get { return _hint; }
+            set
+            {
+                _hint = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Nonce
+        {
+            get { return _nonce; }
+            set
+            {
+                _nonce = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string ErrorMessage
         {
             get { return _errorMessage; }
@@ -70,21 +112,9 @@ namespace SnailPass_Desctop.ViewModel
             }
         }
 
-        public string Hint
-        {
-            get { return _hint; }
-            set
-            {
-                _hint = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ICommand LoginCommand { get; }
-        public ICommand RegistrationCommand { get; }
-
         public UserViewModel()
         {
+            _userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RegistrationCommand = new ViewModelCommand(ExecuteRegistrationCommand, CanExecuteRegistrationCommand);
         }
@@ -93,26 +123,48 @@ namespace SnailPass_Desctop.ViewModel
         {
             bool validData = false;
             if (IsEmailValid(Email) != false && Email.Length >= 5 && Password != null && Password.Length >= 10)
+            {
                 validData = true;
+            }
+                
             return validData;
         }
 
         private void ExecuteLoginCommand(object obj)
         {
-            throw new NotImplementedException();
+            var isValidUser = _userRepository.AuthenticateUser(new System.Net.NetworkCredential(Username, Password));
+            if (isValidUser)
+            {
+                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
+                IsViewVisible = false;
+            }
+            else
+            {
+                ErrorMessage = "Invalid email or password";
+            }
         }
 
         private bool CanExecuteRegistrationCommand(object obj)
         {
             bool isValidData = false;
-            if (IsEmailValid(Email) != false && Password != null)
+            if (IsEmailValid(Email) != false && Email.Length >= 5 && Password != null && Password.Length >= 10)
+            {
                 isValidData = true;
+            }
             return isValidData;
         }
 
         private void ExecuteRegistrationCommand(object obj)
         {
-            throw new NotImplementedException();
+            //TODO make reg with server
+            //if(_userRepository.GetByEmail(Email) == null)
+            //{
+            //    _errorMessage = "a user with such an email already exists";
+            //    return;
+            //}
+            UserModel user = new UserModel(ID, Username, Email, Credential, Hint, Nonce);
+            
+            _userRepository.Add(user);
         }
 
         public bool IsEmailValid(string emailaddress)
@@ -128,7 +180,7 @@ namespace SnailPass_Desctop.ViewModel
 
                 return true;
             }
-            catch (FormatException)
+            catch (Exception)
             {
                 return false;
             }

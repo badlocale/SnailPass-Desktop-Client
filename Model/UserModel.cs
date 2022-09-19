@@ -9,9 +9,22 @@ namespace SnailPass_Desctop.Model
 {
     public class UserModel
     {
-        public Guid ID { get; set; }
+        public string ID { get; set; }
+        public string Username { get; set; }    
         public string Email { get; set; }
-        public string EncKey { get; set; }
-        public string PrivKey { get; set; }
+        public string Password { get; set; }
+        public string Hint { get; set; }
+        public string Nonce { get; set; }
+
+        public UserModel(string iD, string username, string email, string password, 
+                         string hint, string nonce)
+        {
+            ID = iD;
+            Username = username;
+            Email = email;
+            Password = password;
+            Hint = hint;
+            Nonce = nonce;
+        }
     }
 }

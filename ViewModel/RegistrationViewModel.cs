@@ -76,7 +76,12 @@ namespace SnailPass_Desctop.ViewModel
 
         private bool CanExecuteRegistrationCommand(object obj)
         {
-            throw new NotImplementedException();
+            bool validData;
+            if (IsEmailValid(Email) == false || Email.Length < 5 || Password == null || Password.Length < 10)
+                validData = false;
+            else
+                validData = true;
+            return validData;
         }
 
         private void ExecuteRegistrationCommand(object obj)
