@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 
-namespace SnailPass_Desctop.View
+namespace SnailPass_Desktop.View
 {
     public partial class LoginWindow : Window
     {
@@ -44,6 +44,12 @@ namespace SnailPass_Desctop.View
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void SignUpWindowOpen_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWindow registrationWindow = new RegistrationWindow();
+            registrationWindow.Show();
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using SnailPass_Desctop.Model;
-using SnailPass_Desctop.Repositories;
+﻿using SnailPass_Desktop.Model;
+using SnailPass_Desktop.Repositories;
 using System;
 using System.Net.Mail;
 using System.Security;
@@ -7,7 +7,7 @@ using System.Security.Principal;
 using System.Threading;
 using System.Windows.Input;
 
-namespace SnailPass_Desctop.ViewModel
+namespace SnailPass_Desktop.ViewModel
 {
     public class UserViewModel : ViewModelBase
     {

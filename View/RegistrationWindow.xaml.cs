@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SnailPass_Desctop.View
+namespace SnailPass_Desktop.View
 {
     public partial class RegistrationWindow : Window
     {

@@ -1,8 +1,7 @@
-﻿<Application x:Class="SnailPass_Desctop.App"
+﻿<Application x:Class="SnailPass_Desktop.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SnailPass_Desctop"
-             StartupUri="View\RegistrationWindow.xaml"> <!--Registration-->
+             xmlns:local="clr-namespace:SnailPass_Desktop">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

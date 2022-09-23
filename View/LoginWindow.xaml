@@ -1,11 +1,11 @@
-﻿<Window x:Class="SnailPass_Desctop.View.LoginWindow"
+﻿<Window x:Class="SnailPass_Desktop.View.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SnailPass_Desctop.View"
-        xmlns:viewModel="clr-namespace:SnailPass_Desctop.ViewModel"
-        xmlns:customControls="clr-namespace:SnailPass_Desctop.CustomControls"
+        xmlns:local="clr-namespace:SnailPass_Desktop.View"
+        xmlns:viewModel="clr-namespace:SnailPass_Desktop.ViewModel"
+        xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
         mc:Ignorable="d"
         Title="LoginWindow" Height="420" Width="300" Background="Transparent"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
@@ -127,7 +127,9 @@
                     </Button>
                 </Border>
 
-                <Button Template="{StaticResource ResourceKey=LinkButton}"
+                <Button x:Name="btnSingUp"
+                        Template="{StaticResource ResourceKey=LinkButton}"
+                        Click="SignUpWindowOpen_Click"
                         Content="Sing up"
                         Width="80"
                         Margin="0, 15, 0, 0"/>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "95Xe8S0DiJid8R36ifh+EFuig2uXXM0XtwFGVEV1KZk5Ask+IJCIxOPjpdiDLoB2HMVCJTf0V2kTo8hARYTVog==",
+  "dgSpecHash": "Y7BoefqCrA97YpN+ixNTPTXm3Kw/4NxDcVne+A6bRZXUcY+FcPczgSjnY8Q9c+PbesQYtkyryZRNZOCx8ZFwYA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\SnailPass_Desctop.csproj",
+  "projectFilePath": "C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\SnailPass_Desktop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\iZelton\\.nuget\\packages\\microsoft.data.sqlite\\6.0.9\\microsoft.data.sqlite.6.0.9.nupkg.sha512",
     "C:\\Users\\iZelton\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.9\\microsoft.data.sqlite.core.6.0.9.nupkg.sha512",

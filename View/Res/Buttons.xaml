@@ -5,16 +5,16 @@
             <Border Height="24"
                     CornerRadius="7">
                 <Label Content="{TemplateBinding Content}"
-                           Background="Transparent"
-                           FontSize="{TemplateBinding FontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalContentAlignment="Center"
-                           VerticalContentAlignment="Center"
-                           Foreground="{StaticResource ResourceKey=DarkTextColor}"
-                           FontFamily="Uncut Sans"
-                           FontWeight="DemiBold"
-                           Cursor="Hand"
-                           HorizontalAlignment="Center">
+                       Background="Transparent"
+                       FontSize="{TemplateBinding FontSize}"
+                       VerticalAlignment="Center"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Foreground="{StaticResource ResourceKey=DarkTextColor}"
+                       FontFamily="Uncut Sans"
+                       FontWeight="DemiBold"
+                       Cursor="Hand"
+                       HorizontalAlignment="Center">
                 </Label>
                 <Border.Style>
                     <Style TargetType="Border">

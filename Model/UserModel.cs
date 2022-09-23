@@ -5,7 +5,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desctop.Model
+namespace SnailPass_Desktop.Model
 {
     public class UserModel
     {

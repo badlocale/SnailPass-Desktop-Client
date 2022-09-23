@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desctop.Model.Cryptography
+namespace SnailPass_Desktop.Model.Cryptography
 {
     internal interface ISymmetricCryptographer
     {

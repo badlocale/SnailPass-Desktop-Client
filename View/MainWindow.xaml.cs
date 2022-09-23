@@ -14,9 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
-using SnailPass_Desctop.View;
+using SnailPass_Desktop.View;
 
-namespace SnailPass_Desctop
+namespace SnailPass_Desktop
 {
     public partial class MainWindow : Window
     {

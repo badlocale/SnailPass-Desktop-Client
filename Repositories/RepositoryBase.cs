@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 
-namespace SnailPass_Desctop.Repositories
+namespace SnailPass_Desktop.Repositories
 {
     public abstract class RepositoryBase
     {

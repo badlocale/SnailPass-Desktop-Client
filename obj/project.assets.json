@@ -285,9 +285,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\SnailPass_Desctop.csproj",
-      "projectName": "SnailPass_Desctop",
-      "projectPath": "C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\SnailPass_Desctop.csproj",
+      "projectUniqueName": "C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\SnailPass_Desktop.csproj",
+      "projectName": "SnailPass_Desktop",
+      "projectPath": "C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\SnailPass_Desktop.csproj",
       "packagesPath": "C:\\Users\\iZelton\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\obj\\",
       "projectStyle": "PackageReference",

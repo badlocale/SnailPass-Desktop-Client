@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desctop.Model
+namespace SnailPass_Desktop.Model
 {
     internal class PasswordModel
     {

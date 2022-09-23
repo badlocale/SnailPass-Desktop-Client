@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
-using SnailPass_Desctop.Model;
+using SnailPass_Desktop.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desctop.Repositories
+namespace SnailPass_Desktop.Repositories
 {
     internal class UserRepository : RepositoryBase, IUserRepository
     {
@@ -106,7 +106,6 @@ namespace SnailPass_Desctop.Repositories
                     }
                 }
             }
-
             return user;
         }
 

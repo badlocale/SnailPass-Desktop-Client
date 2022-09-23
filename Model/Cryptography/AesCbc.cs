@@ -6,11 +6,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desctop.Model.Cryptography
+namespace SnailPass_Desktop.Model.Cryptography
 {
-    static class AesCbc
+    public class AesCbc
     {
-        public static (byte[], byte[]) Encrypt(string data, byte[] key)
+        public (byte[], byte[]) Encrypt(string data, byte[] key, byte[]? nonce)
         {
             byte[] encryptedData;
             byte[] IV = new byte[16];
@@ -19,8 +19,16 @@ namespace SnailPass_Desctop.Model.Cryptography
             {
                 aes.KeySize = key.Length * 8;
                 aes.Key = key;
-                aes.GenerateIV();
                 aes.Mode = CipherMode.CBC;
+
+                if (nonce == null || nonce.Length != 16)
+                {
+                    aes.GenerateIV();
+                }
+                else
+                {
+                    aes.IV = nonce;
+                }
 
                 IV = aes.IV;
 
@@ -43,7 +51,7 @@ namespace SnailPass_Desctop.Model.Cryptography
             }
         }
 
-        public static string Decrypt(byte[] encryptedData, byte[] IV, byte[] key)
+        public string Decrypt(byte[] encryptedData, byte[] IV, byte[] key)
         {
             string decryptedText = null;
 
@@ -51,8 +59,8 @@ namespace SnailPass_Desctop.Model.Cryptography
             {
                 aes.KeySize = key.Length * 8;
                 aes.Key = key;
-                aes.IV = IV;
                 aes.Mode = CipherMode.CBC;
+                aes.IV = IV;
 
                 var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desctop.View
+namespace SnailPass_Desktop.View
 {
     public static class RoundedWindowParams
     {

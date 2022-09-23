@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desctop.Model
+namespace SnailPass_Desktop.Model
 {
     internal interface IUserRepository
     {

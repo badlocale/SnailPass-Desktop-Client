@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desctop.Repositories
+namespace SnailPass_Desktop.Repositories
 {
     public class PasswordRepository
     {
