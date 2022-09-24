@@ -11,6 +11,8 @@
         Title="RegistrationWindow" Height="420" Width="300" Background="Transparent"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown">
+    <
+    
     <Border CornerRadius="8">
         <Grid>
             <Grid.RowDefinitions>
