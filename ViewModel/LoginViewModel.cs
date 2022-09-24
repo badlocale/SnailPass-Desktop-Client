@@ -1,5 +1,6 @@
 ﻿using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Repositories;
+using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
@@ -21,18 +22,18 @@ namespace SnailPass_Desktop.ViewModel
         private string _id = Guid.NewGuid().ToString();
         private string _username = "iZelton";
         private string _email = "shade.of.apple@gmail.com";
-        private string _hint = "PUDGE";
-        private string _nonce = "3234";
+        private string? _hint = "PUDGE";
+        private string? _nonce = "3234";
 
         private SecureString _password;
 
         private string _errorMessage;
         private bool _isViewVisible = true;
 
-        private IUserRepository _userRepository;
+        private IUserRepository _repository;
 
         public ICommand LoginCommand { get; }
-        public ICommand NavigateRegisterCommand { get; }
+        public ICommand NavigationRegistrationCommand { get; }
 
         public string ID
         {
@@ -116,58 +117,9 @@ namespace SnailPass_Desktop.ViewModel
 
         public LoginViewModel(NavigationStore navigationStore)
         {
-            _userRepository = new UserRepository();
-            LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            NavigateRegisterCommand = new ViewModelCommand(ExecuteNavigationRegisterCommand);
-        }
-
-        private bool CanExecuteLoginCommand(object obj)
-        {
-            bool validData = false;
-            if (IsEmailValid(Email) != false && Email.Length >= 5 && Password != null && Password.Length >= 10)
-            {
-                validData = true;
-            }
-
-            return validData;
-        }
-
-        private void ExecuteLoginCommand(object obj)
-        {
-            var isValidUser = _userRepository.AuthenticateUser(new System.Net.NetworkCredential(Username, Password));
-            if (isValidUser)
-            {
-                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
-                IsViewVisible = false;
-            }
-            else
-            {
-                ErrorMessage = "Invalid email or password";
-            }
-        }
-
-        private void ExecuteNavigationRegisterCommand(object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsEmailValid(string emailaddress)
-        {
-            if (emailaddress == null)
-            {
-                return false;
-            }
-
-            try
-            {
-                new MailAddress(emailaddress);
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            _repository = new UserRepository();
+            LoginCommand = new LoginCommand(this, _repository);
+            NavigationRegistrationCommand = new NavigationRegistrationCommand(navigationStore);
         }
     }
 }

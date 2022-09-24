@@ -1,5 +1,7 @@
 ﻿using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Repositories;
+using SnailPass_Desktop.ViewModel.Commands;
+using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +26,10 @@ namespace SnailPass_Desktop.ViewModel
         private string _errorMessage;
         private bool _isViewVisible = true;
 
-        private IUserRepository _userRepository;
+        private IUserRepository _repository;
 
         public ICommand RegistrationCommand { get; }
+        public ICommand NavigationLoginCommand { get; }
 
         public string ID
         {
@@ -108,56 +111,11 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public RegistrationViewModel()
+        public RegistrationViewModel(NavigationStore navigationStore)
         {
-            _userRepository = new UserRepository();
-            RegistrationCommand = new ViewModelCommand(ExecuteRegistrationCommand, CanExecuteRegistrationCommand);
-        }
-
-        private bool CanExecuteRegistrationCommand(object obj)
-        {
-            bool isValidData = false;
-            if (IsEmailValid(Email) != false && Email.Length >= 5 && Password != null && Password.Length >= 10)
-            {
-                isValidData = true;
-            }
-            return isValidData;
-        }
-
-        private void ExecuteRegistrationCommand(object obj)
-        {
-            //TODO make reg with server
-            UserModel newUser = _userRepository.GetByEmail(Email);
-
-            if (newUser != null)
-            {
-                ErrorMessage = "user with such email already exists";
-                return;
-            }
-
-            //TODO encrypt pass
-            UserModel user = new UserModel(ID, Username, Email, Hint, Nonce);
-
-            _userRepository.Add(user);
-        }
-
-        public bool IsEmailValid(string emailaddress)
-        {
-            if (emailaddress == null)
-            {
-                return false;
-            }
-
-            try
-            {
-                new MailAddress(emailaddress);
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            _repository = new UserRepository();
+            RegistrationCommand = new RegistrationCommand(this, _repository);
+            NavigationLoginCommand = new NavigationLoginCommand(navigationStore);
         }
     }
 }

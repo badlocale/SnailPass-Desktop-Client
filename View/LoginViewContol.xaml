@@ -64,10 +64,11 @@
         </Border>
 
         <Button x:Name="btnSingUp"
-                        Template="{StaticResource ResourceKey=LinkButton}"
-                        Content="Sing up"
-                        Width="80"
-                        Margin="0, 15, 0, 0"/>
+                Template="{StaticResource ResourceKey=LinkButton}"
+                Command="{Binding NavigationRegistrationCommand}"
+                Content="Sing up"
+                Width="80"
+                Margin="0, 15, 0, 0"/>
 
     </StackPanel>
 </UserControl>

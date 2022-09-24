@@ -13,27 +13,28 @@ namespace SnailPass_Desktop
 {
     public partial class App : Application
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            var loginWindow = new LoginWindow();
-            var registrationWindow = new RegistrationWindow();
-            loginWindow.Show();
+        //private void Application_Startup(object sender, StartupEventArgs e)
+        //{
+        //    var loginWindow = new LoginWindow();
+        //    var registrationWindow = new RegistrationWindow();
+        //    loginWindow.Show();
 
-            loginWindow.IsVisibleChanged += (s, ev) =>
-            {
-                if (loginWindow.IsVisible == false && loginWindow.IsLoaded)
-                {
-                    var mainWindow = new MainWindow();
-                    loginWindow.Close();
-                    mainWindow.Show();
-                }
-            };
-        }
+        //    loginWindow.IsVisibleChanged += (s, ev) =>
+        //    {
+        //        if (loginWindow.IsVisible == false && loginWindow.IsLoaded)
+        //        {
+        //            var mainWindow = new MainWindow();
+        //            loginWindow.Close();
+        //            mainWindow.Show();
+        //        }
+        //    };
+        //}
 
         protected override void OnStartup(StartupEventArgs e)
         {
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new AccountViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+            navigationStore.TextHeader = "Login";
 
             MainWindow = new StartupWindow()
             {

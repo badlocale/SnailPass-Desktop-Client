@@ -71,5 +71,12 @@
                             Content="SING UP">
             </Button>
         </Border>
+
+        <Button x:Name="btnBackToLogin"
+                Template="{StaticResource ResourceKey=LinkButton}"
+                Command="{Binding NavigationLoginCommand}"
+                Content="Back to login"
+                Width="110"
+                Margin="0, 15, 0, 0"/>
     </StackPanel>
 </UserControl>

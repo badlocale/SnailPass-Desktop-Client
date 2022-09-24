@@ -12,11 +12,24 @@ namespace SnailPass_Desktop.ViewModel
         private readonly NavigationStore _navigationStore;
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
-        public string HeaderName => "Login";
+        public string HeaderName => _navigationStore.TextHeader;
 
         public StartupViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
+
+            _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
+            _navigationStore.TextHeaderChange += OnTextHeaderChange;
+        }
+
+        private void OnTextHeaderChange()
+        {
+            OnPropertyChanged(nameof(HeaderName));
+        }
+
+        private void OnCurrentViewModelChange()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

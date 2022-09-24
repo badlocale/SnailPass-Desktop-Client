@@ -13,13 +13,7 @@
     <Compile Update="View\LoginViewContol.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\LoginWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\RegistrationViewControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\RegistrationWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\StartupWindow.xaml.cs">
@@ -33,16 +27,10 @@
     <Page Update="View\LoginViewContol.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\LoginWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="View\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RegistrationViewControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\RegistrationWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Res\Buttons.xaml">
