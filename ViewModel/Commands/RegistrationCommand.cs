@@ -1,4 +1,5 @@
 ﻿using SnailPass_Desktop.Model;
+using SnailPass_Desktop.Model.Cryptography;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,13 @@ namespace SnailPass_Desktop.ViewModel.Commands
     {
         RegistrationViewModel _viewModel;
         IUserRepository _repository;
+        IMasterPasswordEncryptor _encryptor;
 
-        public RegistrationCommand(RegistrationViewModel viewModel, IUserRepository repository)
+        public RegistrationCommand(RegistrationViewModel viewModel, IUserRepository repository, IMasterPasswordEncryptor encryptor)
         {
             _viewModel = viewModel;
             _repository = repository;
+            _encryptor = encryptor;
         }
 
         public override bool CanExecute(object? obj)
@@ -32,17 +35,26 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
         public override void Execute(object? obj)
         {
+            _viewModel.ErrorMessage = null;
             //TODO make reg with server
-            UserModel user = _repository.GetByEmail(_viewModel.Email);
 
-            if (user != null)
+            if (_repository.IsEmailExist(_viewModel.Email) == true)
             {
-                _viewModel.ErrorMessage = "user with such email already exists";
+                _viewModel.ErrorMessage = "User with such email already exists";
                 return;
             }
 
-            //TODO encrypt pass
-            user = new UserModel(_viewModel.ID, _viewModel.Username, _viewModel.Email, _viewModel.Hint, _viewModel.Nonce);
+            if (_repository.IsUsernameExist(_viewModel.Username) == true)
+            {
+                _viewModel.ErrorMessage = "Such username is already in use";
+                return;
+            }
+
+            _viewModel.ID = Guid.NewGuid().ToString();
+
+            string encryptedPassword = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, 200000);
+
+            UserModel user = new UserModel(_viewModel.ID, _viewModel.Username, _viewModel.Email, _viewModel.Hint, _viewModel.Nonce, encryptedPassword);
 
             _repository.Add(user);
         }

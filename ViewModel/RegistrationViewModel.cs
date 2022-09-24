@@ -1,4 +1,5 @@
 ﻿using SnailPass_Desktop.Model;
+using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Stores;
@@ -15,11 +16,11 @@ namespace SnailPass_Desktop.ViewModel
 {
     internal class RegistrationViewModel : ViewModelBase
     {
-        private string _id = Guid.NewGuid().ToString();
-        private string _username = "iZelton";
-        private string _email = "shade.of.apple@gmail.com";
-        private string _hint = "PUDGE";
-        private string _nonce = "3234";
+        private string _id;
+        private string _username;
+        private string _email;
+        private string _hint;
+        private string _nonce;
 
         private SecureString _password;
 
@@ -27,6 +28,7 @@ namespace SnailPass_Desktop.ViewModel
         private bool _isViewVisible = true;
 
         private IUserRepository _repository;
+        private IMasterPasswordEncryptor _encryptor;
 
         public ICommand RegistrationCommand { get; }
         public ICommand NavigationLoginCommand { get; }
@@ -114,7 +116,8 @@ namespace SnailPass_Desktop.ViewModel
         public RegistrationViewModel(NavigationStore navigationStore)
         {
             _repository = new UserRepository();
-            RegistrationCommand = new RegistrationCommand(this, _repository);
+            _encryptor = new Pbkdf2Encryptor();
+            RegistrationCommand = new RegistrationCommand(this, _repository, _encryptor);
             NavigationLoginCommand = new NavigationLoginCommand(navigationStore);
         }
     }

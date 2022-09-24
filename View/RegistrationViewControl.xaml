@@ -10,9 +10,9 @@
     <StackPanel Grid.Row="1"
                 Orientation="Vertical"
                 Width="auto"
-                Margin="30, 10, 30, 0">
+                Margin="40, 10, 40, 0">
 
-        <TextBlock Text="Enter your name"
+        <TextBlock Text="Username"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
         <TextBox x:Name="Username"
@@ -25,7 +25,7 @@
             </TextBox.Background>
         </TextBox>
 
-        <TextBlock Text="Enter e-mail"
+        <TextBlock Text="E-mail"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
         <TextBox x:Name="Email"
@@ -38,7 +38,7 @@
             </TextBox.Background>
         </TextBox>
 
-        <TextBlock Text="Enter master password"
+        <TextBlock Text="Master password"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
         <customControls:BindablePasswordBox x:Name="Password"
@@ -47,7 +47,7 @@
                                                     Height="22"
                                                     Margin="0, 5, 0, 0"/>
 
-        <TextBlock Text="Enter hint to your password"
+        <TextBlock Text="Hint to your password"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
         <TextBox x:Name="Hint"
@@ -64,7 +64,7 @@
                            Height="40"
                            Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
 
-        <Border Margin="60, 10, 60, 0">
+        <Border Margin="60, 22, 60, 0">
             <Button x:Name="btnLoginIn"
                             Template="{StaticResource ResourceKey=BigButton}"
                             Command="{Binding RegistrationCommand}"

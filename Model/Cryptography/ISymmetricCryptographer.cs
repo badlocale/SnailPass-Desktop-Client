@@ -10,8 +10,6 @@ namespace SnailPass_Desktop.Model.Cryptography
     {
         public (byte[], byte[]) Encrypt(string data, byte[] key, byte[]? nonce);
 
-        public string Decrypt(byte[] encryptedData, byte[] IV, byte[] key);
-
-
+        public string Decrypt(byte[] encryptedData, byte[] key, byte[] nonce);
     }
 }

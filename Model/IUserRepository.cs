@@ -9,12 +9,14 @@ namespace SnailPass_Desktop.Model
 {
     internal interface IUserRepository
     {
-        bool AuthenticateUser(NetworkCredential credential);
+        bool AuthenticateUser(string encryptedPassword, string username);
         void Add(UserModel user);
         void Update(UserModel user);
         void Remove(string id);
+        bool IsUsernameExist(string username);
+        bool IsEmailExist(string email);
         UserModel GetById(string id);
-        UserModel GetByName(string username);
+        UserModel GetByUsername(string username);
         UserModel GetByEmail(string email);
         IEnumerable<UserModel> GetAll();
     }

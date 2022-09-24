@@ -12,9 +12,30 @@ namespace SnailPass_Desktop.Repositories
 {
     internal class UserRepository : RepositoryBase, IUserRepository
     {
-        public bool AuthenticateUser(NetworkCredential credential)
+        public bool AuthenticateUser(string encryptedPassword, string email)
         {
-            throw new NotImplementedException();
+            bool isValidUser = false;
+
+            using var connection = GetConnection();
+            using (var command = new SqliteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT 'isValid' " +
+                                      "FROM users " +
+                                      "WHERE password=@password AND email=@email";
+                command.Parameters.Add("@password", SqliteType.Text).Value = encryptedPassword;
+                command.Parameters.Add("@email", SqliteType.Text).Value = email;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        isValidUser = reader[0].ToString() == "isValid" ? true : false;
+                    }
+                }
+            }
+            return isValidUser;
         }
 
         public void Add(UserModel user)
@@ -24,13 +45,16 @@ namespace SnailPass_Desktop.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO users (id, username, email, hint, nonce)" +
-                                      "VALUES (@id, @username, @email, @hint, @nonce);";
+                command.CommandText = "INSERT INTO users (id, username, email, hint, nonce, password)" +
+                                      "VALUES (@id, @username, @email, @hint, @nonce, @password);";
+
                 command.Parameters.Add("@id", SqliteType.Text).Value = user.ID;
                 command.Parameters.Add("@username", SqliteType.Text).Value = user.Username;
                 command.Parameters.Add("@email", SqliteType.Text).Value = user.Email;
-                command.Parameters.Add("@hint", SqliteType.Text).Value = user.Hint;
-                command.Parameters.Add("@nonce", SqliteType.Text).Value = user.Nonce;
+                command.Parameters.Add("@password", SqliteType.Text).Value = user.EncryptedPassword;
+                command.Parameters.Add("@hint", SqliteType.Text).Value = (object)user.Hint ?? (object)DBNull.Value;
+                command.Parameters.Add("@nonce", SqliteType.Text).Value = (object)user.Nonce ?? (object)DBNull.Value;
+
                 command.ExecuteNonQuery();
             }
         }
@@ -45,6 +69,58 @@ namespace SnailPass_Desktop.Repositories
             throw new NotImplementedException();
         }
 
+        public bool IsUsernameExist(string username)
+        {
+            bool isExist = false;
+
+            using var connection = GetConnection();
+            using (var command = new SqliteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT 'username exist' " +
+                                      "FROM users " +
+                                      "WHERE username=@username;";
+                command.Parameters.Add("@username", SqliteType.Text).Value = username;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        isExist = reader[0].ToString() == "username exist" ? true : false;
+                    }
+                }
+            }
+
+            return isExist;
+        }
+
+        public bool IsEmailExist(string email)
+        {
+            bool isExist = false;
+
+            using var connection = GetConnection();
+            using (var command = new SqliteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT 'email exist' " +
+                                      "FROM users " +
+                                      "WHERE email=@email;";
+                command.Parameters.Add("@email", SqliteType.Text).Value = email;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        isExist = reader[0].ToString() == "email exist" ? true : false;
+                    }
+                }
+            }
+
+            return isExist;
+        }
+
         public UserModel GetByEmail(string email)
         {
             UserModel user = null;
@@ -54,7 +130,7 @@ namespace SnailPass_Desktop.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT id, username, hint, nonce " +
+                command.CommandText = "SELECT id, username, hint, nonce, password " +
                                       "FROM users " +
                                       "WHERE email=@email;";
                 command.Parameters.Add("@email", SqliteType.Text).Value = email;
@@ -70,6 +146,7 @@ namespace SnailPass_Desktop.Repositories
                             Email = email,
                             Hint = reader[2].ToString(),
                             Nonce = reader[3].ToString(),
+                            EncryptedPassword = reader[4].ToString()
                         };
                     }
                 }
@@ -87,7 +164,7 @@ namespace SnailPass_Desktop.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT username, email, hint, nonce " +
+                command.CommandText = "SELECT username, email, hint, nonce, password " +
                                       "FROM users " +
                                       "WHERE id=@id;";
                 command.Parameters.Add("@email", SqliteType.Text).Value = id;
@@ -98,10 +175,12 @@ namespace SnailPass_Desktop.Repositories
                     {
                         user = new UserModel()
                         {
+                            ID = id,
                             Username = reader[0].ToString(),
                             Email = reader[1].ToString(),
                             Hint = reader[2].ToString(),
                             Nonce = reader[3].ToString(),
+                            EncryptedPassword = reader[4].ToString()
                         };
                     }
                 }
@@ -109,7 +188,7 @@ namespace SnailPass_Desktop.Repositories
             return user;
         }
 
-        public UserModel GetByName(string username)
+        public UserModel GetByUsername(string username)
         {
             UserModel user = null;
 
@@ -118,7 +197,7 @@ namespace SnailPass_Desktop.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT id, email, hint, nonce " +
+                command.CommandText = "SELECT id, email, hint, nonce, password " +
                                       "FROM users " +
                                       "WHERE username=@username;";
                 command.Parameters.Add("@email", SqliteType.Text).Value = username;
@@ -131,8 +210,10 @@ namespace SnailPass_Desktop.Repositories
                         {
                             ID = reader[0].ToString(),
                             Email = reader[1].ToString(),
+                            Username = username,
                             Hint = reader[2].ToString(),
                             Nonce = reader[3].ToString(),
+                            EncryptedPassword = reader[4].ToString()
                         };
                     }
                 }

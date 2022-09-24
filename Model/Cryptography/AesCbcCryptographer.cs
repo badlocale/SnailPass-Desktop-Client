@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Model.Cryptography
 {
-    public class AesCbc
+    public class AesCbcCryptographer : ISymmetricCryptographer
     {
         public (byte[], byte[]) Encrypt(string data, byte[] key, byte[]? nonce)
         {
@@ -51,7 +51,7 @@ namespace SnailPass_Desktop.Model.Cryptography
             }
         }
 
-        public string Decrypt(byte[] encryptedData, byte[] IV, byte[] key)
+        public string Decrypt(byte[] encryptedData, byte[] key, byte[] nonce)
         {
             string decryptedText = null;
 
@@ -60,7 +60,7 @@ namespace SnailPass_Desktop.Model.Cryptography
                 aes.KeySize = key.Length * 8;
                 aes.Key = key;
                 aes.Mode = CipherMode.CBC;
-                aes.IV = IV;
+                aes.IV = nonce;
 
                 var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
