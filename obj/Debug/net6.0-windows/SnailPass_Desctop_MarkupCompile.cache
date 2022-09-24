@@ -1,7 +1,7 @@
 ﻿SnailPass_Desctop
 
 
-winexe
+exe
 C#
 .cs
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\
@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\App.xaml
-7-616235271
+13-2126586315
 
-91949814676
-1942030480316
-CustomControls\BindablePasswordBox.xaml;View\LoginWindow.xaml;View\MainWindow.xaml;View\Res\Buttons.xaml;View\Res\Fonts\Fonts.xaml;View\Res\Icons\Icons.xaml;View\Res\Images\Images.xaml;
+26-284651671
+198-821662739
+CustomControls\BindablePasswordBox.xaml;View\LoginViewContol.xaml;View\LoginWindow.xaml;View\MainWindow.xaml;View\RegistrationViewControl.xaml;View\RegistrationWindow.xaml;View\Res\Buttons.xaml;View\Res\Colors.xaml;View\Res\Fonts\Fonts.xaml;View\Res\Icons\Icons.xaml;View\Res\Images\Images.xaml;View\Res\WindowElements.xaml;View\StartupWindow.xaml;
 
 False
 

@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Security;
 
-namespace SnailPass_Desctop.CustomControls
+namespace SnailPass_Desktop.CustomControls
 {
     public partial class BindablePasswordBox : UserControl
     {
