@@ -13,35 +13,57 @@ namespace SnailPass_Desktop
 {
     public partial class App : Application
     {
+        private Window _startupWindow;
+
+        public Window StartupWindow { get { return _startupWindow; } }
+
         //private void Application_Startup(object sender, StartupEventArgs e)
         //{
-        //    var loginWindow = new LoginWindow();
-        //    var registrationWindow = new RegistrationWindow();
-        //    loginWindow.Show();
 
-        //    loginWindow.IsVisibleChanged += (s, ev) =>
+
+        //    StartupWindow.IsVisibleChanged += (s, ev) =>
         //    {
-        //        if (loginWindow.IsVisible == false && loginWindow.IsLoaded)
+        //        if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
         //        {
-        //            var mainWindow = new MainWindow();
-        //            loginWindow.Close();
-        //            mainWindow.Show();
+        //            MainWindow = new MainWindow();
+        //            StartupWindow.Visibility = Visibility.Hidden;
+        //            MainWindow.Show();
         //        }
         //    };
         //}
 
+        //TODO навигация между окнами
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
-            navigationStore.TextHeader = "Login";
+            NavigationStore navigationStoreStartup = new NavigationStore();
+            navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup);
+            navigationStoreStartup.TextHeader = "Login";
 
-            MainWindow = new StartupWindow()
+            _startupWindow = new StartupWindow()
             {
-                DataContext = new StartupViewModel(navigationStore)
+                DataContext = new StartupViewModel(navigationStoreStartup)
             };
 
-            MainWindow.Show();
+            StartupWindow.Show();
+
+            StartupWindow.IsVisibleChanged += (s, ev) =>
+            {
+                if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
+                {
+                    NavigationStore navigationStoreMain = new NavigationStore();
+                    //navigationStoreMain.CurrentViewModel
+                    //navigationStoreMain.TextHeader
+
+                    MainWindow = new MainWindow()
+                    {
+                        DataContext = new ApplicationViewModel(navigationStoreMain)
+                    };
+
+                    StartupWindow.Close();
+                    MainWindow.Show();
+                }
+            };
 
             base.OnStartup(e);
         }

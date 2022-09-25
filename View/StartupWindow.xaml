@@ -11,8 +11,29 @@
         Title="RegistrationWindow" Height="420" Width="300" Background="Transparent"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown">
-    <
-    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible"
+                 Mode="TwoWay"
+                 Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
+
+    <Window.Style>
+        <Style>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsViewVisible}" Value="True">
+                    <Setter Property="Window.Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsViewVisible}" Value="False">
+                    <Setter Property="Window.Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+
     <Border CornerRadius="8">
         <Grid>
             <Grid.RowDefinitions>

@@ -18,8 +18,6 @@ namespace SnailPass_Desktop.Model.Cryptography
         public string Encrypt(SecureString password, string salt, int iterationCount = DefaultIterationCount)
         {
             string strPassword = SecureStringToString(password);
-            Console.WriteLine(strPassword);//
-            Console.WriteLine(salt);//
             byte[] hashedMaster = Rfc2898DeriveBytes.Pbkdf2(strPassword, Encoding.UTF8.GetBytes(salt), iterationCount, Algorithm, KeySize);
 
             return Convert.ToBase64String(hashedMaster);

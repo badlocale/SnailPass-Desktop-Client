@@ -112,8 +112,12 @@ namespace SnailPass_Desktop.ViewModel
             get { return _isViewVisible; }
             set
             {
-                _isViewVisible = value;
-                OnPropertyChanged();
+                bool oldValue = _isViewVisible;
+                if (oldValue != value)
+                {
+                    _isViewVisible = value;
+                    OnPropertyChanged();
+                }
             }
         }
 

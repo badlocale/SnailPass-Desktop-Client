@@ -47,7 +47,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             if (isValidUser)
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(_viewModel.Username), null);
-                _viewModel.IsViewVisible = false; //TODO new window navigation
+                _viewModel.IsViewVisible = false;
             }
             else
             {
