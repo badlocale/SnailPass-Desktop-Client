@@ -7,18 +7,21 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
-    internal class NavigationLoginCommand : CommandBase
+    internal class NavigateCommand<TViewModel> : CommandBase
+        where TViewModel : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
+        private readonly Func<TViewModel> _createViewModel;
 
-        public NavigationLoginCommand(NavigationStore navigationStore)
+        public NavigateCommand(NavigationStore navigationStore, Func<TViewModel> createViewModel)
         {
             _navigationStore = navigationStore;
+            _createViewModel = createViewModel;
         }
 
         public override void Execute(object? obj)
         {
-            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = _createViewModel();
             _navigationStore.TextHeader = "Login";
         }
     }

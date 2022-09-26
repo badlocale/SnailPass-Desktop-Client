@@ -48,8 +48,8 @@
 
         <customControls:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, 
                                                                UpdateSourceTrigger=PropertyChanged}"
-                                                    Height="22"
-                                                    Margin="0, 5, 0, 0"/>
+                                            Height="22"
+                                            Margin="0, 5, 0, 0"/>
 
         <TextBlock Text="{Binding ErrorMessage}"
                            Height="36"
@@ -65,7 +65,7 @@
 
         <Button x:Name="btnSingUp"
                 Template="{StaticResource ResourceKey=LinkButton}"
-                Command="{Binding NavigationRegistrationCommand}"
+                Command="{Binding NavigateRegistrationCommand}"
                 Content="Sing up"
                 Width="80"
                 Margin="0, 15, 0, 0"/>

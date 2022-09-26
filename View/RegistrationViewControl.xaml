@@ -74,7 +74,7 @@
 
         <Button x:Name="btnBackToLogin"
                 Template="{StaticResource ResourceKey=LinkButton}"
-                Command="{Binding NavigationLoginCommand}"
+                Command="{Binding NavigateLoginCommand}"
                 Content="Back to login"
                 Width="110"
                 Margin="0, 15, 0, 0"/>

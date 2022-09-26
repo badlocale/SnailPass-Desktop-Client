@@ -10,7 +10,13 @@
     <Compile Update="CustomControls\BindablePasswordBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\HomeViewControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\LoginViewContol.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PasswordsViewControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\RegistrationViewControl.xaml.cs">
@@ -24,10 +30,16 @@
     <Page Update="CustomControls\BindablePasswordBox.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\HomeViewControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\LoginViewContol.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PasswordsViewControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RegistrationViewControl.xaml">

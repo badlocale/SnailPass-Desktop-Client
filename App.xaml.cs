@@ -14,43 +14,25 @@ namespace SnailPass_Desktop
     public partial class App : Application
     {
         private Window _startupWindow;
-
         public Window StartupWindow { get { return _startupWindow; } }
-
-        //private void Application_Startup(object sender, StartupEventArgs e)
-        //{
-
-
-        //    StartupWindow.IsVisibleChanged += (s, ev) =>
-        //    {
-        //        if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
-        //        {
-        //            MainWindow = new MainWindow();
-        //            StartupWindow.Visibility = Visibility.Hidden;
-        //            MainWindow.Show();
-        //        }
-        //    };
-        //}
-
-        //TODO навигация между окнами
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            NavigationStore navigationStoreStartup = new NavigationStore();
-            navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup);
-            navigationStoreStartup.TextHeader = "Login";
+            //NavigationStore navigationStoreStartup = new NavigationStore();
+            //navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup);
+            //navigationStoreStartup.TextHeader = "Login";
 
-            _startupWindow = new StartupWindow()
-            {
-                DataContext = new StartupViewModel(navigationStoreStartup)
-            };
+            //_startupWindow = new StartupWindow()
+            //{
+            //    DataContext = new StartupViewModel(navigationStoreStartup)
+            //};
 
-            StartupWindow.Show();
+            //StartupWindow.Show();
 
-            StartupWindow.IsVisibleChanged += (s, ev) =>
-            {
-                if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
-                {
+            //StartupWindow.IsVisibleChanged += (s, ev) =>
+            //{
+            //    if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
+            //    {
                     NavigationStore navigationStoreMain = new NavigationStore();
                     //navigationStoreMain.CurrentViewModel
                     //navigationStoreMain.TextHeader
@@ -60,10 +42,10 @@ namespace SnailPass_Desktop
                         DataContext = new ApplicationViewModel(navigationStoreMain)
                     };
 
-                    StartupWindow.Close();
+                    //StartupWindow.Close();
                     MainWindow.Show();
-                }
-            };
+                //}
+            //};
 
             base.OnStartup(e);
         }

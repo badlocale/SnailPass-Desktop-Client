@@ -7,14 +7,21 @@
 
     <!--Grey-->
     <SolidColorBrush x:Key="SoftGreyColor">#d3d3d3</SolidColorBrush>
-    <SolidColorBrush x:Key="BorderColor">#a9a9a9</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderColor">#bccace</SolidColorBrush> <!--#a9a9a9 Old-->
     <SolidColorBrush x:Key="LightTextColor">#808080</SolidColorBrush>
     <SolidColorBrush x:Key="DarkTextColor">#454545</SolidColorBrush>
 
     <!--Error-->
     <SolidColorBrush x:Key="ErrorColor">#ff2b2b</SolidColorBrush>
     
-    <!--ButtonOnly-->
+    <!--ButtonsOnly-->
     <SolidColorBrush x:Key="PassiveButtonColor">#c2c2c2</SolidColorBrush>
     <SolidColorBrush x:Key="ActiveButtonColor">#8D93A6</SolidColorBrush>
+    <SolidColorBrush x:Key="PanelColor">#CEDDF0</SolidColorBrush>
+    <SolidColorBrush x:Key="OverPanelColor">#C3D1E4</SolidColorBrush>
+    <SolidColorBrush x:Key="ActivePanelColor">#B9CBE4</SolidColorBrush>
+    <SolidColorBrush x:Key="PanelBorderColor">#3C7996</SolidColorBrush>
+    
+    <!--Icons-->
+    <SolidColorBrush x:Key="MenuIconColor">#929292</SolidColorBrush>
 </ResourceDictionary>

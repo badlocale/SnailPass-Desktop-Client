@@ -3,38 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:SnailPass_Desktop.ViewModel"
+        xmlns:view="clr-namespace:SnailPass_Desktop.View"
         xmlns:local="clr-namespace:SnailPass_Desktop"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="600"
         Width="1000"
+        MinHeight="100"
+        MinWidth="430"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True">
-    <Window.Resources>
-        <ControlTemplate x:Key="SlideMenuButton"
-                         TargetType="Button">
-            <Grid Name="Btn"
-                  Height="45"
-                  Margin="0, 5, 0, 5">
-                <Border>
-                    <StackPanel Orientation="Horizontal">
-                        <Rectangle Width="30"
-                                   Height="30"
-                                   Fill="{StaticResource DarkTextColor}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" 
-                                    Visual="{StaticResource FolderIcon}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </StackPanel>
-                </Border>
-            </Grid>
-        </ControlTemplate>
-    </Window.Resources>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -88,13 +70,87 @@
         <Grid Name="SlideMenu"
               Grid.Column="0"
               Grid.Row="1">
-            <Border BorderThickness="0,0,1,0"
+            <Border BorderThickness="0, 0, 1, 0"
                     CornerRadius="0, 0, 0, 6"
                     BorderBrush="{StaticResource ResourceKey=BorderColor}"
                     Background="{StaticResource ResourceKey=SecondBackground}"/>
-            <StackPanel Orientation="Vertical">
 
+            <StackPanel Orientation="Vertical">
+                <RadioButton x:Name="HomePage"
+                             GroupName="LeftMenu"
+                             Style="{StaticResource ResourceKey=LeftMenuButton}"
+                             Tag="{StaticResource ResourceKey=LightTextColor}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Margin="15, 0, 0, 0"
+                                   Width="22" 
+                                   Height="22"
+                                   Fill="{StaticResource ResourceKey=LightTextColor}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Uniform" 
+                                             Visual="{StaticResource ResourceKey=HomeVectorIcon}"/>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+
+                        <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}"
+                                   Text="Home"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="PasswordsPage"
+                             GroupName="LeftMenu"
+                             Style="{StaticResource ResourceKey=LeftMenuButton}"
+                             Tag="{StaticResource ResourceKey=LightTextColor}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Margin="15, 0, 0, 0"
+                                   Width="22"
+                                   Height="22"
+                                   Fill="{StaticResource ResourceKey=LightTextColor}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Uniform"
+                                             Visual="{StaticResource ResourceKey=AccauntKeysVectorIcon}"/>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+
+                        <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}"
+                                   Text="Passwords"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="NotesPage"
+                             GroupName="LeftMenu"
+                             Style="{StaticResource ResourceKey=LeftMenuButton}"
+                             Tag="{StaticResource ResourceKey=LightTextColor}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Margin="15, 0, 0, 0"
+                                   Width="22"
+                                   Height="22"
+                                   Fill="{StaticResource ResourceKey=LightTextColor}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Uniform"
+                                             Visual="{StaticResource ResourceKey=NoteVectorIcon}"/>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+
+                        <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}"
+                                   Text="Notes"/>
+                    </StackPanel>
+                </RadioButton>
             </StackPanel>
         </Grid>
+
+        <Border x:Name="Content"
+                Grid.Column="1"
+                Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                        <view:HomeViewControl/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewModel:PasswordViewModel}">
+                        <view:PasswordsViewControl/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Border>
     </Grid>
 </Window>

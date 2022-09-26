@@ -32,7 +32,7 @@ namespace SnailPass_Desktop.ViewModel
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
             _navigationStore.TextHeaderChange += OnTextHeaderChange;
-            _navigationStore.CurrentViewModel.PropertyChanged += OnPropertyChangedVisibilityHandler; 
+            _navigationStore.CurrentViewModel.PropertyChanged += OnPropertyChangedVisibilityHandler;
         }
 
         private void OnPropertyChangedVisibilityHandler(object? s, PropertyChangedEventArgs e) 

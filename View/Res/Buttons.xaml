@@ -22,8 +22,10 @@
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource 
                                             Mode=FindAncestor,
                                             AncestorType={x:Type Button}},
-                                            Path=IsMouseOver}" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ResourceKey=ActiveButtonColor}"/>
+                                            Path=IsMouseOver}"
+                                         Value="true">
+                                <Setter Property="Background"
+                                        Value="{StaticResource ResourceKey=ActiveButtonColor}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -53,13 +55,15 @@
                 </Label>
                 <Border.Style>
                     <Style TargetType="Border">
-                        <Setter Property="Background" Value="{StaticResource ResourceKey=PassiveButtonColor}"/>
+                        <Setter Property="Background"
+                                Value="{StaticResource ResourceKey=PassiveButtonColor}"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                            AncestorType={x:Type Button}},
                                                            Path=IsMouseOver}"
                                          Value="true">
-                                <Setter Property="Background" Value="{StaticResource ResourceKey=ActiveButtonColor}"/>
+                                <Setter Property="Background"
+                                        Value="{StaticResource ResourceKey=ActiveButtonColor}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -123,4 +127,51 @@
             </Border.Style>
         </Border>
     </ControlTemplate>
+
+    <Style x:Key="LeftMenuButton" TargetType="RadioButton">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Margin" Value="-5, 6, 1, 0"/>
+        <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource ResourceKey=LightTextColor}"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderThickness="5, 0, 0, 0"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="Margin" Value="0, 6, 1, 0"/>
+                <Setter Property="Background" Value="{StaticResource ResourceKey=OverPanelColor}"/>
+                <Setter Property="Foreground" Value="{StaticResource ResourceKey=LightTextColor}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=OverPanelColor}"/>
+            </Trigger>
+
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="Margin" Value="0, 6, 1, 0"/>
+                <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}"/>
+                <Setter Property="Foreground" Value="{StaticResource ResourceKey=LightTextColor}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=PanelBorderColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="LeftMenuButtonText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource ResourceKey=UncutSansFont}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="15, 0, 0, 0"/>
+    </Style>
 </ResourceDictionary>

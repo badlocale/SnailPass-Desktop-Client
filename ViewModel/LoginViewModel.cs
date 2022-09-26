@@ -35,7 +35,7 @@ namespace SnailPass_Desktop.ViewModel
         private IMasterPasswordEncryptor _encryptor;
 
         public ICommand LoginCommand { get; }
-        public ICommand NavigationRegistrationCommand { get; }
+        public ICommand NavigateRegistrationCommand { get; }
 
         public string ID
         {
@@ -126,7 +126,7 @@ namespace SnailPass_Desktop.ViewModel
             _repository = new UserRepository();
             _encryptor = new Pbkdf2Encryptor();
             LoginCommand = new LoginCommand(this, _repository, _encryptor);
-            NavigationRegistrationCommand = new NavigationRegistrationCommand(navigationStore);
+            NavigateRegistrationCommand = new NavigateCommand<RegistrationViewModel>(navigationStore, () => new RegistrationViewModel(navigationStore));
         }
     }
 }
