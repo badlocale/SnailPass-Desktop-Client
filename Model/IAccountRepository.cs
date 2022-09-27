@@ -12,6 +12,6 @@ namespace SnailPass_Desktop.Model
         void Update(AccountModel user);
         void Remove(string id);
         AccountModel GetById(string id);
-        IEnumerable<AccountModel> GetByUsername();
+        IEnumerable<AccountModel> GetByUserID(string id);
     }
 }

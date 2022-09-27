@@ -2,13 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel.Stores
 {
-    public class UserIdentityStore
+    internal class UserIdentityStore
     {
-        public UserModel CurrentUser { get; set; }
+        internal UserModel CurrentUser { get; set; }
+        internal SecureString Master { get; set; }
     }
 }

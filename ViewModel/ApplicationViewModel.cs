@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class ApplicationViewModel : ViewModelBase
+    internal class ApplicationViewModel : ViewModelBase
     {
         private NavigationStore _navigationStore;
 

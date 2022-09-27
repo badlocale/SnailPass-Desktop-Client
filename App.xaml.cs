@@ -18,22 +18,22 @@ namespace SnailPass_Desktop
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //NavigationStore navigationStoreStartup = new NavigationStore();
+            NavigationStore navigationStoreStartup = new NavigationStore();
             UserIdentityStore userIdentityStore = new UserIdentityStore();
-            //navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup, userIdentityStore);
-            //navigationStoreStartup.TextHeader = "Login";
+            navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup, userIdentityStore);
+            navigationStoreStartup.TextHeader = "Login";
 
-            //_startupWindow = new StartupWindow()
-            //{
-            //    DataContext = new StartupViewModel(navigationStoreStartup)
-            //};
+            _startupWindow = new StartupWindow()
+            {
+                DataContext = new StartupViewModel(navigationStoreStartup)
+            };
 
-            //StartupWindow.Show();
+            StartupWindow.Show();
 
-            //StartupWindow.IsVisibleChanged += (s, ev) =>
-            //{
-            //    if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
-            //    {
+            StartupWindow.IsVisibleChanged += (s, ev) =>
+            {
+                if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
+                {
                     NavigationStore navigationStoreMain = new NavigationStore();
                     navigationStoreMain.CurrentViewModel = new AccountsViewModel(userIdentityStore);
 
@@ -42,10 +42,10 @@ namespace SnailPass_Desktop
                         DataContext = new ApplicationViewModel(navigationStoreMain, userIdentityStore)
                     };
 
-                    //StartupWindow.Close();
+                    StartupWindow.Close();
                     MainWindow.Show();
-            //    }
-            //};
+                }
+            };
 
             base.OnStartup(e);
         }

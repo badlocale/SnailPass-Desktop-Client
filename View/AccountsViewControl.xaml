@@ -60,13 +60,11 @@
                 </Grid.RowDefinitions>
 
                 <ListBox x:Name="AccountsList"
-                                 Grid.Row="0"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 Margin="5">
-                    <ListBoxItem>First</ListBoxItem>
-                    <ListBoxItem>Second</ListBoxItem>
-                    <ListBoxItem>Third</ListBoxItem>
+                         Grid.Row="0"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Margin="5"
+                         ItemsSource="{Binding }">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>

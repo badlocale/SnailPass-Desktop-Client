@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class HomeViewModel : ViewModelBase
+    internal class HomeViewModel : ViewModelBase
     {
         public HomeViewModel(UserIdentityStore identityStore)
         {

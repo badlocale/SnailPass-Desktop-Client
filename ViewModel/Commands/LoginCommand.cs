@@ -16,6 +16,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
     internal class LoginCommand : CommandBase
     {
         LoginViewModel _viewModel;
+        UserIdentityStore _identityStore;
         IUserRepository _repository;
         IMasterPasswordEncryptor _encryptor;
 
@@ -23,6 +24,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             IUserRepository repository, IMasterPasswordEncryptor encryptor)
         {
             _viewModel = viewModel;
+            _identityStore = identityStore;
             _repository = repository;
             _encryptor = encryptor;
         }
@@ -48,8 +50,8 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
             if (isValidUser)
             {
-                //Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(_viewModel.Username), null);
-                UserModel user = _repository.GetByEmail(_viewModel.Email);
+                _identityStore.Master = _viewModel.Password;
+                _identityStore.CurrentUser = _repository.GetByEmail(_viewModel.Email);
                 _viewModel.IsViewVisible = false;
             }
             else

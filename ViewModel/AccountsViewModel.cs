@@ -11,9 +11,15 @@ using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class AccountsViewModel : ViewModelBase
+    internal class AccountsViewModel : ViewModelBase
     {
-        ObservableCollection<AccountModel> _accounts;
+        private ObservableCollection<AccountModel> _accounts;
+
+        public ObservableCollection<AccountModel> Accounts
+        { 
+            get { return _accounts; }
+            set { _accounts = value; }
+        }
 
         public ICommand AddNewCommand { get; set; }
         public ICommand RemoveCommand { get; set; }
