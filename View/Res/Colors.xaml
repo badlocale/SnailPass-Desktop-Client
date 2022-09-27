@@ -7,6 +7,7 @@
 
     <!--Grey-->
     <SolidColorBrush x:Key="SoftGreyColor">#d3d3d3</SolidColorBrush>
+    <SolidColorBrush x:Key="SemiVisibleTextColor">#bebebe</SolidColorBrush>
     <SolidColorBrush x:Key="BorderColor">#bccace</SolidColorBrush> <!--#a9a9a9 Old-->
     <SolidColorBrush x:Key="LightTextColor">#808080</SolidColorBrush>
     <SolidColorBrush x:Key="DarkTextColor">#454545</SolidColorBrush>

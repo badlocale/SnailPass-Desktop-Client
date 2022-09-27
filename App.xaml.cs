@@ -19,7 +19,8 @@ namespace SnailPass_Desktop
         protected override void OnStartup(StartupEventArgs e)
         {
             //NavigationStore navigationStoreStartup = new NavigationStore();
-            //navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup);
+            UserIdentityStore userIdentityStore = new UserIdentityStore();
+            //navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup, userIdentityStore);
             //navigationStoreStartup.TextHeader = "Login";
 
             //_startupWindow = new StartupWindow()
@@ -34,17 +35,16 @@ namespace SnailPass_Desktop
             //    if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
             //    {
                     NavigationStore navigationStoreMain = new NavigationStore();
-                    //navigationStoreMain.CurrentViewModel
-                    //navigationStoreMain.TextHeader
+                    navigationStoreMain.CurrentViewModel = new AccountsViewModel(userIdentityStore);
 
                     MainWindow = new MainWindow()
                     {
-                        DataContext = new ApplicationViewModel(navigationStoreMain)
+                        DataContext = new ApplicationViewModel(navigationStoreMain, userIdentityStore)
                     };
 
                     //StartupWindow.Close();
                     MainWindow.Show();
-                //}
+            //    }
             //};
 
             base.OnStartup(e);

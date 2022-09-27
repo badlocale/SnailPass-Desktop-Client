@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SnailPass_Desktop.View
 {
     /// <summary>
-    /// Логика взаимодействия для PasswordsViewControl.xaml
+    /// Interaction logic for NotesViewControl.xaml
     /// </summary>
-    public partial class PasswordsViewControl : UserControl
+    public partial class NotesViewControl : UserControl
     {
-        public PasswordsViewControl()
+        public NotesViewControl()
         {
             InitializeComponent();
         }

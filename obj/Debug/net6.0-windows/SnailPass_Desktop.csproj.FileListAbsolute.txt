@@ -56,6 +56,8 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\SnailPass_Desktop.genruntimeconfig.cache
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\ref\SnailPass_Desktop.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\HomeViewControl.g.cs
-C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\PasswordsViewControl.g.cs
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\HomeViewControl.baml
-C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\PasswordsViewControl.baml
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\NotesViewControl.g.cs
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\NotesViewControl.baml
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\AccountsViewControl.g.cs
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\AccountsViewControl.baml

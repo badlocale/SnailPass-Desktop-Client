@@ -18,10 +18,5 @@ namespace SnailPass_Desktop.ViewModel.Commands
         public virtual bool CanExecute(object? parameter) => true;
 
         public abstract void Execute(object? parameter);
-
-        //public void OnCanExecuteChanged()
-        //{
-        //    CanExecuteChanged?.Invoke(this, new EventArgs());
-        //}
     }
 }

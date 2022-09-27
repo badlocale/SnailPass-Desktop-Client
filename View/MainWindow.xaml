@@ -78,6 +78,7 @@
             <StackPanel Orientation="Vertical">
                 <RadioButton x:Name="HomePage"
                              GroupName="LeftMenu"
+                             Command="{Binding NavigateHomeCommand}"
                              Style="{StaticResource ResourceKey=LeftMenuButton}"
                              Tag="{StaticResource ResourceKey=LightTextColor}">
                     <StackPanel Orientation="Horizontal">
@@ -98,6 +99,7 @@
 
                 <RadioButton x:Name="PasswordsPage"
                              GroupName="LeftMenu"
+                             Command="{Binding NavigateAccountsCommand}"
                              Style="{StaticResource ResourceKey=LeftMenuButton}"
                              Tag="{StaticResource ResourceKey=LightTextColor}">
                     <StackPanel Orientation="Horizontal">
@@ -112,12 +114,13 @@
                         </Rectangle>
 
                         <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}"
-                                   Text="Passwords"/>
+                                   Text="Accounts"/>
                     </StackPanel>
                 </RadioButton>
 
                 <RadioButton x:Name="NotesPage"
                              GroupName="LeftMenu"
+                             Command="{Binding NavigateNotesCommand}"
                              Style="{StaticResource ResourceKey=LeftMenuButton}"
                              Tag="{StaticResource ResourceKey=LightTextColor}">
                     <StackPanel Orientation="Horizontal">
@@ -146,8 +149,11 @@
                     <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                         <view:HomeViewControl/>
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewModel:PasswordViewModel}">
-                        <view:PasswordsViewControl/>
+                    <DataTemplate DataType="{x:Type viewModel:AccountsViewModel}">
+                        <view:AccountsViewControl/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewModel:NotesViewModel}">
+                        <view:NotesViewControl/>
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>

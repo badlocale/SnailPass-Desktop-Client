@@ -1,5 +1,6 @@
 ﻿using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
+using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,8 @@ namespace SnailPass_Desktop.ViewModel.Commands
         IUserRepository _repository;
         IMasterPasswordEncryptor _encryptor;
 
-        public LoginCommand(LoginViewModel viewModel, IUserRepository repository, IMasterPasswordEncryptor encryptor)
+        public LoginCommand(LoginViewModel viewModel, UserIdentityStore identityStore, 
+            IUserRepository repository, IMasterPasswordEncryptor encryptor)
         {
             _viewModel = viewModel;
             _repository = repository;
@@ -47,6 +49,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             if (isValidUser)
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(_viewModel.Username), null);
+                UserModel user = _repository.GetByEmail(_viewModel.Email);
                 _viewModel.IsViewVisible = false;
             }
             else
