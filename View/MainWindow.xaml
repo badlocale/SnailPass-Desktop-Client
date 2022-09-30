@@ -11,7 +11,7 @@
         Height="600"
         Width="1000"
         MinHeight="100"
-        MinWidth="430"
+        MinWidth="450"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -19,14 +19,14 @@
         AllowsTransparency="True">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition MinWidth="160" Width="200" MaxWidth="250"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
+        
         <Border Style="{StaticResource HeaderBorderStyle}"
                 MouseDown="TopMenu_MouseDown"/>
         <Border Style="{StaticResource BodyBorderStyle}"/>
@@ -58,7 +58,13 @@
                         FontSize="13"
                         Content="X"
                         Click="BtnClose_Click"/>
-
+                
+                <Button x:Name="btnMaximize"
+                        Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                        FontSize="18"
+                        Content="^"
+                        Click="BtnMaximize_Click"/>
+                
                 <Button x:Name="btnMinimize"
                         Template="{StaticResource ResourceKey=TopMenuSmallButton}"
                         FontSize="18"
@@ -158,5 +164,14 @@
                 </ContentControl.Resources>
             </ContentControl>
         </Border>
+
+        <GridSplitter Grid.Column="0"
+                      Grid.Row="2"
+                      ShowsPreview="False"
+                      Width="4"
+                      Margin="0, 0, -2, 0"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Stretch"
+                      Background="Transparent" />
     </Grid>
 </Window>

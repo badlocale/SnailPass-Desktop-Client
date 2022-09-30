@@ -48,7 +48,7 @@ namespace SnailPass_Desktop.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "SELECT id, service_name, login, password, " +
-                                      "creating_date, is_favorite, user_id " +
+                                      "creating_time, is_favorite, user_id " +
                                       "FROM accounts " +
                                       "WHERE is_deleted = 0 " +
                                       "AND user_id = @user_id;";

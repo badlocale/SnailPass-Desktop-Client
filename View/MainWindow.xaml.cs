@@ -20,6 +20,8 @@ namespace SnailPass_Desktop
 {
     public partial class MainWindow : Window
     {
+        private bool _isMaximized = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -46,6 +48,25 @@ namespace SnailPass_Desktop
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void BtnMaximize_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                ResizeMode = ResizeMode.CanResize;
+                WindowState = WindowState.Normal;
+            }
+            else
+            {
+                ResizeMode = ResizeMode.NoResize;
+                WindowState = WindowState.Maximized;
+            }
+        }
+
+        private void btnMaximize_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

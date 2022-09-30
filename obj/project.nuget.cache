@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Y7BoefqCrA97YpN+ixNTPTXm3Kw/4NxDcVne+A6bRZXUcY+FcPczgSjnY8Q9c+PbesQYtkyryZRNZOCx8ZFwYA==",
+  "dgSpecHash": "yEwxLdIXSX3HCHH3WRdFgyTHtplOI7mfywajvr7A2cSGgOU3NJBNWCDzEzGPRsQNSVcK8PPC1jhf8vOd948blA==",
   "success": true,
   "projectFilePath": "C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\SnailPass_Desktop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\iZelton\\.nuget\\packages\\microsoft.data.sqlite\\6.0.9\\microsoft.data.sqlite.6.0.9.nupkg.sha512",
     "C:\\Users\\iZelton\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.9\\microsoft.data.sqlite.core.6.0.9.nupkg.sha512",
+    "C:\\Users\\iZelton\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\iZelton\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.6\\sqlitepclraw.bundle_e_sqlite3.2.0.6.nupkg.sha512",
     "C:\\Users\\iZelton\\.nuget\\packages\\sqlitepclraw.core\\2.0.6\\sqlitepclraw.core.2.0.6.nupkg.sha512",
     "C:\\Users\\iZelton\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.6\\sqlitepclraw.lib.e_sqlite3.2.0.6.nupkg.sha512",

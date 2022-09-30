@@ -18,7 +18,7 @@ using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class LoginViewModel : ViewModelBase
+    internal class LoginViewModel : ViewModelBase
     {
         private string _id;
         private string _username;
