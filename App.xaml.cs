@@ -1,5 +1,6 @@
 ﻿using SnailPass_Desktop.Data.API;
 using SnailPass_Desktop.Model;
+using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.View;
 using SnailPass_Desktop.ViewModel;
 using SnailPass_Desktop.ViewModel.Stores;
@@ -29,7 +30,7 @@ namespace SnailPass_Desktop
             _httpClient = new RestAPI();
             _userIdentityStore = new UserIdentityStore();
 
-            NavigationStore navigationStoreStartup = new NavigationStore();
+            //NavigationStore navigationStoreStartup = new NavigationStore();
             //navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup, _userIdentityStore, _httpClient);
             //navigationStoreStartup.TextHeader = "Login";
 
@@ -52,7 +53,7 @@ namespace SnailPass_Desktop
                         DataContext = new ApplicationViewModel(navigationStoreMain, _userIdentityStore)
                     };
 
-                    StartupWindow.Close();
+                    //StartupWindow.Close();
                     MainWindow.Show();
             //    }
             //};

@@ -17,7 +17,7 @@ namespace SnailPass_Desktop.ViewModel
     internal class AccountsViewModel : ViewModelBase
     {
         private readonly ObservableCollection<AccountModel> _accounts;
-        private string _searchBarText;
+        private string _searchBarText = string.Empty;
         private IAccountRepository _repository;
 
         public ObservableCollection<AccountModel> Accounts
@@ -32,6 +32,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _searchBarText = value;
                 OnPropertyChanged();
+                AccountsCollectiionView.Refresh();
             }
         }
 

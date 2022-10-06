@@ -20,7 +20,7 @@ namespace SnailPass_Desktop.Repositories
 
         public SqliteConnection GetConnection()
         {
-            return new SqliteConnection(_connectionString);
+            return new SqliteConnection($"Data Source = C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\Data\\Repositories\\localdata.db");
         }
     }
 }
