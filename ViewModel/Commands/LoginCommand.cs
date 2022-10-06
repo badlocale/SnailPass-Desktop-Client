@@ -1,10 +1,12 @@
-﻿using SnailPass_Desktop.Model;
+﻿using Newtonsoft.Json;
+using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Security.Principal;
 using System.Text;
@@ -16,15 +18,17 @@ namespace SnailPass_Desktop.ViewModel.Commands
     internal class LoginCommand : CommandBase
     {
         LoginViewModel _viewModel;
-        UserIdentityStore _identityStore;
+        UserIdentityStore _identity;
         IUserRepository _repository;
         IMasterPasswordEncryptor _encryptor;
+        IRestClient _httpClient;
 
-        public LoginCommand(LoginViewModel viewModel, UserIdentityStore identityStore, 
+        public LoginCommand(LoginViewModel viewModel, UserIdentityStore identityStore, IRestClient httpClient,
             IUserRepository repository, IMasterPasswordEncryptor encryptor)
         {
             _viewModel = viewModel;
-            _identityStore = identityStore;
+            _identity = identityStore;
+            _httpClient = httpClient;
             _repository = repository;
             _encryptor = encryptor;
         }
@@ -42,16 +46,37 @@ namespace SnailPass_Desktop.ViewModel.Commands
             return validData;
         }
 
-        public override void Execute(object? parameter)
+        public override async void Execute(object? parameter)
         {
+            _viewModel.ErrorMessage = null;
             string encryptedPassword = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, 200000);
+
+            HttpStatusCode code = await _httpClient.Login(_viewModel.Email, encryptedPassword);
             
+            if (code == HttpStatusCode.OK)
+            {
+
+            }
+            else
+            {
+                _viewModel.ErrorMessage = "Some error with code: " + code.ToString();
+            }
+
+            return;
+
+            UserModel user = _httpClient.GetUser(_viewModel.Email);
+
+            if (user != null)
+            {
+                _repository.Add(user);
+            }
+
             bool isValidUser = _repository.AuthenticateUser(encryptedPassword, _viewModel.Email);
 
-            if (isValidUser)
+            if (!string.IsNullOrEmpty(_httpClient.Token) && isValidUser == true)
             {
-                _identityStore.Master = _viewModel.Password;
-                _identityStore.CurrentUser = _repository.GetByEmail(_viewModel.Email);
+                _identity.Master = _viewModel.Password;
+                _identity.CurrentUser = _repository.GetByEmail(_viewModel.Email);
                 _viewModel.IsViewVisible = false;
             }
             else

@@ -63,3 +63,10 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\AccountsViewControl.baml
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\SnailPass_Desktop.dll.config
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Serilog.dll

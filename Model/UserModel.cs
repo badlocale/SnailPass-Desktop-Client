@@ -9,10 +9,12 @@ namespace SnailPass_Desktop.Model
 {
     public class UserModel
     {
-        public string id { get; set; }
-        public string login { get; set; }    
-        public string master_password_hash { get; set; }
-        public string hint { get; set; }
+        private string name;
+
+        public string ID { get { return name; } set { name = value; } }
+        public string Login { get; set; }    
+        public string Password { get; set; }
+        public string Hint { get; set; }
         public string Email { get; set; }
         public string Nonce { get; set; }
 
@@ -21,12 +23,12 @@ namespace SnailPass_Desktop.Model
         public UserModel(string id, string username, string email, 
                          string hint, string nonce, string encryptedPassword)
         {
-            this.id = id;
-            login = username;
+            ID = id;
+            Login = username;
             Email = email;
-            this.hint = hint;
+            Hint = hint;
             Nonce = nonce;
-            master_password_hash = encryptedPassword;
+            Password = encryptedPassword;
         }
     }
 }

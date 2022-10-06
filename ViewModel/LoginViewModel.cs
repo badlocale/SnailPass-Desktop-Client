@@ -121,13 +121,13 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public LoginViewModel(NavigationStore navigationStore, UserIdentityStore identityStore)
+        public LoginViewModel(NavigationStore navigationStore, UserIdentityStore identityStore, IRestClient httpClient)
         {
             _repository = new UserRepository();
             _encryptor = new Pbkdf2Encryptor();
-            LoginCommand = new LoginCommand(this, identityStore, _repository, _encryptor);
+            LoginCommand = new LoginCommand(this, identityStore, httpClient, _repository, _encryptor);
             NavigateRegistrationCommand = new NavigateCommand<RegistrationViewModel>(navigationStore, 
-                () => new RegistrationViewModel(navigationStore, identityStore));
+                () => new RegistrationViewModel(navigationStore, identityStore, httpClient));
         }
     }
 }

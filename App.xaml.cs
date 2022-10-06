@@ -1,4 +1,6 @@
-﻿using SnailPass_Desktop.View;
+﻿using SnailPass_Desktop.Data.API;
+using SnailPass_Desktop.Model;
+using SnailPass_Desktop.View;
 using SnailPass_Desktop.ViewModel;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
@@ -13,14 +15,22 @@ namespace SnailPass_Desktop
 {
     public partial class App : Application
     {
+        private IRestClient _httpClient;
+        private UserIdentityStore _userIdentityStore;
         private Window _startupWindow;
-        public Window StartupWindow { get { return _startupWindow; } } 
+
+        public Window StartupWindow
+        { 
+            get { return _startupWindow; }
+        } 
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //NavigationStore navigationStoreStartup = new NavigationStore();
-            UserIdentityStore userIdentityStore = new UserIdentityStore();
-            //navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup, userIdentityStore);
+            _httpClient = new RestAPI();
+            _userIdentityStore = new UserIdentityStore();
+
+            NavigationStore navigationStoreStartup = new NavigationStore();
+            //navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup, _userIdentityStore, _httpClient);
             //navigationStoreStartup.TextHeader = "Login";
 
             //_startupWindow = new StartupWindow()
@@ -35,14 +45,14 @@ namespace SnailPass_Desktop
             //    if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
             //    {
                     NavigationStore navigationStoreMain = new NavigationStore();
-                    navigationStoreMain.CurrentViewModel = new AccountsViewModel(userIdentityStore);
+                    navigationStoreMain.CurrentViewModel = new AccountsViewModel(_userIdentityStore);
 
                     MainWindow = new MainWindow()
                     {
-                        DataContext = new ApplicationViewModel(navigationStoreMain, userIdentityStore)
+                        DataContext = new ApplicationViewModel(navigationStoreMain, _userIdentityStore)
                     };
 
-                    //StartupWindow.Close();
+                    StartupWindow.Close();
                     MainWindow.Show();
             //    }
             //};

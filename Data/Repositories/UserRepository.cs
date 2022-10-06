@@ -45,14 +45,14 @@ namespace SnailPass_Desktop.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO users (id, username, email, hint, nonce, password)" +
+                command.CommandText = "REPLACE INTO users (id, username, email, hint, nonce, password)" +
                                       "VALUES (@id, @username, @email, @hint, @nonce, @password);";
 
-                command.Parameters.Add("@id", SqliteType.Text).Value = user.id;
-                command.Parameters.Add("@username", SqliteType.Text).Value = user.login;
+                command.Parameters.Add("@id", SqliteType.Text).Value = user.ID;
+                command.Parameters.Add("@username", SqliteType.Text).Value = user.Login;
                 command.Parameters.Add("@email", SqliteType.Text).Value = user.Email;
-                command.Parameters.Add("@password", SqliteType.Text).Value = user.master_password_hash;
-                command.Parameters.Add("@hint", SqliteType.Text).Value = (object)user.hint ?? (object)DBNull.Value;
+                command.Parameters.Add("@password", SqliteType.Text).Value = user.Password;
+                command.Parameters.Add("@hint", SqliteType.Text).Value = (object)user.Hint ?? (object)DBNull.Value;
                 command.Parameters.Add("@nonce", SqliteType.Text).Value = (object)user.Nonce ?? (object)DBNull.Value;
 
                 command.ExecuteNonQuery();
@@ -141,12 +141,12 @@ namespace SnailPass_Desktop.Repositories
                     {
                         user = new UserModel()
                         {
-                            id = reader[0].ToString(),
-                            login = reader[1].ToString(),
+                            ID = reader[0].ToString(),
+                            Login = reader[1].ToString(),
                             Email = email,
-                            hint = reader[2].ToString(),
+                            Hint = reader[2].ToString(),
                             Nonce = reader[3].ToString(),
-                            master_password_hash = reader[4].ToString()
+                            Password = reader[4].ToString()
                         };
                     }
                 }
@@ -175,12 +175,12 @@ namespace SnailPass_Desktop.Repositories
                     {
                         user = new UserModel()
                         {
-                            id = id,
-                            login = reader[0].ToString(),
+                            ID = id,
+                            Login = reader[0].ToString(),
                             Email = reader[1].ToString(),
-                            hint = reader[2].ToString(),
+                            Hint = reader[2].ToString(),
                             Nonce = reader[3].ToString(),
-                            master_password_hash = reader[4].ToString()
+                            Password = reader[4].ToString()
                         };
                     }
                 }
@@ -208,12 +208,12 @@ namespace SnailPass_Desktop.Repositories
                     {
                         user = new UserModel()
                         {
-                            id = reader[0].ToString(),
+                            ID = reader[0].ToString(),
                             Email = reader[1].ToString(),
-                            login = username,
-                            hint = reader[2].ToString(),
+                            Login = username,
+                            Hint = reader[2].ToString(),
                             Nonce = reader[3].ToString(),
-                            master_password_hash = reader[4].ToString()
+                            Password = reader[4].ToString()
                         };
                     }
                 }

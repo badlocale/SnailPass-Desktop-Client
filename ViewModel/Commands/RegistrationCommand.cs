@@ -1,5 +1,4 @@
-﻿using SnailPass_Desktop.API;
-using SnailPass_Desktop.Model;
+﻿using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
 using System;
 using System.Collections.Generic;
@@ -9,18 +8,22 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using SnailPass_Desktop.Data.API;
+using System.Net;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
     internal class RegistrationCommand : CommandBase
     {
         RegistrationViewModel _viewModel;
+        IRestClient _httpClient;
         IUserRepository _repository;
         IMasterPasswordEncryptor _encryptor;
 
-        public RegistrationCommand(RegistrationViewModel viewModel, IUserRepository repository, IMasterPasswordEncryptor encryptor)
+        public RegistrationCommand(RegistrationViewModel viewModel, IRestClient httpClient, IUserRepository repository, IMasterPasswordEncryptor encryptor)
         {
             _viewModel = viewModel;
+            _httpClient = httpClient;
             _repository = repository;
             _encryptor = encryptor;
         }
@@ -44,25 +47,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             string encryptedPassword = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, 200000);
             UserModel user = new UserModel(_viewModel.ID, _viewModel.Username, _viewModel.Email, _viewModel.Hint, _viewModel.Nonce, encryptedPassword);
 
-            Task<HttpResponseMessage> postResponce = WebAPI.Post("/users", user);
-
-            if (postResponce.Result.StatusCode == System.Net.HttpStatusCode.OK) //200
-            {
-                //Task<HttpResponseMessage> getResponce = WebAPI.Get("/users");
-                //string getResponceBody = await getResponce.Result.Content.ReadAsStringAsync();
-                //JObject userJObject = JObject.Parse(getResponceBody);
-                //user = userJObject["User"].ToObject<UserModel>();
-
-                _repository.Add(user); //TODO sync with server
-
-                _viewModel.ErrorMessage = "You are registered now";
-                return;
-            }
-            else //TODO else if
-            {
-                _viewModel.ErrorMessage = "User with such email already exists";
-                return;
-            }
+            HttpStatusCode code = await _httpClient.Registration(user);
         }
 
         public bool IsEmailValid(string emailaddress)
