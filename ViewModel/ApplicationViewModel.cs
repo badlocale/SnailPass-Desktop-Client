@@ -11,7 +11,7 @@ namespace SnailPass_Desktop.ViewModel
 {
     internal class ApplicationViewModel : ViewModelBase
     {
-        private NavigationStore _navigationStore;
+        private INavigationStore _navigationStore;
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
@@ -19,13 +19,13 @@ namespace SnailPass_Desktop.ViewModel
         public ICommand NavigateAccountsCommand { get; set; }
         public ICommand NavigateNotesCommand { get; set; }
 
-        public ApplicationViewModel(NavigationStore navigationStore, UserIdentityStore identityStore)
+        public ApplicationViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(identityStore));
-            NavigateAccountsCommand = new NavigateCommand<AccountsViewModel>(navigationStore, () => new AccountsViewModel(identityStore));
-            NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore, () => new NotesViewModel(identityStore));
+            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(identityStore, navigationStore));
+            NavigateAccountsCommand = new NavigateCommand<AccountsViewModel>(navigationStore, () => new AccountsViewModel(identityStore, navigationStore));
+            NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore, () => new NotesViewModel(identityStore, navigationStore));
         }
 
         private void OnCurrentViewModelChange()

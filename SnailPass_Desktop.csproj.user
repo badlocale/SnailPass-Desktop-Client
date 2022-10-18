@@ -13,6 +13,15 @@
     <Compile Update="View\AccountsViewControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\AddNewAccountWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Dialogs\AddNewUserDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Dialogs\DialogWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\HomeViewControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -34,6 +43,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AccountsViewControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AddNewAccountWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Dialogs\AddNewUserDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Dialogs\DialogWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\HomeViewControl.xaml">

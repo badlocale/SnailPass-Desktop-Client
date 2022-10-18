@@ -18,12 +18,12 @@ namespace SnailPass_Desktop.ViewModel.Commands
     internal class LoginCommand : CommandBase
     {
         LoginViewModel _viewModel;
-        UserIdentityStore _identity;
+        IUserIdentityStore _identity;
         IUserRepository _repository;
         IMasterPasswordEncryptor _encryptor;
         IRestClient _httpClient;
 
-        public LoginCommand(LoginViewModel viewModel, UserIdentityStore identityStore, IRestClient httpClient,
+        public LoginCommand(LoginViewModel viewModel, IUserIdentityStore identityStore, IRestClient httpClient,
             IUserRepository repository, IMasterPasswordEncryptor encryptor)
         {
             _viewModel = viewModel;
@@ -52,6 +52,8 @@ namespace SnailPass_Desktop.ViewModel.Commands
             string encryptedPassword = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, 200000);
 
             HttpStatusCode code = await _httpClient.Login(_viewModel.Email, encryptedPassword);
+
+            //Local mode? Dialog
             
             if (code == HttpStatusCode.OK)
             {
@@ -66,10 +68,10 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
             UserModel user = _httpClient.GetUser(_viewModel.Email);
 
-            if (user != null)
-            {
-                _repository.Add(user);
-            }
+            //if (user != null)
+            //{
+            //    _repository.Add(user);
+            //}
 
             bool isValidUser = _repository.AuthenticateUser(encryptedPassword, _viewModel.Email);
 

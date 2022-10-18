@@ -9,7 +9,7 @@ namespace SnailPass_Desktop.ViewModel
 {
     internal class NotesViewModel : ViewModelBase
     {
-        public NotesViewModel(UserIdentityStore identityStore)
+        public NotesViewModel(IUserIdentityStore identityStore, INavigationStore navigationStore)
         {
 
         }

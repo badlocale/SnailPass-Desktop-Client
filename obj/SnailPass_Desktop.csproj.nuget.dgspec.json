@@ -44,13 +44,29 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "IdentityModel": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
               "version": "[6.0.9, )"
             },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
             "Microsoft.Extensions.Logging": {
               "target": "Package",
               "version": "[6.0.0, )"
+            },
+            "MvvmDialogs": {
+              "target": "Package",
+              "version": "[9.1.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

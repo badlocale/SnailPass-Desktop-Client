@@ -1,4 +1,7 @@
-﻿using SnailPass_Desktop.Data.API;
+﻿using Autofac;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using SnailPass_Desktop.Data.API;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.View;
@@ -16,9 +19,8 @@ namespace SnailPass_Desktop
 {
     public partial class App : Application
     {
-        private IRestClient _httpClient;
-        private UserIdentityStore _userIdentityStore;
         private Window _startupWindow;
+        private IContainer _container;
 
         public Window StartupWindow
         { 
@@ -27,17 +29,16 @@ namespace SnailPass_Desktop
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _httpClient = new RestAPI();
-            _userIdentityStore = new UserIdentityStore();
+            _container = ContainerConfig.Configure();
 
-            //NavigationStore navigationStoreStartup = new NavigationStore();
-            //navigationStoreStartup.CurrentViewModel = new LoginViewModel(navigationStoreStartup, _userIdentityStore, _httpClient);
-            //navigationStoreStartup.TextHeader = "Login";
-
-            //_startupWindow = new StartupWindow()
+            //using (ILifetimeScope scope = _container.BeginLifetimeScope())
             //{
-            //    DataContext = new StartupViewModel(navigationStoreStartup)
-            //};
+            //    LoginViewModel loginViewModel = scope.Resolve<LoginViewModel>();
+            //    _startupWindow = new StartupWindow()
+            //    {
+            //        DataContext = scope.Resolve<StartupViewModel>()
+            //    };
+            //}
 
             //StartupWindow.Show();
 
@@ -45,14 +46,14 @@ namespace SnailPass_Desktop
             //{
             //    if (StartupWindow.IsVisible == false && MainWindow.IsLoaded)
             //    {
-                    NavigationStore navigationStoreMain = new NavigationStore();
-                    navigationStoreMain.CurrentViewModel = new AccountsViewModel(_userIdentityStore);
-
-                    MainWindow = new MainWindow()
+                    using (ILifetimeScope scope = _container.BeginLifetimeScope())
                     {
-                        DataContext = new ApplicationViewModel(navigationStoreMain, _userIdentityStore)
-                    };
-
+                        AccountsViewModel accountsViewModel = scope.Resolve<AccountsViewModel>();
+                        MainWindow = new MainWindow()
+                        {
+                            DataContext = scope.Resolve<ApplicationViewModel>()
+                        };
+                    }
                     //StartupWindow.Close();
                     MainWindow.Show();
             //    }

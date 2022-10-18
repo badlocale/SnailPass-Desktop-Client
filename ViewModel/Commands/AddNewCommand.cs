@@ -19,13 +19,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
         public override void Execute(object? parameter)
         {
-            //AccountModel account = new AccountModel()
-            //{
-            //    ID = _viewModel;
-            //}
 
-            ////TODO net instead local
-            //_repository.Add();
         }
     }
 }

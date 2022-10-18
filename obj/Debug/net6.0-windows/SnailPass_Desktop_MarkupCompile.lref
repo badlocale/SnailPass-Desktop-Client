@@ -2,6 +2,9 @@
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\App.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\CustomControls\BindablePasswordBox.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\AccountsViewControl.xaml;;
+FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\AddNewAccountWindow.xaml;;
+FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\AddNewUserDialog.xaml;;
+FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\DialogWindow.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\HomeViewControl.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\LoginViewContol.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\MainWindow.xaml;;

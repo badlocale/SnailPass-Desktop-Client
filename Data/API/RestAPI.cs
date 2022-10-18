@@ -55,13 +55,9 @@ namespace SnailPass_Desktop.Data.API
 
         public async Task<HttpStatusCode> Login(string email, string password)
         {
-            var pLoginData = new
-            {
-                master_password_hash = password,
-                email = email
-            };
+            _httpClient.DefaultRequestHeaders.Authorization = new BasicAuthenticationHeaderValue(email, password);
 
-            HttpResponseMessage responce = await _httpClient.PostAsJsonAsync("login", pLoginData); //POST???
+            HttpResponseMessage responce = await _httpClient.GetAsync("login");
 
             if (responce.IsSuccessStatusCode)
             {
@@ -70,7 +66,10 @@ namespace SnailPass_Desktop.Data.API
                 var defenition = new { token = "" };
                 var content = JsonConvert.DeserializeAnonymousType(jsonString, defenition);
                 Token = content.token;
+                Console.WriteLine(Token); //
             }
+
+            Console.WriteLine(responce.StatusCode); //
 
             return responce.StatusCode;
         }

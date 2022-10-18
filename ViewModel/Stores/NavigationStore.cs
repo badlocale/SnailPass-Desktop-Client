@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel.Stores
 {
-    public class NavigationStore
+    internal class NavigationStore : INavigationStore
     {
         public event Action? CurrentViewModelChange;
         public event Action? TextHeaderChange;

@@ -11,7 +11,7 @@ namespace SnailPass_Desktop.ViewModel
 {
     public class StartupViewModel : ViewModelBase
     {
-        private readonly NavigationStore _navigationStore;
+        private readonly INavigationStore _navigationStore;
         private bool _isViewVisible = true;
 
         public bool IsViewVisible
@@ -27,7 +27,7 @@ namespace SnailPass_Desktop.ViewModel
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
         public string HeaderName => _navigationStore.TextHeader;
 
-        public StartupViewModel(NavigationStore navigationStore)
+        public StartupViewModel(INavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;

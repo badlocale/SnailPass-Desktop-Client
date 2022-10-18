@@ -9,7 +9,7 @@ namespace SnailPass_Desktop.ViewModel
 {
     internal class HomeViewModel : ViewModelBase
     {
-        public HomeViewModel(UserIdentityStore identityStore)
+        public HomeViewModel(IUserIdentityStore identityStore, INavigationStore navigationStore)
         {
 
         }

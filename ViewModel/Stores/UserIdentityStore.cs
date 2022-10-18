@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel.Stores
 {
-    internal class UserIdentityStore
+    internal class UserIdentityStore : IUserIdentityStore
     {
-        internal UserModel CurrentUser { get; set; }
-        internal SecureString Master { get; set; }
+        public UserModel CurrentUser { get; set; }
+        public SecureString Master { get; set; }
     }
 }

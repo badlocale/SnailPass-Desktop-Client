@@ -18,7 +18,10 @@ namespace SnailPass_Desktop.ViewModel
     {
         private readonly ObservableCollection<AccountModel> _accounts;
         private string _searchBarText = string.Empty;
+        private string _customFieldName;
+        private string _customFieldValue;
         private IAccountRepository _repository;
+        private IUserIdentityStore _identity;
 
         public ObservableCollection<AccountModel> Accounts
         {
@@ -36,20 +39,45 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public ICommand AddNewCommand { get; set; }
+        public string CustomFieldName
+        {
+            get { return _customFieldName; }
+            set
+            {
+                _customFieldName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string CustomFieldValue
+        {
+            get { return _customFieldValue; }
+            set
+            {
+                _customFieldValue = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand RemoveCommand { get; set; }
+        public ICommand AddNewCommand { get; set; }
         public ICommand UpdateCommand { get; set; }
 
         public ICollectionView AccountsCollectiionView { get; }
 
-        public AccountsViewModel(UserIdentityStore identityStore)
+        public AccountsViewModel(IUserIdentityStore identityStore, INavigationStore navigationStore)
         {
+            navigationStore.CurrentViewModel = this;
+
+            _identity = identityStore;
             _repository = new AccountRepository();
             _accounts = new ObservableCollection<AccountModel>();
+
             AccountsCollectiionView = CollectionViewSource.GetDefaultView(_accounts);
             AccountsCollectiionView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(AccountModel.ServiceName)));
-            AccountsCollectiionView.Filter = FilerBySearchBar;
+            AccountsCollectiionView.Filter = FilerWithSearchBar;
 
+            //_identity.CurrentUser.ID = "50b1fe14-6345-46ef-9b3d-477ff20a93f8"; //DELETE
             IEnumerable<AccountModel> accounts = _repository.GetByUserID("50b1fe14-6345-46ef-9b3d-477ff20a93f8");
             foreach (AccountModel account in accounts)
             {
@@ -59,7 +87,7 @@ namespace SnailPass_Desktop.ViewModel
             Console.WriteLine(Accounts.Count());
         }
 
-        private bool FilerBySearchBar(object obj)
+        private bool FilerWithSearchBar(object obj)
         {
             if (obj is AccountModel account)
             {
