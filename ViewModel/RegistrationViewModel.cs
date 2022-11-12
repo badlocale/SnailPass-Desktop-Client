@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Serilog;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Repositories;
@@ -118,9 +118,9 @@ namespace SnailPass_Desktop.ViewModel
         {
             _logger = logger;
 
-            RegistrationCommand = new RegistrationCommand(this, httpClient, repository, encryptor);
+            RegistrationCommand = new RegistrationCommand(this, httpClient, repository, encryptor, logger);
             NavigateLoginCommand = new NavigateCommand<LoginViewModel>(navigationStore, 
-                () => new LoginViewModel(navigationStore, identityStore, httpClient, repository, encryptor, logger));
+                () => new LoginViewModel(navigationStore, identityStore, httpClient, repository, encryptor, logger), logger);
         }
     }
 }

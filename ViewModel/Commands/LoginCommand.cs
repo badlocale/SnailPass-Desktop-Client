@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Serilog;
+using Newtonsoft.Json;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.ViewModel.Stores;
@@ -17,20 +18,24 @@ namespace SnailPass_Desktop.ViewModel.Commands
 {
     internal class LoginCommand : CommandBase
     {
+        private const int LOGIN_ITERATION_COUNT = 160000;
+
         LoginViewModel _viewModel;
         IUserIdentityStore _identity;
         IUserRepository _repository;
         IMasterPasswordEncryptor _encryptor;
         IRestClient _httpClient;
+        ILogger _logger;
 
         public LoginCommand(LoginViewModel viewModel, IUserIdentityStore identityStore, IRestClient httpClient,
-            IUserRepository repository, IMasterPasswordEncryptor encryptor)
+            IUserRepository repository, IMasterPasswordEncryptor encryptor, ILogger logger)
         {
             _viewModel = viewModel;
             _identity = identityStore;
             _httpClient = httpClient;
             _repository = repository;
             _encryptor = encryptor;
+            _logger = logger;
         }
 
         public override bool CanExecute(object? parameter)
@@ -49,7 +54,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
         public override async void Execute(object? parameter)
         {
             _viewModel.ErrorMessage = null;
-            string encryptedPassword = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, 200000);
+            string encryptedPassword = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, LOGIN_ITERATION_COUNT);
 
             HttpStatusCode code = await _httpClient.Login(_viewModel.Email, encryptedPassword);
 

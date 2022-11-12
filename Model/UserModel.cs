@@ -20,11 +20,10 @@ namespace SnailPass_Desktop.Model
 
         public UserModel() { }
 
-        public UserModel(string id, string username, string email, 
+        public UserModel(string id, string email, 
                          string hint, string nonce, string encryptedPassword)
         {
             ID = id;
-            Login = username;
             Email = email;
             Hint = hint;
             Nonce = nonce;

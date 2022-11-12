@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Serilog;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Services;
@@ -29,11 +29,11 @@ namespace SnailPass_Desktop.ViewModel
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
 
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, 
-                () => new HomeViewModel(identityStore, navigationStore));
+                () => new HomeViewModel(identityStore, navigationStore, logger), logger);
             NavigateAccountsCommand = new NavigateCommand<AccountsViewModel>(navigationStore, 
-                () => new AccountsViewModel(identityStore, accountRepository, dialogService, logger));
+                () => new AccountsViewModel(identityStore, accountRepository, dialogService, logger), logger);
             NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore, 
-                () => new NotesViewModel(identityStore, navigationStore));
+                () => new NotesViewModel(identityStore, navigationStore, logger), logger);
 
             NavigateAccountsCommand.Execute(null);
         }

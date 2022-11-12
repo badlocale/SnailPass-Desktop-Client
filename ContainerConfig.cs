@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using Autofac.Builder;
-using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Extensions.Autofac.DependencyInjection;
 using SnailPass_Desktop.Data.API;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
@@ -40,7 +38,13 @@ namespace SnailPass_Desktop
             builder.RegisterType<ApplicationViewModel>().AsSelf();
             builder.RegisterType<AddNewAccountViewModel>().AsSelf();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
-            builder.RegisterSerilog("Log.log");
+            builder.Register<ILogger>((c, p) =>
+            {
+                return new LoggerConfiguration()
+                    .WriteTo.File("log.txt", rollingInterval: RollingInterval.Month)
+                    .WriteTo.Console()
+                    .CreateLogger();
+            }).SingleInstance();
             return builder.Build();
         }
     }

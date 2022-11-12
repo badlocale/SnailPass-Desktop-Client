@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Serilog;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.ViewModel.Services;
 using System;
@@ -28,9 +28,13 @@ namespace SnailPass_Desktop.ViewModel.Commands
         {
             AddNewAccountViewModel vm = _dialogService.ShowDialog<AddNewAccountViewModel>();
 
-            if (vm == null)
+            if (vm != null)
             {
                 _repository.Add(vm.GetModel());
+            }
+            else
+            {
+                _logger.Error("Cant find view model");
             }
         }
     }

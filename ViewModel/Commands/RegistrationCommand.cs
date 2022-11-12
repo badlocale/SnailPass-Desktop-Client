@@ -10,22 +10,28 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using SnailPass_Desktop.Data.API;
 using System.Net;
+using Serilog;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
     internal class RegistrationCommand : CommandBase
     {
+        private const int MASTER_ITERATION_COUNT = 120000;
+
         RegistrationViewModel _viewModel;
         IRestClient _httpClient;
         IUserRepository _repository;
         IMasterPasswordEncryptor _encryptor;
+        ILogger _logger;
 
-        public RegistrationCommand(RegistrationViewModel viewModel, IRestClient httpClient, IUserRepository repository, IMasterPasswordEncryptor encryptor)
+        public RegistrationCommand(RegistrationViewModel viewModel, IRestClient httpClient, IUserRepository repository, 
+            IMasterPasswordEncryptor encryptor, ILogger logger)
         {
             _viewModel = viewModel;
             _httpClient = httpClient;
             _repository = repository;
             _encryptor = encryptor;
+            _logger = logger;
         }
 
         public override bool CanExecute(object? obj)
@@ -42,10 +48,9 @@ namespace SnailPass_Desktop.ViewModel.Commands
         public override async void Execute(object? obj)
         {
             _viewModel.ErrorMessage = null;
-
             _viewModel.ID = Guid.NewGuid().ToString();
-            string encryptedPassword = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, 200000);
-            UserModel user = new UserModel(_viewModel.ID, _viewModel.Username, _viewModel.Email, _viewModel.Hint, _viewModel.Nonce, encryptedPassword);
+            string encryptedPassword = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, MASTER_ITERATION_COUNT);
+            UserModel user = new UserModel(_viewModel.ID, _viewModel.Email, _viewModel.Hint, _viewModel.Nonce, encryptedPassword);
 
             HttpStatusCode code = await _httpClient.Registration(user);
         }

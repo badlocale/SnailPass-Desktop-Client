@@ -59,9 +59,11 @@ namespace SnailPass_Desktop.ViewModel.Services
             DialogWindow window = ShowDialogInternal(dialogContentType, callback, typeof(TViewModel));
 
             bool? result = window.DialogResult;
+            FrameworkElement content = window.Content as FrameworkElement;
+
             if (result == true)
             {
-                return (TViewModel)window.DataContext;
+                return (TViewModel)content.DataContext;
             }
             else
             {

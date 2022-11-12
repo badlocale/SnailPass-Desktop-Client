@@ -29,6 +29,16 @@ namespace SnailPass_Desktop.View.Dialogs
             
             if (window != null)
             {
+                window.DialogResult = false;
+            }
+        }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = Parent as Window;
+
+            if (window != null)
+            {
                 window.DialogResult = true;
             }
         }

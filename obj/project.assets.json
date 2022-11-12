@@ -583,44 +583,7 @@
           }
         }
       },
-      "Serilog.Extensions.Autofac.DependencyInjection/5.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Autofac": "6.4.0",
-          "Serilog": "2.11.0",
-          "Serilog.Extensions.Logging": "3.1.0",
-          "Serilog.Sinks.Console": "4.0.1",
-          "Serilog.Sinks.File": "5.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/Serilog.Extensions.Autofac.DependencyInjection.dll": {
-            "related": ".pdb"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/Serilog.Extensions.Autofac.DependencyInjection.dll": {
-            "related": ".pdb"
-          }
-        }
-      },
-      "Serilog.Extensions.Logging/3.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Logging": "2.0.0",
-          "Serilog": "2.9.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/Serilog.Extensions.Logging.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Serilog.Extensions.Logging.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Serilog.Sinks.Console/4.0.1": {
+      "Serilog.Sinks.Console/4.1.0": {
         "type": "package",
         "dependencies": {
           "Serilog": "2.10.0"
@@ -1579,39 +1542,10 @@
         "serilog.nuspec"
       ]
     },
-    "Serilog.Extensions.Autofac.DependencyInjection/5.0.0": {
-      "sha512": "85B69FE34JyQOV/b0XQuDTj5PogVc6MlxGOxQpPNU8f+eYEray4A2DFPqSBzGzTgysPs4cEv0wbBSbdcxWTs5w==",
+    "Serilog.Sinks.Console/4.1.0": {
+      "sha512": "K6N5q+5fetjnJPvCmkWOpJ/V8IEIoMIB1s86OzBrbxwTyHxdx3pmz4H+8+O/Dc/ftUX12DM1aynx/dDowkwzqg==",
       "type": "package",
-      "path": "serilog.extensions.autofac.dependencyinjection/5.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Serilog.Extensions.Autofac.DependencyInjection.dll",
-        "lib/netstandard2.0/Serilog.Extensions.Autofac.DependencyInjection.pdb",
-        "lib/netstandard2.1/Serilog.Extensions.Autofac.DependencyInjection.dll",
-        "lib/netstandard2.1/Serilog.Extensions.Autofac.DependencyInjection.pdb",
-        "serilog.extensions.autofac.dependencyinjection.5.0.0.nupkg.sha512",
-        "serilog.extensions.autofac.dependencyinjection.nuspec"
-      ]
-    },
-    "Serilog.Extensions.Logging/3.1.0": {
-      "sha512": "IWfem7wfrFbB3iw1OikqPFNPEzfayvDuN4WP7Ue1AVFskalMByeWk3QbtUXQR34SBkv1EbZ3AySHda/ErDgpcg==",
-      "type": "package",
-      "path": "serilog.extensions.logging/3.1.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Serilog.Extensions.Logging.dll",
-        "lib/netstandard2.0/Serilog.Extensions.Logging.xml",
-        "serilog-extension-nuget.png",
-        "serilog.extensions.logging.3.1.0.nupkg.sha512",
-        "serilog.extensions.logging.nuspec"
-      ]
-    },
-    "Serilog.Sinks.Console/4.0.1": {
-      "sha512": "apLOvSJQLlIbKlbx+Y2UDHSP05kJsV7mou+fvJoRGs/iR+jC22r8cuFVMjjfVxz/AD4B2UCltFhE1naRLXwKNw==",
-      "type": "package",
-      "path": "serilog.sinks.console/4.0.1",
+      "path": "serilog.sinks.console/4.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1624,7 +1558,7 @@
         "lib/netstandard1.3/Serilog.Sinks.Console.xml",
         "lib/netstandard2.0/Serilog.Sinks.Console.dll",
         "lib/netstandard2.0/Serilog.Sinks.Console.xml",
-        "serilog.sinks.console.4.0.1.nupkg.sha512",
+        "serilog.sinks.console.4.1.0.nupkg.sha512",
         "serilog.sinks.console.nuspec"
       ]
     },
@@ -1922,7 +1856,8 @@
       "Microsoft.Extensions.Logging >= 6.0.0",
       "Newtonsoft.Json >= 13.0.1",
       "Serilog >= 2.12.0",
-      "Serilog.Extensions.Autofac.DependencyInjection >= 5.0.0"
+      "Serilog.Sinks.Console >= 4.1.0",
+      "Serilog.Sinks.File >= 5.0.0"
     ]
   },
   "packageFolders": {
@@ -1997,7 +1932,11 @@
             "target": "Package",
             "version": "[2.12.0, )"
           },
-          "Serilog.Extensions.Autofac.DependencyInjection": {
+          "Serilog.Sinks.Console": {
+            "target": "Package",
+            "version": "[4.1.0, )"
+          },
+          "Serilog.Sinks.File": {
             "target": "Package",
             "version": "[5.0.0, )"
           }
