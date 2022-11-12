@@ -1,6 +1,8 @@
-﻿using SnailPass_Desktop.Model;
+﻿using Microsoft.Extensions.Logging;
+using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.ViewModel.Commands;
+using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,7 @@ namespace SnailPass_Desktop.ViewModel
         private string _customFieldValue;
         private IAccountRepository _repository;
         private IUserIdentityStore _identity;
+        private ILogger _logger;
 
         public ObservableCollection<AccountModel> Accounts
         {
@@ -65,26 +68,27 @@ namespace SnailPass_Desktop.ViewModel
 
         public ICollectionView AccountsCollectiionView { get; }
 
-        public AccountsViewModel(IUserIdentityStore identityStore, INavigationStore navigationStore)
+        public AccountsViewModel(IUserIdentityStore identityStore, IAccountRepository accountRepository,
+            IDialogService dialogService, ILogger logger)
         {
-            navigationStore.CurrentViewModel = this;
-
             _identity = identityStore;
-            _repository = new AccountRepository();
+            _repository = accountRepository;
+            _logger = logger;
             _accounts = new ObservableCollection<AccountModel>();
+
+            RemoveCommand = new RemoveCommand();
+            AddNewCommand = new AddNewAccountCommand(accountRepository, dialogService, logger);
+            UpdateCommand = new UpdateCommand();
 
             AccountsCollectiionView = CollectionViewSource.GetDefaultView(_accounts);
             AccountsCollectiionView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(AccountModel.ServiceName)));
             AccountsCollectiionView.Filter = FilerWithSearchBar;
 
-            //_identity.CurrentUser.ID = "50b1fe14-6345-46ef-9b3d-477ff20a93f8"; //DELETE
-            IEnumerable<AccountModel> accounts = _repository.GetByUserID("50b1fe14-6345-46ef-9b3d-477ff20a93f8");
+            IEnumerable<AccountModel> accounts = _repository.GetByUserID("50b1fe14-6345-46ef-9b3d-477ff20a93f8"); //Fix
             foreach (AccountModel account in accounts)
             {
                 _accounts.Add(account);
             }
-
-            Console.WriteLine(Accounts.Count());
         }
 
         private bool FilerWithSearchBar(object obj)

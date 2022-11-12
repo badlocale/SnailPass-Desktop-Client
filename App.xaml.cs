@@ -1,11 +1,14 @@
 ﻿using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using SnailPass_Desktop.Data.API;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.View;
+using SnailPass_Desktop.View.Dialogs;
 using SnailPass_Desktop.ViewModel;
+using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
@@ -30,6 +33,7 @@ namespace SnailPass_Desktop
         protected override void OnStartup(StartupEventArgs e)
         {
             _container = ContainerConfig.Configure();
+            RegisterDialogs();
 
             //using (ILifetimeScope scope = _container.BeginLifetimeScope())
             //{
@@ -60,6 +64,11 @@ namespace SnailPass_Desktop
             //};
 
             base.OnStartup(e);
+        }
+
+        private void RegisterDialogs()
+        {
+            DialogService.RegisterDialog<AddNewAccountViewModel, AddNewAccountDialog>();
         }
     }
 }

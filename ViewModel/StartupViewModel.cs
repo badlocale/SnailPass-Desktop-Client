@@ -1,4 +1,5 @@
-﻿using SnailPass_Desktop.ViewModel.Stores;
+﻿using Microsoft.Extensions.Logging;
+using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,7 @@ namespace SnailPass_Desktop.ViewModel
     public class StartupViewModel : ViewModelBase
     {
         private readonly INavigationStore _navigationStore;
+        private readonly ILogger _logger;
         private bool _isViewVisible = true;
 
         public bool IsViewVisible
@@ -27,7 +29,7 @@ namespace SnailPass_Desktop.ViewModel
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
         public string HeaderName => _navigationStore.TextHeader;
 
-        public StartupViewModel(INavigationStore navigationStore)
+        public StartupViewModel(INavigationStore navigationStore, ILogger logger)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;

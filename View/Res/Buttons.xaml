@@ -174,4 +174,35 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="15, 0, 0, 0"/>
     </Style>
+
+    <Style x:Key="AddNewButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Margin="4"
+                            CornerRadius="10"
+                            Background="{TemplateBinding Background}">
+                        <Rectangle Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Width="25"
+                                   Height="25"
+                                   Fill="{StaticResource ResourceKey=LightTextColor}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Uniform"
+                                             Visual="{StaticResource ResourceKey=AddNewVectorIcon}"/>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

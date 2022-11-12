@@ -1,16 +1,28 @@
 ﻿using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Security.Cryptography;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Model.Cryptography
 {
-    public class AesCbcCryptographer : ISymmetricCryptographer
+    public class AesCbcCryptographer : CryptographerBase, ISymmetricCryptographer
     {
-        public (byte[], byte[]) Encrypt(string data, byte[] key, byte[]? nonce)
+        public (string, string) Encrypt(SecureString password, SecureString master, byte[]? nonce = null)
+        {
+            byte[] byteEncData;
+            byte[] byteNonce;
+            (byteEncData, byteNonce) = EncryptInternal(Encoding.UTF8.GetBytes(SecureStringToString(password)), 
+                                                       Encoding.UTF8.GetBytes(SecureStringToString(master)));
+            return (Convert.ToBase64String(byteEncData), Encoding.UTF8.GetString(byteNonce));
+        }
+
+        private (byte[], byte[]) EncryptInternal(byte[] data, byte[] key, byte[]? nonce = null)
         {
             byte[] encryptedData;
             byte[] IV = new byte[16];
@@ -20,15 +32,7 @@ namespace SnailPass_Desktop.Model.Cryptography
                 aes.KeySize = key.Length * 8;
                 aes.Key = key;
                 aes.Mode = CipherMode.CBC;
-
-                if (nonce == null || nonce.Length != 16)
-                {
-                    aes.GenerateIV();
-                }
-                else
-                {
-                    aes.IV = nonce;
-                }
+                aes.IV = nonce;
 
                 IV = aes.IV;
 
@@ -40,7 +44,7 @@ namespace SnailPass_Desktop.Model.Cryptography
                     {
                         using (StreamWriter sw = new StreamWriter(cs))
                         {
-                            sw.Write(data);
+                            sw.Write(Encoding.UTF8.GetString(data));
                         }
 
                         encryptedData = ms.ToArray();
@@ -51,7 +55,14 @@ namespace SnailPass_Desktop.Model.Cryptography
             }
         }
 
-        public string Decrypt(byte[] encryptedData, byte[] key, byte[] nonce)
+        public string Decrypt(string encryptedData, string key, byte[] nonce)
+        {
+            byte[] encryptedBytes = Encoding.UTF8.GetBytes(encryptedData);
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            return DecryptInternal(encryptedBytes, keyBytes, nonce);
+        }
+
+        private string DecryptInternal(byte[] encryptedData, byte[] key, byte[] nonce)
         {
             string decryptedText = null;
 

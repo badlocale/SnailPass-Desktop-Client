@@ -8,6 +8,8 @@ namespace SnailPass_Desktop.ViewModel.Services
 {
     public interface IDialogService
     {
-        void ShowDialog(string name);
+        public ViewModelBase? ShowDialog(string name, Action<string>? callback = null);
+        public TViewModel? ShowDialog<TViewModel>(Action<string>? callback = null)
+            where TViewModel : ViewModelBase;
     }
 }

@@ -1,4 +1,7 @@
-﻿using SnailPass_Desktop.ViewModel.Commands;
+﻿using Microsoft.Extensions.Logging;
+using SnailPass_Desktop.Model;
+using SnailPass_Desktop.ViewModel.Commands;
+using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
@@ -19,13 +22,20 @@ namespace SnailPass_Desktop.ViewModel
         public ICommand NavigateAccountsCommand { get; set; }
         public ICommand NavigateNotesCommand { get; set; }
 
-        public ApplicationViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore)
+        public ApplicationViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore,
+            IAccountRepository accountRepository, IDialogService dialogService, ILogger logger)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(identityStore, navigationStore));
-            NavigateAccountsCommand = new NavigateCommand<AccountsViewModel>(navigationStore, () => new AccountsViewModel(identityStore, navigationStore));
-            NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore, () => new NotesViewModel(identityStore, navigationStore));
+
+            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, 
+                () => new HomeViewModel(identityStore, navigationStore));
+            NavigateAccountsCommand = new NavigateCommand<AccountsViewModel>(navigationStore, 
+                () => new AccountsViewModel(identityStore, accountRepository, dialogService, logger));
+            NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore, 
+                () => new NotesViewModel(identityStore, navigationStore));
+
+            NavigateAccountsCommand.Execute(null);
         }
 
         private void OnCurrentViewModelChange()

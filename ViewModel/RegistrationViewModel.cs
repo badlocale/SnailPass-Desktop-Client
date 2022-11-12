@@ -1,4 +1,5 @@
-﻿using SnailPass_Desktop.Model;
+﻿using Microsoft.Extensions.Logging;
+using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.ViewModel.Commands;
@@ -27,8 +28,7 @@ namespace SnailPass_Desktop.ViewModel
         private string _errorMessage;
         private bool _isViewVisible = true;
 
-        private IUserRepository _repository;
-        private IMasterPasswordEncryptor _encryptor;
+        private ILogger _logger;
 
         public ICommand RegistrationCommand { get; }
         public ICommand NavigateLoginCommand { get; }
@@ -113,13 +113,14 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public RegistrationViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore, IRestClient httpClient)
+        public RegistrationViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore, 
+            IRestClient httpClient, IUserRepository repository, IMasterPasswordEncryptor encryptor, ILogger logger)
         {
-            _repository = new UserRepository();
-            _encryptor = new Pbkdf2Encryptor();
-            RegistrationCommand = new RegistrationCommand(this, httpClient, _repository, _encryptor);
+            _logger = logger;
+
+            RegistrationCommand = new RegistrationCommand(this, httpClient, repository, encryptor);
             NavigateLoginCommand = new NavigateCommand<LoginViewModel>(navigationStore, 
-                () => new LoginViewModel(navigationStore, identityStore, httpClient));
+                () => new LoginViewModel(navigationStore, identityStore, httpClient, repository, encryptor, logger));
         }
     }
 }

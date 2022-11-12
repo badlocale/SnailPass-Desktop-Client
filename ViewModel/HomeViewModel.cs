@@ -1,4 +1,5 @@
-﻿using SnailPass_Desktop.ViewModel.Stores;
+﻿using Microsoft.Extensions.Logging;
+using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace SnailPass_Desktop.ViewModel
 {
     internal class HomeViewModel : ViewModelBase
     {
-        public HomeViewModel(IUserIdentityStore identityStore, INavigationStore navigationStore)
+        public HomeViewModel(IUserIdentityStore identityStore, INavigationStore navigationStore, 
+            ILogger logger)
         {
 
         }

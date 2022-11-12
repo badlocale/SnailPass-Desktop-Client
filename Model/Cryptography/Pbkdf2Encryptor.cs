@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Model.Cryptography
 {
-    public class Pbkdf2Encryptor : IMasterPasswordEncryptor
+    public class Pbkdf2Encryptor : CryptographerBase, IMasterPasswordEncryptor
     {
         private const int DefaultIterationCount = 120000;
         private readonly HashAlgorithmName Algorithm = HashAlgorithmName.SHA512;
@@ -21,20 +21,6 @@ namespace SnailPass_Desktop.Model.Cryptography
             byte[] hashedMaster = Rfc2898DeriveBytes.Pbkdf2(strPassword, Encoding.UTF8.GetBytes(salt), iterationCount, Algorithm, KeySize);
 
             return Convert.ToBase64String(hashedMaster);
-        }
-
-        string SecureStringToString(SecureString value)
-        {
-            IntPtr valuePtr = IntPtr.Zero;
-            try
-            {
-                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                return Marshal.PtrToStringUni(valuePtr);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
-            }
         }
     }
 }

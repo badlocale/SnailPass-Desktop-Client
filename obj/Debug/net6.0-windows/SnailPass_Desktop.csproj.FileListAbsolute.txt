@@ -70,7 +70,6 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Serilog.dll
-C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\MvvmDialogs.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Autofac.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\IdentityModel.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.dll
@@ -93,9 +92,7 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.EventSource.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
-C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\AddNewAccountWindow.g.cs
-C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\AddNewAccountWindow.baml
-C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddNewUserDialog.g.cs
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\DialogWindow.g.cs
-C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddNewUserDialog.baml
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\DialogWindow.baml
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddNewAccountDialog.g.cs
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddNewAccountDialog.baml

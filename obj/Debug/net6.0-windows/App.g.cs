@@ -47,7 +47,7 @@ namespace SnailPass_Desktop {
         /// InitializeComponent
         /// </summary>
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "6.0.5.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "6.0.10.0")]
         public void InitializeComponent() {
             if (_contentLoaded) {
                 return;
@@ -67,7 +67,7 @@ namespace SnailPass_Desktop {
         /// </summary>
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "6.0.5.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "6.0.10.0")]
         public static void Main() {
             SnailPass_Desktop.App app = new SnailPass_Desktop.App();
             app.InitializeComponent();

@@ -1,0 +1,6 @@
+﻿Vector icons in starup window
+Fix tabs in XML code
+Remove useless namespace references
+Make fields with Interfaces readonly
+
+AddNewCommandViewModel bindings

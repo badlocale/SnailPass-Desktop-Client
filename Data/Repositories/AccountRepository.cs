@@ -17,7 +17,7 @@ namespace SnailPass_Desktop.Repositories
             using (SqliteCommand command = new SqliteCommand())
             {
                 command.CommandText = "INSERT INTO accounts (id, service_name, login, " +
-                                      "password, creating_date, is_favorite, user_id) " +
+                                      "password, is_favorite, user_id) " +
                                       "VALUES (@id, @service_name, @login, @password, " +
                                       "@creating_date, @is_favorite, @user_id)";
 
@@ -25,7 +25,6 @@ namespace SnailPass_Desktop.Repositories
                 command.Parameters.Add("@service_name", SqliteType.Text).Value = account.ServiceName;
                 command.Parameters.Add("@login", SqliteType.Text).Value = (object)account.Login ?? (object)DBNull.Value;
                 command.Parameters.Add("@password", SqliteType.Text).Value = account.Password;
-                command.Parameters.Add("@creating_date", SqliteType.Text).Value = account.CreatingDate;
                 command.Parameters.Add("@is_favorite", SqliteType.Text).Value = account.IsFavorite;
                 command.Parameters.Add("@user_id", SqliteType.Text).Value = account.UserId;
 
@@ -48,7 +47,7 @@ namespace SnailPass_Desktop.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "SELECT id, service_name, login, password, " +
-                                      "creating_time, is_favorite, user_id " +
+                                      "is_favorite, user_id " +
                                       "FROM accounts " +
                                       "WHERE is_deleted = 0 " +
                                       "AND user_id = @user_id;";
@@ -65,8 +64,7 @@ namespace SnailPass_Desktop.Repositories
                             ServiceName = reader[1].ToString(),
                             Login = reader[2].ToString(),
                             Password = reader[3].ToString(),
-                            CreatingDate = reader[4].ToString(),
-                            IsFavorite = reader[5].ToString(),
+                            IsFavorite = reader[4].ToString(),
                             UserId = userId
                         };
 

@@ -121,23 +121,11 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <Border x:Name="AddButton"
+                <Button x:Name="AddButton"
                         Grid.Row="1"
-                        Margin="4"
-                        CornerRadius="10"
-                        Background="{StaticResource ResourceKey=PanelColor}">
-                    <Rectangle Grid.Column="0"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Width="25"
-                               Height="25"
-                               Fill="{StaticResource ResourceKey=LightTextColor}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Uniform"
-                                         Visual="{StaticResource ResourceKey=AddNewVectorIcon}"/>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Border>
+                        Style="{StaticResource ResourceKey=AddNewButton}"
+                        Command="{Binding AddNewCommand}">
+                </Button>
             </Grid>
         </Border>
 
@@ -214,7 +202,6 @@
                                            VerticalAlignment="Center"
                                            Text="{Binding Value}"/>
                                 </Grid>
-                                
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

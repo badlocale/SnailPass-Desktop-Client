@@ -24,6 +24,7 @@ namespace SnailPass_Desktop.Data.API
             set
             {
                 _token = value;
+                _httpClient.DefaultRequestHeaders.Remove("x-access-token");
                 _httpClient.DefaultRequestHeaders.Add("x-access-token", _token);
             }
         }

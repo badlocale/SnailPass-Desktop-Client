@@ -16,11 +16,21 @@ using System.Windows.Shapes;
 namespace SnailPass_Desktop.View.Dialogs
 {
     [DialogContent]
-    public partial class AddNewUserDialog : UserControl
+    public partial class AddNewAccountDialog : UserControl
     {
-        public AddNewUserDialog()
+        public AddNewAccountDialog()
         {
             InitializeComponent();
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = Parent as Window;
+            
+            if (window != null)
+            {
+                window.DialogResult = true;
+            }
         }
     }
 }

@@ -10,7 +10,9 @@
         Width="450"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        WindowStyle="None">
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
     <Grid>
         
     </Grid>
