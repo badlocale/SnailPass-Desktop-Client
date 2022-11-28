@@ -5,6 +5,6 @@ Now is proposed to make applications for three platforms. The client for each of
 - Android (repository is still hiden)
 - IOS (repository is still hiden)
 <!-- -->
-The application also has a [server part](https://github.com/rebmanop/SnailPass-REST-API), where the user data will be located.
+The application also has a [server part](https://github.com/rebmanop/SnailPass-REST-API), where user data will be stored, validated and processed.
 
 $${\color{red}STILL \space\space IN \space\space DEVELOPMENT}$$
