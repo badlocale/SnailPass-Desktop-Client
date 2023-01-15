@@ -6,20 +6,23 @@ using System.Text;
 using Microsoft.Data.Sqlite;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using SnailPass_Desktop.Model.Interfaces;
 
 namespace SnailPass_Desktop.Repositories
 {
-    internal class AccountRepository : RepositoryBase, IAccountRepository
+    public class AccountRepository : RepositoryBase, IAccountRepository
     {
-        public void Add(AccountModel account)
+        public void AddOrReplace(AccountModel account)
         {
             using var connection = GetConnection();
             using (SqliteCommand command = new SqliteCommand())
             {
-                command.CommandText = "INSERT INTO accounts (id, service_name, login, " +
-                                      "password, is_favorite, user_id) " +
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "REPLACE INTO accounts (id, service_name, login, " +
+                                      "password, creation_time, is_favorite, user_id, nonce) " +
                                       "VALUES (@id, @service_name, @login, @password, " +
-                                      "@creating_date, @is_favorite, @user_id)";
+                                      "@creation_time, @is_favorite, @user_id, @nonce)";
 
                 command.Parameters.Add("@id", SqliteType.Text).Value = account.ID;
                 command.Parameters.Add("@service_name", SqliteType.Text).Value = account.ServiceName;
@@ -27,6 +30,9 @@ namespace SnailPass_Desktop.Repositories
                 command.Parameters.Add("@password", SqliteType.Text).Value = account.Password;
                 command.Parameters.Add("@is_favorite", SqliteType.Text).Value = account.IsFavorite;
                 command.Parameters.Add("@user_id", SqliteType.Text).Value = account.UserId;
+                command.Parameters.Add("@is_deleted", SqliteType.Text).Value = account.IsDeleted;
+                command.Parameters.Add("@nonce", SqliteType.Text).Value = account.Nonce;
+                command.Parameters.Add("@creation_time", SqliteType.Text).Value = account.CreationTime;
 
                 command.ExecuteNonQuery();
             }
@@ -77,11 +83,6 @@ namespace SnailPass_Desktop.Repositories
         }
 
         public void Remove(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(AccountModel user)
         {
             throw new NotImplementedException();
         }

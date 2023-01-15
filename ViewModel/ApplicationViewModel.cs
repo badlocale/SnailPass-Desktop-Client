@@ -1,5 +1,5 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Model;
+using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    internal class ApplicationViewModel : ViewModelBase
+    public class ApplicationViewModel : ViewModelBase
     {
         private INavigationStore _navigationStore;
 
@@ -29,11 +29,11 @@ namespace SnailPass_Desktop.ViewModel
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
 
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, 
-                () => new HomeViewModel(identityStore, navigationStore, logger), logger);
+                () => new HomeViewModel(identityStore, navigationStore, logger), null);
             NavigateAccountsCommand = new NavigateCommand<AccountsViewModel>(navigationStore, 
-                () => new AccountsViewModel(identityStore, accountRepository, dialogService, logger), logger);
+                () => new AccountsViewModel(identityStore, accountRepository, dialogService, logger), null);
             NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore, 
-                () => new NotesViewModel(identityStore, navigationStore, logger), logger);
+                () => new NotesViewModel(identityStore, navigationStore, logger), null);
 
             NavigateAccountsCommand.Execute(null);
         }

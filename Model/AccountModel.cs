@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Model
 {
-    internal class AccountModel
+    public class AccountModel
     {
         public string ID { get; set; }
         public string ServiceName { get; set; }
@@ -14,6 +14,8 @@ namespace SnailPass_Desktop.Model
         public string Password { get; set; }
         public string Nonce { get; set; }
         public string IsFavorite { get; set; }
+        public string IsDeleted { get; set; }
+        public string CreationTime { get; set; }
         public string UserId { get; set; }
     }
 }

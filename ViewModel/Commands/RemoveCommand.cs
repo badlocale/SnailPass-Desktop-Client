@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
-    internal class RemoveCommand : CommandBase
+    public class RemoveCommand : CommandBase
     {
         public override void Execute(object? parameter)
         {

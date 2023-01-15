@@ -48,10 +48,6 @@
               "target": "Package",
               "version": "[6.4.0, )"
             },
-            "IdentityModel": {
-              "target": "Package",
-              "version": "[6.0.0, )"
-            },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
               "version": "[6.0.9, )"

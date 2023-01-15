@@ -71,7 +71,6 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Serilog.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Autofac.dll
-C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\IdentityModel.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Binder.dll
@@ -98,3 +97,7 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddNewAccountDialog.baml
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Serilog.Sinks.Console.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Serilog.Sinks.File.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\LocalModeDialog.g.cs
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\ResistrationSuccessDialog.g.cs
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\LocalModeDialog.baml
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\ResistrationSuccessDialog.baml

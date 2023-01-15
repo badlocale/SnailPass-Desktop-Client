@@ -4,14 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace SnailPass_Desktop.ViewModel.Services
 {
-    internal class DialogService : IDialogService
+    public class DialogService : IDialogService
     {
         private IViewModelFactory _viewModelFactory;
         private static IEnumerable<Type> _dialogTypes;
@@ -36,20 +34,12 @@ namespace SnailPass_Desktop.ViewModel.Services
             _mappings.Add(typeof(TViewModel), typeof(TView));
         }
 
-        public ViewModelBase? ShowDialog(string name, Action<string>? callback = null)
+        public bool? ShowDialog(string name, Action<string>? callback = null)
         {
             Type dialogContentType = _dialogTypes.First(t => t.Name == $"{name}");
             DialogWindow window = ShowDialogInternal(dialogContentType, callback);
 
-            bool? result = window.DialogResult;
-            if (result == true)
-            {
-                return (ViewModelBase)window.DataContext;
-            }
-            else
-            {
-                return null;
-            }
+            return window.DialogResult;
         }
 
         public TViewModel? ShowDialog<TViewModel>(Action<string>? callback = null)
@@ -80,10 +70,6 @@ namespace SnailPass_Desktop.ViewModel.Services
             {
                 object viewModel = _viewModelFactory.Create(viewModelType);
                 content.DataContext = viewModel;
-            } 
-            else
-            {
-                return dialog;
             }
 
             dialog.Width = content.Width;

@@ -1,22 +1,18 @@
 ﻿using Serilog;
 using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Repositories;
+using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    internal class AccountsViewModel : ViewModelBase
+    public class AccountsViewModel : ViewModelBase
     {
         private readonly ObservableCollection<AccountModel> _accounts;
         private string _searchBarText = string.Empty;
@@ -77,7 +73,7 @@ namespace SnailPass_Desktop.ViewModel
             _accounts = new ObservableCollection<AccountModel>();
 
             RemoveCommand = new RemoveCommand();
-            AddNewCommand = new AddNewAccountCommand(accountRepository, dialogService, logger);
+            AddNewCommand = new AddNewAccountCommand(this ,accountRepository, dialogService, logger);
             UpdateCommand = new UpdateCommand();
 
             AccountsCollectiionView = CollectionViewSource.GetDefaultView(_accounts);

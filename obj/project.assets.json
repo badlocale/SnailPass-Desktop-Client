@@ -18,19 +18,6 @@
           }
         }
       },
-      "IdentityModel/6.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0/IdentityModel.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/IdentityModel.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
       "Microsoft.Data.Sqlite/6.0.9": {
         "type": "package",
         "dependencies": {
@@ -861,33 +848,6 @@
         "lib/netstandard2.0/Autofac.xml",
         "lib/netstandard2.1/Autofac.dll",
         "lib/netstandard2.1/Autofac.xml"
-      ]
-    },
-    "IdentityModel/6.0.0": {
-      "sha512": "eVHCR7a6m/dm5RFcBzE3qs/Jg5j9R5Rjpu8aTOv9e4AFvaQtBXb5ah7kmwU+YwA0ufRwz4wf1hnIvsD2hSnI4g==",
-      "type": "package",
-      "path": "identitymodel/6.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "icon.jpg",
-        "identitymodel.6.0.0.nupkg.sha512",
-        "identitymodel.nuspec",
-        "lib/net461/IdentityModel.dll",
-        "lib/net461/IdentityModel.pdb",
-        "lib/net461/IdentityModel.xml",
-        "lib/net472/IdentityModel.dll",
-        "lib/net472/IdentityModel.pdb",
-        "lib/net472/IdentityModel.xml",
-        "lib/net5.0/IdentityModel.dll",
-        "lib/net5.0/IdentityModel.pdb",
-        "lib/net5.0/IdentityModel.xml",
-        "lib/net6.0/IdentityModel.dll",
-        "lib/net6.0/IdentityModel.pdb",
-        "lib/net6.0/IdentityModel.xml",
-        "lib/netstandard2.0/IdentityModel.dll",
-        "lib/netstandard2.0/IdentityModel.pdb",
-        "lib/netstandard2.0/IdentityModel.xml"
       ]
     },
     "Microsoft.Data.Sqlite/6.0.9": {
@@ -1850,7 +1810,6 @@
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "Autofac >= 6.4.0",
-      "IdentityModel >= 6.0.0",
       "Microsoft.Data.Sqlite >= 6.0.9",
       "Microsoft.Extensions.Hosting >= 6.0.1",
       "Microsoft.Extensions.Logging >= 6.0.0",
@@ -1907,10 +1866,6 @@
           "Autofac": {
             "target": "Package",
             "version": "[6.4.0, )"
-          },
-          "IdentityModel": {
-            "target": "Package",
-            "version": "[6.0.0, )"
           },
           "Microsoft.Data.Sqlite": {
             "target": "Package",

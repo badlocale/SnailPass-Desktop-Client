@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Model.Cryptography
 {
-    internal interface ISymmetricCryptographer
+    public interface ISymmetricCryptographer
     {
-        public (string, string) Encrypt(SecureString password, SecureString master, byte[]? nonce = null);
+        public (string, string) Encrypt(SecureString password, string key, byte[]? nonce = null);
 
-        public string Decrypt(string encryptedData, string key, byte[] nonce);
+        public string Decrypt(string encryptedData, string key, string nonce);
     }
 }

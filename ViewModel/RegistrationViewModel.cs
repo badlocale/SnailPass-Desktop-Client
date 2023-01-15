@@ -1,8 +1,9 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
+using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.ViewModel.Commands;
+using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    internal class RegistrationViewModel : ViewModelBase
+    public class RegistrationViewModel : ViewModelBase
     {
         private string _id;
         private string _username;
@@ -114,13 +115,15 @@ namespace SnailPass_Desktop.ViewModel
         }
 
         public RegistrationViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore, 
-            IRestClient httpClient, IUserRepository repository, IMasterPasswordEncryptor encryptor, ILogger logger)
+            IRestClient httpClient, IUserRepository repository, IMasterPasswordEncryptor encryptor, 
+            ILogger logger, IDialogService dialogService, ISynchronizationService synchronizationService)
         {
             _logger = logger;
 
-            RegistrationCommand = new RegistrationCommand(this, httpClient, repository, encryptor, logger);
+            RegistrationCommand = new RegistrationCommand(this, httpClient, encryptor, logger);
             NavigateLoginCommand = new NavigateCommand<LoginViewModel>(navigationStore, 
-                () => new LoginViewModel(navigationStore, identityStore, httpClient, repository, encryptor, logger), logger);
+                () => new LoginViewModel(navigationStore, identityStore, httpClient, repository, encryptor, logger, dialogService, synchronizationService),
+                "Logging");
         }
     }
 }

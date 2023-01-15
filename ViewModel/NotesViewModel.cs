@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    internal class NotesViewModel : ViewModelBase
+    public class NotesViewModel : ViewModelBase
     {
         public NotesViewModel(IUserIdentityStore identityStore, INavigationStore navigationStore, 
             ILogger logger)

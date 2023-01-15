@@ -6,21 +6,18 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Model
+namespace SnailPass_Desktop.Model.Interfaces
 {
-    internal interface IRestClient
+    public interface IRestClient
     {
         public string Token { get; set; }
 
         public Task<HttpStatusCode> Login(string email, string password);
         public Task<HttpStatusCode> Registration(UserModel user);
 
-        public UserModel GetUser(string email);
-        public IEnumerable<UserModel> GetUsers();
-        public void PostUser(UserModel user);
-
-        public AccountModel GetAccount(string email);
-        public IEnumerable<AccountModel> GetAccounts();
+        public Task<UserModel> GetUserAsync(string email);
+        
+        public Task<IEnumerable<AccountModel>> GetAccounts();
         public void PostAccount(AccountModel user);
     }
 }

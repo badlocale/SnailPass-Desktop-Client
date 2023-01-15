@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Model
+namespace SnailPass_Desktop.Model.Interfaces
 {
-    internal interface IAccountRepository
+    public interface IAccountRepository
     {
-        void Add(AccountModel user);
-        void Update(AccountModel user);
+        void AddOrReplace(AccountModel user);
         void Remove(string id);
         AccountModel GetById(string id);
         IEnumerable<AccountModel> GetByUserID(string id);

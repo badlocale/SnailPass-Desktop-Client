@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using SnailPass_Desktop.ViewModel.Factories;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
@@ -29,9 +30,12 @@ namespace SnailPass_Desktop.ViewModel
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
         public string HeaderName => _navigationStore.TextHeader;
 
-        public StartupViewModel(INavigationStore navigationStore, ILogger logger)
+        public StartupViewModel(INavigationStore navigationStore, ILogger logger, IViewModelFactory viewModelFactory)
         {
+            navigationStore.CurrentViewModel = viewModelFactory.Create(typeof(LoginViewModel));
+
             _navigationStore = navigationStore;
+            _logger = logger;
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
             _navigationStore.TextHeaderChange += OnTextHeaderChange;
             _navigationStore.CurrentViewModel.PropertyChanged += OnPropertyChangedVisibilityHandler;
@@ -53,6 +57,7 @@ namespace SnailPass_Desktop.ViewModel
         private void OnCurrentViewModelChange()
         {
             OnPropertyChanged(nameof(CurrentViewModel));
+            _navigationStore.CurrentViewModel.PropertyChanged += OnPropertyChangedVisibilityHandler;
         }
     }
 }

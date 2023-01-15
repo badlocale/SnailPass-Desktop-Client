@@ -1,32 +1,21 @@
 ﻿using Serilog;
 using Serilog.Core;
-using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
+using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.ViewModel.Commands;
+using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Mail;
 using System.Security;
-using System.Security.Principal;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    internal class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
         private string _id;
-        private string _username;
         private string _email;
         private string? _hint;
-        private string? _nonce;
 
         private SecureString _password;
 
@@ -44,16 +33,6 @@ namespace SnailPass_Desktop.ViewModel
             set
             {
                 _id = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Username
-        {
-            get { return _username; }
-            set
-            {
-                _username = value;
                 OnPropertyChanged();
             }
         }
@@ -88,16 +67,6 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public string Nonce
-        {
-            get { return _nonce; }
-            set
-            {
-                _nonce = value;
-                OnPropertyChanged();
-            }
-        }
-
         public string ErrorMessage
         {
             get { return _errorMessage; }
@@ -123,13 +92,15 @@ namespace SnailPass_Desktop.ViewModel
         }
 
         public LoginViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore, 
-            IRestClient httpClient, IUserRepository repository, IMasterPasswordEncryptor encryptor, ILogger logger)
+            IRestClient httpClient, IUserRepository repository, IMasterPasswordEncryptor encryptor, 
+            ILogger logger, IDialogService dialogService, ISynchronizationService synchronizationService)
         {
             _logger = logger;
 
-            LoginCommand = new LoginCommand(this, identityStore, httpClient, repository, encryptor, logger);
+            LoginCommand = new LoginCommand(this, identityStore, httpClient, repository, encryptor, logger, dialogService, synchronizationService);
             NavigateRegistrationCommand = new NavigateCommand<RegistrationViewModel>(navigationStore, 
-                () => new RegistrationViewModel(navigationStore, identityStore, httpClient, repository, encryptor, logger), logger);
+                () => new RegistrationViewModel(navigationStore, identityStore, httpClient, repository, encryptor, logger, dialogService, synchronizationService), 
+                "Registration");
         }
     }
 }

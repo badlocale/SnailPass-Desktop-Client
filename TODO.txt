@@ -2,5 +2,6 @@
 Fix tabs in XML code
 Remove useless namespace references
 Make fields with Interfaces readonly
+make validator service
 
-AddNewCommandViewModel bindings
+Add utility dialogs

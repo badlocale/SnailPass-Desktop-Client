@@ -12,19 +12,6 @@
                 Width="auto"
                 Margin="40, 10, 40, 0">
 
-        <TextBlock Text="Username"
-                   Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
-
-        <TextBox x:Name="Username"
-                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource ResourceKey=OpenTextBox}">
-            <TextBox.Background>
-                <ImageBrush ImageSource="{StaticResource ResourceKey=AccountIcon}"
-                            Stretch="Uniform"
-                            AlignmentX="Left"/>
-            </TextBox.Background>
-        </TextBox>
-
         <TextBlock Text="E-mail"
                    Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
@@ -61,7 +48,7 @@
         </TextBox>
 
         <TextBlock Text="{Binding ErrorMessage}"
-                           Height="40"
+                           Height="95"
                            Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
 
         <Border Margin="60, 22, 60, 0">

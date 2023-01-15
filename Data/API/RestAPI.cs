@@ -1,22 +1,25 @@
 ﻿using Newtonsoft.Json;
+using Serilog;
 using SnailPass_Desktop.Model;
+using SnailPass_Desktop.Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Data.API
 {
-    internal class RestAPI : IRestClient, IDisposable
+    public class RestAPI : IRestClient, IDisposable
     {
         private HttpClient _httpClient = null;
         private string _token = null;
+
+        private ILogger _logger;
 
         public string Token
         {
@@ -29,8 +32,10 @@ namespace SnailPass_Desktop.Data.API
             }
         }
 
-        public RestAPI()
+        public RestAPI(ILogger logger)
         {
+            _logger = logger;
+
             _httpClient = new HttpClient();
             _httpClient.Timeout = TimeSpan.FromSeconds(900);
             _httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["base_api_url"]);
@@ -43,64 +48,114 @@ namespace SnailPass_Desktop.Data.API
             var pUser = new
             {
                 id = user.ID,
-                login = user.Login,
                 master_password_hash = user.Password,
                 hint = user.Hint,
-                email = user.Email,
+                email = user.Email
             };
 
-            HttpResponseMessage responce = await _httpClient.PostAsJsonAsync("users" ,pUser);
-            Console.WriteLine(responce.StatusCode);
+            HttpResponseMessage responce;
+            try
+            {
+                responce = await _httpClient.PostAsJsonAsync("users", pUser);
+            }
+            catch (SocketException e)
+            {
+                _logger.Error($"Cant connect to the server.");
+                throw new Exception("It is impossible to \"register\" because the server is unavailable", e);
+            }
+
+            _logger.Information($"Registration status: {responce.StatusCode}");
+
             return responce.StatusCode;
         }
 
         public async Task<HttpStatusCode> Login(string email, string password)
         {
-            _httpClient.DefaultRequestHeaders.Authorization = new BasicAuthenticationHeaderValue(email, password);
+            string authenticationString = $"{email}:{password}";
+            var base64uthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64uthenticationString);
 
-            HttpResponseMessage responce = await _httpClient.GetAsync("login");
+            HttpResponseMessage responce;
+            try
+            {
+                responce = await _httpClient.GetAsync("login");
+            }
+            catch (SocketException e)
+            {
+                _logger.Error($"Cant connect to the server.");
+                throw new Exception("It is impossible to \"log in\" because the server is unavailable", e);
+            }
+            _httpClient.DefaultRequestHeaders.Remove("Authorization");
 
             if (responce.IsSuccessStatusCode)
             {
-                Task<string> jsonTaskString = responce.Content.ReadAsStringAsync();
-                string jsonString = jsonTaskString.Result;
+                string jsonString = responce.Content.ReadAsStringAsync().Result;
                 var defenition = new { token = "" };
                 var content = JsonConvert.DeserializeAnonymousType(jsonString, defenition);
                 Token = content.token;
-                Console.WriteLine(Token); //
             }
 
-            Console.WriteLine(responce.StatusCode); //
+            _logger.Information($"Logging status: {responce.StatusCode}");
 
             return responce.StatusCode;
         }
 
-        public AccountModel GetAccount(string username)
+        public async Task<IEnumerable<AccountModel>> GetAccounts()
         {
-            throw new NotImplementedException();
+            HttpResponseMessage responce;
+            try
+            {
+                responce = await _httpClient.GetAsync("records");
+            }
+            catch (SocketException e)
+            {
+                _logger.Error($"Cant connect to the server.");
+                throw new Exception("It is impossible to \"get accounts\" because the server is unavailable", e);
+            }
+
+            IEnumerable<AccountModel> accounts = new List<AccountModel>();
+            if (responce.IsSuccessStatusCode)
+            {
+                string jsonString = responce.Content.ReadAsStringAsync().Result;
+                _logger.Debug(jsonString);
+            }
+            
+            return accounts;
         }
 
-        public IEnumerable<AccountModel> GetAccounts()
+        public async Task<UserModel> GetUserAsync(string email)
         {
-            throw new NotImplementedException();
-        }
+            HttpResponseMessage responce;
+            try
+            {
+                responce = await _httpClient.GetAsync("users");
+            }
+            catch (SocketException e)
+            {
+                _logger.Error($"Cant connect to the server.");
+                throw new Exception("It is impossible to \"get user\" because the server is unavailable", e);
+            }
 
-        public UserModel GetUser(string username)
-        {
-            throw new NotImplementedException();
-        }
+            UserModel? user = null;
+            if (responce.IsSuccessStatusCode)
+            {
+                string jsonString = responce.Content.ReadAsStringAsync().Result;
+                var defenition = new { id = "", email = "", master_password_hash = "", is_admin = "", hint = ""};
+                var content = JsonConvert.DeserializeAnonymousType(jsonString, defenition);
+                user = new UserModel(content.id, content.email, content.hint, content.master_password_hash);
+            }
 
-        public IEnumerable<UserModel> GetUsers()
-        {
-            throw new NotImplementedException();
+            _logger.Information($"Getting user status: {responce.StatusCode}");
+
+            if (user == null)
+            {
+                throw new NotImplementedException();
+            }
+
+            return user;
         }
 
         public void PostAccount(AccountModel user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PostUser(UserModel user)
         {
             throw new NotImplementedException();
         }

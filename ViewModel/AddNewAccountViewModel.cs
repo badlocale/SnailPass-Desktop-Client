@@ -3,6 +3,7 @@ using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
@@ -11,15 +12,19 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    internal class AddNewAccountViewModel : ViewModelBase
+    public class AddNewAccountViewModel : ViewModelBase
     {
         private string _id;
         private string _serviceName;
         private string? _login;
         private bool _isFavourite;
+        private bool _isDeleted;
+        private DateTime _creationTime;
         private string _userId;
         private SecureString _password;
+
         private ISymmetricCryptographer _cryptographer;
+        private IMasterPasswordEncryptor _encryptor;
         private IUserIdentityStore _identity;
         private ILogger _logger;
 
@@ -69,13 +74,16 @@ namespace SnailPass_Desktop.ViewModel
         }
 
         public AddNewAccountViewModel(ISymmetricCryptographer cryptographer, IUserIdentityStore identity,
-            ILogger logger)
+            ILogger logger, IMasterPasswordEncryptor encryptor)
         {
             _cryptographer = cryptographer;
+            _encryptor = encryptor;
             _identity = identity;
             _logger = logger;
 
             _isFavourite = false;
+            _isDeleted = false;
+            _creationTime = DateTime.Now;
             _id = Guid.NewGuid().ToString();
             _userId = "50b1fe14-6345-46ef-9b3d-477ff20a93f8";
             //_userId = identity.CurrentUser.ID;
@@ -89,8 +97,12 @@ namespace SnailPass_Desktop.ViewModel
             accountModel.ServiceName = _serviceName;
             accountModel.Login = _login;
             accountModel.IsFavorite = _isFavourite.ToString();
+            accountModel.IsDeleted = _isDeleted.ToString();
+            accountModel.CreationTime = _creationTime.ToString();
             accountModel.UserId = _userId;
-            (accountModel.Password, accountModel.Nonce) = _cryptographer.Encrypt(_password, _identity.Master, null);
+
+            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email, 120000);
+            (accountModel.Password, accountModel.Nonce) = _cryptographer.Encrypt(_password, encKey, null);
 
             return accountModel;
         }

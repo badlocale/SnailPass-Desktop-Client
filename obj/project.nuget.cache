@@ -1,11 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Z7wxxcDR3D2dbNedl4F3xUuY+03KXNRVSeu3rTgWUTBHTucpbjZczWNOC3h3ioQt5xuvF5JJTk1tE5/7Vzo2Rg==",
+  "dgSpecHash": "NsQzm4642y1N8YsRIYfuvEPLmGzuLrIO8H1WCAGe6x1b1pzkMaugeltNOvT5t3f2EQVVoO9KvUkUFmZ7Mzhe0w==",
   "success": true,
   "projectFilePath": "C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\SnailPass_Desktop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\iZelton\\.nuget\\packages\\autofac\\6.4.0\\autofac.6.4.0.nupkg.sha512",
-    "C:\\Users\\iZelton\\.nuget\\packages\\identitymodel\\6.0.0\\identitymodel.6.0.0.nupkg.sha512",
     "C:\\Users\\iZelton\\.nuget\\packages\\microsoft.data.sqlite\\6.0.9\\microsoft.data.sqlite.6.0.9.nupkg.sha512",
     "C:\\Users\\iZelton\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.9\\microsoft.data.sqlite.core.6.0.9.nupkg.sha512",
     "C:\\Users\\iZelton\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.0\\microsoft.extensions.configuration.6.0.0.nupkg.sha512",

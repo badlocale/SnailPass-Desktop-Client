@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 namespace SnailPass_Desktop.View.Dialogs
 {
     [DialogContent]
-    public partial class AddNewAccountDialog : UserControl
+    public partial class LocalModeDialog : UserControl
     {
-        public AddNewAccountDialog()
+        public LocalModeDialog()
         {
             InitializeComponent();
         }
@@ -31,17 +31,17 @@ namespace SnailPass_Desktop.View.Dialogs
             }
         }
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnDeny_Click(object sender, RoutedEventArgs e)
         {
             Window window = Parent as Window;
-            
+
             if (window != null)
             {
                 window.DialogResult = false;
             }
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
             Window window = Parent as Window;
 

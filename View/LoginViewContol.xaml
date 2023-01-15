@@ -61,7 +61,7 @@
         <Button x:Name="btnSingUp"
                 Template="{StaticResource ResourceKey=LinkButton}"
                 Command="{Binding NavigateRegistrationCommand}"
-                Content="Sing up"
+                Content="Sign up"
                 Width="80"
                 Margin="0, 15, 0, 0"/>
 

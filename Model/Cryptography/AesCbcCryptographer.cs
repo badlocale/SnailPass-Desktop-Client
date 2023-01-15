@@ -13,13 +13,14 @@ namespace SnailPass_Desktop.Model.Cryptography
 {
     public class AesCbcCryptographer : CryptographerBase, ISymmetricCryptographer
     {
-        public (string, string) Encrypt(SecureString password, SecureString master, byte[]? nonce = null)
+        public (string, string) Encrypt(SecureString password, string key, byte[]? nonce = null)
         {
             byte[] byteEncData;
             byte[] byteNonce;
             (byteEncData, byteNonce) = EncryptInternal(Encoding.UTF8.GetBytes(SecureStringToString(password)), 
-                                                       Encoding.UTF8.GetBytes(SecureStringToString(master)));
-            return (Convert.ToBase64String(byteEncData), Encoding.UTF8.GetString(byteNonce));
+                                                       Convert.FromBase64String(key));
+         
+            return (Convert.ToBase64String(byteEncData), Convert.ToBase64String(byteNonce));
         }
 
         private (byte[], byte[]) EncryptInternal(byte[] data, byte[] key, byte[]? nonce = null)
@@ -32,7 +33,15 @@ namespace SnailPass_Desktop.Model.Cryptography
                 aes.KeySize = key.Length * 8;
                 aes.Key = key;
                 aes.Mode = CipherMode.CBC;
-                aes.IV = nonce;
+
+                if (nonce == null)
+                {
+                    aes.GenerateIV();
+                }
+                else
+                {
+                    aes.IV = nonce;
+                }
 
                 IV = aes.IV;
 
@@ -55,11 +64,12 @@ namespace SnailPass_Desktop.Model.Cryptography
             }
         }
 
-        public string Decrypt(string encryptedData, string key, byte[] nonce)
+        public string Decrypt(string encryptedData, string key, string nonce)
         {
-            byte[] encryptedBytes = Encoding.UTF8.GetBytes(encryptedData);
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
-            return DecryptInternal(encryptedBytes, keyBytes, nonce);
+            byte[] encryptedBytes = Convert.FromBase64String(encryptedData);
+            byte[] keyBytes = Convert.FromBase64String(key);
+            byte[] nonceBytes = Convert.FromBase64String(nonce);
+            return DecryptInternal(encryptedBytes, keyBytes, nonceBytes);
         }
 
         private string DecryptInternal(byte[] encryptedData, byte[] key, byte[] nonce)
