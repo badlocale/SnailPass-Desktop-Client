@@ -3,11 +3,6 @@ using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
@@ -22,18 +17,20 @@ namespace SnailPass_Desktop.ViewModel
         public ICommand NavigateAccountsCommand { get; set; }
         public ICommand NavigateNotesCommand { get; set; }
 
-        public ApplicationViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore,
-            IAccountRepository accountRepository, IDialogService dialogService, ILogger logger)
+        public ApplicationViewModel(INavigationStore navigationStore, IUserIdentityStore identity,
+            IAccountRepository accountRepository, IDialogService dialogService, ILogger logger, 
+            IRestClient httpClient, ISynchronizationService synchronizationService)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
 
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, 
-                () => new HomeViewModel(identityStore, navigationStore, logger), null);
+                () => new HomeViewModel(identity, navigationStore, logger), null);
             NavigateAccountsCommand = new NavigateCommand<AccountsViewModel>(navigationStore, 
-                () => new AccountsViewModel(identityStore, accountRepository, dialogService, logger), null);
+                () => new AccountsViewModel(identity, accountRepository, synchronizationService, 
+                dialogService, logger, httpClient), null);
             NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore, 
-                () => new NotesViewModel(identityStore, navigationStore, logger), null);
+                () => new NotesViewModel(identity, navigationStore, logger), null);
 
             NavigateAccountsCommand.Execute(null);
         }

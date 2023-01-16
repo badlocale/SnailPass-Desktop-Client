@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Serilog;
 using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
@@ -20,9 +19,12 @@ namespace SnailPass_Desktop.Data
         private IUserRepository _userRepository;
         private IUserIdentityStore _identity;
         private IMasterPasswordEncryptor _encryptor;
+        private IApplicationModeStore _modeStore;
+        private ILogger _logger;
 
         public SynchronizationService(IRestClient httpClient, IAccountRepository accountRepository, 
-            IUserRepository userRepository, IUserIdentityStore identity, IMasterPasswordEncryptor encryptor)
+            IUserRepository userRepository, IUserIdentityStore identity, IMasterPasswordEncryptor encryptor,
+            IApplicationModeStore modeStore, ILogger logger)
         {
             LOCAL_ITERATIONS_COUNT = int.Parse(ConfigurationManager.AppSettings["local_hash_iterations"]);
 
@@ -31,6 +33,8 @@ namespace SnailPass_Desktop.Data
             _userRepository = userRepository;
             _identity = identity;
             _encryptor = encryptor;
+            _modeStore = modeStore;
+            _logger = logger;
         }
 
         private async Task SynchronizeAccountsDataAsync(string email)
@@ -40,7 +44,8 @@ namespace SnailPass_Desktop.Data
                 throw new ArgumentNullException(nameof(email));
             }
 
-            IEnumerable<AccountModel> accounts = await _restClient.GetAccounts();
+            IEnumerable<AccountModel> accounts = await _restClient.GetAccountsAsync();
+
             foreach (AccountModel account in accounts)
             {
                 _accountRepository.AddOrReplace(account);
@@ -61,9 +66,18 @@ namespace SnailPass_Desktop.Data
 
         public async Task SynchronizeAsync(string email)
         {
-            Task user = SynchronizeUserDataAsync(email);
-            Task accounts = SynchronizeAccountsDataAsync(email);
-            await Task.WhenAll(user, accounts);
+            if (!_modeStore.IsLocalMode)
+            {
+                Task user = SynchronizeUserDataAsync(email);
+                Task accounts = SynchronizeAccountsDataAsync(email);
+                await Task.WhenAll(user, accounts).ConfigureAwait(false);
+
+                _logger.Information("Data has been loaded from server.");
+            }
+            else
+            {
+                _logger.Information("Can`t synchronize, client in local mode.");
+            }
         }
     }
 }

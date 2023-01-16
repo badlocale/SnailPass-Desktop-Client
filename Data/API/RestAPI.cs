@@ -8,18 +8,17 @@ using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Net.Sockets;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Data.API
 {
     public class RestAPI : IRestClient, IDisposable
     {
+        private ILogger _logger;
+
         private HttpClient _httpClient = null;
         private string _token = null;
-
-        private ILogger _logger;
 
         public string Token
         {
@@ -43,25 +42,19 @@ namespace SnailPass_Desktop.Data.API
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<HttpStatusCode> Registration(UserModel user)
+        public async Task<HttpStatusCode> PostUserAsync(UserModel user)
         {
-            var pUser = new
-            {
-                id = user.ID,
-                master_password_hash = user.Password,
-                hint = user.Hint,
-                email = user.Email
-            };
-
             HttpResponseMessage responce;
             try
             {
-                responce = await _httpClient.PostAsJsonAsync("users", pUser);
+                string jsonUser = JsonConvert.SerializeObject(user);
+                StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+                responce = await _httpClient.PostAsync("users", content);
             }
-            catch (SocketException e)
+            catch (HttpRequestException e)
             {
                 _logger.Error($"Cant connect to the server.");
-                throw new Exception("It is impossible to \"register\" because the server is unavailable", e);
+                throw new HttpRequestException("It is impossible to \"register\" because the server is unavailable", e);
             }
 
             _logger.Information($"Registration status: {responce.StatusCode}");
@@ -69,10 +62,31 @@ namespace SnailPass_Desktop.Data.API
             return responce.StatusCode;
         }
 
-        public async Task<HttpStatusCode> Login(string email, string password)
+
+        public async Task<HttpStatusCode> PostAccountAsync(AccountModel account)
+        {
+            HttpResponseMessage responce;
+            try
+            {
+                string jsonAccount = JsonConvert.SerializeObject(account);
+                StringContent content = new StringContent(jsonAccount, Encoding.UTF8, "application/json");
+                responce = await _httpClient.PostAsync("records", content);
+            }
+            catch (HttpRequestException e)
+            {
+                _logger.Error($"Cant connect to the server.");
+                throw new HttpRequestException("It is impossible to \"add new record\" because the server is unavailable", e);
+            }
+
+            _logger.Information($"Registration status: {responce.StatusCode}");
+
+            return responce.StatusCode;
+        }
+
+        public async Task<HttpStatusCode> LoginAsync(string email, string password)
         {
             string authenticationString = $"{email}:{password}";
-            var base64uthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
+            var base64uthenticationString = Convert.ToBase64String(Encoding.ASCII.GetBytes(authenticationString));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64uthenticationString);
 
             HttpResponseMessage responce;
@@ -80,11 +94,12 @@ namespace SnailPass_Desktop.Data.API
             {
                 responce = await _httpClient.GetAsync("login");
             }
-            catch (SocketException e)
+            catch (HttpRequestException e)
             {
                 _logger.Error($"Cant connect to the server.");
-                throw new Exception("It is impossible to \"log in\" because the server is unavailable", e);
+                throw new HttpRequestException("It is impossible to \"log in\" because the server is unavailable", e);
             }
+
             _httpClient.DefaultRequestHeaders.Remove("Authorization");
 
             if (responce.IsSuccessStatusCode)
@@ -100,24 +115,31 @@ namespace SnailPass_Desktop.Data.API
             return responce.StatusCode;
         }
 
-        public async Task<IEnumerable<AccountModel>> GetAccounts()
+        public async Task<IEnumerable<AccountModel>?> GetAccountsAsync()
         {
             HttpResponseMessage responce;
             try
             {
                 responce = await _httpClient.GetAsync("records");
             }
-            catch (SocketException e)
+            catch (HttpRequestException e)
             {
                 _logger.Error($"Cant connect to the server.");
-                throw new Exception("It is impossible to \"get accounts\" because the server is unavailable", e);
+                throw new HttpRequestException("It is impossible to \"get accounts\" because the server is unavailable", e);
             }
 
-            IEnumerable<AccountModel> accounts = new List<AccountModel>();
+            IEnumerable<AccountModel>? accounts = null;
             if (responce.IsSuccessStatusCode)
             {
                 string jsonString = responce.Content.ReadAsStringAsync().Result;
-                _logger.Debug(jsonString);
+                accounts = JsonConvert.DeserializeObject<List<AccountModel>>(jsonString);
+            }
+
+            _logger.Information($"Getting accounts status: {responce.StatusCode}");
+
+            if (accounts == null)
+            {
+                return new List<AccountModel>();
             }
             
             return accounts;
@@ -130,19 +152,17 @@ namespace SnailPass_Desktop.Data.API
             {
                 responce = await _httpClient.GetAsync("users");
             }
-            catch (SocketException e)
+            catch (HttpRequestException e)
             {
                 _logger.Error($"Cant connect to the server.");
-                throw new Exception("It is impossible to \"get user\" because the server is unavailable", e);
+                throw new HttpRequestException("It is impossible to \"get user\" because the server is unavailable", e);
             }
 
             UserModel? user = null;
             if (responce.IsSuccessStatusCode)
             {
                 string jsonString = responce.Content.ReadAsStringAsync().Result;
-                var defenition = new { id = "", email = "", master_password_hash = "", is_admin = "", hint = ""};
-                var content = JsonConvert.DeserializeAnonymousType(jsonString, defenition);
-                user = new UserModel(content.id, content.email, content.hint, content.master_password_hash);
+                user = JsonConvert.DeserializeObject<UserModel>(jsonString);
             }
 
             _logger.Information($"Getting user status: {responce.StatusCode}");
@@ -153,11 +173,6 @@ namespace SnailPass_Desktop.Data.API
             }
 
             return user;
-        }
-
-        public void PostAccount(AccountModel user)
-        {
-            throw new NotImplementedException();
         }
 
         public void Dispose()

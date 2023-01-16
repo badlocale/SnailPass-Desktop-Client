@@ -15,6 +15,7 @@ namespace SnailPass_Desktop.ViewModel
     {
         private readonly INavigationStore _navigationStore;
         private readonly ILogger _logger;
+
         private bool _isViewVisible = true;
 
         public bool IsViewVisible

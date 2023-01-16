@@ -12,12 +12,12 @@ namespace SnailPass_Desktop.Model.Interfaces
     {
         public string Token { get; set; }
 
-        public Task<HttpStatusCode> Login(string email, string password);
-        public Task<HttpStatusCode> Registration(UserModel user);
+        public Task<HttpStatusCode> LoginAsync(string email, string password);
 
         public Task<UserModel> GetUserAsync(string email);
-        
-        public Task<IEnumerable<AccountModel>> GetAccounts();
-        public void PostAccount(AccountModel user);
+        public Task<HttpStatusCode> PostUserAsync(UserModel user);
+
+        public Task<IEnumerable<AccountModel>?> GetAccountsAsync();
+        public Task<HttpStatusCode> PostAccountAsync(AccountModel account);
     }
 }

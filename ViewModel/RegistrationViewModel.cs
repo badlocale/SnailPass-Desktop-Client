@@ -1,5 +1,4 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.ViewModel.Commands;
@@ -116,14 +115,15 @@ namespace SnailPass_Desktop.ViewModel
 
         public RegistrationViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore, 
             IRestClient httpClient, IUserRepository repository, IMasterPasswordEncryptor encryptor, 
-            ILogger logger, IDialogService dialogService, ISynchronizationService synchronizationService)
+            ILogger logger, IDialogService dialogService, ISynchronizationService synchronizationService, 
+            IApplicationModeStore modeStore)
         {
             _logger = logger;
 
             RegistrationCommand = new RegistrationCommand(this, httpClient, encryptor, logger);
             NavigateLoginCommand = new NavigateCommand<LoginViewModel>(navigationStore, 
-                () => new LoginViewModel(navigationStore, identityStore, httpClient, repository, encryptor, logger, dialogService, synchronizationService),
-                "Logging");
+                () => new LoginViewModel(navigationStore, identityStore, httpClient, repository, encryptor, logger, 
+                dialogService, synchronizationService, modeStore), "Logging");
         }
     }
 }

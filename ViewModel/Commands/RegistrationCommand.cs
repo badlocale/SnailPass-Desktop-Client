@@ -1,5 +1,4 @@
 ﻿using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Cryptography;
 using System;
 using System.Net.Mail;
 using System.Net;
@@ -50,7 +49,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
             _logger.Debug($"Execute regitration for E-mail: \"{user.Email}\"");
 
-            HttpStatusCode code = await _httpClient.Registration(user);
+            HttpStatusCode code = await _httpClient.PostUserAsync(user);
             if (code == HttpStatusCode.Created)
             {
                 //notification dialog

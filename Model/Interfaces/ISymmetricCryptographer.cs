@@ -5,7 +5,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Model.Cryptography
+namespace SnailPass_Desktop.Model.Interfaces
 {
     public interface ISymmetricCryptographer
     {

@@ -20,19 +20,21 @@ namespace SnailPass_Desktop.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "REPLACE INTO accounts (id, service_name, login, " +
-                                      "password, creation_time, is_favorite, user_id, nonce) " +
-                                      "VALUES (@id, @service_name, @login, @password, " +
-                                      "@creation_time, @is_favorite, @user_id, @nonce)";
+                                      "encrypted_password, user_id, is_favorite, is_deleted, " +
+                                      "creation_time, update_time, nonce) " +
+                                      "VALUES (@id, @service_name, @login, @encrypted_password, @user_id, " +
+                                      "@is_favorite, @is_deleted, @creation_time, @update_time, @nonce)";
 
                 command.Parameters.Add("@id", SqliteType.Text).Value = account.ID;
                 command.Parameters.Add("@service_name", SqliteType.Text).Value = account.ServiceName;
                 command.Parameters.Add("@login", SqliteType.Text).Value = (object)account.Login ?? (object)DBNull.Value;
-                command.Parameters.Add("@password", SqliteType.Text).Value = account.Password;
-                command.Parameters.Add("@is_favorite", SqliteType.Text).Value = account.IsFavorite;
+                command.Parameters.Add("@encrypted_password", SqliteType.Text).Value = account.Password;
                 command.Parameters.Add("@user_id", SqliteType.Text).Value = account.UserId;
-                command.Parameters.Add("@is_deleted", SqliteType.Text).Value = account.IsDeleted;
-                command.Parameters.Add("@nonce", SqliteType.Text).Value = account.Nonce;
+                command.Parameters.Add("@is_favorite", SqliteType.Text).Value = (object)account.IsFavorite;
+                command.Parameters.Add("@is_deleted", SqliteType.Text).Value = (object)account.IsDeleted;
                 command.Parameters.Add("@creation_time", SqliteType.Text).Value = account.CreationTime;
+                command.Parameters.Add("@update_time", SqliteType.Text).Value = account.UpdateTime;
+                command.Parameters.Add("@nonce", SqliteType.Text).Value = account.Nonce;
 
                 command.ExecuteNonQuery();
             }
@@ -52,11 +54,11 @@ namespace SnailPass_Desktop.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT id, service_name, login, password, " +
-                                      "is_favorite, user_id " +
+                command.CommandText = "SELECT id, service_name, login, encrypted_password, " +
+                                      "user_id, is_favorite, is_deleted, creation_time, " +
+                                      "update_time, nonce " +
                                       "FROM accounts " +
-                                      "WHERE is_deleted = 0 " +
-                                      "AND user_id = @user_id;";
+                                      "WHERE user_id = @user_id AND is_deleted = 'false';";
 
                 command.Parameters.Add("@user_id", SqliteType.Text).Value = userId;
 

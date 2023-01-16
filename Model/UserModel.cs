@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -9,9 +10,16 @@ namespace SnailPass_Desktop.Model
 {
     public class UserModel
     {
+        [JsonProperty("id")]
         public string ID { get; set; }
+
+        [JsonProperty("master_password_hash")]
         public string Password { get; set; }
+
+        [JsonProperty("hint")]
         public string Hint { get; set; }
+
+        [JsonProperty("email")]
         public string Email { get; set; }
 
         public UserModel() { }

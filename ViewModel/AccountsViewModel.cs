@@ -7,6 +7,7 @@ using SnailPass_Desktop.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -19,13 +20,9 @@ namespace SnailPass_Desktop.ViewModel
         private string _customFieldName;
         private string _customFieldValue;
         private IAccountRepository _repository;
+        private ISynchronizationService _synchronizationService;
         private IUserIdentityStore _identity;
         private ILogger _logger;
-
-        public ObservableCollection<AccountModel> Accounts
-        {
-            get { return _accounts; }
-        }
 
         public string SearchBarText
         {
@@ -64,27 +61,40 @@ namespace SnailPass_Desktop.ViewModel
 
         public ICollectionView AccountsCollectiionView { get; }
 
-        public AccountsViewModel(IUserIdentityStore identityStore, IAccountRepository accountRepository,
-            IDialogService dialogService, ILogger logger)
+        public AccountsViewModel(IUserIdentityStore identity, IAccountRepository accountRepository, 
+            ISynchronizationService synchronizationService, IDialogService dialogService, ILogger logger, 
+            IRestClient httpClient)
         {
-            _identity = identityStore;
+            _identity = identity;
             _repository = accountRepository;
+            _synchronizationService = synchronizationService;
             _logger = logger;
+            _identity = identity;
+
             _accounts = new ObservableCollection<AccountModel>();
 
             RemoveCommand = new RemoveCommand();
-            AddNewCommand = new AddNewAccountCommand(this ,accountRepository, dialogService, logger);
+            AddNewCommand = new AddNewAccountCommand(this, dialogService, logger, httpClient, identity);
             UpdateCommand = new UpdateCommand();
 
             AccountsCollectiionView = CollectionViewSource.GetDefaultView(_accounts);
             AccountsCollectiionView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(AccountModel.ServiceName)));
             AccountsCollectiionView.Filter = FilerWithSearchBar;
 
-            IEnumerable<AccountModel> accounts = _repository.GetByUserID("50b1fe14-6345-46ef-9b3d-477ff20a93f8"); //Fix
+            LoadAccountListAsync();
+        }
+
+        public async void LoadAccountListAsync()
+        {
+            await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
+            IEnumerable<AccountModel> accounts = _repository.GetByUserID(_identity.CurrentUser.ID);
+            _accounts.Clear();
             foreach (AccountModel account in accounts)
             {
                 _accounts.Add(account);
             }
+
+            _logger.Information("Accounts list loaded.");
         }
 
         private bool FilerWithSearchBar(object obj)

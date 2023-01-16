@@ -1,6 +1,5 @@
 ﻿using Serilog;
 using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Net;
@@ -8,8 +7,7 @@ using System.Net.Mail;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Services;
 using System.Configuration;
-using SnailPass_Desktop.Data;
-using System.Threading;
+using System.Net.Http;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
@@ -26,10 +24,11 @@ namespace SnailPass_Desktop.ViewModel.Commands
         private ILogger _logger;
         private IDialogService _dialogService;
         private ISynchronizationService _synchronizationService;
+        private IApplicationModeStore _modeStore;
 
         public LoginCommand(LoginViewModel viewModel, IUserIdentityStore identity, IRestClient httpClient,
             IUserRepository repository, IMasterPasswordEncryptor encryptor, ILogger logger, IDialogService dialogService, 
-            ISynchronizationService synchronizationService)
+            ISynchronizationService synchronizationService, IApplicationModeStore modeStore)
         {
             NETWORK_ITERATION_COUNT = int.Parse(ConfigurationManager.AppSettings["network_hash_iterations"]);
             LOCAL_ITERATION_COUNT = int.Parse(ConfigurationManager.AppSettings["local_hash_iterations"]);
@@ -42,6 +41,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             _logger = logger;
             _dialogService = dialogService;
             _synchronizationService = synchronizationService;
+            _modeStore = modeStore;
         }
 
         public override bool CanExecute(object? parameter)
@@ -71,7 +71,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             {
                 //Authorization with server
 
-                HttpStatusCode code = await _httpClient.Login(_viewModel.Email, apiKey);
+                HttpStatusCode code = await _httpClient.LoginAsync(_viewModel.Email, apiKey);
 
                 if (code == HttpStatusCode.OK)
                 {
@@ -87,11 +87,11 @@ namespace SnailPass_Desktop.ViewModel.Commands
                     _viewModel.ErrorMessage = $"Some error with code \"{code}\"";
                 }
             }
-            catch (Exception e)
+            catch (HttpRequestException e)
             {
                 //Local mode authorization
 
-                _viewModel.ErrorMessage = $"Have no connection to server";
+                _viewModel.ErrorMessage = $"Some trouble with server connection.";
 
                 string localRepositoryKey = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, LOCAL_ITERATION_COUNT);
 
@@ -100,9 +100,10 @@ namespace SnailPass_Desktop.ViewModel.Commands
                 {
                     _logger.Information($"User with E-mail {_viewModel.Email} is authenticated locally.");
 
-                    bool? isLocalMode = _dialogService.ShowDialog("LocalModeDialog", null);
+                    bool? isLocalMode = _dialogService.ShowDialog("LocalModeDialog");
                     if (isLocalMode == true)
                     {
+                        _modeStore.IsLocalMode = true;
                         user = _repository.GetByEmail(_viewModel.Email);
                     }
                 }

@@ -27,6 +27,7 @@ namespace SnailPass_Desktop
             builder.RegisterType<AesCbcCryptographer>().As<ISymmetricCryptographer>();
             builder.RegisterType<NavigationStore>().As<INavigationStore>().InstancePerLifetimeScope();
             builder.RegisterType<UserIdentityStore>().As<IUserIdentityStore>().SingleInstance();
+            builder.RegisterType<ApplicationModeStore>().As<IApplicationModeStore>().SingleInstance();
             builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
             builder.RegisterType<SynchronizationService>().As<ISynchronizationService>().InstancePerDependency();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
