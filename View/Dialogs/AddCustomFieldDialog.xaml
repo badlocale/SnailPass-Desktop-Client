@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="SnailPass_Desktop.View.Dialogs.AddCustomFieldDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
+             mc:Ignorable="d" 
+             Height="330" Width="350"
+             Background="Transparent">
+    <Border BorderBrush="{StaticResource ResourceKey=BorderColor}"
+            BorderThickness="1"
+            CornerRadius="7">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource HeaderBorderStyle}"
+                    MouseDown="TopMenu_MouseDown"/>
+            <Border Style="{StaticResource BodyBorderStyle}"/>
+
+            <TextBlock Text="Add new account data"
+                       Foreground="{StaticResource ResourceKey=DarkTextColor}"
+                       FontSize="15"
+                       FontFamily="Uncut Sans"
+                       FontWeight="DemiBold"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Margin="15, 0, 0, 0"
+                       MouseDown="TopMenu_MouseDown"/>
+
+            <Button x:Name="btnClose"
+                    Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                    Grid.Row="0"
+                    HorizontalAlignment="Right"
+                    Margin="0, 0, 10, 0"
+                    FontSize="13"
+                    Content="X"
+                    Click="BtnClose_Click"/>
+
+            <StackPanel x:Name="Body"
+                        Grid.Row="1"
+                        Orientation="Vertical"
+                        Width="260"
+                        Margin="0, 10, 0, 10">
+
+                <TextBlock Text="Service name"
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+
+                <TextBox x:Name="ServiceName"
+                         Text="{Binding ServiceName, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ResourceKey=OpenTextBox}">
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="{StaticResource ResourceKey=AccountIcon}"
+                            Stretch="Uniform"
+                            AlignmentX="Left"/>
+                    </TextBox.Background>
+                </TextBox>
+
+                <TextBlock Text="Login"
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+
+                <TextBox x:Name="Login"
+                         Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ResourceKey=OpenTextBox}">
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="{StaticResource ResourceKey=AccountIcon}"
+                            Stretch="Uniform"
+                            AlignmentX="Left"/>
+                    </TextBox.Background>
+                </TextBox>
+
+                <TextBlock Text="Password"
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+
+                <customControls:BindablePasswordBox x:Name="Password"
+                                                    Password="{Binding Password, Mode=TwoWay, 
+                                                               UpdateSourceTrigger=PropertyChanged}"
+                                                    Height="22"
+                                                    Margin="0, 5, 0, 0"/>
+
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Margin="0, 20, 0, 0"
+                           Height="36"
+                           Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
+
+                <Border Margin="70, 10, 70, 0">
+                    <Button x:Name="btnConfirm"
+                            Template="{StaticResource ResourceKey=BigButton}"
+                            Click="BtnAdd_Click"
+                            Content="ADD">
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

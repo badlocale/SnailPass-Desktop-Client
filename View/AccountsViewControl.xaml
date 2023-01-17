@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SnailPass_Desktop.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="700">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="45*"/>
-            <ColumnDefinition Width="55*"/>
+            <ColumnDefinition Width="60*" MinWidth="150"/>
+            <ColumnDefinition Width="40*" MinWidth="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -29,11 +29,11 @@
                 </Grid.ColumnDefinitions>
 
                 <Rectangle Grid.Column="0"
-                                   Margin="10, 0, 0, 0"
-                                   VerticalAlignment="Center"
-                                   Width="20"
-                                   Height="20"
-                                   Fill="{StaticResource ResourceKey=LightTextColor}">
+                           Margin="10, 0, 0, 0"
+                           VerticalAlignment="Center"
+                           Width="20"
+                           Height="20"
+                           Fill="{StaticResource ResourceKey=LightTextColor}">
                     <Rectangle.OpacityMask>
                         <VisualBrush Stretch="Uniform"
                                              Visual="{StaticResource ResourceKey=SearchVectorIcon}"/>
@@ -55,6 +55,10 @@
                 CornerRadius="10"
                 Background="{StaticResource ResourceKey=MainBackground}">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="60"/>
@@ -65,7 +69,47 @@
                           Margin="5, 5, 5, 0"
                           Background="Transparent"
                           BorderThickness="0"
-                          ItemsSource="{Binding AccountsCollectiionView}">
+                          ItemsSource="{Binding AccountsCollectiionView}"
+                          Grid.ColumnSpan="2" 
+                          d:ItemsSource="{d:SampleData ItemCount=5}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border Name="ItemBorder"
+                                                Padding="2"
+                                                Margin="5, 0, 7, 0"
+                                                SnapsToDevicePixels="true">
+                                            <ContentPresenter>
+                                            </ContentPresenter>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ItemBorder"
+                                                        Property="Background"
+                                                        Value="{StaticResource ResourceKey=NearMainBackground}"/>
+                                                <Setter TargetName="ItemBorder"
+                                                        Property="Padding"
+                                                        Value="9, 2, 2, 2"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="ItemBorder" 
+                                                        Property="Background" 
+                                                        Value="{StaticResource ResourceKey=SecondBackground}"/>
+                                                <Setter TargetName="ItemBorder"
+                                                        Property="Padding"
+                                                        Value="9, 2, 2, 2"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.Panel>
@@ -93,8 +137,9 @@
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="{StaticResource ResourceKey=SoftGreyColor}"
-                                            BorderThickness="0"
+                                            BorderThickness="1"
                                             CornerRadius="5"
+                                            Margin="0, 5, 0, 0"
                                             Background="{StaticResource ResourceKey=HeaderBackground}">
                                         <TextBlock Text="{Binding Name}"
                                                    Foreground="{StaticResource ResourceKey=DarkTextColor}"
@@ -124,68 +169,99 @@
                 <Button x:Name="AddButton"
                         Grid.Row="1"
                         Style="{StaticResource ResourceKey=AddNewButton}"
-                        Command="{Binding AddNewCommand}">
+                        Command="{Binding AddNewCommand}" Grid.ColumnSpan="2">
                 </Button>
             </Grid>
         </Border>
 
         <Border x:Name="PasswordData"
-                        Grid.Column="1"
-                        Grid.Row="0"
-                        Grid.RowSpan="2"
-                        Margin="0, 4, 4, 4"
-                        CornerRadius="10"
-                        Background="{StaticResource ResourceKey=SecondBackground}">
-            <StackPanel Orientation="Vertical"
-                        HorizontalAlignment="Center">
-                
-                <Border Margin="0, 10, 0, 0"
-                        Background="{StaticResource ResourceKey=HeaderBackground}"
-                        CornerRadius="10"
-                        Padding="50, 0, 50, 8">
-                    <TextBlock Text="Login"
-                               Foreground="{StaticResource ResourceKey=LightTextColor}"
-                               FontSize="15"
-                               FontFamily="Uncut Sans"
-                               FontWeight="DemiBold"
-                               HorizontalAlignment="Center"
-                               Margin="0, 10, 0, 0"/>
-                </Border>
+                Grid.Column="1"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Margin="0, 4, 4, 4"
+                CornerRadius="10"
+                Background="{StaticResource ResourceKey=SecondBackground}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" MinHeight="80"/>
+                </Grid.RowDefinitions>
 
-                <TextBlock Text="{Binding ElementName=AccountsList, Path=SelectedItem.Login}"
-                           Foreground="{StaticResource ResourceKey=LightTextColor}"
-                           FontSize="15"
-                           FontFamily="Uncut Sans"
-                           FontWeight="DemiBold"
-                           HorizontalAlignment="Center"
-                           Margin="0, 10, 0, 10"/>
+                <StackPanel Grid.Row="0"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Stretch"
+                            Margin="10, 0, 10, 0"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <Border Margin="0, 10, 0, 0"
+                            Background="{StaticResource ResourceKey=HeaderBackground}"
+                            CornerRadius="10"
+                            Padding="50, 0, 50, 8"
+                            HorizontalAlignment="Stretch">
+                        <TextBlock Text="Login"
+                                   Foreground="{StaticResource ResourceKey=LightTextColor}"
+                                   FontSize="15"
+                                   FontFamily="Uncut Sans"
+                                   FontWeight="DemiBold"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 10, 0, 0"/>
+                    </Border>
 
-                <Border Background="{StaticResource ResourceKey=HeaderBackground}"
-                        CornerRadius="10"
-                        Padding="50, 0, 50, 8">
-                    <TextBlock Text="Password"
-                    Foreground="{StaticResource ResourceKey=LightTextColor}"
-                    FontSize="15"
-                    FontFamily="Uncut Sans"
-                    FontWeight="DemiBold"
-                    HorizontalAlignment="Center"
-                    Margin="0, 10, 0, 0"/>
-                </Border>
+                    <Border BorderThickness="0, 0, 0, 2"
+                            BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                            Margin="0, 10, 0, 10">
+                        <TextBlock Text="{Binding ElementName=AccountsList, Path=SelectedItem.Login}"
+                                   Foreground="{StaticResource ResourceKey=LightTextColor}"
+                                   FontSize="15"
+                                   FontFamily="Uncut Sans"
+                                   FontWeight="DemiBold"
+                                   HorizontalAlignment="Center"/>
+                    </Border>
 
-                <TextBlock Text="{Binding ElementName=AccountsList, Path=SelectedItem.Password}"
-                    Foreground="{StaticResource ResourceKey=LightTextColor}"
-                    FontSize="15"
-                    FontFamily="Uncut Sans"
-                    FontWeight="DemiBold"
-                    HorizontalAlignment="Center"
-                    Margin="0, 10, 0, 0"/>
+                    <Border Background="{StaticResource ResourceKey=HeaderBackground}"
+                            CornerRadius="10"
+                            Padding="50, 0, 50, 8"
+                            HorizontalAlignment="Stretch">
+                        <TextBlock Text="Password"
+                                   Foreground="{StaticResource ResourceKey=LightTextColor}"
+                                   FontSize="15"
+                                   FontFamily="Uncut Sans"
+                                   FontWeight="DemiBold"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 10, 0, 0"/>
+                    </Border>
 
-                <Button x:Name="AddFieldButton"
-                        
-                        Style="{StaticResource ResourceKey=AddFieldButton}"
-                        Command="{Binding AddNewCommand}">
-                </Button>
-            </StackPanel>
+                    <Border BorderThickness="0, 0, 0, 2"
+                            BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                            Margin="0, 10, 0, 10">
+                        <TextBlock Text="{Binding ElementName=AccountsList, Path=SelectedItem.Password}"
+                                   Foreground="{StaticResource ResourceKey=LightTextColor}"
+                                   FontSize="15"
+                                   FontFamily="Uncut Sans"
+                                   FontWeight="DemiBold"
+                                   HorizontalAlignment="Center"/>
+                    </Border>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <Button x:Name="AddFieldButton"
+                            Margin="10, 10, 10, 0"
+                            Style="{StaticResource ResourceKey=AddFieldButton}"
+                            Command="{Binding AddNewCommand}">
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Border>
+
+        <GridSplitter Grid.Column="0"
+                      Grid.Row="0"
+                      Grid.RowSpan="2"
+                      ShowsPreview="False"
+                      Width="6"
+                      Margin="0, 0, -1, 0"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Stretch"
+                      Background="Transparent" />
     </Grid>
 </UserControl>

@@ -101,3 +101,5 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\ResistrationSuccessDialog.g.cs
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\LocalModeDialog.baml
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\ResistrationSuccessDialog.baml
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddCustomFieldDialog.g.cs
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddCustomFieldDialog.baml

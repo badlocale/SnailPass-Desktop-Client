@@ -33,5 +33,30 @@ namespace SnailPass_Desktop.Model
 
         [JsonProperty("user_id")]
         public string UserId { get; set; }
+
+        public AccountModel() { }
+
+        public AccountModel(string iD, string serviceName, string? login, string password, 
+            string nonce, string isFavorite, string isDeleted, string creationTime, 
+            string updateTime, string userId)
+        {
+            ID = iD;
+            ServiceName = serviceName;
+            Login = login;
+            Password = password;
+            Nonce = nonce;
+            IsFavorite = isFavorite;
+            IsDeleted = isDeleted;
+            CreationTime = creationTime;
+            UpdateTime = updateTime;
+            UserId = userId;
+        }
+
+        public override string ToString()
+        {
+            return $"ID: {ID}, Serivce name: {ServiceName}, Login: {Login}, Password(enc): {Password}, " +
+                $"Nonce: {Nonce}, Is favorite: {IsFavorite}, Is deleted: {IsDeleted}, " +
+                $"Creation time: {CreationTime}, Update time: {UpdateTime}, User ID: {UserId}";
+        }
     }
 }
