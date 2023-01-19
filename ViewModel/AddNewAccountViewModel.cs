@@ -12,6 +12,8 @@ namespace SnailPass_Desktop.ViewModel
     {
         private readonly int ENC_KEY_ITERATIONS_COUNT;
 
+        private string _errorMessage;
+
         private string _id;
         private string _serviceName;
         private string? _login;
@@ -57,6 +59,16 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
         public AddNewAccountViewModel(ISymmetricCryptographer cryptographer, IUserIdentityStore identity,
             ILogger logger, IMasterPasswordEncryptor encryptor)
         {
@@ -75,7 +87,7 @@ namespace SnailPass_Desktop.ViewModel
             _userId = _identity.CurrentUser.ID;
         }
 
-        public AccountModel GetModel()
+        public AccountModel CreateModel()
         {
             AccountModel accountModel = new AccountModel();
 

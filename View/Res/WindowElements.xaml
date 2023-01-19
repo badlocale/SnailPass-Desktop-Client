@@ -62,7 +62,7 @@
         <Setter Property="Background" Value="Transparent"/>
     </Style>
 
-    <Style x:Key="SearchBarTextBox" TargetType="TextBox">
+    <Style x:Key="SearchBarTextBox" TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
         <Setter Property="Height" Value="22"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Medium"/>
@@ -72,14 +72,5 @@
         <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-
-        <Style.Triggers>
-            <Trigger Property="IsSelectionActive" Value="False">
-                <Setter Property="Text" Value="Search"/>
-                <Setter Property="Foreground" Value="{StaticResource ResourceKey=SemiVisibleTextColor}"/>
-                <Setter Property="FontWeight" Value="Regular"/>
-                <Setter Property="FontStyle" Value="Italic"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 </ResourceDictionary>

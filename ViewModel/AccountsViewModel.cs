@@ -7,7 +7,6 @@ using SnailPass_Desktop.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -16,10 +15,12 @@ namespace SnailPass_Desktop.ViewModel
     public class AccountsViewModel : ViewModelBase
     {
         private readonly ObservableCollection<AccountModel> _accounts;
+        private readonly ObservableCollection<CustomFieldModel> _customFields;
         private string _searchBarText = string.Empty;
-        private string _customFieldName;
-        private string _customFieldValue;
-        private IAccountRepository _repository;
+        private AccountModel _selectedAccount = null;
+
+        private IAccountRepository _accountRepository;
+        private ICustomFieldRepository _customFieldRepository;
         private ISynchronizationService _synchronizationService;
         private IUserIdentityStore _identity;
         private ILogger _logger;
@@ -31,63 +32,65 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _searchBarText = value;
                 OnPropertyChanged();
-                AccountsCollectiionView.Refresh();
+                AccountsCollectionView.Refresh();
             }
         }
 
-        public string CustomFieldName
+        public AccountModel SelectedAccount
         {
-            get { return _customFieldName; }
-            set
+            get { return _selectedAccount; }
+            set 
             {
-                _customFieldName = value;
+                _selectedAccount = value;
                 OnPropertyChanged();
-            }
-        }
-
-        public string CustomFieldValue
-        {
-            get { return _customFieldValue; }
-            set
-            {
-                _customFieldValue = value;
-                OnPropertyChanged();
+                LoadCustomFields();
             }
         }
 
         public ICommand RemoveCommand { get; set; }
         public ICommand AddNewCommand { get; set; }
         public ICommand UpdateCommand { get; set; }
+        public ICommand AddCustomFieldCommand { get; set; }
+        public ICommand DecryptCommand { get; set; }
 
-        public ICollectionView AccountsCollectiionView { get; }
+        public ICollectionView AccountsCollectionView { get; }
+        public ICollectionView CustomFieldCollectionView { get; }
 
         public AccountsViewModel(IUserIdentityStore identity, IAccountRepository accountRepository, 
-            ISynchronizationService synchronizationService, IDialogService dialogService, ILogger logger, 
-            IRestClient httpClient)
+            ICustomFieldRepository customFieldRepository, ISynchronizationService synchronizationService, 
+            IDialogService dialogService, ILogger logger, IRestClient httpClient, ISymmetricCryptographer cryptographer,
+            IMasterPasswordEncryptor encryptor)
         {
             _identity = identity;
-            _repository = accountRepository;
+            _accountRepository = accountRepository;
+            _customFieldRepository = customFieldRepository;
             _synchronizationService = synchronizationService;
             _logger = logger;
             _identity = identity;
 
             _accounts = new ObservableCollection<AccountModel>();
+            _customFields = new ObservableCollection<CustomFieldModel>();
 
             RemoveCommand = new RemoveCommand();
             AddNewCommand = new AddNewAccountCommand(this, dialogService, logger, httpClient, identity);
             UpdateCommand = new UpdateCommand();
+            AddCustomFieldCommand = new AddCustomFieldCommand(this, logger, dialogService, identity, httpClient);
+            DecryptCommand = new DecryptPasswordCommand(this, cryptographer, encryptor, logger, identity);
 
-            AccountsCollectiionView = CollectionViewSource.GetDefaultView(_accounts);
-            AccountsCollectiionView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(AccountModel.ServiceName)));
-            AccountsCollectiionView.Filter = FilerWithSearchBar;
+            AccountsCollectionView = CollectionViewSource.GetDefaultView(_accounts);
+            AccountsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(AccountModel.ServiceName)));
+            AccountsCollectionView.Filter = FilerWithSearchBar;
 
-            LoadAccountListAsync();
+            CustomFieldCollectionView = CollectionViewSource.GetDefaultView(_customFields);
+
+            LoadAccountsAsync();
         }
 
-        public async void LoadAccountListAsync()
+        public async void LoadAccountsAsync()
         {
             await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
-            IEnumerable<AccountModel> accounts = _repository.GetByUserID(_identity.CurrentUser.ID);
+
+            IEnumerable<AccountModel> accounts = _accountRepository.GetByUserID(_identity.CurrentUser.ID);
             _accounts.Clear();
             foreach (AccountModel account in accounts)
             {
@@ -95,6 +98,18 @@ namespace SnailPass_Desktop.ViewModel
             }
 
             _logger.Information("Accounts list loaded.");
+        }
+
+        public void LoadCustomFields()
+        {
+            IEnumerable<CustomFieldModel> customFields = _customFieldRepository.GetByAccountID(_identity.CurrentUser.ID);
+            _customFields.Clear();
+            foreach (CustomFieldModel field in customFields)
+            {
+                _customFields.Add(field);
+            }
+
+            _logger.Information("Custom fields list loaded.");
         }
 
         private bool FilerWithSearchBar(object obj)

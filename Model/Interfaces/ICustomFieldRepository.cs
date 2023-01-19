@@ -8,6 +8,7 @@ namespace SnailPass_Desktop.Model.Interfaces
 {
     public interface ICustomFieldRepository
     {
-        void AddOrReplace();
+        void AddOrReplace(CustomFieldModel customField);
+        IEnumerable<CustomFieldModel> GetByAccountID(string userId);
     }
 }

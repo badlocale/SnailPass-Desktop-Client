@@ -1,19 +1,6 @@
-﻿using SnailPass_Desktop.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using SnailPass_Desktop.ViewModel;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SnailPass_Desktop.View
 {
@@ -22,6 +9,26 @@ namespace SnailPass_Desktop.View
         public AccountsViewControl()
         {
             InitializeComponent();
+        }
+
+        private void PasswordTextBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+            AccountsViewModel vm = (AccountsViewModel)DataContext;
+            if (vm != null)
+            {
+                vm.DecryptCommand.Execute(new object());
+            }
+
+        }
+
+        private void PasswordTextBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void PasswordBoxField_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

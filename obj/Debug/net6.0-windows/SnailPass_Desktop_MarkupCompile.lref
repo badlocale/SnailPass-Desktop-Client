@@ -1,7 +1,7 @@
 ﻿
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\App.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\CustomControls\BindablePasswordBox.xaml;;
-FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\AccountsViewControl.xaml;;
+FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\AddCustomFieldDialog.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\AddNewAccountDialog.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\DialogWindow.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\ResistrationSuccessDialog.xaml;;
@@ -11,5 +11,4 @@ FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\MainWind
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\NotesViewControl.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\RegistrationViewControl.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\StartupWindow.xaml;;
-FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\AddCustomFieldDialog.xaml;;
 

@@ -1,10 +1,10 @@
 ﻿using Serilog;
 using SnailPass_Desktop.Model;
+using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Threading.Tasks;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 
@@ -12,8 +12,6 @@ namespace SnailPass_Desktop.Data
 {
     public class SynchronizationService : ISynchronizationService
     {
-        private readonly int LOCAL_ITERATIONS_COUNT;
-
         private IRestClient _restClient;
         private IAccountRepository _accountRepository;
         private IUserRepository _userRepository;
@@ -26,8 +24,6 @@ namespace SnailPass_Desktop.Data
             IUserRepository userRepository, IUserIdentityStore identity, IMasterPasswordEncryptor encryptor,
             IApplicationModeStore modeStore, ILogger logger)
         {
-            LOCAL_ITERATIONS_COUNT = int.Parse(ConfigurationManager.AppSettings["local_hash_iterations"]);
-
             _restClient = httpClient;
             _accountRepository = accountRepository;
             _userRepository = userRepository;
@@ -44,11 +40,15 @@ namespace SnailPass_Desktop.Data
                 throw new ArgumentNullException(nameof(email));
             }
 
-            IEnumerable<AccountModel> accounts = await _restClient.GetAccountsAsync();
+            IEnumerable<AccountModel> accounts;
+            (_, accounts) = await _restClient.GetAccountsAsync();
 
-            foreach (AccountModel account in accounts)
+            if (accounts != null)
             {
-                _accountRepository.AddOrReplace(account);
+                foreach (AccountModel account in accounts)
+                {
+                    _accountRepository.AddOrReplace(account);
+                }
             }
         }
 
@@ -59,8 +59,9 @@ namespace SnailPass_Desktop.Data
                 throw new ArgumentNullException(nameof(email));
             }
 
-            UserModel user = await _restClient.GetUserAsync(email);
-            user.Password = _encryptor.Encrypt(_identity.Master, email, LOCAL_ITERATIONS_COUNT);
+            UserModel user;
+            (_, user) = await _restClient.GetUserAsync(email);
+            user.Password = _encryptor.Encrypt(_identity.Master, email, CryptoConstants.LOCAL_ITERATIONS_COUNT);
             _userRepository.AddOrReplace(user);
         }
 
@@ -71,7 +72,6 @@ namespace SnailPass_Desktop.Data
                 Task user = SynchronizeUserDataAsync(email);
                 Task accounts = SynchronizeAccountsDataAsync(email);
                 await Task.WhenAll(user, accounts).ConfigureAwait(false);
-
                 _logger.Information("Data has been loaded from server.");
             }
             else

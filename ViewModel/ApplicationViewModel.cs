@@ -18,8 +18,10 @@ namespace SnailPass_Desktop.ViewModel
         public ICommand NavigateNotesCommand { get; set; }
 
         public ApplicationViewModel(INavigationStore navigationStore, IUserIdentityStore identity,
-            IAccountRepository accountRepository, IDialogService dialogService, ILogger logger, 
-            IRestClient httpClient, ISynchronizationService synchronizationService)
+            IAccountRepository accountRepository, ICustomFieldRepository fieldRepository, 
+            IDialogService dialogService, ILogger logger, IRestClient httpClient, 
+            ISynchronizationService synchronizationService, IMasterPasswordEncryptor encryptor,
+            ISymmetricCryptographer cryptographer)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
@@ -27,8 +29,8 @@ namespace SnailPass_Desktop.ViewModel
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, 
                 () => new HomeViewModel(identity, navigationStore, logger), null);
             NavigateAccountsCommand = new NavigateCommand<AccountsViewModel>(navigationStore, 
-                () => new AccountsViewModel(identity, accountRepository, synchronizationService, 
-                dialogService, logger, httpClient), null);
+                () => new AccountsViewModel(identity, accountRepository, fieldRepository, 
+                synchronizationService, dialogService, logger, httpClient, cryptographer, encryptor), null);
             NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore, 
                 () => new NotesViewModel(identity, navigationStore, logger), null);
 

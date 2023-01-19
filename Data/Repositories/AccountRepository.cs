@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using SnailPass_Desktop.Model.Interfaces;
 
-namespace SnailPass_Desktop.Repositories
+namespace SnailPass_Desktop.Data.Repositories
 {
     public class AccountRepository : RepositoryBase, IAccountRepository
     {
@@ -40,11 +40,6 @@ namespace SnailPass_Desktop.Repositories
             }
         }
 
-        public AccountModel GetById(string id)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<AccountModel> GetByUserID(string userId)
         {
             List<AccountModel> accounts = new List<AccountModel>();
@@ -55,8 +50,7 @@ namespace SnailPass_Desktop.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "SELECT id, service_name, login, encrypted_password, " +
-                                      "user_id, is_favorite, is_deleted, creation_time, " +
-                                      "update_time, nonce " +
+                                      "is_favorite, is_deleted, creation_time, update_time, nonce " +
                                       "FROM accounts " +
                                       "WHERE user_id = @user_id AND is_deleted = 'false';";
 
@@ -72,8 +66,12 @@ namespace SnailPass_Desktop.Repositories
                             ServiceName = reader[1].ToString(),
                             Login = reader[2].ToString(),
                             Password = reader[3].ToString(),
+                            UserId = userId,
                             IsFavorite = reader[4].ToString(),
-                            UserId = userId
+                            IsDeleted = reader[5].ToString(),
+                            CreationTime = reader[6].ToString(),
+                            UpdateTime = reader[7].ToString(),
+                            Nonce = reader[8].ToString()
                         };
 
                         accounts.Add(account);
@@ -82,11 +80,6 @@ namespace SnailPass_Desktop.Repositories
             }
 
             return accounts;
-        }
-
-        public void Remove(string id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

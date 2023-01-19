@@ -3,11 +3,10 @@ using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using SnailPass_Desktop.Data;
 using SnailPass_Desktop.Data.API;
+using SnailPass_Desktop.Data.Repositories;
 using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.ViewModel;
-using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Factories;
 using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
@@ -22,6 +21,7 @@ namespace SnailPass_Desktop
 
             builder.RegisterType<UserRepository>().As<IUserRepository>().SingleInstance();
             builder.RegisterType<AccountRepository>().As<IAccountRepository>().SingleInstance();
+            builder.RegisterType<CustomFieldRepository>().As<ICustomFieldRepository>().SingleInstance();
             builder.RegisterType<RestAPI>().As<IRestClient>().SingleInstance();
             builder.RegisterType<Pbkdf2Encryptor>().As<IMasterPasswordEncryptor>().SingleInstance();
             builder.RegisterType<AesCbcCryptographer>().As<ISymmetricCryptographer>();

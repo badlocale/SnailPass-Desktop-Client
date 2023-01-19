@@ -34,10 +34,10 @@ namespace SnailPass_Desktop.ViewModel.Commands
                 string email = _identity.CurrentUser.Email;
                 _logger.Information($"Execute 'add new account' for user: \"{email}\".");
 
-                HttpStatusCode code = await _httpClient.PostAccountAsync(vm.GetModel());
+                HttpStatusCode code = await _httpClient.PostAccountAsync(vm.CreateModel());
                 if (code == HttpStatusCode.Created)
                 {
-                    _viewModel.LoadAccountListAsync();
+                    _viewModel.LoadAccountsAsync();
                 }
             }
             else

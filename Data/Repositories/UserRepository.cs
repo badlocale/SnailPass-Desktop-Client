@@ -9,7 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Repositories
+namespace SnailPass_Desktop.Data.Repositories
 {
     public class UserRepository : RepositoryBase, IUserRepository
     {

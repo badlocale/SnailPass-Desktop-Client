@@ -1,6 +1,5 @@
 ﻿using Serilog;
 using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Repositories;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
              mc:Ignorable="d" 
-             Height="330" Width="350"
+             Height="280" Width="350"
              Background="Transparent">
     <Border BorderBrush="{StaticResource ResourceKey=BorderColor}"
             BorderThickness="1"
@@ -45,47 +45,52 @@
                         Width="260"
                         Margin="0, 10, 0, 10">
 
-                <TextBlock Text="Service name"
+                <TextBlock Text="Field name"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <TextBox x:Name="ServiceName"
+                <Grid>
+                    <Rectangle HorizontalAlignment="Left"
+                               Margin="0, 0, 0, -2"
+                               Width="20"
+                               Height="20"
+                               Fill="{StaticResource ResourceKey=LightTextColor}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform"
+                                         Visual="{StaticResource ResourceKey=FieldNameVectorIcon}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBox x:Name="FieldName"
                          Text="{Binding ServiceName, UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource ResourceKey=OpenTextBox}">
-                    <TextBox.Background>
-                        <ImageBrush ImageSource="{StaticResource ResourceKey=AccountIcon}"
-                            Stretch="Uniform"
-                            AlignmentX="Left"/>
-                    </TextBox.Background>
-                </TextBox>
+                    </TextBox>
+                </Grid>
 
-                <TextBlock Text="Login"
+                <TextBlock Text="Field value"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <TextBox x:Name="Login"
+                <Grid>
+                    <Rectangle HorizontalAlignment="Left"
+                               Margin="0, 0, 0, -2"
+                               Width="20"
+                               Height="20"
+                               Fill="{StaticResource ResourceKey=LightTextColor}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform"
+                                         Visual="{StaticResource ResourceKey=FieldValueVectorIcon}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBox x:Name="FieldValue"
                          Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource ResourceKey=OpenTextBox}">
-                    <TextBox.Background>
-                        <ImageBrush ImageSource="{StaticResource ResourceKey=AccountIcon}"
-                            Stretch="Uniform"
-                            AlignmentX="Left"/>
-                    </TextBox.Background>
-                </TextBox>
-
-                <TextBlock Text="Password"
-                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
-
-                <customControls:BindablePasswordBox x:Name="Password"
-                                                    Password="{Binding Password, Mode=TwoWay, 
-                                                               UpdateSourceTrigger=PropertyChanged}"
-                                                    Height="22"
-                                                    Margin="0, 5, 0, 0"/>
+                    </TextBox>
+                </Grid>
 
                 <TextBlock Text="{Binding ErrorMessage}"
                            Margin="0, 20, 0, 0"
                            Height="36"
                            Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
 
-                <Border Margin="70, 10, 70, 0">
+                <Border Margin="70, 15, 70, 0">
                     <Button x:Name="btnConfirm"
                             Template="{StaticResource ResourceKey=BigButton}"
                             Click="BtnAdd_Click"
