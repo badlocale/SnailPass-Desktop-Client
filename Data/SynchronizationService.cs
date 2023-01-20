@@ -6,13 +6,13 @@ using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace SnailPass_Desktop.Data
 {
     public class SynchronizationService : ISynchronizationService
     {
         private IRestClient _restClient;
+        private ICustomFieldRepository _customFieldRepository;
         private IAccountRepository _accountRepository;
         private IUserRepository _userRepository;
         private IUserIdentityStore _identity;
@@ -21,16 +21,39 @@ namespace SnailPass_Desktop.Data
         private ILogger _logger;
 
         public SynchronizationService(IRestClient httpClient, IAccountRepository accountRepository, 
-            IUserRepository userRepository, IUserIdentityStore identity, IMasterPasswordEncryptor encryptor,
-            IApplicationModeStore modeStore, ILogger logger)
+            ICustomFieldRepository customFieldRepository, IUserRepository userRepository, 
+            IUserIdentityStore identity, IMasterPasswordEncryptor encryptor, IApplicationModeStore modeStore, 
+            ILogger logger)
         {
             _restClient = httpClient;
+            _customFieldRepository = customFieldRepository;
             _accountRepository = accountRepository;
             _userRepository = userRepository;
             _identity = identity;
             _encryptor = encryptor;
             _modeStore = modeStore;
             _logger = logger;
+        }
+
+        private async Task SynchronizeFieldsDataAsync(string accountID)
+        {
+            if (accountID == null)
+            {
+                throw new ArgumentNullException(nameof(accountID));
+            }
+
+            IEnumerable<CustomFieldModel?> fields;
+            (_, fields) = await _restClient.GetCustomFieldsAsync(accountID);
+
+            if (fields != null)
+            {
+                _accountRepository.ResetByAccount(accountID);
+
+                foreach (CustomFieldModel account in fields)
+                {
+                    _customFieldRepository.AddOrReplace(account);
+                }
+            }
         }
 
         private async Task SynchronizeAccountsDataAsync(string email)
@@ -45,8 +68,11 @@ namespace SnailPass_Desktop.Data
 
             if (accounts != null)
             {
+                _accountRepository.ResetByAccount(email);
+
                 foreach (AccountModel account in accounts)
                 {
+                    await SynchronizeFieldsDataAsync(account.ID);
                     _accountRepository.AddOrReplace(account);
                 }
             }

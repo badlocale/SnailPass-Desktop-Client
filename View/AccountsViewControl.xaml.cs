@@ -20,15 +20,5 @@ namespace SnailPass_Desktop.View
             }
 
         }
-
-        private void PasswordTextBox_MouseLeave(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void PasswordBoxField_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
     }
 }

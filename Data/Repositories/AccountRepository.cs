@@ -81,5 +81,26 @@ namespace SnailPass_Desktop.Data.Repositories
 
             return accounts;
         }
+
+        public void ResetByAccount(string email)
+        {
+            using var connection = GetConnection();
+            using (var command = new SqliteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "DELETE " +
+                                      "FROM accounts " +
+                                      "WHERE accounts.user_id IN (" +
+                                          "SELECT user_id " +
+                                          "FROM users " +
+                                          "WHERE users.email = @email" +
+                                      ");";
+
+                command.Parameters.Add("@email", SqliteType.Text).Value = email;
+
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

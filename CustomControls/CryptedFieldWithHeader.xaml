@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="SnailPass_Desktop.CustomControls.CryptedFieldWithHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SnailPass_Desktop.CustomControls"
+             mc:Ignorable="d"
+             x:Name="root">
+    <Border BorderBrush="{StaticResource ResourceKey=BorderColor}"
+            Background="{StaticResource ResourceKey=MainBackground}"
+            BorderThickness="1"
+            CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*" MinHeight="25"/>
+                <RowDefinition Height="50*" MinHeight="25"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
+                    Background="{StaticResource ResourceKey=HeaderBackground}"
+                    CornerRadius="9, 9, 0, 0"
+                    Padding="50, 0, 50, 8"
+                    HorizontalAlignment="Stretch">
+                <TextBlock Text="{Binding Title, ElementName=root}"
+                            Foreground="{StaticResource ResourceKey=LightTextColor}"
+                            FontSize="15"
+                            FontFamily="Uncut Sans"
+                            FontWeight="DemiBold"
+                            HorizontalAlignment="Center"
+                            Margin="0, 10, 0, 0"/>
+            </Border>
+
+            <Grid x:Name="CryptedValueField"
+                Grid.Row="1"
+                Background="Transparent"
+                MouseEnter="CryptedValueField_MouseEnter"
+                MouseDown="CryptedValueField_MouseDown"
+                ToolTipService.InitialShowDelay="0">
+                <Grid.ToolTip>
+                    <ToolTip Placement="Mouse"
+                             Background="{StaticResource ResourceKey=MainBackground}">
+                        <ToolTip.Style>
+                            <Style TargetType="ToolTip">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ToolTip">
+                                            <Border Background="{StaticResource ResourceKey=MainBackground}"
+                                                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5">
+                                                <TextBlock x:Name="TooltipText"
+                                                           Margin="8">
+                                                    <TextBlock.Style>
+                                                        <Style BasedOn="{StaticResource ResourceKey=CommonTextStyle}" TargetType="TextBlock">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="{Binding IsCopied, ElementName=root}" Value="True" >
+                                                                    <Setter Property="Text" Value="Copied!"/>
+                                                                </Trigger>
+                                                                <Trigger Property="{Binding IsCopied, ElementName=root}" Value="False">
+                                                                    <Setter Property="Text" Value="Click to copy!"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ToolTip.Style>
+                    </ToolTip>
+                </Grid.ToolTip>
+
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.Target="{Binding ElementName=HintField}">
+                                <DoubleAnimation From="1"
+                                                To="0"
+                                                Duration="0:0:0"
+                                                Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="ValueStoryboard"/>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.Target="{Binding ElementName=ValueField}">
+                                <DoubleAnimation To="1" 
+                                                 Duration="0:0:0"
+                                                 Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.Target="{Binding ElementName=HintField}">
+                                <DoubleAnimation From="0"
+                                                To="1"
+                                                Duration="0:0:2"
+                                                BeginTime="0:0:1"
+                                                Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard x:Name="ValueStoryboard">
+                            <Storyboard Storyboard.Target="{Binding ElementName=ValueField}">
+                                <DoubleAnimation From="1"
+                                                To="0"
+                                                Duration="0:0:1"
+                                                Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <!--<EventTrigger RoutedEvent="Binding.TargetUpdated">
+                        <RemoveStoryboard BeginStoryboardName="OpacityStoryboard"/>
+                    </EventTrigger>-->
+                </Grid.Triggers>
+
+                <Border x:Name="HintField"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent">
+                    <Border Height="35"
+                            Width="auto">
+                        <TextBlock Margin="0, 4, 0, 0"
+                                    HorizontalAlignment="Center"
+                                    Height="22"
+                                    FontSize="15"
+                                    FontFamily="Uncat Sans"
+                                    FontWeight="Regular"
+                                    FontStyle="Italic"
+                                    Text="{Binding Hint, ElementName=root}"
+                                    Foreground="{StaticResource ResourceKey=SemiVisibleTextColor}"
+                                    Opacity="1">
+                        </TextBlock>
+                    </Border>
+                </Border>
+
+                <Border x:Name="ValueField"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Opacity="0">
+                    <Border Height="35"
+                            Width="auto">
+                        <TextBlock x:Name="PasswordTextBox"
+                                    Text="{Binding Value, ElementName=root}"
+                                    Foreground="{StaticResource ResourceKey=LightTextColor}"
+                                    FontSize="15"
+                                    FontFamily="Uncut Sans"
+                                    FontWeight="DemiBold"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Opacity="1">
+                        </TextBlock>
+                    </Border>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

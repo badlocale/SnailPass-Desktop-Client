@@ -8,14 +8,12 @@ using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Services;
 using System.Configuration;
 using System.Net.Http;
+using SnailPass_Desktop.Model.Cryptography;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
     public class LoginCommand : CommandBase
     {
-        private readonly int NETWORK_ITERATION_COUNT;
-        private readonly int LOCAL_ITERATION_COUNT;
-
         private LoginViewModel _viewModel;
         private IUserIdentityStore _identity;
         private IUserRepository _repository;
@@ -30,9 +28,6 @@ namespace SnailPass_Desktop.ViewModel.Commands
             IUserRepository repository, IMasterPasswordEncryptor encryptor, ILogger logger, IDialogService dialogService, 
             ISynchronizationService synchronizationService, IApplicationModeStore modeStore)
         {
-            NETWORK_ITERATION_COUNT = int.Parse(ConfigurationManager.AppSettings["network_hash_iterations"]);
-            LOCAL_ITERATION_COUNT = int.Parse(ConfigurationManager.AppSettings["local_hash_iterations"]);
-
             _viewModel = viewModel;
             _identity = identity;
             _httpClient = httpClient;
@@ -63,7 +58,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             _viewModel.ErrorMessage = null;
             _identity.Master = _viewModel.Password;
 
-            string apiKey = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, NETWORK_ITERATION_COUNT);
+            string apiKey = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, CryptoConstants.NETWORK_ITERATIONS_COUNT);
 
             _logger.Information($"Execute logging for E-mail: \"{_viewModel.Email}\" with hashed key \"{apiKey}\".");
 
@@ -93,7 +88,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
                 _viewModel.ErrorMessage = $"Some trouble with server connection.";
 
-                string localRepositoryKey = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, LOCAL_ITERATION_COUNT);
+                string localRepositoryKey = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, CryptoConstants.LOCAL_ITERATIONS_COUNT);
 
                 bool isUserValid = _repository.AuthenticateLocally(localRepositoryKey, _viewModel.Email);
                 if (isUserValid)

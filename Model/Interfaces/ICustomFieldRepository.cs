@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SnailPass_Desktop.Model.Interfaces
 {
     public interface ICustomFieldRepository
     {
         void AddOrReplace(CustomFieldModel customField);
-        IEnumerable<CustomFieldModel> GetByAccountID(string userId);
+        IEnumerable<CustomFieldModel> GetByAccountID(string userID);
+        void ResetByEmail(string email);
     }
 }

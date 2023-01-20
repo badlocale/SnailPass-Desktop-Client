@@ -14,7 +14,7 @@ namespace SnailPass_Desktop.Model.Cryptography
         private static readonly int _defaultLocalIterations = 180000;
 
         public static readonly int ENC_KEY_ITERATIONS_COUNT;
-        public static readonly int NETWORK_ITERATIONS_CONUNT;
+        public static readonly int NETWORK_ITERATIONS_COUNT;
         public static readonly int LOCAL_ITERATIONS_COUNT;
 
         static CryptoConstants()
@@ -30,11 +30,11 @@ namespace SnailPass_Desktop.Model.Cryptography
 
             try
             {
-                NETWORK_ITERATIONS_CONUNT = int.Parse(ConfigurationManager.AppSettings["network_hash_iterations"]);
+                NETWORK_ITERATIONS_COUNT = int.Parse(ConfigurationManager.AppSettings["network_hash_iterations"]);
             }
             catch
             {
-                NETWORK_ITERATIONS_CONUNT = _defaultNetworkIterations;
+                NETWORK_ITERATIONS_COUNT = _defaultNetworkIterations;
             }
 
             try

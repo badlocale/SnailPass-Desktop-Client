@@ -106,6 +106,7 @@
                 <RadioButton x:Name="PasswordsPage"
                              GroupName="LeftMenu"
                              Command="{Binding NavigateAccountsCommand}"
+                             IsChecked="True"
                              Style="{StaticResource ResourceKey=LeftMenuButton}"
                              Tag="{StaticResource ResourceKey=LightTextColor}">
                     <StackPanel Orientation="Horizontal">
