@@ -44,16 +44,16 @@ namespace SnailPass_Desktop.CustomControls
         public CryptedFieldWithHeader()
         {
             InitializeComponent();
-
-            if (Title != null && Title.Length > 0)
-            {
-                Hint = Title.Substring(0, 1).ToLowerInvariant() + Title.Substring(1);
-            }
         }
 
         private void IsCopiedTooltip_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
             IsCopied = Clipboard.GetText() == Value;
+        }
+
+        private void CryptedValueField_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Clipboard.SetText(Value);
         }
     }
 }

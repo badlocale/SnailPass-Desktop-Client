@@ -40,8 +40,8 @@ namespace SnailPass_Desktop.Model.Cryptography
             {
                 aes.KeySize = key.Length * 8;
                 aes.Key = key;
-                aes.Padding = PaddingMode.PKCS7; 
                 aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
 
                 if (nonce == null)
                 {

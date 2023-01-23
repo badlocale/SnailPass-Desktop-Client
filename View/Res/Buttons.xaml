@@ -11,7 +11,7 @@
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
                        Foreground="{StaticResource ResourceKey=DarkTextColor}"
-                       FontFamily="Uncut Sans"
+                       FontFamily="{StaticResource ResourceKey=MainFont}"
                        FontWeight="DemiBold"
                        Cursor="Hand"
                        HorizontalAlignment="Center">
@@ -48,7 +48,7 @@
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
                        Foreground="{StaticResource ResourceKey=DarkTextColor}"
-                       FontFamily="Uncut Sans"
+                       FontFamily="{StaticResource ResourceKey=MainFont}"
                        FontWeight="DemiBold"
                        Cursor="Hand"
                        HorizontalAlignment="Center">
@@ -83,7 +83,7 @@
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Foreground="{StaticResource ResourceKey=MainBackground}"
-                   FontFamily="Uncut Sans"
+                   FontFamily="{StaticResource ResourceKey=MainFont}"
                    FontWeight="DemiBold"
                    Cursor="Hand"
                    HorizontalAlignment="Center">
@@ -110,7 +110,7 @@
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Foreground="{StaticResource ResourceKey=LightTextColor}"
-                   FontFamily="Uncut Sans"
+                   FontFamily="{StaticResource ResourceKey=MainFont}"
                    FontWeight="DemiBold"
                    Cursor="Hand"
                    HorizontalAlignment="Center">
@@ -172,7 +172,7 @@
 
     <Style x:Key="LeftMenuButtonText" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
-        <Setter Property="FontFamily" Value="{DynamicResource ResourceKey=UncutSansFont}"/>
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -186,6 +186,8 @@
                 <ControlTemplate TargetType="Button">
                     <Border Margin="4"
                             CornerRadius="10"
+                            BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                            BorderThickness="1"
                             Background="{TemplateBinding Background}">
                         <Rectangle Grid.Column="0"
                                    VerticalAlignment="Center"
@@ -217,7 +219,9 @@
                 <ControlTemplate TargetType="Button">
                     <Border CornerRadius="10"
                             Padding="0, 10, 0, 10"
-                            Background="{TemplateBinding Background}">
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                            BorderThickness="1">
                         <Rectangle Grid.Column="0"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"

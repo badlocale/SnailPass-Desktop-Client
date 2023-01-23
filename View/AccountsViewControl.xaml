@@ -61,7 +61,7 @@
                                 </Style.Resources>
                                 <Setter Property="Height" Value="22"/>
                                 <Setter Property="FontSize" Value="15"/>
-                                <Setter Property="FontFamily" Value="Uncut Sans"/>
+                                <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
                                 <Setter Property="FontWeight" Value="Regular"/>
                                 <Setter Property="FontStyle" Value="Italic"/>
                                 <Setter Property="Text" Value="Search..."/>
@@ -85,7 +85,7 @@
                 CornerRadius="10"
                 BorderBrush="{StaticResource ResourceKey=BorderColor}"
                 BorderThickness="1"
-                Background="{StaticResource ResourceKey=MainBackground}">
+                Background="{StaticResource ResourceKey=SecondBackground}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15*"/>
@@ -97,132 +97,140 @@
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0"
+                <Border Grid.Row="0" Margin="0, 5, 0, 0"
                         Grid.ColumnSpan="2"
-                        Background="{StaticResource ResourceKey=HeaderBackground}"
-                        CornerRadius="10, 10, 0, 0"
+                        Background="Transparent"
+                        CornerRadius="10"
                         BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                        BorderThickness="0, 0, 0, 2">
+                        BorderThickness="0"
+                        HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}"
                                Text="Accounts"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=LightTextColor}"
-                               FontFamily="{StaticResource ResourceKey=UncutSansFont}"
+                               FontFamily="{StaticResource ResourceKey=MainFont}"
                                FontSize="20"
-                               Margin="0"/>
+                               Width="100"/>
                 </Border>
-                
-                <ListBox  x:Name="AccountsList"
-                          Grid.Row="1"
+
+                <Border Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Margin="5, 5, 5, 0"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                        Background="{StaticResource ResourceKey=MainBackground}">
+                    <ListBox  x:Name="AccountsList"
+                          HorizontalContentAlignment="Left"
+                          HorizontalAlignment="Stretch"
                           Background="Transparent"
                           BorderThickness="0"
                           ItemsSource="{Binding AccountsCollectionView}"
                           SelectedItem="{Binding SelectedAccount}"
-                          Grid.ColumnSpan="2" 
                           d:ItemsSource="{d:SampleData ItemCount=5}"
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                           ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="ListBoxItem">
-                                        <Border Name="ItemBorder"
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border Name="ItemBorder"
                                                 Margin="10, 0, 0, 0"
                                                 SnapsToDevicePixels="true"
                                                 BorderBrush="{StaticResource ResourceKey=BorderColor}">
-                                            <ContentPresenter/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="ItemBorder"
+                                                <ContentPresenter/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="ItemBorder"
                                                         Property="Background"
-                                                        Value="{StaticResource ResourceKey=NearMainBackground}"/>
-                                                <Setter TargetName="ItemBorder"
+                                                        Value="{StaticResource ResourceKey=SecondBackground}"/>
+                                                    <Setter TargetName="ItemBorder"
                                                         Property="Padding"
                                                         Value="6, 0, 0, 0"/>
-                                            </Trigger>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter TargetName="ItemBorder" 
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="ItemBorder" 
                                                         Property="Background" 
                                                         Value="{StaticResource ResourceKey=SecondBackground}"/>
-                                                <Setter TargetName="ItemBorder"
+                                                    <Setter TargetName="ItemBorder"
                                                         Property="Padding"
                                                         Value="6, 0, 0, 0"/>
-                                                <Setter TargetName="ItemBorder"
+                                                    <Setter TargetName="ItemBorder"
                                                         Property="BorderThickness"
                                                         Value="5, 0, 0, 0"/>
-                                                <Setter TargetName="ItemBorder"
+                                                    <Setter TargetName="ItemBorder"
                                                         Property="BorderBrush"
                                                         Value="{StaticResource ResourceKey=PanelBorderColor2}"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
 
-                    <ListBox.GroupStyle>
-                        <GroupStyle>
-                            <GroupStyle.Panel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Vertical"
+                        <ListBox.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.Panel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Vertical"
                                                             HorizontalAlignment="Stretch"/>
-                                </ItemsPanelTemplate>
-                            </GroupStyle.Panel>
+                                    </ItemsPanelTemplate>
+                                </GroupStyle.Panel>
 
-                            <GroupStyle.ContainerStyle>
-                                <Style TargetType="{x:Type GroupItem}">
-                                    <Setter Property="Foreground"
+                                <GroupStyle.ContainerStyle>
+                                    <Style TargetType="{x:Type GroupItem}">
+                                        <Setter Property="Foreground"
                                             Value="{StaticResource ResourceKey=DarkTextColor}"/>
-                                    <Setter Property="FontSize"
+                                        <Setter Property="FontSize"
                                             Value="14"/>
-                                    <Setter Property="FontFamily"
-                                            Value="{StaticResource ResourceKey=UncutSansFont}"/>
-                                    <Setter Property="FontWeight"
+                                        <Setter Property="FontFamily"
+                                            Value="{StaticResource ResourceKey=MainFont}"/>
+                                        <Setter Property="FontWeight"
                                             Value="SemiBold"/>
-                                    <Setter Property="BorderBrush"
+                                        <Setter Property="BorderBrush"
                                             Value="{StaticResource ResourceKey=LightTextColor}"/>
-                                </Style>
-                            </GroupStyle.ContainerStyle>
+                                    </Style>
+                                </GroupStyle.ContainerStyle>
 
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
-                                    <Border BorderBrush="{StaticResource ResourceKey=SoftGreyColor}"
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="{StaticResource ResourceKey=SoftGreyColor}"
                                             BorderThickness="0, 1, 0, 1"
                                             Background="{StaticResource ResourceKey=HeaderBackground}"
                                             Margin="-3, 0, -3, 0">
-                                        <TextBlock Text="{Binding Name}"
+                                            <TextBlock Text="{Binding Name}"
                                                    Foreground="{StaticResource ResourceKey=LightTextColor}"
                                                    FontSize="20"
                                                    FontWeight="SemiBold"
                                                    HorizontalAlignment="Left"
                                                    Margin="10, 0, 0, 0"/>
-                                    </Border>
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
-                        </GroupStyle>
-                    </ListBox.GroupStyle>
+                                        </Border>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListBox.GroupStyle>
 
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Height="35">
-                                <TextBlock Grid.Column="1"
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Height="35">
+                                    <TextBlock Grid.Column="1"
                                            Foreground="{StaticResource ResourceKey=LightTextColor}"
                                            FontSize="15"
                                            VerticalAlignment="Center"
                                            Text="{Binding Login}"/>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
 
                 <Border Grid.Row="2"
                         Grid.ColumnSpan="2"
                         BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                        BorderThickness="0, 1, 0, 0">
+                        BorderThickness="0"
+                        CornerRadius="10, 10, 0, 0">
                     <Button x:Name="AddButton"
                             Style="{StaticResource ResourceKey=AddNewButton}"
                             Command="{Binding AddNewCommand}" Grid.ColumnSpan="2">
@@ -274,7 +282,7 @@
                             <TextBlock Text="Login"
                                                Foreground="{StaticResource ResourceKey=LightTextColor}"
                                                FontSize="15"
-                                               FontFamily="Uncut Sans"
+                                               FontFamily="{StaticResource ResourceKey=MainFont}"
                                                FontWeight="DemiBold"
                                                HorizontalAlignment="Center"
                                                Margin="0, 10, 0, 0"/>
@@ -285,7 +293,7 @@
                             <TextBlock Text="{Binding ElementName=AccountsList, Path=SelectedItem.Login}"
                                             Foreground="{StaticResource ResourceKey=LightTextColor}"
                                             FontSize="15"
-                                            FontFamily="Uncut Sans"
+                                            FontFamily="{StaticResource ResourceKey=MainFont}"
                                             FontWeight="DemiBold"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"/>
@@ -319,7 +327,7 @@
                                     <Setter Property="IsSelected" Value="True"/>
                                 </Trigger>
                             </Style.Triggers>
-                            
+
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">

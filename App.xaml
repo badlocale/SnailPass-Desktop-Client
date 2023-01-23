@@ -5,14 +5,14 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="FontsDictionary"
+                                    Source="view/res/fonts/Fonts.xaml"/>
                 <ResourceDictionary x:Name="ColorsDictionary"
                                     Source="view/res/Colors.xaml"/>
                 <ResourceDictionary x:Name="IconsDictionary"
                                     Source="view/res/icons/Icons.xaml"/>
                 <ResourceDictionary x:Name="ButtonsDictionary"
                                     Source="view/res/Buttons.xaml"/>
-                <ResourceDictionary x:Name="FontsDictionary"
-                                    Source="view/res/fonts/Fonts.xaml"/>
                 <ResourceDictionary x:Name="ImagesDictionary"
                                     Source="view/res/images/Images.xaml"/>
                 <ResourceDictionary x:Name="BaseWindowElements"

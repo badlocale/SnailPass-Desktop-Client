@@ -15,7 +15,7 @@
         <TextBlock Text="SnailPass"
                    Foreground="{StaticResource ResourceKey=LightTextColor}"
                    FontSize="30"
-                   FontFamily="Uncut Sans"
+                   FontFamily="{StaticResource ResourceKey=MainFont}"
                    FontWeight="DemiBold"
                    HorizontalAlignment="Center"/>
 

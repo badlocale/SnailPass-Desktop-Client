@@ -23,7 +23,7 @@
                 <TextBlock Text="{Binding Title, ElementName=root}"
                             Foreground="{StaticResource ResourceKey=LightTextColor}"
                             FontSize="15"
-                            FontFamily="Uncut Sans"
+                            FontFamily="{StaticResource ResourceKey=MainFont}"
                             FontWeight="DemiBold"
                             HorizontalAlignment="Center"
                             Margin="0, 10, 0, 0"/>
@@ -34,7 +34,8 @@
                 Background="Transparent"
                 ToolTipOpening="IsCopiedTooltip_ToolTipOpening"
                 ToolTipService.InitialShowDelay="0"
-                ToolTipService.ShowDuration="120000">
+                ToolTipService.ShowDuration="120000"
+                MouseDown="CryptedValueField_MouseDown">
                 <Grid.ToolTip>
                     <ToolTip x:Name="IsCopiedTooltip"
                              Placement="Mouse"
@@ -45,7 +46,9 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ToolTip">
                                             <Border Background="{StaticResource ResourceKey=MainBackground}"
-                                                    CornerRadius="5">
+                                                    CornerRadius="5"
+                                                    BorderThickness="1"
+                                                    BorderBrush="{StaticResource ResourceKey=BorderColor}">
                                                 <TextBlock x:Name="TooltipText"
                                                            Margin="8">
                                                     <TextBlock.Style>
@@ -123,11 +126,10 @@
                                     HorizontalAlignment="Center"
                                     Height="22"
                                     FontSize="15"
-                                    FontFamily="Uncat Sans"
+                                    FontFamily="{StaticResource ResourceKey=MainFont}"
                                     FontWeight="Regular"
                                     FontStyle="Italic"
-                                    Text="{Binding Hint, StringFormat='Hover over to open the \{0\}', 
-                                           Mode=OneWay, ElementName=root}"
+                                    Text="Hover over to open"
                                     Foreground="{StaticResource ResourceKey=SemiVisibleTextColor}"
                                     Opacity="1">
                         </TextBlock>
@@ -143,7 +145,7 @@
                         <TextBlock  Text="{Binding Value, ElementName=root}"
                                     Foreground="{StaticResource ResourceKey=LightTextColor}"
                                     FontSize="15"
-                                    FontFamily="Uncut Sans"
+                                    FontFamily="{StaticResource ResourceKey=MainFont}"
                                     FontWeight="DemiBold"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"

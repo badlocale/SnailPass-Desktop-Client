@@ -23,7 +23,7 @@
                      Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, ElementName=root, Mode=TwoWay}"
                      FontSize="15"
                      FontWeight="Medium"
-                     FontFamily="Uncut Sans"
+                     FontFamily="{StaticResource ResourceKey=MainFont}"
                      Foreground="{StaticResource ResourceKey=DarkTextColor}"
                      CaretBrush="{StaticResource ResourceKey=SoftGreyColor}"
                      BorderBrush="{StaticResource ResourceKey=BorderColor}"

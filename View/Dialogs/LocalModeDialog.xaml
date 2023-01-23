@@ -21,7 +21,7 @@
             <TextBlock Text="Switch to local mode"
                        Foreground="{StaticResource ResourceKey=DarkTextColor}"
                        FontSize="15"
-                       FontFamily="Uncut Sans"
+                       FontFamily="{StaticResource ResourceKey=MainFont}"
                        FontWeight="DemiBold"
                        Grid.Column="0"
                        VerticalAlignment="Center"

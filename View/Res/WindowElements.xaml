@@ -22,7 +22,7 @@
     <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ResourceKey=LightTextColor}"/>
         <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontFamily" Value="Uncut Sans"/>
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Margin" Value="0, 10, 0, 0"/>
@@ -31,7 +31,7 @@
     <Style x:Key="CommonTextStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ResourceKey=DarkTextColor}"/>
         <Setter Property="FontSize" Value="12"/>
-        <Setter Property="FontFamily" Value="Uncut Sans"/>
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Margin" Value="2, 2, 0, 0"/>
@@ -40,7 +40,7 @@
     <Style x:Key="ImportantTextStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ResourceKey=ErrorColor}"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="Uncut Sans"/>
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Margin" Value="5, 5, 0, 0"/>
@@ -51,7 +51,7 @@
     <Style x:Key="OpenTextBox" TargetType="TextBox">
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="FontFamily" Value="Uncut Sans"/>
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
         <Setter Property="Foreground" Value="{StaticResource ResourceKey=DarkTextColor}"/>
         <Setter Property="CaretBrush" Value="{StaticResource ResourceKey=SoftGreyColor}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}"/>
@@ -66,7 +66,7 @@
         <Setter Property="Height" Value="22"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="FontFamily" Value="Uncut Sans"/>
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
         <Setter Property="Foreground" Value="{StaticResource ResourceKey=LightTextColor}"/>
         <Setter Property="CaretBrush" Value="{StaticResource ResourceKey=SoftGreyColor}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}"/>
