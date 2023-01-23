@@ -189,7 +189,7 @@ namespace SnailPass_Desktop.Data.API
                 throw new HttpRequestException("It is impossible to \"get fields\" because the server is unavailable", e);
             }
 
-            IEnumerable<CustomFieldModel>? customFields = null;
+            IEnumerable<EncryptedFieldModel>? customFields = null;
             if (responce.IsSuccessStatusCode)
             {
                 string jsonString = responce.Content.ReadAsStringAsync().Result;
