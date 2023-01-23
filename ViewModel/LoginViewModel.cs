@@ -14,7 +14,6 @@ namespace SnailPass_Desktop.ViewModel
         private string _id;
         private string _email;
         private string? _hint;
-
         private SecureString _password;
 
         private string _errorMessage;

@@ -10,11 +10,6 @@
 
   <ItemGroup>
     <None Remove="View\Res\Fonts\Uncut-Sans-Regular.otf" />
-    <None Remove="View\Res\Icons\AccountIcon.png" />
-    <None Remove="View\Res\Icons\AccountKeys.png" />
-    <None Remove="View\Res\Icons\HintIcon.png" />
-    <None Remove="View\Res\Icons\KeyIcon.png" />
-    <None Remove="View\Res\Icons\MailIcon.png" />
     <None Remove="View\Res\Images\Logo.png" />
   </ItemGroup>
 
@@ -32,11 +27,6 @@
 
   <ItemGroup>
     <Resource Include="View\Res\Fonts\UncutSans\Uncut-Sans-Regular.otf" />
-    <Resource Include="View\Res\Icons\AccountIcon.png" />
-    <Resource Include="View\Res\Icons\AccountKeys.png" />
-    <Resource Include="View\Res\Icons\HintIcon.png" />
-    <Resource Include="View\Res\Icons\KeyIcon.png" />
-    <Resource Include="View\Res\Icons\MailIcon.png" />
     <Resource Include="View\Res\Images\Logo.png" />
   </ItemGroup>
 

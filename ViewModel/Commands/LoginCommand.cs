@@ -58,7 +58,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             _viewModel.ErrorMessage = null;
             _identity.Master = _viewModel.Password;
 
-            string apiKey = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, CryptoConstants.NETWORK_ITERATIONS_COUNT);
+            string apiKey = _encryptor.Encrypt(_identity.Master, _viewModel.Email, CryptoConstants.NETWORK_ITERATIONS_COUNT);
 
             _logger.Information($"Execute logging for E-mail: \"{_viewModel.Email}\" with hashed key \"{apiKey}\".");
 

@@ -48,37 +48,22 @@
                 <TextBlock Text="Service name"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <TextBox x:Name="ServiceName"
-                         Text="{Binding ServiceName, UpdateSourceTrigger=PropertyChanged}"
-                         Style="{StaticResource ResourceKey=OpenTextBox}">
-                    <TextBox.Background>
-                        <ImageBrush ImageSource="{StaticResource ResourceKey=AccountIcon}"
-                            Stretch="Uniform"
-                            AlignmentX="Left"/>
-                    </TextBox.Background>
-                </TextBox>
+                <customControls:InputField Text="{Binding ServiceName, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                                           Icon="{StaticResource ResourceKey=ServiceVectorIcon}"/>
 
                 <TextBlock Text="Login"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <TextBox x:Name="Login"
-                         Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
-                         Style="{StaticResource ResourceKey=OpenTextBox}">
-                    <TextBox.Background>
-                        <ImageBrush ImageSource="{StaticResource ResourceKey=AccountIcon}"
-                            Stretch="Uniform"
-                            AlignmentX="Left"/>
-                    </TextBox.Background>
-                </TextBox>
+                <customControls:InputField Text="{Binding Login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                                           Icon="{StaticResource ResourceKey=AccountVectorIcon}"
+                                           ImageHeight="18"
+                                           ImageWidth="20"/>
 
                 <TextBlock Text="Password"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <customControls:BindablePasswordBox x:Name="Password"
-                                                    Password="{Binding Password, Mode=TwoWay, 
-                                                               UpdateSourceTrigger=PropertyChanged}"
-                                                    Height="22"
-                                                    Margin="0, 5, 0, 0"/>
+                <customControls:InputField Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                                   Icon="{StaticResource ResourceKey=KeyVectorIcon}"/>
 
                 <TextBlock Text="{Binding ErrorMessage}"
                            Margin="0, 20, 0, 0"

@@ -82,7 +82,7 @@ namespace SnailPass_Desktop.Data.Repositories
             return accounts;
         }
 
-        public void ResetByAccount(string email)
+        public void ResetByEmail(string email)
         {
             using var connection = GetConnection();
             using (var command = new SqliteCommand())

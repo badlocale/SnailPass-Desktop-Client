@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SnailPass_Desktop.Model.Cryptography;
 using System;
 
 namespace SnailPass_Desktop.Model
@@ -11,15 +12,19 @@ namespace SnailPass_Desktop.Model
         [JsonProperty("id")]
         public string ID { get; set; }
 
+        [CryptableField]
         [JsonProperty("name")]
         public string ServiceName { get; set; }
 
+        [CryptableField]
         [JsonProperty("login")]
         public string? Login { get; set; }
 
+        [CryptableField]
         [JsonProperty("encrypted_password")]
         public string Password { get; set; }
 
+        [NonceField]
         [JsonProperty("nonce")]
         public string Nonce { get; set; }
 

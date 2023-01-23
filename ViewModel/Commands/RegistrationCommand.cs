@@ -52,7 +52,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             HttpStatusCode code = await _httpClient.PostUserAsync(user);
             if (code == HttpStatusCode.Created)
             {
-                //notification dialog
+                //notification dialog todo
                 _logger.Information($"Successful registration for: {user.Email}.");
             }
             else if (code == HttpStatusCode.Conflict)

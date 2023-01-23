@@ -29,7 +29,8 @@ namespace SnailPass_Desktop
             builder.RegisterType<UserIdentityStore>().As<IUserIdentityStore>().SingleInstance();
             builder.RegisterType<ApplicationModeStore>().As<IApplicationModeStore>().SingleInstance();
             builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
-            builder.RegisterType<SynchronizationService>().As<ISynchronizationService>().InstancePerDependency();
+            builder.RegisterType<SynchronizationService>().As<ISynchronizationService>().SingleInstance();
+            builder.RegisterType<CryptographyService>().As<ICryptographyService>().InstancePerDependency();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
             builder.Register<ILogger>((c, p) =>
             {
@@ -45,6 +46,7 @@ namespace SnailPass_Desktop
             builder.RegisterType<AccountsViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<ApplicationViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<AddNewAccountViewModel>().AsSelf().InstancePerDependency();
+            builder.RegisterType<AddCustomFieldViewModel>().AsSelf().InstancePerDependency();
 
             return builder.Build();
         }

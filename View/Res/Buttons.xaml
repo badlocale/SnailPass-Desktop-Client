@@ -137,11 +137,15 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
-                    <Border Background="{TemplateBinding Background}"
+                    <Border Background="Transparent"
+                            BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                            BorderThickness="0, 1, 0, 1">
+                        <Border Background="{TemplateBinding Background}"
                             BorderThickness="5, 0, 0, 0"
                             BorderBrush="{TemplateBinding BorderBrush}">
-                        <ContentPresenter HorizontalAlignment="Left"
+                            <ContentPresenter HorizontalAlignment="Left"
                                           VerticalAlignment="Center"/>
+                        </Border>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -208,7 +212,6 @@
 
     <Style x:Key="AddFieldButton" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}"/>
-        <Setter Property="Margin" Value="0, 10, 0, 0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">

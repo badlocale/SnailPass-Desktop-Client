@@ -11,12 +11,19 @@ namespace SnailPass_Desktop.Model.Cryptography
         private readonly HashAlgorithmName Algorithm = HashAlgorithmName.SHA512;
         private const int KeySize = 32;
 
-        public string Encrypt(SecureString password, string salt, int iterationCount)
+        public string Encrypt(SecureString plaintext, string salt, int iterationCount)
         {
-            string strPassword = SecureStringToString(password);
-            byte[] hashedMaster = Rfc2898DeriveBytes.Pbkdf2(strPassword, Encoding.UTF8.GetBytes(salt), iterationCount, Algorithm, KeySize);
+            string strPlaintext = SecureStringToString(plaintext);
+            byte[] generatedKey = Rfc2898DeriveBytes.Pbkdf2(strPlaintext, Encoding.UTF8.GetBytes(salt), iterationCount, Algorithm, KeySize);
 
-            return Convert.ToBase64String(hashedMaster);
+            return Convert.ToBase64String(generatedKey);
+        }
+
+        public string Encrypt(string plaintext, string salt, int iterationCount)
+        {
+            byte[] generatedKey = Rfc2898DeriveBytes.Pbkdf2(plaintext, Encoding.UTF8.GetBytes(salt), iterationCount, Algorithm, KeySize);
+
+            return Convert.ToBase64String(generatedKey);
         }
     }
 }

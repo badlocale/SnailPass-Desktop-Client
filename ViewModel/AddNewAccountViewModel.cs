@@ -10,8 +10,6 @@ namespace SnailPass_Desktop.ViewModel
 {
     public class AddNewAccountViewModel : ViewModelBase
     {
-        private readonly int ENC_KEY_ITERATIONS_COUNT;
-
         private string _errorMessage;
 
         private string _id;
@@ -22,12 +20,9 @@ namespace SnailPass_Desktop.ViewModel
         private DateTime _creationTime;
         private DateTime _updateTime;
         private string _userId;
-        private SecureString _password;
+        private string _password;
 
-        private ISymmetricCryptographer _cryptographer;
-        private IMasterPasswordEncryptor _encryptor;
         private IUserIdentityStore _identity;
-        private ILogger _logger;
 
         public string ServiceName
         {
@@ -49,7 +44,7 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public SecureString Password
+        public string Password
         {
             get { return _password; }
             set
@@ -69,15 +64,9 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public AddNewAccountViewModel(ISymmetricCryptographer cryptographer, IUserIdentityStore identity,
-            ILogger logger, IMasterPasswordEncryptor encryptor)
+        public AddNewAccountViewModel(IUserIdentityStore identity)
         {
-            ENC_KEY_ITERATIONS_COUNT = int.Parse(ConfigurationManager.AppSettings["enc_key_hash_iterations"]);
-
-            _cryptographer = cryptographer;
-            _encryptor = encryptor;
             _identity = identity;
-            _logger = logger;
 
             _isFavorite = false;
             _isDeleted = false;
@@ -99,9 +88,8 @@ namespace SnailPass_Desktop.ViewModel
             accountModel.IsDeleted = _isDeleted.ToString();
             accountModel.CreationTime = _creationTime.ToString();
             accountModel.UpdateTime = _updateTime.ToString();
-
-            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email, ENC_KEY_ITERATIONS_COUNT);
-            (accountModel.Password, accountModel.Nonce) = _cryptographer.Encrypt(_password, encKey, null);
+            accountModel.Password = _password;
+            accountModel.Nonce = null;
 
             return accountModel;
         }

@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
@@ -8,36 +9,50 @@ namespace SnailPass_Desktop.ViewModel.Commands
 {
     public class AddCustomFieldCommand : CommandBase
     {
-        AccountsViewModel _viewModel;
-        ILogger _logger;
-        IDialogService _dialogService;
-        IUserIdentityStore _identity;
-        IRestClient _httpClient;
+        private AccountsViewModel _viewModel;
+        private ILogger _logger;
+        private IDialogService _dialogService;
+        private IUserIdentityStore _identity;
+        private IRestClient _httpClient;
+        private ISynchronizationService _synchronizationService;
+        private ICryptographyService _cryptographyService;
 
         public AddCustomFieldCommand(AccountsViewModel viewModel, ILogger logger, 
-            IDialogService dialogService, IUserIdentityStore identity, IRestClient httpClient)
+            IDialogService dialogService, IUserIdentityStore identity, IRestClient httpClient, 
+            ICryptographyService cryptographyService, ISynchronizationService synchronizationService)
         {
             _viewModel = viewModel;
             _logger = logger;
             _dialogService = dialogService;
             _identity = identity;
             _httpClient = httpClient;
+            _cryptographyService = cryptographyService;
+            _synchronizationService = synchronizationService;
         }
 
         public override async void Execute(object? parameter)
         {
-            AddCustonFieldViewModel vm = _dialogService.ShowDialog<AddCustonFieldViewModel>();
+            AddCustomFieldViewModel? dialogVM = _dialogService.ShowDialog<AddCustomFieldViewModel>();
 
-            if (vm != null)
+            if (dialogVM != null)
             {
-                string email = _identity.CurrentUser.Email;
-                _logger.Information($"Execute 'add new field' for user: \"{email}\".");
+                EncryptedFieldModel model = dialogVM.CreateModel();
 
-                HttpStatusCode code = await _httpClient.PostCustomFieldAsync(vm.CreateModel()); 
+                _logger.Information($"Execute 'add new field' for account [{model.AccountId}] f" +
+                    $"or e-mail [{_identity.CurrentUser.Email}]. Field name: [{model.FieldName}].");
+
+                model.AccountId = _viewModel.SelectedAccount.ID;
+                _cryptographyService.Encrypt(model);
+
+                HttpStatusCode code = await _httpClient.PostCustomFieldAsync(model);
                 if (code == HttpStatusCode.Created)
                 {
-                    _viewModel.LoadCustomFields();
+                    await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
                 }
+            }
+            else
+            {
+                _logger.Information("Dialog 'add new field' cancelled.");
             }
         }
     }

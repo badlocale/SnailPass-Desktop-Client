@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="SnailPass_Desktop.CustomControls.InputField"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SnailPass_Desktop.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="200"
+             Name="root">
+    <Grid>
+        <Grid>
+            <Rectangle HorizontalAlignment="Left"
+                       Margin="0, 0, 0, -2"
+                       Width="{Binding ImageWidth, UpdateSourceTrigger=PropertyChanged, ElementName=root, Mode=OneWay}"
+                       Height="{Binding ImageHeight, UpdateSourceTrigger=PropertyChanged, ElementName=root, Mode=OneWay}"
+                       Fill="{StaticResource ResourceKey=LightTextColor}">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Uniform"
+                                 Visual="{Binding Icon, ElementName=root}"/>
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <TextBox x:Name="PasswordValue"
+                     Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, ElementName=root, Mode=TwoWay}"
+                     FontSize="15"
+                     FontWeight="Medium"
+                     FontFamily="Uncut Sans"
+                     Foreground="{StaticResource ResourceKey=DarkTextColor}"
+                     CaretBrush="{StaticResource ResourceKey=SoftGreyColor}"
+                     BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                     BorderThickness="0, 0, 0, 2"
+                     Height="22"
+                     Margin="0, 5, 0, 0"
+                     Padding="23, 0, 0, 0"
+                     Background="Transparent">
+            </TextBox>
+        </Grid>
+    </Grid>
+</UserControl>

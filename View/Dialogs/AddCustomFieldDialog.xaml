@@ -20,7 +20,7 @@
                     MouseDown="TopMenu_MouseDown"/>
             <Border Style="{StaticResource BodyBorderStyle}"/>
 
-            <TextBlock Text="Add new account data"
+            <TextBlock Text="Add additional account data"
                        Foreground="{StaticResource ResourceKey=DarkTextColor}"
                        FontSize="15"
                        FontFamily="Uncut Sans"
@@ -48,42 +48,14 @@
                 <TextBlock Text="Field name"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <Grid>
-                    <Rectangle HorizontalAlignment="Left"
-                               Margin="0, 0, 0, -2"
-                               Width="20"
-                               Height="20"
-                               Fill="{StaticResource ResourceKey=LightTextColor}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Uniform"
-                                         Visual="{StaticResource ResourceKey=FieldNameVectorIcon}"/>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBox x:Name="FieldName"
-                         Text="{Binding ServiceName, UpdateSourceTrigger=PropertyChanged}"
-                         Style="{StaticResource ResourceKey=OpenTextBox}">
-                    </TextBox>
-                </Grid>
+                <customControls:InputField Text="{Binding FieldName, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                                           Icon="{StaticResource ResourceKey=FieldNameVectorIcon}"/>
 
                 <TextBlock Text="Field value"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <Grid>
-                    <Rectangle HorizontalAlignment="Left"
-                               Margin="0, 0, 0, -2"
-                               Width="20"
-                               Height="20"
-                               Fill="{StaticResource ResourceKey=LightTextColor}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Uniform"
-                                         Visual="{StaticResource ResourceKey=FieldValueVectorIcon}"/>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBox x:Name="FieldValue"
-                         Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
-                         Style="{StaticResource ResourceKey=OpenTextBox}">
-                    </TextBox>
-                </Grid>
+                <customControls:InputField Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                                           Icon="{StaticResource ResourceKey=FieldValueVectorIcon}"/>
 
                 <TextBlock Text="{Binding ErrorMessage}"
                            Margin="0, 20, 0, 0"

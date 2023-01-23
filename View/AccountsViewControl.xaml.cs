@@ -16,9 +16,8 @@ namespace SnailPass_Desktop.View
             AccountsViewModel vm = (AccountsViewModel)DataContext;
             if (vm != null)
             {
-                vm.DecryptCommand.Execute(new object());
+                
             }
-
         }
     }
 }

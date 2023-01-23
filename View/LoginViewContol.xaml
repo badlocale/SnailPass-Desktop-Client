@@ -27,15 +27,8 @@
         <TextBlock Text="E-mail"
                    Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-        <TextBox x:Name="Email"
-                 Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource ResourceKey=OpenTextBox}">
-            <TextBox.Background>
-                <ImageBrush ImageSource="{StaticResource ResourceKey=MailIcon}"
-                            Stretch="Uniform"
-                            AlignmentX="Left"/>
-            </TextBox.Background>
-        </TextBox>
+        <customControls:InputField Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                                   Icon="{StaticResource ResourceKey=MailVectorIcon}"/>
 
         <TextBlock Text="Master password"
                    Style="{StaticResource ResourceKey=HeaderTextStyle}"/>

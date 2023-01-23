@@ -8,7 +8,6 @@ using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -155,7 +154,6 @@ namespace SnailPass_Desktop.Data.API
             return (responce.StatusCode, accounts);
         }
 
-
         public async Task<HttpStatusCode> PostAccountAsync(AccountModel account)
         {
             HttpResponseMessage responce;
@@ -176,12 +174,12 @@ namespace SnailPass_Desktop.Data.API
             return responce.StatusCode;
         }
 
-        public async Task<(HttpStatusCode, IEnumerable<CustomFieldModel>?)> GetCustomFieldsAsync(string accountID)
+        public async Task<(HttpStatusCode, IEnumerable<EncryptedFieldModel>?)> GetCustomFieldsAsync(string accountID)
         {
             HttpResponseMessage responce;
             try
             {
-                responce = await _httpClient.GetAsync($"additional_field?record_id={accountID}");
+                responce = await _httpClient.GetAsync($"additional_fields?id={accountID}");
             }
             catch (HttpRequestException e)
             {
@@ -193,22 +191,28 @@ namespace SnailPass_Desktop.Data.API
             if (responce.IsSuccessStatusCode)
             {
                 string jsonString = responce.Content.ReadAsStringAsync().Result;
-                customFields = JsonConvert.DeserializeObject<IEnumerable<CustomFieldModel>>(jsonString);
+                customFields = JsonConvert.DeserializeObject<IEnumerable<EncryptedFieldModel>>(jsonString);
             }
 
             _logger.Information($"Getting custom field status: {responce.StatusCode}");
 
+            if (customFields == null)
+            {
+                return (responce.StatusCode, new List<EncryptedFieldModel>());
+            }
+
             return (responce.StatusCode, customFields);
         }
 
-        public async Task<HttpStatusCode> PostCustomFieldAsync(CustomFieldModel customField)
+        public async Task<HttpStatusCode> PostCustomFieldAsync(EncryptedFieldModel customField)
         {
             HttpResponseMessage responce;
             try
             {
                 string jsonField = JsonConvert.SerializeObject(customField);
-                StringContent content = new StringContent(jsonField, Encoding.UTF8, "application/json");
-                responce = await _httpClient.PostAsync("additional_field", content);
+                StringContent content = new StringContent
+                    (jsonField, Encoding.UTF8, "application/json");
+                responce = await _httpClient.PostAsync("additional_fields", content);
             }
             catch (HttpRequestException e)
             {

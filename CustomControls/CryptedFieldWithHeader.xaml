@@ -32,11 +32,12 @@
             <Grid x:Name="CryptedValueField"
                 Grid.Row="1"
                 Background="Transparent"
-                MouseEnter="CryptedValueField_MouseEnter"
-                MouseDown="CryptedValueField_MouseDown"
-                ToolTipService.InitialShowDelay="0">
+                ToolTipOpening="IsCopiedTooltip_ToolTipOpening"
+                ToolTipService.InitialShowDelay="0"
+                ToolTipService.ShowDuration="120000">
                 <Grid.ToolTip>
-                    <ToolTip Placement="Mouse"
+                    <ToolTip x:Name="IsCopiedTooltip"
+                             Placement="Mouse"
                              Background="{StaticResource ResourceKey=MainBackground}">
                         <ToolTip.Style>
                             <Style TargetType="ToolTip">
@@ -44,20 +45,20 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ToolTip">
                                             <Border Background="{StaticResource ResourceKey=MainBackground}"
-                                                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                                                    BorderThickness="1"
                                                     CornerRadius="5">
                                                 <TextBlock x:Name="TooltipText"
                                                            Margin="8">
                                                     <TextBlock.Style>
                                                         <Style BasedOn="{StaticResource ResourceKey=CommonTextStyle}" TargetType="TextBlock">
                                                             <Style.Triggers>
-                                                                <Trigger Property="{Binding IsCopied, ElementName=root}" Value="True" >
+                                                                <DataTrigger Binding="{Binding IsCopied, Mode=OneWay,
+                                                                    RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="True" >
                                                                     <Setter Property="Text" Value="Copied!"/>
-                                                                </Trigger>
-                                                                <Trigger Property="{Binding IsCopied, ElementName=root}" Value="False">
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsCopied, Mode=OneWay,
+                                                                    RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False" >
                                                                     <Setter Property="Text" Value="Click to copy!"/>
-                                                                </Trigger>
+                                                                </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
                                                     </TextBlock.Style>
@@ -110,9 +111,6 @@
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger>
-                    <!--<EventTrigger RoutedEvent="Binding.TargetUpdated">
-                        <RemoveStoryboard BeginStoryboardName="OpacityStoryboard"/>
-                    </EventTrigger>-->
                 </Grid.Triggers>
 
                 <Border x:Name="HintField"
@@ -128,7 +126,8 @@
                                     FontFamily="Uncat Sans"
                                     FontWeight="Regular"
                                     FontStyle="Italic"
-                                    Text="{Binding Hint, ElementName=root}"
+                                    Text="{Binding Hint, StringFormat='Hover over to open the \{0\}', 
+                                           Mode=OneWay, ElementName=root}"
                                     Foreground="{StaticResource ResourceKey=SemiVisibleTextColor}"
                                     Opacity="1">
                         </TextBlock>
@@ -141,8 +140,7 @@
                         Opacity="0">
                     <Border Height="35"
                             Width="auto">
-                        <TextBlock x:Name="PasswordTextBox"
-                                    Text="{Binding Value, ElementName=root}"
+                        <TextBlock  Text="{Binding Value, ElementName=root}"
                                     Foreground="{StaticResource ResourceKey=LightTextColor}"
                                     FontSize="15"
                                     FontFamily="Uncut Sans"

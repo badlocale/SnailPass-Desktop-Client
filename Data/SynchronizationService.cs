@@ -42,14 +42,14 @@ namespace SnailPass_Desktop.Data
                 throw new ArgumentNullException(nameof(accountID));
             }
 
-            IEnumerable<CustomFieldModel?> fields;
+            IEnumerable<EncryptedFieldModel?> fields;
             (_, fields) = await _restClient.GetCustomFieldsAsync(accountID);
 
             if (fields != null)
             {
-                _accountRepository.ResetByAccount(accountID);
+                _accountRepository.ResetByEmail(accountID);
 
-                foreach (CustomFieldModel account in fields)
+                foreach (EncryptedFieldModel account in fields)
                 {
                     _customFieldRepository.AddOrReplace(account);
                 }
@@ -68,12 +68,12 @@ namespace SnailPass_Desktop.Data
 
             if (accounts != null)
             {
-                _accountRepository.ResetByAccount(email);
+                _accountRepository.ResetByEmail(email);
 
                 foreach (AccountModel account in accounts)
                 {
-                    await SynchronizeFieldsDataAsync(account.ID);
                     _accountRepository.AddOrReplace(account);
+                    await SynchronizeFieldsDataAsync(account.ID);
                 }
             }
         }
@@ -95,6 +95,7 @@ namespace SnailPass_Desktop.Data
         {
             if (!_modeStore.IsLocalMode)
             {
+                _logger.Information("Synchronization started.");
                 Task user = SynchronizeUserDataAsync(email);
                 Task accounts = SynchronizeAccountsDataAsync(email);
                 await Task.WhenAll(user, accounts).ConfigureAwait(false);

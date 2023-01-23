@@ -14,7 +14,8 @@ namespace SnailPass_Desktop.Model.Cryptography
             byte[] byteEncData;
             byte[] byteNonce;
             (byteEncData, byteNonce) = EncryptInternal(Encoding.UTF8.GetBytes(plaintext),
-                                                       Convert.FromBase64String(key));
+                                                       Convert.FromBase64String(key),
+                                                       nonce);
 
             return (Convert.ToBase64String(byteEncData), Convert.ToBase64String(byteNonce));
         }
@@ -23,8 +24,9 @@ namespace SnailPass_Desktop.Model.Cryptography
         {
             byte[] byteEncData;
             byte[] byteNonce;
-            (byteEncData, byteNonce) = EncryptInternal(Encoding.UTF8.GetBytes(SecureStringToString(plaintext)), 
-                                                       Convert.FromBase64String(key));
+            (byteEncData, byteNonce) = EncryptInternal(Encoding.UTF8.GetBytes(SecureStringToString(plaintext)),
+                                                       Convert.FromBase64String(key),
+                                                       nonce);
          
             return (Convert.ToBase64String(byteEncData), Convert.ToBase64String(byteNonce));
         }
@@ -38,6 +40,7 @@ namespace SnailPass_Desktop.Model.Cryptography
             {
                 aes.KeySize = key.Length * 8;
                 aes.Key = key;
+                aes.Padding = PaddingMode.PKCS7; 
                 aes.Mode = CipherMode.CBC;
 
                 if (nonce == null)
@@ -87,6 +90,7 @@ namespace SnailPass_Desktop.Model.Cryptography
                 aes.KeySize = key.Length * 8;
                 aes.Key = key;
                 aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
                 aes.IV = nonce;
 
                 var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);

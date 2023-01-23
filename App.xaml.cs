@@ -56,6 +56,7 @@ namespace SnailPass_Desktop
         private void RegisterDialogs()
         {
             DialogService.RegisterDialog<AddNewAccountViewModel, AddNewAccountDialog>();
+            DialogService.RegisterDialog<AddCustomFieldViewModel, AddCustomFieldDialog>();
         }
     }
 }
