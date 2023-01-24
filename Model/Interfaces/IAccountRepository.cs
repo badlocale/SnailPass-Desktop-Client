@@ -6,6 +6,6 @@ namespace SnailPass_Desktop.Model.Interfaces
     {
         void AddOrReplace(AccountModel user);
         IEnumerable<AccountModel> GetByUserID(string userId);
-        void ResetByEmail(string email);
+        void DeleteAllByEmail(string email);
     }
 }

@@ -17,10 +17,10 @@ namespace SnailPass_Desktop.ViewModel
     public class AccountsViewModel : ViewModelBase
     {
         private readonly ObservableCollection<AccountModel> _accounts;
-        private readonly ObservableCollection<EncryptedFieldModel> _fields;
+        private readonly ObservableCollection<EncryptableFieldModel> _fields;
         private string _searchBarText = string.Empty;
         private AccountModel _selectedAccount = null;
-        private EncryptedFieldModel _selectedField = null;
+        private EncryptableFieldModel _selectedField = null;
 
         private IAccountRepository _accountRepository;
         private ICustomFieldRepository _customFieldRepository;
@@ -50,7 +50,7 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public EncryptedFieldModel SelectedField
+        public EncryptableFieldModel SelectedField
         {
             get { return _selectedField; }
             set
@@ -60,9 +60,10 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public ICommand RemoveCommand { get; set; }
-        public ICommand AddNewCommand { get; set; }
-        public ICommand UpdateCommand { get; set; }
+        public ICommand DeleteAccountCommand { get; set; }
+        public ICommand DeleteFieldCommand { get; set; }
+        public ICommand AddAccountCommand { get; set; }
+        public ICommand UpdateAccountCommand { get; set; }
         public ICommand AddCustomFieldCommand { get; set; }
 
         public ICollectionView AccountsCollectionView { get; }
@@ -80,12 +81,15 @@ namespace SnailPass_Desktop.ViewModel
             _cryptographyService = cryptographyService;
 
             _accounts = new ObservableCollection<AccountModel>();
-            _fields = new ObservableCollection<EncryptedFieldModel>();
+            _fields = new ObservableCollection<EncryptableFieldModel>();
 
-            RemoveCommand = new RemoveCommand();
-            AddNewCommand = new AddNewAccountCommand(this, dialogService, logger, httpClient, 
+            DeleteAccountCommand = new DeleteAccountCommand(this, httpClient, synchronizationService,
+                identity, logger);
+            DeleteFieldCommand = new DeleteFieldCommand(this, httpClient, synchronizationService, 
+                identity, logger);
+            AddAccountCommand = new AddNewAccountCommand(this, dialogService, logger, httpClient, 
                 identity, cryptographyService, synchronizationService);
-            UpdateCommand = new UpdateCommand();
+            UpdateAccountCommand = new UpdateAccountCommand();
             AddCustomFieldCommand = new AddCustomFieldCommand(this, logger, dialogService, 
                 identity, httpClient, cryptographyService, synchronizationService);
 
@@ -120,19 +124,20 @@ namespace SnailPass_Desktop.ViewModel
                 return;
             }
 
-            IEnumerable<EncryptedFieldModel> customFields = _customFieldRepository.GetByAccountID(_selectedAccount.ID);
+            IEnumerable<EncryptableFieldModel> customFields = _customFieldRepository.GetByAccountID(_selectedAccount.ID);
 
             _fields.Clear();
 
-            EncryptedFieldModel passwordField = new EncryptedFieldModel();
+            EncryptableFieldModel passwordField = new EncryptableFieldModel();
             passwordField.ID = _selectedAccount.ID;
             passwordField.FieldName = "Password";   
             passwordField.Value = _selectedAccount.Password;
             passwordField.Nonce = _selectedAccount.Nonce;
             passwordField.AccountId = _selectedAccount.ID;
+            passwordField.IsDeletable = false;
             _fields.Add(passwordField);
 
-            foreach (EncryptedFieldModel field in customFields)
+            foreach (EncryptableFieldModel field in customFields)
             {
                 _cryptographyService.Decrypt(field);
                 _fields.Add(field);

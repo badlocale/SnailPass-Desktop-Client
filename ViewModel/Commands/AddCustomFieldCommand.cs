@@ -36,7 +36,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
             if (dialogVM != null)
             {
-                EncryptedFieldModel model = dialogVM.CreateModel();
+                EncryptableFieldModel model = dialogVM.CreateModel();
 
                 _logger.Information($"Execute 'add new field' for account [{model.AccountId}] f" +
                     $"or e-mail [{_identity.CurrentUser.Email}]. Field name: [{model.FieldName}].");

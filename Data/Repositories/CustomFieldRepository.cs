@@ -7,7 +7,7 @@ namespace SnailPass_Desktop.Data.Repositories
 {
     public class CustomFieldRepository : RepositoryBase, ICustomFieldRepository
     {
-        public void AddOrReplace(EncryptedFieldModel customField)
+        public void AddOrReplace(EncryptableFieldModel customField)
         {
             using var connection = GetConnection();
             using (SqliteCommand command = new())
@@ -28,9 +28,9 @@ namespace SnailPass_Desktop.Data.Repositories
             }
         }
 
-        public IEnumerable<EncryptedFieldModel> GetByAccountID(string accountId)
+        public IEnumerable<EncryptableFieldModel> GetByAccountID(string accountId)
         {
-            List<EncryptedFieldModel> fields = new();
+            List<EncryptableFieldModel> fields = new();
 
             using var connection = GetConnection();
             using (var command = new SqliteCommand())
@@ -47,7 +47,7 @@ namespace SnailPass_Desktop.Data.Repositories
                 {
                     while (reader.Read())
                     {
-                        EncryptedFieldModel model = new EncryptedFieldModel()
+                        EncryptableFieldModel model = new EncryptableFieldModel()
                         {
                             ID = reader[0].ToString(),
                             FieldName = reader[1].ToString(),
@@ -64,7 +64,7 @@ namespace SnailPass_Desktop.Data.Repositories
             return fields;
         }
 
-        public void ResetByEmail(string email)
+        public void DeleteAllByEmail(string email)
         {
             using var connection = GetConnection();
             using (var command = new SqliteCommand())

@@ -42,14 +42,14 @@ namespace SnailPass_Desktop.Data
                 throw new ArgumentNullException(nameof(accountID));
             }
 
-            IEnumerable<EncryptedFieldModel?> fields;
+            IEnumerable<EncryptableFieldModel?> fields;
             (_, fields) = await _restClient.GetCustomFieldsAsync(accountID);
 
             if (fields != null)
             {
-                _accountRepository.ResetByEmail(accountID);
+                _accountRepository.DeleteAllByEmail(accountID);
 
-                foreach (EncryptedFieldModel account in fields)
+                foreach (EncryptableFieldModel account in fields)
                 {
                     _customFieldRepository.AddOrReplace(account);
                 }
@@ -68,7 +68,7 @@ namespace SnailPass_Desktop.Data
 
             if (accounts != null)
             {
-                _accountRepository.ResetByEmail(email);
+                _accountRepository.DeleteAllByEmail(email);
 
                 foreach (AccountModel account in accounts)
                 {
@@ -98,7 +98,10 @@ namespace SnailPass_Desktop.Data
                 _logger.Information("Synchronization started.");
                 Task user = SynchronizeUserDataAsync(email);
                 Task accounts = SynchronizeAccountsDataAsync(email);
-                await Task.WhenAll(user, accounts).ConfigureAwait(false);
+                Task aggregateTask = Task.WhenAll(user, accounts);
+                await aggregateTask.ConfigureAwait(false);
+                aggregateTask.Wait();
+
                 _logger.Information("Data has been loaded from server.");
             }
             else

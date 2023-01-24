@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
-    public class UpdateCommand : CommandBase
+    public class UpdateAccountCommand : CommandBase
     {
         public override void Execute(object? parameter)
         {

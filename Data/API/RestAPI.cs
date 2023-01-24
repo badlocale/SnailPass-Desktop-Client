@@ -2,6 +2,7 @@
 using Serilog;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Interfaces;
+using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Data.API
 {
-    public class RestAPI : IRestClient, IDisposable
+    public partial class RestAPI : IRestClient, IDisposable
     {
         private ILogger _logger;
 
@@ -55,7 +56,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException e)
             {
-                _logger.Error($"Cant connect to the server.");
+                _logger.Error($"Can`t connect to the server.");
                 throw new HttpRequestException("It is impossible to \"log in\" because the server is unavailable", e);
             }
 
@@ -83,7 +84,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException e)
             {
-                _logger.Error($"Cant connect to the server.");
+                _logger.Error($"Can`t connect to the server.");
                 throw new HttpRequestException("It is impossible to \"get user\" because the server is unavailable", e);
             }
 
@@ -115,7 +116,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException e)
             {
-                _logger.Error($"Cant connect to the server.");
+                _logger.Error($"Can`t connect to the server.");
                 throw new HttpRequestException("It is impossible to \"register\" because the server is unavailable", e);
             }
 
@@ -133,7 +134,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException e)
             {
-                _logger.Error($"Cant connect to the server.");
+                _logger.Error($"Can`t connect to the server.");
                 throw new HttpRequestException("It is impossible to \"get accounts\" because the server is unavailable", e);
             }
 
@@ -165,7 +166,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException e)
             {
-                _logger.Error($"Cant connect to the server.");
+                _logger.Error($"Can`t connect to the server.");
                 throw new HttpRequestException("It is impossible to \"add new record\" because the server is unavailable", e);
             }
 
@@ -174,7 +175,25 @@ namespace SnailPass_Desktop.Data.API
             return responce.StatusCode;
         }
 
-        public async Task<(HttpStatusCode, IEnumerable<EncryptedFieldModel>?)> GetCustomFieldsAsync(string accountID)
+        public async Task<HttpStatusCode> DeleteAccountAsync(string accountID)
+        {
+            HttpResponseMessage responce;
+            try
+            {
+                responce = await _httpClient.DeleteAsync($"records?id={accountID}");
+            }
+            catch (HttpRequestException e)
+            {
+                _logger.Error($"Can`t connect to the server.");
+                throw new HttpRequestException("It is impossible to \"delete account\" because the server is unavailable", e);
+            }
+
+            _logger.Information($"Deleting account status: {responce.StatusCode}");
+
+            return responce.StatusCode;
+        }
+
+        public async Task<(HttpStatusCode, IEnumerable<EncryptableFieldModel>?)> GetCustomFieldsAsync(string accountID)
         {
             HttpResponseMessage responce;
             try
@@ -183,28 +202,28 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException e)
             {
-                _logger.Error($"Cant connect to the server.");
+                _logger.Error($"Can`t connect to the server.");
                 throw new HttpRequestException("It is impossible to \"get fields\" because the server is unavailable", e);
             }
 
-            IEnumerable<EncryptedFieldModel>? customFields = null;
+            IEnumerable<EncryptableFieldModel>? customFields = null;
             if (responce.IsSuccessStatusCode)
             {
                 string jsonString = responce.Content.ReadAsStringAsync().Result;
-                customFields = JsonConvert.DeserializeObject<IEnumerable<EncryptedFieldModel>>(jsonString);
+                customFields = JsonConvert.DeserializeObject<IEnumerable<EncryptableFieldModel>>(jsonString);
             }
 
             _logger.Information($"Getting custom field status: {responce.StatusCode}");
 
             if (customFields == null)
             {
-                return (responce.StatusCode, new List<EncryptedFieldModel>());
+                return (responce.StatusCode, new List<EncryptableFieldModel>());
             }
 
             return (responce.StatusCode, customFields);
         }
 
-        public async Task<HttpStatusCode> PostCustomFieldAsync(EncryptedFieldModel customField)
+        public async Task<HttpStatusCode> PostCustomFieldAsync(EncryptableFieldModel customField)
         {
             HttpResponseMessage responce;
             try
@@ -216,11 +235,29 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException e)
             {
-                _logger.Error($"Cant connect to the server.");
+                _logger.Error($"Can`t connect to the server.");
                 throw new HttpRequestException("It is impossible to \"add new record\" because the server is unavailable", e);
             }
 
             _logger.Information($"Adding custom field status: {responce.StatusCode}");
+
+            return responce.StatusCode;
+        }
+
+        public async Task<HttpStatusCode> DeleteCustomFieldAsync(string fieldID)
+        {
+            HttpResponseMessage responce;
+            try
+            {
+                responce = await _httpClient.DeleteAsync($"additional_fields?id={fieldID}");
+            }
+            catch (HttpRequestException e)
+            {
+                _logger.Error($"Can`t connect to the server.");
+                throw new HttpRequestException("It is impossible to \"delete custom field\" because the server is unavailable", e);
+            }
+
+            _logger.Information($"Deleting custom field status: {responce.StatusCode}");
 
             return responce.StatusCode;
         }

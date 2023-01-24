@@ -46,9 +46,9 @@ namespace SnailPass_Desktop.ViewModel
             _id = Guid.NewGuid().ToString();
         }
 
-        public EncryptedFieldModel CreateModel()
+        public EncryptableFieldModel CreateModel()
         {
-            EncryptedFieldModel model = new();
+            EncryptableFieldModel model = new();
 
             model.ID = _id;
             model.AccountId = null;

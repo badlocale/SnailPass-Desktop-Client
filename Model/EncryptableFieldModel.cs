@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 using SnailPass_Desktop.Model.Cryptography;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Model
 {
-    public class EncryptedFieldModel
+    public class EncryptableFieldModel
     {
+        private bool _isDeletable = true;
+
         [JsonProperty("id")]
         public string ID { get; set; }
 
@@ -26,9 +25,15 @@ namespace SnailPass_Desktop.Model
         [JsonProperty("record_id")]
         public string AccountId { get; set; }
 
-        public EncryptedFieldModel() { }
+        public bool IsDeletable
+        {
+            get { return _isDeletable; }
+            set { _isDeletable = value; }
+        }
 
-        public EncryptedFieldModel(string id, string fieldName, string value, string nonce, string accountId)
+        public EncryptableFieldModel() { }
+
+        public EncryptableFieldModel(string id, string fieldName, string value, string nonce, string accountId)
         {
             ID = id;
             FieldName = fieldName;
@@ -39,7 +44,7 @@ namespace SnailPass_Desktop.Model
 
         public override string ToString()
         {
-            return $"ID: {ID}, Field name: {FieldName}, Value: {Value}, Nonce: {Nonce}, Account ID: {AccountId}";
+            return $"ID: {ID}, Field name: {FieldName}, Value: {Value}, Nonce: {Nonce}, Account ID: {AccountId}, IsDeletable: {IsDeletable}";
         }
     }
 }

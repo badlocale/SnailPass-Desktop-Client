@@ -11,13 +11,10 @@ namespace SnailPass_Desktop.View
             InitializeComponent();
         }
 
-        private void PasswordTextBox_MouseEnter(object sender, MouseEventArgs e)
+        private void FieldsListBox_MouseEnter(object sender, MouseEventArgs e)
         {
-            AccountsViewModel vm = (AccountsViewModel)DataContext;
-            if (vm != null)
-            {
-                
-            }
+            ListBox listBox = sender as ListBox;
+            listBox?.Focus();
         }
     }
 }

@@ -6,9 +6,6 @@ namespace SnailPass_Desktop.Model
 {
     public class AccountModel
     {
-        private bool _isDecrypted = false;
-        private string? _encPass;
-
         [JsonProperty("id")]
         public string ID { get; set; }
 
@@ -43,14 +40,6 @@ namespace SnailPass_Desktop.Model
         [JsonProperty("user_id")]
         public string UserId { get; set; }
 
-        public bool IsPasswordDecrypted 
-        {
-            get
-            {
-                return _isDecrypted;
-            }
-        }
-
         public AccountModel() { }
 
         public AccountModel(string iD, string serviceName, string? login, string password, 
@@ -67,30 +56,6 @@ namespace SnailPass_Desktop.Model
             CreationTime = creationTime;
             UpdateTime = updateTime;
             UserId = userId;
-        }
-
-        public void SetDecryptedPass(string decryptedPassword)
-        {
-            if (Password != null)
-            {
-                if (_isDecrypted == false)
-                {
-                    _isDecrypted = true;
-                    _encPass = Password;
-                    Password = decryptedPassword;
-                }
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public void MakeEncrypted()
-        {
-            _isDecrypted = false;
-            Password = _encPass;
-            _encPass = null;
         }
 
         public override string ToString()

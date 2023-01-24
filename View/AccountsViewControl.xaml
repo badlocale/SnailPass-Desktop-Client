@@ -88,8 +88,8 @@
                 Background="{StaticResource ResourceKey=SecondBackground}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="15*"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition  Width="25*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
@@ -227,16 +227,64 @@
                 </Border>
 
                 <Border Grid.Row="2"
-                        Grid.ColumnSpan="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
                         BorderBrush="{StaticResource ResourceKey=BorderColor}"
                         BorderThickness="0"
                         CornerRadius="10, 10, 0, 0">
                     <Button x:Name="AddButton"
                             Style="{StaticResource ResourceKey=AddNewButton}"
-                            Command="{Binding AddNewCommand}" Grid.ColumnSpan="2">
+                            Command="{Binding AddAccountCommand}">
                     </Button>
                 </Border>
-
+                <Border Grid.Column="1"
+                        Grid.Row="2">
+                    <Button x:Name="DeleteButton"
+                            Command="{Binding DeleteAccountCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Setters>
+                                    <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Margin="2, 4, 4, 4"
+                                                        CornerRadius="10"
+                                                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                                                        BorderThickness="1"
+                                                        Background="{TemplateBinding Background}">
+                                                    <Rectangle Grid.Column="0"
+                                                               VerticalAlignment="Center"
+                                                               HorizontalAlignment="Center"
+                                                               Width="25"
+                                                               Height="25"
+                                                               Fill="{StaticResource ResourceKey=LightTextColor}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Uniform"
+                                                                         Visual="{StaticResource ResourceKey=BinVectorIcon}"/>
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style.Setters>
+                                
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.5"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Border>
             </Grid>
         </Border>
 
@@ -301,21 +349,28 @@
                     </StackPanel>
                 </Border>
 
-                <ListBox Grid.Row="2"
+                <ListBox Name="FieldsListBox"
+                        Grid.Row="2"
                         ItemsSource="{Binding FieldsCollectionView}"
                         SelectedItem="{Binding SelectedField}"
                         Background="Transparent"
                         HorizontalContentAlignment="Stretch"
                         BorderThickness="0"
                         Margin="0, 3, 0, 0"
+                        MouseEnter="FieldsListBox_MouseEnter"
                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                        ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                        d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="5, 5, 5, 0">
+                            <Border Name="FieldElement"
+                                    Margin="5, 5, 5, 0"
+                                    Background="Transparent">
                                 <customcontrols:CryptedFieldWithHeader
                                         Title="{Binding FieldName}"
-                                        Value="{Binding Value}"/>
+                                        Value="{Binding Value}"
+                                        IsDeletable="{Binding IsDeletable}"
+                                        DeleteCommand="{Binding Path=DataContext.DeleteFieldCommand, ElementName=userControl}"/>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -325,6 +380,9 @@
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="IsSelected" Value="True"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+
                                 </Trigger>
                             </Style.Triggers>
 
