@@ -11,11 +11,11 @@ namespace SnailPass_Desktop.Model.Cryptography
     public class CryptographyService : ICryptographyService
     {
         private ISymmetricCryptographer _cryptographer;
-        private IMasterPasswordEncryptor _encryptor;
+        private IKeyGenerator _encryptor;
         private IUserIdentityStore _identity;
         private ILogger _logger;
 
-        public CryptographyService(ISymmetricCryptographer cryptographer, IMasterPasswordEncryptor encryptor, 
+        public CryptographyService(ISymmetricCryptographer cryptographer, IKeyGenerator encryptor, 
             IUserIdentityStore identity, ILogger logger)
         {
             _cryptographer = cryptographer;

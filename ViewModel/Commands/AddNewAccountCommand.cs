@@ -13,19 +13,19 @@ namespace SnailPass_Desktop.ViewModel.Commands
         private AccountsViewModel _viewModel;
         private IDialogService _dialogService;
         private ILogger _logger;
-        private IRestClient _httpClient;
+        private IAccountRestApi _accountsRestApi;
         private IUserIdentityStore _identity;
         private ICryptographyService _cryptographyService;
         private ISynchronizationService _synchronizationService;
 
         public AddNewAccountCommand(AccountsViewModel viewModel, IDialogService dialogService, 
-            ILogger logger, IRestClient httpClient, IUserIdentityStore identity, 
+            ILogger logger, IAccountRestApi accountRestApi, IUserIdentityStore identity, 
             ICryptographyService cryptographyService, ISynchronizationService synchronizationService)
         {
             _viewModel = viewModel;
             _dialogService = dialogService;
             _logger = logger;
-            _httpClient = httpClient;
+            _accountsRestApi = accountRestApi;
             _identity = identity;
             _cryptographyService = cryptographyService;
             _synchronizationService = synchronizationService;   
@@ -42,7 +42,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
                 AccountModel model = dialogVM.CreateModel();
                 _cryptographyService.Encrypt(model);
-                HttpStatusCode code = await _httpClient.PostAccountAsync(model);
+                HttpStatusCode? code = await _accountsRestApi.PostAccountAsync(model);
                 if (code == HttpStatusCode.Created)
                 {
                     await _synchronizationService.SynchronizeAsync(email);

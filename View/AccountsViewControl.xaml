@@ -10,8 +10,8 @@
              d:DesignHeight="450" d:DesignWidth="700">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60*" MinWidth="150"/>
-            <ColumnDefinition Width="40*" MinWidth="200"/>
+            <ColumnDefinition Width="*" MinWidth="150"/>
+            <ColumnDefinition Width="280" MinWidth="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -92,8 +92,8 @@
                     <ColumnDefinition  Width="25*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="90*"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
 
@@ -135,6 +135,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ListBoxItem">
                                             <Border Name="ItemBorder"
+                                                Background="Transparent"
                                                 Margin="10, 0, 0, 0"
                                                 SnapsToDevicePixels="true"
                                                 BorderBrush="{StaticResource ResourceKey=BorderColor}">
@@ -144,7 +145,7 @@
                                                 <Trigger Property="IsMouseOver" Value="True">
                                                     <Setter TargetName="ItemBorder"
                                                         Property="Background"
-                                                        Value="{StaticResource ResourceKey=SecondBackground}"/>
+                                                        Value="{StaticResource ResourceKey=NearMainBackground}"/>
                                                     <Setter TargetName="ItemBorder"
                                                         Property="Padding"
                                                         Value="6, 0, 0, 0"/>

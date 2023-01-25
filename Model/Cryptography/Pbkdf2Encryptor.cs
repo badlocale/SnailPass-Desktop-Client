@@ -6,7 +6,7 @@ using SnailPass_Desktop.Model.Interfaces;
 
 namespace SnailPass_Desktop.Model.Cryptography
 {
-    public class Pbkdf2Encryptor : CryptographerBase, IMasterPasswordEncryptor
+    public class Pbkdf2Encryptor : CryptographerBase, IKeyGenerator
     {
         private readonly HashAlgorithmName Algorithm = HashAlgorithmName.SHA512;
         private const int KeySize = 32;

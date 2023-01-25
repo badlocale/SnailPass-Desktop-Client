@@ -9,7 +9,8 @@ namespace SnailPass_Desktop.Model.Interfaces
 {
     public interface IUserRestApi
     {
-        public Task<(HttpStatusCode, UserModel)> GetUserAsync(string email);
-        public Task<HttpStatusCode> PostUserAsync(UserModel user);
+        public Task<HttpStatusCode?> LoginAsync(string email, string password);
+        public Task<(HttpStatusCode?, UserModel?)> GetUserAsync(string email);
+        public Task<HttpStatusCode?> PostUserAsync(UserModel user);
     }
 }

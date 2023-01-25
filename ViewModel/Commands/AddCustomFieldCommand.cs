@@ -13,19 +13,19 @@ namespace SnailPass_Desktop.ViewModel.Commands
         private ILogger _logger;
         private IDialogService _dialogService;
         private IUserIdentityStore _identity;
-        private IRestClient _httpClient;
+        private ICustomFieldRestApi _customFieldRestApi;
         private ISynchronizationService _synchronizationService;
         private ICryptographyService _cryptographyService;
 
         public AddCustomFieldCommand(AccountsViewModel viewModel, ILogger logger, 
-            IDialogService dialogService, IUserIdentityStore identity, IRestClient httpClient, 
+            IDialogService dialogService, IUserIdentityStore identity, ICustomFieldRestApi customFieldRestApi, 
             ICryptographyService cryptographyService, ISynchronizationService synchronizationService)
         {
             _viewModel = viewModel;
             _logger = logger;
             _dialogService = dialogService;
             _identity = identity;
-            _httpClient = httpClient;
+            _customFieldRestApi = customFieldRestApi;
             _cryptographyService = cryptographyService;
             _synchronizationService = synchronizationService;
         }
@@ -44,7 +44,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
                 model.AccountId = _viewModel.SelectedAccount.ID;
                 _cryptographyService.Encrypt(model);
 
-                HttpStatusCode code = await _httpClient.PostCustomFieldAsync(model);
+                HttpStatusCode? code = await _customFieldRestApi.PostCustomFieldAsync(model);
                 if (code == HttpStatusCode.Created)
                 {
                     await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);

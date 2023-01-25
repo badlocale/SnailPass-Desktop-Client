@@ -22,8 +22,10 @@ namespace SnailPass_Desktop
             builder.RegisterType<UserRepository>().As<IUserRepository>().SingleInstance();
             builder.RegisterType<AccountRepository>().As<IAccountRepository>().SingleInstance();
             builder.RegisterType<CustomFieldRepository>().As<ICustomFieldRepository>().SingleInstance();
-            builder.RegisterType<RestAPI>().As<IRestClient>().SingleInstance();
-            builder.RegisterType<Pbkdf2Encryptor>().As<IMasterPasswordEncryptor>().SingleInstance();
+            builder.RegisterType<UserApi>().As<IUserRestApi>().SingleInstance();
+            builder.RegisterType<AccountApi>().As<IAccountRestApi>().SingleInstance();
+            builder.RegisterType<CustomFieldsApi>().As<ICustomFieldRestApi>().SingleInstance();
+            builder.RegisterType<Pbkdf2Encryptor>().As<IKeyGenerator>().SingleInstance();
             builder.RegisterType<AesCbcCryptographer>().As<ISymmetricCryptographer>();
             builder.RegisterType<NavigationStore>().As<INavigationStore>().InstancePerLifetimeScope();
             builder.RegisterType<UserIdentityStore>().As<IUserIdentityStore>().SingleInstance();

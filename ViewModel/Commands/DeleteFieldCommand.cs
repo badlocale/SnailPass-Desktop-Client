@@ -11,17 +11,17 @@ namespace SnailPass_Desktop.ViewModel.Commands
     public class DeleteFieldCommand : CommandBase
     {
         private AccountsViewModel _viewModel;
-        private IRestClient _httpClient;
+        private ICustomFieldRestApi _customFieldRestApi;
         private ISynchronizationService _synchronizationService;
         private IUserIdentityStore _identity;
         private ILogger _logger;
 
-        public DeleteFieldCommand(AccountsViewModel viewModel, IRestClient httpClient,
+        public DeleteFieldCommand(AccountsViewModel viewModel, ICustomFieldRestApi customFieldRestApi,
             ISynchronizationService synchronizationService, IUserIdentityStore identity,
             ILogger logger)
         {
             _viewModel = viewModel;
-            _httpClient = httpClient;
+            _customFieldRestApi = customFieldRestApi;
             _synchronizationService = synchronizationService;
             _identity = identity;
             _logger = logger;
@@ -39,7 +39,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
             _logger.Information($"Execute deletion for field with ID: \"{field.ID}\".");
 
-            HttpStatusCode code = await _httpClient.DeleteCustomFieldAsync(field.ID);
+            HttpStatusCode? code = await _customFieldRestApi.DeleteCustomFieldAsync(field.ID);
             if (code == HttpStatusCode.OK)
             {
                 await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);

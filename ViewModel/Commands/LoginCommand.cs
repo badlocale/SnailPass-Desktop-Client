@@ -17,20 +17,20 @@ namespace SnailPass_Desktop.ViewModel.Commands
         private LoginViewModel _viewModel;
         private IUserIdentityStore _identity;
         private IUserRepository _repository;
-        private IMasterPasswordEncryptor _encryptor;
-        private IRestClient _httpClient;
+        private IKeyGenerator _encryptor;
+        private IUserRestApi _userRestApi;
         private ILogger _logger;
         private IDialogService _dialogService;
         private ISynchronizationService _synchronizationService;
         private IApplicationModeStore _modeStore;
 
-        public LoginCommand(LoginViewModel viewModel, IUserIdentityStore identity, IRestClient httpClient,
-            IUserRepository repository, IMasterPasswordEncryptor encryptor, ILogger logger, IDialogService dialogService, 
+        public LoginCommand(LoginViewModel viewModel, IUserIdentityStore identity, IUserRestApi userRestApi,
+            IUserRepository repository, IKeyGenerator encryptor, ILogger logger, IDialogService dialogService, 
             ISynchronizationService synchronizationService, IApplicationModeStore modeStore)
         {
             _viewModel = viewModel;
             _identity = identity;
-            _httpClient = httpClient;
+            _userRestApi = userRestApi;
             _repository = repository;
             _encryptor = encryptor;
             _logger = logger;
@@ -66,7 +66,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             {
                 //Authorization with server
 
-                HttpStatusCode code = await _httpClient.LoginAsync(_viewModel.Email, apiKey);
+                HttpStatusCode? code = await _userRestApi.LoginAsync(_viewModel.Email, apiKey);
 
                 if (code == HttpStatusCode.OK)
                 {

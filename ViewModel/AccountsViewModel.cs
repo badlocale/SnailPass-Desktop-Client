@@ -70,8 +70,9 @@ namespace SnailPass_Desktop.ViewModel
         public ICollectionView FieldsCollectionView { get; }
 
         public AccountsViewModel(IUserIdentityStore identity, IAccountRepository accountRepository, 
-            ICustomFieldRepository customFieldRepository, IDialogService dialogService, ILogger logger, 
-            IRestClient httpClient, ICryptographyService cryptographyService, ISynchronizationService synchronizationService)
+            ICustomFieldRepository customFieldRepository, IDialogService dialogService, ILogger logger,
+            ICryptographyService cryptographyService, ISynchronizationService synchronizationService,
+            IAccountRestApi accountRestApi, ICustomFieldRestApi customFieldRestApi)
         {
             _identity = identity;
             _accountRepository = accountRepository;
@@ -83,15 +84,15 @@ namespace SnailPass_Desktop.ViewModel
             _accounts = new ObservableCollection<AccountModel>();
             _fields = new ObservableCollection<EncryptableFieldModel>();
 
-            DeleteAccountCommand = new DeleteAccountCommand(this, httpClient, synchronizationService,
+            DeleteAccountCommand = new DeleteAccountCommand(this, accountRestApi, synchronizationService,
                 identity, logger);
-            DeleteFieldCommand = new DeleteFieldCommand(this, httpClient, synchronizationService, 
+            DeleteFieldCommand = new DeleteFieldCommand(this, customFieldRestApi, synchronizationService, 
                 identity, logger);
-            AddAccountCommand = new AddNewAccountCommand(this, dialogService, logger, httpClient, 
+            AddAccountCommand = new AddNewAccountCommand(this, dialogService, logger, accountRestApi, 
                 identity, cryptographyService, synchronizationService);
             UpdateAccountCommand = new UpdateAccountCommand();
             AddCustomFieldCommand = new AddCustomFieldCommand(this, logger, dialogService, 
-                identity, httpClient, cryptographyService, synchronizationService);
+                identity, customFieldRestApi, cryptographyService, synchronizationService);
 
             AccountsCollectionView = CollectionViewSource.GetDefaultView(_accounts);
             AccountsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(AccountModel.ServiceName)));

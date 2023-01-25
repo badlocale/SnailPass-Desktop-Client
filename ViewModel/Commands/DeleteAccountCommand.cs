@@ -15,17 +15,17 @@ namespace SnailPass_Desktop.ViewModel.Commands
     public class DeleteAccountCommand : CommandBase
     {
         private AccountsViewModel _viewModel;
-        private IRestClient _httpClient;
+        private IAccountRestApi _accountRestApi;
         private ISynchronizationService _synchronizationService;
         private IUserIdentityStore _identity;
         private ILogger _logger;
 
-        public DeleteAccountCommand(AccountsViewModel viewModel, IRestClient httpClient,
+        public DeleteAccountCommand(AccountsViewModel viewModel, IAccountRestApi accountRestApi,
             ISynchronizationService synchronizationService, IUserIdentityStore identity,
             ILogger logger)
         {
             _viewModel = viewModel;
-            _httpClient = httpClient;
+            _accountRestApi = accountRestApi;
             _synchronizationService = synchronizationService;
             _identity = identity;
             _logger = logger;
@@ -42,7 +42,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
             _logger.Information($"Execute deletion for account with ID: \"{account.ID}\".");
 
-            HttpStatusCode code = await _httpClient.DeleteAccountAsync(account.ID);
+            HttpStatusCode? code = await _accountRestApi.DeleteAccountAsync(account.ID);
             if (code == HttpStatusCode.OK)
             {
                 await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);

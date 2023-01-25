@@ -5,26 +5,23 @@ using System.Net;
 using Serilog;
 using SnailPass_Desktop.Model.Interfaces;
 using System.Configuration;
+using SnailPass_Desktop.Model.Cryptography;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
     public class RegistrationCommand : CommandBase
     {
-        private readonly int NETWORK_ITERATION_COUNT;
-
         RegistrationViewModel _viewModel;
-        IRestClient _httpClient;
-        IMasterPasswordEncryptor _encryptor;
+        IUserRestApi _userRestApi;
+        IKeyGenerator _keyGenerator;
         ILogger _logger;
 
-        public RegistrationCommand(RegistrationViewModel viewModel, IRestClient httpClient, 
-            IMasterPasswordEncryptor encryptor, ILogger logger)
+        public RegistrationCommand(RegistrationViewModel viewModel, IUserRestApi userRestApi,
+            IKeyGenerator encryptor, ILogger logger)
         {
-            NETWORK_ITERATION_COUNT = int.Parse(ConfigurationManager.AppSettings["network_hash_iterations"]);
-
             _viewModel = viewModel;
-            _httpClient = httpClient;
-            _encryptor = encryptor;
+            _userRestApi = _userRestApi;
+            _keyGenerator = encryptor;
             _logger = logger;
         }
 
@@ -41,15 +38,16 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
         public override async void Execute(object? obj)
         {
-            _viewModel.ErrorMessage = null;
+            _viewModel.ErrorMessage = String.Empty;
             _viewModel.ID = Guid.NewGuid().ToString();
 
-            string encryptedPassword = _encryptor.Encrypt(_viewModel.Password, _viewModel.Email, NETWORK_ITERATION_COUNT);
+            string encryptedPassword = _keyGenerator.Encrypt(_viewModel.Password, _viewModel.Email, 
+                CryptoConstants.NETWORK_ITERATIONS_COUNT);
             UserModel user = new UserModel(_viewModel.ID, _viewModel.Email, _viewModel.Hint, encryptedPassword);
 
             _logger.Debug($"Execute regitration for E-mail: \"{user.Email}\"");
 
-            HttpStatusCode code = await _httpClient.PostUserAsync(user);
+            HttpStatusCode? code = await _userRestApi.PostUserAsync(user);
             if (code == HttpStatusCode.Created)
             {
                 //notification dialog todo

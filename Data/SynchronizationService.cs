@@ -11,26 +11,31 @@ namespace SnailPass_Desktop.Data
 {
     public class SynchronizationService : ISynchronizationService
     {
-        private IRestClient _restClient;
+        private IUserRestApi _userRestApi;
+        private IAccountRestApi _accountRestApi;
+        private ICustomFieldRestApi _customFieldRestApi;
         private ICustomFieldRepository _customFieldRepository;
-        private IAccountRepository _accountRepository;
         private IUserRepository _userRepository;
+        private IAccountRepository _accountRepository;
         private IUserIdentityStore _identity;
-        private IMasterPasswordEncryptor _encryptor;
+        private IKeyGenerator _keyGenerator;
         private IApplicationModeStore _modeStore;
         private ILogger _logger;
 
-        public SynchronizationService(IRestClient httpClient, IAccountRepository accountRepository, 
+        public SynchronizationService(IUserRestApi userRestApi, IAccountRestApi accountRestApi, 
+            ICustomFieldRestApi customFieldRestApi, IAccountRepository accountRepository, 
             ICustomFieldRepository customFieldRepository, IUserRepository userRepository, 
-            IUserIdentityStore identity, IMasterPasswordEncryptor encryptor, IApplicationModeStore modeStore, 
-            ILogger logger)
+            IUserIdentityStore identity, IKeyGenerator encryptor, 
+            IApplicationModeStore modeStore, ILogger logger)
         {
-            _restClient = httpClient;
+            _userRestApi = userRestApi;
+            _accountRestApi = accountRestApi;
+            _customFieldRestApi = customFieldRestApi;
             _customFieldRepository = customFieldRepository;
             _accountRepository = accountRepository;
             _userRepository = userRepository;
             _identity = identity;
-            _encryptor = encryptor;
+            _keyGenerator = encryptor;
             _modeStore = modeStore;
             _logger = logger;
         }
@@ -43,11 +48,11 @@ namespace SnailPass_Desktop.Data
             }
 
             IEnumerable<EncryptableFieldModel?> fields;
-            (_, fields) = await _restClient.GetCustomFieldsAsync(accountID);
+            (_, fields) = await _customFieldRestApi.GetCustomFieldsAsync(accountID);
 
             if (fields != null)
             {
-                _accountRepository.DeleteAllByEmail(accountID);
+                _accountRepository.DeleteAllByEmail(accountID);//Delete
 
                 foreach (EncryptableFieldModel account in fields)
                 {
@@ -64,7 +69,7 @@ namespace SnailPass_Desktop.Data
             }
 
             IEnumerable<AccountModel> accounts;
-            (_, accounts) = await _restClient.GetAccountsAsync();
+            (_, accounts) = await _accountRestApi.GetAccountsAsync();
 
             if (accounts != null)
             {
@@ -86,8 +91,8 @@ namespace SnailPass_Desktop.Data
             }
 
             UserModel user;
-            (_, user) = await _restClient.GetUserAsync(email);
-            user.Password = _encryptor.Encrypt(_identity.Master, email, CryptoConstants.LOCAL_ITERATIONS_COUNT);
+            (_, user) = await _userRestApi.GetUserAsync(email);
+            user.Password = _keyGenerator.Encrypt(_identity.Master, email, CryptoConstants.LOCAL_ITERATIONS_COUNT);
             _userRepository.AddOrReplace(user);
         }
 

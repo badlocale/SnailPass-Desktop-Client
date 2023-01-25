@@ -2,7 +2,7 @@
 
 namespace SnailPass_Desktop.Model.Interfaces
 {
-    public interface IMasterPasswordEncryptor
+    public interface IKeyGenerator
     {
         public string Encrypt(SecureString plaintext, string salt, int iterationCount);
     }
