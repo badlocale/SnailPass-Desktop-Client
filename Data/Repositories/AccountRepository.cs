@@ -21,9 +21,9 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.Connection = connection;
                 command.CommandText = "REPLACE INTO accounts (id, service_name, login, " +
                                       "encrypted_password, user_id, is_favorite, is_deleted, " +
-                                      "creation_time, update_time, nonce) " +
+                                      "creation_time, update_time) " +
                                       "VALUES (@id, @service_name, @login, @encrypted_password, @user_id, " +
-                                      "@is_favorite, @is_deleted, @creation_time, @update_time, @nonce)";
+                                      "@is_favorite, @is_deleted, @creation_time, @update_time)";
 
                 command.Parameters.Add("@id", SqliteType.Text).Value = account.ID;
                 command.Parameters.Add("@service_name", SqliteType.Text).Value = account.ServiceName;
@@ -34,7 +34,6 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.Parameters.Add("@is_deleted", SqliteType.Text).Value = (object)account.IsDeleted;
                 command.Parameters.Add("@creation_time", SqliteType.Text).Value = account.CreationTime;
                 command.Parameters.Add("@update_time", SqliteType.Text).Value = account.UpdateTime;
-                command.Parameters.Add("@nonce", SqliteType.Text).Value = account.Nonce;
 
                 command.ExecuteNonQuery();
             }
@@ -50,7 +49,7 @@ namespace SnailPass_Desktop.Data.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "SELECT id, service_name, login, encrypted_password, " +
-                                      "is_favorite, is_deleted, creation_time, update_time, nonce " +
+                                      "is_favorite, is_deleted, creation_time, update_time " +
                                       "FROM accounts " +
                                       "WHERE user_id = @user_id AND is_deleted = 'false';";
 
@@ -70,8 +69,7 @@ namespace SnailPass_Desktop.Data.Repositories
                             IsFavorite = reader[4].ToString(),
                             IsDeleted = reader[5].ToString(),
                             CreationTime = reader[6].ToString(),
-                            UpdateTime = reader[7].ToString(),
-                            Nonce = reader[8].ToString()
+                            UpdateTime = reader[7].ToString()
                         };
 
                         accounts.Add(account);

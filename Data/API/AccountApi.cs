@@ -25,7 +25,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException)
             {
-                OnServerDisconnected();
+                OnServerNotResponding();
                 return (null, null);
             }
 
@@ -56,7 +56,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException)
             {
-                OnServerDisconnected();
+                OnServerNotResponding();
                 return null;
             }
             _logger.Information($"Registration status: {Responce?.StatusCode}");
@@ -72,7 +72,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException)
             {
-                OnServerDisconnected();
+                OnServerNotResponding();
                 return null;
             }
 

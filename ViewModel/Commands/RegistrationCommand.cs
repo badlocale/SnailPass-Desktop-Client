@@ -20,7 +20,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             IKeyGenerator encryptor, ILogger logger)
         {
             _viewModel = viewModel;
-            _userRestApi = _userRestApi;
+            _userRestApi = userRestApi;
             _keyGenerator = encryptor;
             _logger = logger;
         }

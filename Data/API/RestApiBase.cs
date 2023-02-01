@@ -10,7 +10,7 @@ namespace SnailPass_Desktop.Data.API
     public abstract class RestApiBase
     {
         public static event EventHandler TokenExpired;
-        public static event EventHandler ServerDisconnected;
+        public static event EventHandler ServerNotResponding;
 
         protected static HttpClient HttpClient = null;
         private static string _token = null;
@@ -62,10 +62,10 @@ namespace SnailPass_Desktop.Data.API
             TokenExpired?.Invoke(this, EventArgs.Empty);
         }
 
-        protected void OnServerDisconnected()
+        protected void OnServerNotResponding()
         {
-            _logger.Information("Server disconnected.");
-            ServerDisconnected?.Invoke(this, EventArgs.Empty);
+            _logger.Information("Server is not responding.");
+            ServerNotResponding?.Invoke(this, EventArgs.Empty);
         }
 
         protected void CheckIsTokenExpired(HttpStatusCode? code)

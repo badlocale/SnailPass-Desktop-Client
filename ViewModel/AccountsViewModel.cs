@@ -133,7 +133,6 @@ namespace SnailPass_Desktop.ViewModel
             passwordField.ID = _selectedAccount.ID;
             passwordField.FieldName = "Password";   
             passwordField.Value = _selectedAccount.Password;
-            passwordField.Nonce = _selectedAccount.Nonce;
             passwordField.AccountId = _selectedAccount.ID;
             passwordField.IsDeletable = false;
             _fields.Add(passwordField);

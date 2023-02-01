@@ -33,27 +33,24 @@ namespace SnailPass_Desktop.Model.Cryptography
                 return;
             }
 
-            PropertyInfo nonceProperty = SearhForNonceProperty(model);
-
-            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email, CryptoConstants.ENC_KEY_ITERATIONS_COUNT);
-            string encryptedValue = null;
-            string? nonceStr = null;
-            byte[]? nonce = null;
+            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email, 
+                CryptoConstants.ENC_KEY_ITERATIONS_COUNT);
+            
             foreach (PropertyInfo property in properties)
             {
                 string? plaintext = property.GetValue(model) as string;
+                string? ciphertext = null;
+                string? nonce = null;
 
                 if (string.IsNullOrEmpty(plaintext))
                 {
                     continue;
                 }
 
-                (encryptedValue, nonceStr) = _cryptographer.Encrypt(plaintext, encKey, nonce);
-                nonce = Convert.FromBase64String(nonceStr);
-                property.SetValue(model, encryptedValue);
+                (ciphertext, nonce) = _cryptographer.Encrypt(plaintext, encKey);
+                //nonce = Convert.FromBase64String(nonceStr);
+                property.SetValue(model, $"{ciphertext}:{nonce}");
             }
-
-            nonceProperty.SetValue(model, nonceStr);
         }
 
         public void Decrypt<ModelType>(ModelType model)
@@ -65,26 +62,28 @@ namespace SnailPass_Desktop.Model.Cryptography
                 return;
             }
 
-            PropertyInfo nonceProperties = SearhForNonceProperty(model);
-            string? nonce = nonceProperties.GetValue(model) as string;
-            if (nonce == null)
-            {
-                _logger.Error("Nonce field was not found in the encrypted object.");
-                return;
-            }
+            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email, 
+                CryptoConstants.ENC_KEY_ITERATIONS_COUNT);
 
-            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email, CryptoConstants.ENC_KEY_ITERATIONS_COUNT);
             foreach (PropertyInfo property in properties)
             {
-                string? encValue = property.GetValue(model) as string;
+                string? value = property.GetValue(model) as string;
+                string[] valueTokens = value.Split(':');
 
-                if (string.IsNullOrEmpty(encValue))
+                if (valueTokens.Length > 1)
                 {
-                    continue;
-                }
+                    string? ciphertext = valueTokens[0];
+                    string? nonce = valueTokens[1];
 
-                string encryptedValue = _cryptographer.Decrypt(encValue, encKey, nonce);
-                property.SetValue(model, encryptedValue);
+                    if (string.IsNullOrEmpty(ciphertext) || string.IsNullOrEmpty(nonce))
+                    {
+                        continue;
+                    }
+
+                    string encryptedValue = _cryptographer.Decrypt(ciphertext, encKey, nonce);
+                    property.SetValue(model, encryptedValue);
+                }
+                
             }
         }
 
@@ -92,20 +91,10 @@ namespace SnailPass_Desktop.Model.Cryptography
         {
             Type modelType = typeof(ModelType);
             IEnumerable<PropertyInfo> properties = from f in modelType.GetProperties()
-                                               where f.GetCustomAttributes(typeof(CryptableFieldAttribute), false).Length > 0 &&
-                                                     f.DeclaringType == modelType
-                                               select f;
+                                                   where f.GetCustomAttributes(typeof(CryptableFieldAttribute), false).Length > 0 &&
+                                                         f.DeclaringType == modelType
+                                                   select f;
             return properties;
-        }
-
-        private PropertyInfo SearhForNonceProperty<ModelType>(ModelType model)
-        {
-            Type modelType = typeof(ModelType);
-            PropertyInfo nonceProperty = (from n in modelType.GetProperties()
-                                       where n.GetCustomAttributes(typeof(NonceFieldAttribute), false).Length > 0 &&
-                                             n.DeclaringType == modelType
-                                       select n).First();
-            return nonceProperty;
         }
     }
 }

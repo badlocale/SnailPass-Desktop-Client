@@ -29,7 +29,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException)
             {
-                OnServerDisconnected();
+                OnServerNotResponding();
                 return (null, null);
             }
 
@@ -61,7 +61,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException)
             {
-                OnServerDisconnected();
+                OnServerNotResponding();
                 return null;
             }
 
@@ -78,7 +78,7 @@ namespace SnailPass_Desktop.Data.API
             }
             catch (HttpRequestException)
             {
-                OnServerDisconnected();
+                OnServerNotResponding();
                 return null;
             }
 

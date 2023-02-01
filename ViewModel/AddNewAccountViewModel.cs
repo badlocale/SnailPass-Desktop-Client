@@ -89,7 +89,6 @@ namespace SnailPass_Desktop.ViewModel
             accountModel.CreationTime = _creationTime.ToString();
             accountModel.UpdateTime = _updateTime.ToString();
             accountModel.Password = _password;
-            accountModel.Nonce = null;
 
             return accountModel;
         }

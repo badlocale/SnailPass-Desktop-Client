@@ -15,13 +15,12 @@ namespace SnailPass_Desktop.Data.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "REPLACE INTO additional_fields (id, field_name, value, " +
-                                      "nonce, account_id) " +
-                                      "VALUES (@id, @field_name, @value, @nonce, @account_id);";
+                                      "account_id) " +
+                                      "VALUES (@id, @field_name, @value, @account_id);";
 
                 command.Parameters.Add("@id", SqliteType.Text).Value = customField.ID;
                 command.Parameters.Add("@field_name", SqliteType.Text).Value = customField.FieldName;
                 command.Parameters.Add("@value", SqliteType.Text).Value = customField.Value;
-                command.Parameters.Add("@nonce", SqliteType.Text).Value = customField.Nonce;
                 command.Parameters.Add("@account_id", SqliteType.Text).Value = customField.AccountId;
 
                 command.ExecuteNonQuery();
@@ -37,7 +36,7 @@ namespace SnailPass_Desktop.Data.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT id, field_name, value, nonce, account_id " +
+                command.CommandText = "SELECT id, field_name, value, account_id " +
                                       "FROM additional_fields " +
                                       "WHERE account_id = @account_id;";
 
@@ -52,8 +51,7 @@ namespace SnailPass_Desktop.Data.Repositories
                             ID = reader[0].ToString(),
                             FieldName = reader[1].ToString(),
                             Value = reader[2].ToString(),
-                            Nonce = reader[3].ToString(),
-                            AccountId = reader[4].ToString()
+                            AccountId = reader[3].ToString()
                         };
 
                         fields.Add(model);

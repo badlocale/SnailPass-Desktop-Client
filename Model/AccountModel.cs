@@ -21,10 +21,6 @@ namespace SnailPass_Desktop.Model
         [JsonProperty("encrypted_password")]
         public string Password { get; set; }
 
-        [NonceField]
-        [JsonProperty("nonce")]
-        public string Nonce { get; set; }
-
         [JsonProperty("is_favorite")]
         public string IsFavorite { get; set; }
 
@@ -50,7 +46,6 @@ namespace SnailPass_Desktop.Model
             ServiceName = serviceName;
             Login = login;
             Password = password;
-            Nonce = nonce;
             IsFavorite = isFavorite;
             IsDeleted = isDeleted;
             CreationTime = creationTime;
@@ -61,7 +56,7 @@ namespace SnailPass_Desktop.Model
         public override string ToString()
         {
             return $"ID: {ID}, Serivce name: {ServiceName}, Login: {Login}, Password(enc): {Password}, " +
-                $"Nonce: {Nonce}, Is favorite: {IsFavorite}, Is deleted: {IsDeleted}, " +
+                $"Is favorite: {IsFavorite}, Is deleted: {IsDeleted}, " +
                 $"Creation time: {CreationTime}, Update time: {UpdateTime}, User ID: {UserId}";
         }
     }

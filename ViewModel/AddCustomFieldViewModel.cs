@@ -54,7 +54,6 @@ namespace SnailPass_Desktop.ViewModel
             model.AccountId = null;
             model.FieldName = _fieldName;
             model.Value = _value;
-            model.Nonce = null;
 
             return model;
         }

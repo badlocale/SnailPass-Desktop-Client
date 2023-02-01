@@ -44,7 +44,6 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
 
-
                 <Grid Grid.Column="1">
                     <TextBox x:Name="SearchBarFilterText"
                              Grid.Column="1"
