@@ -1,15 +1,18 @@
 ﻿using SnailPass_Desktop.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class AddCustomFieldViewModel : ViewModelBase
+    public class EditCustomFieldViewModel : ViewModelBase
     {
-        private string _id;
-        private string _fieldName;
-        private string _value;
+        private string? _value;
+        private string? _fieldName;
 
-        private string _errorMessage;
+        private string _errorMessage = string.Empty;
 
         public string FieldName
         {
@@ -41,16 +44,10 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public AddCustomFieldViewModel()
-        {
-            _id = Guid.NewGuid().ToString();
-        }
-
         public EncryptableFieldModel CreateModel()
         {
             EncryptableFieldModel model = new();
 
-            model.ID = _id;
             model.FieldName = _fieldName;
             model.Value = _value;
 

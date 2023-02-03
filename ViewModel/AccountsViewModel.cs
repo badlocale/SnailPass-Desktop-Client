@@ -1,6 +1,5 @@
 ﻿using Serilog;
 using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Services;
@@ -8,9 +7,9 @@ using SnailPass_Desktop.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Security.Principal;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 namespace SnailPass_Desktop.ViewModel
 {
@@ -55,6 +54,7 @@ namespace SnailPass_Desktop.ViewModel
             get { return _selectedField; }
             set
             {
+                _logger.Debug("1");
                 _selectedField = value;
                 OnPropertyChanged();
             }
@@ -63,8 +63,9 @@ namespace SnailPass_Desktop.ViewModel
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand DeleteFieldCommand { get; set; }
         public ICommand AddAccountCommand { get; set; }
-        public ICommand UpdateAccountCommand { get; set; }
-        public ICommand AddCustomFieldCommand { get; set; }
+        public ICommand AddFieldCommand { get; set; }
+        public ICommand EditAccountCommand { get; set; }
+        public ICommand EditFieldCommand { get; set; }
 
         public ICollectionView AccountsCollectionView { get; }
         public ICollectionView FieldsCollectionView { get; }
@@ -90,8 +91,11 @@ namespace SnailPass_Desktop.ViewModel
                 identity, logger);
             AddAccountCommand = new AddNewAccountCommand(this, dialogService, logger, accountRestApi, 
                 identity, cryptographyService, synchronizationService);
-            UpdateAccountCommand = new UpdateAccountCommand();
-            AddCustomFieldCommand = new AddCustomFieldCommand(this, logger, dialogService, 
+            AddFieldCommand = new AddFieldCommand(this, logger, dialogService, 
+                identity, customFieldRestApi, cryptographyService, synchronizationService);
+            EditAccountCommand = new EditAccountCommand(this, dialogService, logger, accountRestApi,
+                identity, cryptographyService, synchronizationService);
+            EditFieldCommand = new EditFieldCommand(this, logger, dialogService,
                 identity, customFieldRestApi, cryptographyService, synchronizationService);
 
             AccountsCollectionView = CollectionViewSource.GetDefaultView(_accounts);

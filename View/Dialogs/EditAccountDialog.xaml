@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="SnailPass_Desktop.View.Dialogs.AddCustomFieldDialog"
+﻿<UserControl x:Class="SnailPass_Desktop.View.Dialogs.EditAccountDialog"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
              mc:Ignorable="d" 
-             Height="280" Width="350"
+             Height="370" Width="350"
              Background="Transparent">
     <Border BorderBrush="{StaticResource ResourceKey=BorderColor}"
             BorderThickness="1"
@@ -20,7 +20,7 @@
                     MouseDown="TopMenu_MouseDown"/>
             <Border Style="{StaticResource BodyBorderStyle}"/>
 
-            <TextBlock Text="Add additional account data"
+            <TextBlock Text="Edit account data"
                        Foreground="{StaticResource ResourceKey=DarkTextColor}"
                        FontSize="15"
                        FontFamily="{StaticResource ResourceKey=MainFont}"
@@ -37,7 +37,7 @@
                     Margin="0, 0, 10, 0"
                     FontSize="13"
                     Content="X"
-                    Click="BtnClose_Click"/>
+                    Click="btnClose_Click"/>
 
             <StackPanel x:Name="Body"
                         Grid.Row="1"
@@ -45,28 +45,42 @@
                         Width="260"
                         Margin="0, 10, 0, 10">
 
-                <TextBlock Text="Field name"
+                <TextBlock x:Name="notification"
+                           Text="Fill in only the fields you need to change!"
+                           Style="{StaticResource ResourceKey=ImportantTextStyle}"
+                           HorizontalAlignment="Left"
+                           Margin="0"/>
+
+                <TextBlock Text="Service name"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <customControls:InputField Text="{Binding FieldName, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
-                                           Icon="{StaticResource ResourceKey=FieldNameVectorIcon}"/>
+                <customControls:InputField Text="{Binding ServiceName, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                                           Icon="{StaticResource ResourceKey=ServiceVectorIcon}"/>
 
-                <TextBlock Text="Field value"
+                <TextBlock Text="Login"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <customControls:InputField Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
-                                           Icon="{StaticResource ResourceKey=FieldValueVectorIcon}"/>
+                <customControls:InputField Text="{Binding Login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                                           Icon="{StaticResource ResourceKey=AccountVectorIcon}"
+                                           ImageHeight="18"
+                                           ImageWidth="20"/>
+
+                <TextBlock Text="Password"
+                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+
+                <customControls:InputField Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                                   Icon="{StaticResource ResourceKey=KeyVectorIcon}"/>
 
                 <TextBlock Text="{Binding ErrorMessage}"
                            Margin="0, 20, 0, 0"
                            Height="36"
                            Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
 
-                <Border Margin="70, 15, 70, 0">
+                <Border Margin="70, 10, 70, 0">
                     <Button x:Name="btnConfirm"
                             Template="{StaticResource ResourceKey=BigButton}"
-                            Click="BtnConfirm_Click"
-                            Content="ADD">
+                            Click="btnConfirm_Click"
+                            Content="EDIT">
                     </Button>
                 </Border>
             </StackPanel>

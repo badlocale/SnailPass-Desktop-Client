@@ -73,7 +73,7 @@
                 <Border Margin="70, 10, 70, 0">
                     <Button x:Name="btnConfirm"
                             Template="{StaticResource ResourceKey=BigButton}"
-                            Click="BtnAdd_Click"
+                            Click="BtnConfirm_Click"
                             Content="ADD">
                     </Button>
                 </Border>

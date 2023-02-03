@@ -26,7 +26,7 @@ namespace SnailPass_Desktop
             builder.RegisterType<AccountApi>().As<IAccountRestApi>().SingleInstance();
             builder.RegisterType<CustomFieldsApi>().As<ICustomFieldRestApi>().SingleInstance();
             builder.RegisterType<Pbkdf2Encryptor>().As<IKeyGenerator>().SingleInstance();
-            builder.RegisterType<AesCbcCryptographer>().As<ISymmetricCryptographer>();
+            builder.RegisterType<AesCbcCryptographer>().As<ISymmetricCryptographer>().InstancePerDependency();
             builder.RegisterType<NavigationStore>().As<INavigationStore>().InstancePerLifetimeScope();
             builder.RegisterType<UserIdentityStore>().As<IUserIdentityStore>().SingleInstance();
             builder.RegisterType<ApplicationModeStore>().As<IApplicationModeStore>().SingleInstance();
@@ -49,6 +49,8 @@ namespace SnailPass_Desktop
             builder.RegisterType<ApplicationViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<AddNewAccountViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<AddCustomFieldViewModel>().AsSelf().InstancePerDependency();
+            builder.RegisterType<EditAccountViewModel>().AsSelf().InstancePerDependency();
+            builder.RegisterType<EditCustomFieldViewModel>().AsSelf().InstancePerDependency();
 
             return builder.Build();
         }

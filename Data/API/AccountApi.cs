@@ -59,9 +59,9 @@ namespace SnailPass_Desktop.Data.API
                 OnServerNotResponding();
                 return null;
             }
-            _logger.Information($"Registration status: {Responce?.StatusCode}");
+            _logger.Information($"Adding account status: {Responce?.StatusCode}");
 
-            return Responce.StatusCode;
+            return Responce?.StatusCode;
         }
 
         public async Task<HttpStatusCode?> DeleteAccountAsync(string accountID)
@@ -79,6 +79,24 @@ namespace SnailPass_Desktop.Data.API
             _logger.Information($"Deleting account status: {Responce.StatusCode}");
 
             return Responce.StatusCode;
+        }
+
+        public async Task<HttpStatusCode?> PatchAccountAsync(AccountModel account)
+        {
+            try
+            {
+                string jsonAccount = JsonConvert.SerializeObject(account);
+                StringContent content = new StringContent(jsonAccount, Encoding.UTF8, "application/json");
+                Responce = await HttpClient.PatchAsync("records", content);
+            }
+            catch (HttpRequestException)
+            {
+                OnServerNotResponding();
+                return null;
+            }
+            _logger.Information($"Patching account status: {Responce?.StatusCode}");
+
+            return Responce?.StatusCode;
         }
     }
 }

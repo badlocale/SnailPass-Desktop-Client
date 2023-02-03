@@ -12,6 +12,9 @@ namespace SnailPass_Desktop.CustomControls
         public static readonly DependencyProperty DeleteCommandProperty =
             DependencyProperty.Register("DeleteCommand", typeof(ICommand), typeof(CryptedFieldWithHeader), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty EditCommandProperty =
+    DependencyProperty.Register("EditCommand", typeof(ICommand), typeof(CryptedFieldWithHeader), new PropertyMetadata(null));
+
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(CryptedFieldWithHeader), new PropertyMetadata(string.Empty));
 
@@ -34,6 +37,12 @@ namespace SnailPass_Desktop.CustomControls
         {
             get { return (ICommand)GetValue(DeleteCommandProperty); }
             set { SetValue(DeleteCommandProperty, value); }
+        }
+
+        public ICommand EditCommand
+        {
+            get { return (ICommand)GetValue(EditCommandProperty); }
+            set { SetValue(EditCommandProperty, value); }
         }
 
         public string Title

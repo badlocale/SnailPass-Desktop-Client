@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace SnailPass_Desktop.View.Dialogs
 {
-    /// <summary>
-    /// Interaction logic for ResistrationSuccessDialog.xaml
-    /// </summary>
     public partial class ResistrationSuccessDialog : UserControl
     {
         public ResistrationSuccessDialog()

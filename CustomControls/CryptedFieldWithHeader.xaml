@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              x:Name="root">
     <Border BorderBrush="{StaticResource ResourceKey=BorderColor}"
-            Background="{StaticResource ResourceKey=MainBackground}"
+            Background="{StaticResource ResourceKey=HeaderBackground}"
             BorderThickness="1"
             CornerRadius="10">
         <Grid>
@@ -16,85 +16,163 @@
                 <RowDefinition Height="50*" MinHeight="25"/>
             </Grid.RowDefinitions>
 
-            <Border Background="{StaticResource ResourceKey=HeaderBackground}"
-                    CornerRadius="10, 10, 0, 0">
-                <Grid Grid.Row="0">
-                    <Border Background="{StaticResource ResourceKey=HeaderBackground}"
-                    CornerRadius="9, 9, 0, 0"
-                    Padding="50, 0, 50, 8"
-                    HorizontalAlignment="Stretch">
-                        <TextBlock Text="{Binding Title, ElementName=root}"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Background="{StaticResource ResourceKey=HeaderBackground}"
+                    CornerRadius="9, 9, 0, 0">
+                <TextBlock Text="{Binding Title, ElementName=root}"
                             Foreground="{StaticResource ResourceKey=LightTextColor}"
                             FontSize="15"
                             FontFamily="{StaticResource ResourceKey=MainFont}"
                             FontWeight="DemiBold"
-                            HorizontalAlignment="Center"
-                            Margin="0, 10, 0, 0"/>
-                    </Border>
+                            Margin="10"
+                            TextWrapping="Wrap"
+                            TextAlignment="Center"/>
+            </Border>
 
-                    <Border x:Name="BinButton"
+            <Border Grid.Column="1"
+                            BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                            BorderThickness="1, 0, 0, 0"
+                            Height="25"
+                            Margin="0, 0, 0, 0">
+
+            </Border>
+
+            <Border x:Name="EditFieldButton"
+                            Grid.Column="1"
                             HorizontalAlignment="Right"
                             CornerRadius="13"
                             Height="26"
                             Width="26"
-                            Margin="0, 0, 5, 0">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsDeletable, Mode=OneWay,
+                            Margin="5, 0, 5, 0">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsDeletable, Mode=OneWay,
                                                            RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}"
                                                  Value="False">
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                    </DataTrigger>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background"
-                                                    Value="{StaticResource ResourceKey=ActivePanelColor}"/>
-                                        <Setter Property="Height" Value="100"/>
-                                        <Setter Property="Margin" Value="10"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </DataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background"
+                                                Value="{StaticResource ResourceKey=ActivePanelColor}"/>
+                                <Setter Property="Height" Value="100"/>
+                                <Setter Property="Margin" Value="10"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
 
-                        <Button Name="DeleteButton"
+                <Button Name="EditButton"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Command="{Binding DeleteCommand, ElementName=root}">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Style.Setters>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Border Height="26"
+                                Command="{Binding EditCommand, ElementName=root}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Setters>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Height="26"
                                                             Width="26"
                                                             Background="Transparent">
-                                                        <Rectangle HorizontalAlignment="Center"
+                                                <Rectangle HorizontalAlignment="Center"
                                                                    VerticalAlignment="Center"
                                                                 Margin="0"
                                                                 Width="18"
                                                                 Height="18"
                                                                 Fill="{StaticResource ResourceKey=LightTextColor}">
-                                                            <Rectangle.OpacityMask>
-                                                                <VisualBrush Stretch="Uniform"
-                                                                         Visual="{StaticResource ResourceKey=BinVectorIcon}"/>
-                                                            </Rectangle.OpacityMask>
-                                                        </Rectangle>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style.Setters>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-                    </Border>
-                </Grid>
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Stretch="Uniform"
+                                                                         Visual="{StaticResource ResourceKey=EditVectorIcon}"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style.Setters>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Border>
 
+            <Border x:Name="BinButton"
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            CornerRadius="13"
+                            Height="26"
+                            Width="26"
+                            Margin="0, 0, 5, 0">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsDeletable, Mode=OneWay,
+                                                           RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}"
+                                                 Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </DataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background"
+                                                    Value="{StaticResource ResourceKey=ActivePanelColor}"/>
+                                <Setter Property="Height" Value="100"/>
+                                <Setter Property="Margin" Value="10"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
 
+                <Button Name="DeleteButton"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Command="{Binding DeleteCommand, ElementName=root}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Setters>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Height="26"
+                                                            Width="26"
+                                                            Background="Transparent">
+                                                <Rectangle HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center"
+                                                                Margin="0"
+                                                                Width="18"
+                                                                Height="18"
+                                                                Fill="{StaticResource ResourceKey=LightTextColor}">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Stretch="Uniform"
+                                                                         Visual="{StaticResource ResourceKey=BinVectorIcon}"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style.Setters>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Border>
+
+            <Border Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Background="{StaticResource ResourceKey=MainBackground}"
+                    CornerRadius="0, 0, 10, 10">
+                
+            </Border>
+            
             <Grid x:Name="CryptedValueField"
                 Grid.Row="1"
+                Grid.ColumnSpan="3"
                 Background="Transparent"
                 ToolTipOpening="IsCopiedTooltip_ToolTipOpening"
                 ToolTipService.InitialShowDelay="0"
@@ -182,8 +260,7 @@
 
                 <Border x:Name="HintField"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Background="Transparent">
+                        VerticalAlignment="Center">
                     <Border Height="35"
                             Width="auto">
                         <TextBlock Margin="0, 4, 0, 0"
@@ -211,6 +288,8 @@
                                     FontSize="15"
                                     FontFamily="{StaticResource ResourceKey=MainFont}"
                                     FontWeight="DemiBold"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Center"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Opacity="1">

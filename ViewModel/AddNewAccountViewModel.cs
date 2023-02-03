@@ -14,7 +14,7 @@ namespace SnailPass_Desktop.ViewModel
 
         private string _id;
         private string _serviceName;
-        private string? _login;
+        private string _login;
         private bool _isFavorite;
         private bool _isDeleted;
         private DateTime _creationTime;
@@ -84,8 +84,8 @@ namespace SnailPass_Desktop.ViewModel
             accountModel.ServiceName = _serviceName;
             accountModel.Login = _login;
             accountModel.UserId = _userId;
-            accountModel.IsFavorite = _isFavorite.ToString();
-            accountModel.IsDeleted = _isDeleted.ToString();
+            accountModel.IsFavorite = _isFavorite;
+            accountModel.IsDeleted = _isDeleted;
             accountModel.CreationTime = _creationTime.ToString();
             accountModel.UpdateTime = _updateTime.ToString();
             accountModel.Password = _password;

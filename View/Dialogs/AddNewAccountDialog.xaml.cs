@@ -41,7 +41,7 @@ namespace SnailPass_Desktop.View.Dialogs
             }
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
             Window window = Parent as Window;
 

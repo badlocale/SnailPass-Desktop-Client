@@ -29,7 +29,7 @@ namespace SnailPass_Desktop.Model
 
         public EncryptableFieldModel() { }
 
-        public EncryptableFieldModel(string id, string fieldName, string value, string nonce, string accountId)
+        public EncryptableFieldModel(string id, string fieldName, string value, string accountId)
         {
             ID = id;
             FieldName = fieldName;

@@ -15,17 +15,17 @@ namespace SnailPass_Desktop.Model
 
         [CryptableField]
         [JsonProperty("login")]
-        public string? Login { get; set; }
+        public string Login { get; set; }
 
         [CryptableField]
         [JsonProperty("encrypted_password")]
         public string Password { get; set; }
 
         [JsonProperty("is_favorite")]
-        public string IsFavorite { get; set; }
+        public bool IsFavorite { get; set; }
 
         [JsonProperty("is_deleted")]
-        public string IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         [JsonProperty("creation_time")]
         public string CreationTime { get; set; }
@@ -38,9 +38,8 @@ namespace SnailPass_Desktop.Model
 
         public AccountModel() { }
 
-        public AccountModel(string iD, string serviceName, string? login, string password, 
-            string nonce, string isFavorite, string isDeleted, string creationTime, 
-            string updateTime, string userId)
+        public AccountModel(string iD, string serviceName, string login, string password, 
+            bool isFavorite, bool isDeleted, string creationTime, string updateTime, string userId)
         {
             ID = iD;
             ServiceName = serviceName;

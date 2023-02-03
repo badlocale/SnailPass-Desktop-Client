@@ -12,5 +12,6 @@ namespace SnailPass_Desktop.Model.Interfaces
         public Task<(HttpStatusCode?, IEnumerable<AccountModel>?)> GetAccountsAsync();
         public Task<HttpStatusCode?> PostAccountAsync(AccountModel account);
         public Task<HttpStatusCode?> DeleteAccountAsync(string accountID);
+        public Task<HttpStatusCode?> PatchAccountAsync(AccountModel account);
     }
 }

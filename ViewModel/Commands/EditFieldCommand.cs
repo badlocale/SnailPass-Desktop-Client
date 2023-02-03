@@ -7,7 +7,7 @@ using System.Net;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
-    public class AddFieldCommand : CommandBase
+    public class EditFieldCommand : CommandBase
     {
         private AccountsViewModel _viewModel;
         private ILogger _logger;
@@ -17,8 +17,8 @@ namespace SnailPass_Desktop.ViewModel.Commands
         private ISynchronizationService _synchronizationService;
         private ICryptographyService _cryptographyService;
 
-        public AddFieldCommand(AccountsViewModel viewModel, ILogger logger, 
-            IDialogService dialogService, IUserIdentityStore identity, ICustomFieldRestApi customFieldRestApi, 
+        public EditFieldCommand(AccountsViewModel viewModel, ILogger logger,
+            IDialogService dialogService, IUserIdentityStore identity, ICustomFieldRestApi customFieldRestApi,
             ICryptographyService cryptographyService, ISynchronizationService synchronizationService)
         {
             _viewModel = viewModel;
@@ -30,22 +30,34 @@ namespace SnailPass_Desktop.ViewModel.Commands
             _synchronizationService = synchronizationService;
         }
 
-        public override async void Execute(object? parameter)
+        public async override void Execute(object? parameter)
         {
+            EncryptableFieldModel selectedField = _viewModel.SelectedField;
+            EncryptableFieldModel newData;
+
             AddCustomFieldViewModel? dialogVM = _dialogService.ShowDialog<AddCustomFieldViewModel>();
 
             if (dialogVM != null)
             {
-                EncryptableFieldModel model = dialogVM.CreateModel();
+                newData = dialogVM.CreateModel();
 
-                _logger.Information($"Execute 'add new field' for account [{model.AccountId}] f" +
-                    $"or e-mail [{_identity.CurrentUser.Email}]. Field name: [{model.FieldName}].");
+                _logger.Information($"Execute 'edit field data' for account [{selectedField.AccountId}]" +
+                    $"for e-mail [{_identity.CurrentUser.Email}]. Old field name: [{selectedField.FieldName}].");
 
-                model.AccountId = _viewModel.SelectedAccount.ID;
-                _cryptographyService.Encrypt(model);
+                if (!string.IsNullOrEmpty(newData.FieldName))
+                {
+                    selectedField.FieldName = newData.FieldName;
+                }
 
-                HttpStatusCode? code = await _customFieldRestApi.PostCustomFieldAsync(model);
-                if (code == HttpStatusCode.Created)
+                if (!string.IsNullOrEmpty(newData.Value))
+                {
+                    selectedField.Value = newData.Value;
+                }
+
+                _cryptographyService.Encrypt(selectedField);
+
+                HttpStatusCode? code = await _customFieldRestApi.PatchCustomFieldAsync(selectedField);
+                if (code == HttpStatusCode.OK)
                 {
                     await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
                     _viewModel.LoadFields();
@@ -53,7 +65,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             }
             else
             {
-                _logger.Information("Dialog 'add new field' cancelled.");
+                _logger.Information("Dialog 'edit field data' cancelled.");
             }
         }
     }

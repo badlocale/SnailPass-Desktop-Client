@@ -26,6 +26,7 @@
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Margin" Value="0, 10, 0, 0"/>
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
     </Style>
 
     <Style x:Key="CommonTextStyle" TargetType="TextBlock">

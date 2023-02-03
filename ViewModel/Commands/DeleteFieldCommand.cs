@@ -27,6 +27,11 @@ namespace SnailPass_Desktop.ViewModel.Commands
             _logger = logger;
         }
 
+        public override bool CanExecute(object? parameter)
+        {
+            return _viewModel.SelectedField != null;
+        }
+
         public async override void Execute(object? parameter)
         {
             EncryptableFieldModel field = _viewModel.SelectedField;

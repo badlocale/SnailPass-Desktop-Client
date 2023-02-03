@@ -7,6 +7,7 @@ using Microsoft.Data.Sqlite;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using SnailPass_Desktop.Model.Interfaces;
+using System.Windows.Markup;
 
 namespace SnailPass_Desktop.Data.Repositories
 {
@@ -51,7 +52,7 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.CommandText = "SELECT id, service_name, login, encrypted_password, " +
                                       "is_favorite, is_deleted, creation_time, update_time " +
                                       "FROM accounts " +
-                                      "WHERE user_id = @user_id AND is_deleted = 'false';";
+                                      "WHERE user_id = @user_id AND is_deleted = 0;";
 
                 command.Parameters.Add("@user_id", SqliteType.Text).Value = userId;
 
@@ -66,8 +67,8 @@ namespace SnailPass_Desktop.Data.Repositories
                             Login = reader[2].ToString(),
                             Password = reader[3].ToString(),
                             UserId = userId,
-                            IsFavorite = reader[4].ToString(),
-                            IsDeleted = reader[5].ToString(),
+                            IsFavorite = Convert.ToBoolean(reader[4]),
+                            IsDeleted = Convert.ToBoolean(reader[5]),
                             CreationTime = reader[6].ToString(),
                             UpdateTime = reader[7].ToString()
                         };
