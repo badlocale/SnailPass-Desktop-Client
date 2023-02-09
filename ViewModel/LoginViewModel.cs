@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ErrorViewModel
     {
         private string _id;
         private string _email;
@@ -24,23 +24,14 @@ namespace SnailPass_Desktop.ViewModel
         public ICommand LoginCommand { get; }
         public ICommand NavigateRegistrationCommand { get; }
 
-        public string ID
-        {
-            get { return _id; }
-            set
-            {
-                _id = value;
-                OnPropertyChanged();
-            }
-        }
-
         public string Email
         {
             get { return _email; }
             set
             {
-                _email = value;
+                _email = value.Trim();
                 OnPropertyChanged();
+                ValidateEmail();
             }
         }
 
@@ -51,16 +42,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-            }
-        }
-
-        public string Hint
-        {
-            get { return _hint; }
-            set
-            {
-                _hint = value;
-                OnPropertyChanged();
+                ValidatePassword();
             }
         }
 
@@ -100,6 +82,26 @@ namespace SnailPass_Desktop.ViewModel
             NavigateRegistrationCommand = new NavigateCommand<RegistrationViewModel>(navigationStore, 
                 () => new RegistrationViewModel(navigationStore, identityStore, userRestApi, repository, encryptor, logger, 
                 dialogService, synchronizationService, modeStore), "Registration");
+        }
+
+        public void ValidateEmail()
+        {
+            ClearErrors(nameof(Email));
+
+            if (string.IsNullOrWhiteSpace(_email))
+            {
+                AddError("E-mail field cannot be empty.", nameof(Email));
+            }
+        }
+
+        public void ValidatePassword()
+        {
+            ClearErrors(nameof(Password));
+
+            if (_password == null || _password.Length == 0)
+            {
+                AddError("Password field cannot be empty.", nameof(Password));
+            }
         }
     }
 }

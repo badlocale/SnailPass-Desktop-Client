@@ -1,20 +1,12 @@
 ﻿using SnailPass_Desktop.Model;
-using SnailPass_Desktop.ViewModel.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class EditAccountViewModel : ViewModelBase
+    public class EditAccountViewModel : ErrorViewModel
     {
         private string? _serviceName;
         private string? _login;
         private string? _password;
-
-        private string _errorMessage = string.Empty;
 
         public string ServiceName
         {
@@ -23,6 +15,12 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _serviceName = value;
                 OnPropertyChanged();
+
+                ClearErrors();
+                if (_serviceName.Length != _serviceName.Trim().Length)
+                {
+                    AddError("Service name have leading or trailing white-spaces.");
+                }
             }
         }
 
@@ -33,6 +31,12 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _login = value;
                 OnPropertyChanged();
+
+                ClearErrors();
+                if (_login.Length != _login.Trim().Length)
+                {
+                    AddError("Login have leading or trailing white-spaces.");
+                }
             }
         }
 
@@ -43,16 +47,12 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-            }
-        }
 
-        public string ErrorMessage
-        {
-            get { return _errorMessage; }
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged();
+                ClearErrors();
+                if (_password.Length != _password.Trim().Length)
+                {
+                    AddError("Password have leading or trailing white-spaces.");
+                }
             }
         }
 

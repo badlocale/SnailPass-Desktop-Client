@@ -1,10 +1,10 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Data;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
 using System.Net;
+using System.Text;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
@@ -37,15 +37,15 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
             if (dialogVM != null)
             {
-                string email = _identity.CurrentUser.Email;
-                _logger.Information($"Execute 'add new account' for user: \"{email}\".");
+                _logger.Information($"Execute 'add new account' for user: \"{_identity.CurrentUser.Email}\".");
 
                 AccountModel model = dialogVM.CreateModel();
+
                 _cryptographyService.Encrypt(model);
                 HttpStatusCode? code = await _accountsRestApi.PostAccountAsync(model);
                 if (code == HttpStatusCode.Created)
                 {
-                    await _synchronizationService.SynchronizeAsync(email);
+                    await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
                     _viewModel.LoadAccounts();
                 }
             }

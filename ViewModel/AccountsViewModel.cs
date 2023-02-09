@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
 
 namespace SnailPass_Desktop.ViewModel
 {
@@ -54,7 +53,6 @@ namespace SnailPass_Desktop.ViewModel
             get { return _selectedField; }
             set
             {
-                _logger.Debug("1");
                 _selectedField = value;
                 OnPropertyChanged();
             }

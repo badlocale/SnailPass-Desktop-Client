@@ -4,6 +4,7 @@ using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
 using System.Net;
+using System.Text;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {

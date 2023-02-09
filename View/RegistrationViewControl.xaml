@@ -6,50 +6,64 @@
              xmlns:local="clr-namespace:SnailPass_Desktop.View"
              xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="380" d:DesignWidth="300">
-    <StackPanel Grid.Row="1"
-                Orientation="Vertical"
+             d:DesignHeight="400" d:DesignWidth="300">
+    <DockPanel  Grid.Row="1"
                 Width="auto"
-                Margin="40, 10, 40, 0">
+                Margin="40, 10, 40, 15">
         
-        <TextBlock Text="E-mail"
+        <TextBlock DockPanel.Dock="Top"
+                   Text="E-mail"
                    Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-        <customControls:InputField Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+        <customControls:InputField DockPanel.Dock="Top"
+                                   Text="{Binding Email, ValidatesOnNotifyDataErrors=True, 
+                                          UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                    Icon="{StaticResource ResourceKey=MailVectorIcon}"/>
 
-        <TextBlock Text="Master password"
+        <TextBlock DockPanel.Dock="Top"
+                   Text="Master password"
                    Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
         <customControls:BindablePasswordBox x:Name="Password"
-                                            Password="{Binding Password, Mode=TwoWay, 
-                                                       UpdateSourceTrigger=PropertyChanged}"
-                                            Height="22"
+                                            DockPanel.Dock="Top"
+                                            Password="{Binding Password, ValidatesOnNotifyDataErrors=True, 
+                                                       Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Height="auto"
                                             Margin="0, 5, 0, 0"/>
 
-        <TextBlock Text="Hint to your password"
-                           Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+        <TextBlock DockPanel.Dock="Top"
+                   Text="Hint to your password"
+                   Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-        <customControls:InputField Text="{Binding Hint, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+        <customControls:InputField DockPanel.Dock="Top"
+                                   Text="{Binding Hint, ValidatesOnNotifyDataErrors=True, 
+                                          UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                    Icon="{StaticResource ResourceKey=HintVectorIcon}"/>
 
-        <TextBlock Text="{Binding ErrorMessage}"
-                           Height="95"
-                           Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
-
-        <Border Margin="60, 22, 60, 0">
-            <Button x:Name="btnLoginIn"
-                            Template="{StaticResource ResourceKey=BigButton}"
-                            Command="{Binding RegistrationCommand}"
-                            Content="SIGN UP">
-            </Button>
-        </Border>
+        <TextBlock DockPanel.Dock="Top"
+                   Text="{Binding ErrorMessage}"
+                   Height="30"
+                   Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
 
         <Button x:Name="btnBackToLogin"
+                DockPanel.Dock="Bottom"
                 Template="{StaticResource ResourceKey=LinkButton}"
                 Command="{Binding NavigateLoginCommand}"
                 Content="Back to login"
                 Width="110"
                 Margin="0, 15, 0, 0"/>
-    </StackPanel>
+        
+        <Border DockPanel.Dock="Bottom"
+                VerticalAlignment="Bottom"
+                Height="34"
+                Width="120"
+                Panel.ZIndex="1">
+            <Button x:Name="btnLoginIn"
+                    Template="{StaticResource ResourceKey=BigButton}"
+                    Command="{Binding RegistrationCommand}"
+                    Content="SIGN UP">
+            </Button>
+        </Border>
+
+    </DockPanel>
 </UserControl>

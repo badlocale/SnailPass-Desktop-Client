@@ -8,7 +8,7 @@
         xmlns:viewModel="clr-namespace:SnailPass_Desktop.ViewModel"
         xmlns:view="clr-namespace:SnailPass_Desktop.View"
         mc:Ignorable="d"
-        Title="RegistrationWindow" Height="420" Width="300" Background="Transparent"
+        Title="RegistrationWindow" Height="460" Width="300" Background="Transparent"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown">
     <Window.Resources>

@@ -16,12 +16,12 @@ namespace SnailPass_Desktop.Data.Repositories
         {
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Repositories", "localdata.db"); //TODO ref path
 
-            _connectionString = $"Data Source=C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\Repositories\\localdata.db;";
+            _connectionString = $"Data Source=localdata.db;";
         }
 
         protected SqliteConnection GetConnection()
         {
-            return new SqliteConnection($"Data Source = C:\\Users\\iZelton\\source\\repos\\SnailPass_Desctop\\SnailPass_Desctop\\Data\\Repositories\\localdata.db");
+            return new SqliteConnection(_connectionString);
         }
     }
 }

@@ -1,17 +1,12 @@
-﻿using Serilog;
+﻿using Newtonsoft.Json.Linq;
 using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
-using System.Configuration;
-using System.Security;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class AddNewAccountViewModel : ViewModelBase
+    public class AddNewAccountViewModel : ErrorViewModel
     {
-        private string _errorMessage;
-
         private string _id;
         private string _serviceName;
         private string _login;
@@ -31,6 +26,16 @@ namespace SnailPass_Desktop.ViewModel
             { 
                 _serviceName = value;
                 OnPropertyChanged();
+
+                ClearErrors();
+                if (string.IsNullOrWhiteSpace(_serviceName))
+                {
+                    AddError("Service name field cannot be empty.");
+                }
+                if (_serviceName.Length != _serviceName.Trim().Length)
+                {
+                    AddError("Service name have leading or trailing white-spaces.");
+                }
             }
         }
 
@@ -41,6 +46,16 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _login = value;
                 OnPropertyChanged();
+
+                ClearErrors();
+                if (string.IsNullOrWhiteSpace(_login))
+                {
+                    AddError("Login field cannot be empty.");
+                }
+                if (_login.Length != _login.Trim().Length)
+                {
+                    AddError("Login have leading or trailing white-spaces.");
+                }
             }
         }
 
@@ -51,16 +66,16 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-            }
-        }
 
-        public string ErrorMessage
-        {
-            get { return _errorMessage; }
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged();
+                ClearErrors();
+                if (string.IsNullOrWhiteSpace(_password))
+                {
+                    AddError("Password field cannot be empty.");
+                }
+                if (_password.Length != _password.Trim().Length)
+                {
+                    AddError("Password have leading or trailing white-spaces.");
+                }
             }
         }
 
@@ -74,6 +89,10 @@ namespace SnailPass_Desktop.ViewModel
             _updateTime = DateTime.Now;
             _id = Guid.NewGuid().ToString();
             _userId = _identity.CurrentUser.ID;
+
+            AddError("Please enter the service name", nameof(ServiceName));
+            AddError("Please enter the login", nameof(Login));
+            AddError("Please enter the password", nameof(Password));
         }
 
         public AccountModel CreateModel()

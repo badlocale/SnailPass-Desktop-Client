@@ -81,7 +81,7 @@ namespace SnailPass_Desktop.ViewModel.Services
             {
                 if (callback != null)
                 {
-                    callback(dialog.DialogResult.ToString());
+                    callback(dialog.DialogResult?.ToString());
                 }
                 dialog.Closed -= closeEventHandler;
             };

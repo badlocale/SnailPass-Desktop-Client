@@ -1,12 +1,9 @@
 ﻿using Serilog;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.ViewModel.Stores;
-using System;
 using System.Net;
-using System.Net.Mail;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Services;
-using System.Configuration;
 using System.Net.Http;
 using SnailPass_Desktop.Model.Cryptography;
 
@@ -39,23 +36,18 @@ namespace SnailPass_Desktop.ViewModel.Commands
             _modeStore = modeStore;
         }
 
-        public override bool CanExecute(object? parameter)
-        {
-            bool validData = false;
-
-            if (IsEmailValid(_viewModel.Email) == true && _viewModel.Email.Length >= 5 &&
-                _viewModel.Password != null && _viewModel.Password.Length >= 10)
-            {
-                validData = true;
-            }
-
-            return validData;
-        }
-
         public override async void Execute(object? parameter)
         {
+            _viewModel.ErrorMessage = string.Empty;
+            _viewModel.ValidateEmail();
+            _viewModel.ValidatePassword();
+
+            if (_viewModel.HasErrors)
+            {
+                return;
+            }
+
             UserModel? user = null;
-            _viewModel.ErrorMessage = null;
             _identity.Master = _viewModel.Password;
 
             string apiKey = _encryptor.Encrypt(_identity.Master, _viewModel.Email, CryptoConstants.NETWORK_ITERATIONS_COUNT);
@@ -108,25 +100,6 @@ namespace SnailPass_Desktop.ViewModel.Commands
             {
                 _identity.CurrentUser = user;
                 _viewModel.IsViewVisible = false;
-            }
-        }
-
-        private bool IsEmailValid(string emailaddress)
-        {
-            if (emailaddress == null)
-            {
-                return false;
-            }
-
-            try
-            {
-                new MailAddress(emailaddress);
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
             }
         }
     }

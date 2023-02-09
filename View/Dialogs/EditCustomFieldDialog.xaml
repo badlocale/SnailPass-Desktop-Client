@@ -39,42 +39,64 @@
                     Content="X"
                     Click="btnClose_Click"/>
 
-            <StackPanel x:Name="body"
+            <DockPanel x:Name="body"
                         Grid.Row="1"
-                        Orientation="Vertical"
                         Width="260"
-                        Margin="0, 10, 0, 10">
+                        Margin="0, 10, 0, 15">
                 <TextBlock x:Name="notification"
+                           DockPanel.Dock="Top"
                            Text="Fill in only the fields you need to change!"
                            Style="{StaticResource ResourceKey=ImportantTextStyle}"
                            HorizontalAlignment="Left"
                            Margin="0"/>
-                
-                <TextBlock Text="Field name"
+
+                <TextBlock DockPanel.Dock="Top"
+                           Text="Field name"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <customControls:InputField Text="{Binding FieldName, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                <customControls:InputField x:Name="fieldNameInputField"
+                                           DockPanel.Dock="Top"
+                                           Text="{Binding FieldName, ValidatesOnNotifyDataErrors=True, 
+                                                  UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                            Icon="{StaticResource ResourceKey=FieldNameVectorIcon}"/>
 
-                <TextBlock Text="Field value"
+                <TextBlock DockPanel.Dock="Top"
+                           Text="Field value"
                            Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
 
-                <customControls:InputField Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                <customControls:InputField x:Name="valueInputField"
+                                           DockPanel.Dock="Top"
+                                           Text="{Binding Value, ValidatesOnNotifyDataErrors=True, 
+                                                  UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                            Icon="{StaticResource ResourceKey=FieldValueVectorIcon}"/>
 
-                <TextBlock Text="{Binding ErrorMessage}"
-                           Margin="0, 20, 0, 0"
-                           Height="36"
-                           Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
-
-                <Border Margin="70, 15, 70, 0">
+                <Border DockPanel.Dock="Bottom"
+                        VerticalAlignment="Bottom"
+                        Height="34"
+                        Width="120">
                     <Button x:Name="btnConfirm"
                             Template="{StaticResource ResourceKey=BigButton}"
                             Click="btnConfirm_Click"
                             Content="EDIT">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=fieldNameInputField, Path=(Validation.HasError)}" 
+                                                       Value="False"/>
+                                            <Condition Binding="{Binding ElementName=valueInputField, Path=(Validation.HasError)}" 
+                                                       Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
                 </Border>
-            </StackPanel>
+            </DockPanel>
         </Grid>
     </Border>
 </UserControl>

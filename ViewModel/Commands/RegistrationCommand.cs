@@ -6,6 +6,8 @@ using Serilog;
 using SnailPass_Desktop.Model.Interfaces;
 using System.Configuration;
 using SnailPass_Desktop.Model.Cryptography;
+using System.Text;
+using System.Security;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
@@ -25,25 +27,23 @@ namespace SnailPass_Desktop.ViewModel.Commands
             _logger = logger;
         }
 
-        public override bool CanExecute(object? obj)
-        {
-            bool isValidData = false;
-            if (IsEmailValid(_viewModel.Email) != false && _viewModel.Email.Length >= 5 && 
-                _viewModel.Password != null && _viewModel.Password.Length >= 10)
-            {
-                isValidData = true;
-            }
-            return isValidData;
-        }
-
         public override async void Execute(object? obj)
         {
-            _viewModel.ErrorMessage = String.Empty;
+            _viewModel.ErrorMessage = string.Empty;
+            _viewModel.ValidateEmail();
+            _viewModel.ValidatePassword();
+
+            if (_viewModel.HasErrors)
+            {
+                return;
+            }
             _viewModel.ID = Guid.NewGuid().ToString();
+
+            UserModel user = new UserModel(_viewModel.ID, _viewModel.Email, _viewModel.Hint, null);
 
             string encryptedPassword = _keyGenerator.Encrypt(_viewModel.Password, _viewModel.Email, 
                 CryptoConstants.NETWORK_ITERATIONS_COUNT);
-            UserModel user = new UserModel(_viewModel.ID, _viewModel.Email, _viewModel.Hint, encryptedPassword);
+            user.Password = encryptedPassword;
 
             _logger.Debug($"Execute regitration for E-mail: \"{user.Email}\"");
 
@@ -67,25 +67,6 @@ namespace SnailPass_Desktop.ViewModel.Commands
             {
                 _viewModel.ErrorMessage = $"Some error with code \"{code}\"";
                 _logger.Error($"Some error. Registration request. Http code: {code}.");
-            }
-        }
-
-        public bool IsEmailValid(string emailaddress)
-        {
-            if (emailaddress == null)
-            {
-                return false;
-            }
-
-            try
-            {
-                new MailAddress(emailaddress);
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
             }
         }
     }

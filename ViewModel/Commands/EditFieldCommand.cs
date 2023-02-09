@@ -35,7 +35,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             EncryptableFieldModel selectedField = _viewModel.SelectedField;
             EncryptableFieldModel newData;
 
-            AddCustomFieldViewModel? dialogVM = _dialogService.ShowDialog<AddCustomFieldViewModel>();
+            EditCustomFieldViewModel? dialogVM = _dialogService.ShowDialog<EditCustomFieldViewModel>();
 
             if (dialogVM != null)
             {

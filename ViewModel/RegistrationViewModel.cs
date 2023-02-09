@@ -3,24 +3,18 @@ using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
+using System.ComponentModel.DataAnnotations;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class RegistrationViewModel : ViewModelBase
+    public class RegistrationViewModel : ErrorViewModel
     {
         private string _id;
         private string _username;
         private string _email;
         private string _hint;
-        private string _nonce;
 
         private SecureString _password;
 
@@ -38,17 +32,6 @@ namespace SnailPass_Desktop.ViewModel
             set
             {
                 _id = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Username
-        {
-            get { return _username; }
-            set
-            {
-                _username = value;
-                OnPropertyChanged();
             }
         }
 
@@ -57,8 +40,9 @@ namespace SnailPass_Desktop.ViewModel
             get { return _email; }
             set
             {
-                _email = value;
+                _email = value.Trim();
                 OnPropertyChanged();
+                ValidateEmail();
             }
         }
 
@@ -69,6 +53,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
+                ValidatePassword();
             }
         }
 
@@ -78,16 +63,6 @@ namespace SnailPass_Desktop.ViewModel
             set
             {
                 _hint = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Nonce
-        {
-            get { return _nonce; }
-            set
-            {
-                _nonce = value;
                 OnPropertyChanged();
             }
         }
@@ -123,6 +98,39 @@ namespace SnailPass_Desktop.ViewModel
             NavigateLoginCommand = new NavigateCommand<LoginViewModel>(navigationStore, 
                 () => new LoginViewModel(navigationStore, identityStore, userRestApi, repository, encryptor, logger, 
                 dialogService, synchronizationService, modeStore), "Logging");
+        }
+
+        public void ValidateEmail()
+        {
+            ClearErrors(nameof(Email));
+
+            if (string.IsNullOrWhiteSpace(Email))
+            {
+                AddError("E-mail field cannot be empty.", nameof(Email));
+                return;
+            }
+
+            if (!new EmailAddressAttribute().IsValid(_email))
+            {
+                AddError("E-mail address is not correct.", nameof(Email));
+            }
+        }
+
+        public void ValidatePassword()
+        {
+            ClearErrors(nameof(Password));
+
+            if (_password.Length == 0)
+            {
+                AddError("Password field cannot be empty.", nameof(Password));
+                return;
+            }
+
+            int minPasswordLenght = 10;
+            if (_password.Length < minPasswordLenght)
+            {
+                AddError($"Password cannot be less than {minPasswordLenght} symbols", nameof(Password));
+            }
         }
     }
 }
