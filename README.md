@@ -17,9 +17,9 @@ Application written using WPF framework (MVVM) and several external libraries:
 - Autofac as DI container.
 - Newtonsoft.JSON for simplifying JSON boilerplate.
 - Serilog for logging.
-- Microsoft.Data.Sqlite
+- Microsoft.Data.Sqlite for manage data.
 <!-- -->
-I intentionally used common SQL queries instead EF as as an experiment this time :)
+I intentionally used common SQL queries instead EF as as an experiment this time. :)
 
 # Screenshots
 #### Login interface
