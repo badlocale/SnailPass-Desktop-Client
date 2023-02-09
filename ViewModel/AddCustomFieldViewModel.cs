@@ -16,16 +16,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _fieldName = value;
                 OnPropertyChanged();
-
-                ClearErrors();
-                if (string.IsNullOrWhiteSpace(_fieldName))
-                {
-                    AddError("Field name cannot be empty.");
-                }
-                if (_fieldName.Length != _fieldName.Trim().Length)
-                {
-                    AddError("Field name have leading or trailing white-spaces.");
-                }
+                Validate();
             }
         }
 
@@ -36,16 +27,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _value = value;
                 OnPropertyChanged();
-
-                ClearErrors();
-                if (string.IsNullOrWhiteSpace(_value))
-                {
-                    AddError("Value field cannot be empty.");
-                }
-                if (_value.Length != _value.Trim().Length)
-                {
-                    AddError("Value field have leading or trailing white-spaces.");
-                }
+                Validate();
             }
         }
 
@@ -53,8 +35,36 @@ namespace SnailPass_Desktop.ViewModel
         {
             _id = Guid.NewGuid().ToString();
 
-            AddError("Please enter the field name", nameof(FieldName));
-            AddError("Please enter the value of field", nameof(Value));
+            //Field name validation
+            AddValidationRule(nameof(FieldName), "Field name cannot be empty.", () =>
+            {
+                return !string.IsNullOrEmpty(_fieldName);
+            });
+            AddValidationRule(nameof(FieldName), "Field name have leading or trailing white-spaces.", () =>
+            {
+                return _fieldName?.Length == _fieldName?.Trim().Length;
+            });
+            AddValidationRule(nameof(FieldName), "Field name cannot be longer than 300 symbols.", () =>
+            {
+                return _fieldName?.Length < 301;
+            });
+
+
+            //Value validation
+            AddValidationRule(nameof(Value), "Value field cannot be empty.", () =>
+            {
+                return !string.IsNullOrEmpty(_fieldName);
+            });
+            AddValidationRule(nameof(Value), "Value field have leading or trailing white-spaces.", () =>
+            {
+                return _value?.Length == _value?.Trim().Length;
+            });
+            AddValidationRule(nameof(Value), "Value field cannot be longer than 300 symbols.", () =>
+            {
+                return _value?.Length < 301;
+            });
+
+            Validate(null);
         }
 
         public EncryptableFieldModel? CreateModel()

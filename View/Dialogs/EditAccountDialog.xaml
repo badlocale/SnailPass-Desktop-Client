@@ -6,7 +6,8 @@
              xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
              mc:Ignorable="d" 
              Height="400" Width="350"
-             Background="Transparent">
+             Background="Transparent"
+             x:Name="root">
     <Border BorderBrush="{StaticResource ResourceKey=BorderColor}"
             BorderThickness="1"
             CornerRadius="7">
@@ -93,19 +94,13 @@
                             Content="EDIT">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="IsEnabled" Value="True"/>
                                 <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding ElementName=serviceNameInputField, Path=(Validation.HasError)}" 
-                                                       Value="False"/>
-                                            <Condition Binding="{Binding ElementName=loginInputField, Path=(Validation.HasError)}" 
-                                                       Value="False"/>
-                                            <Condition Binding="{Binding ElementName=passwordInputField, Path=(Validation.HasError)}" 
-                                                       Value="False"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="IsEnabled" Value="True"/>
-                                    </MultiDataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=root, Path=DataContext.HasErrors, 
+                                                           UpdateSourceTrigger=PropertyChanged}"
+                                                 Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>

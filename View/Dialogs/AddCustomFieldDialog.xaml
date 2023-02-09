@@ -6,7 +6,8 @@
              xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
              mc:Ignorable="d" 
              Height="300" Width="350"
-             Background="Transparent">
+             Background="Transparent"
+             x:Name="root">
     
     <Border BorderBrush="{StaticResource ResourceKey=BorderColor}"
             BorderThickness="1"
@@ -76,17 +77,13 @@
                             Content="ADD">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="IsEnabled" Value="True"/>
                                 <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding ElementName=fieldNameInputField, Path=(Validation.HasError)}" 
-                                                       Value="False"/>
-                                            <Condition Binding="{Binding ElementName=valueInputField, Path=(Validation.HasError)}" 
-                                                       Value="False"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="IsEnabled" Value="True"/>
-                                    </MultiDataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=root, Path=DataContext.HasErrors, 
+                                                           UpdateSourceTrigger=PropertyChanged}"
+                                                 Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>

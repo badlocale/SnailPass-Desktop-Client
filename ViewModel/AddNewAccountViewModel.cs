@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Autofac.Core;
+using Newtonsoft.Json.Linq;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
+using System.Xml.Linq;
 
 namespace SnailPass_Desktop.ViewModel
 {
@@ -26,16 +28,7 @@ namespace SnailPass_Desktop.ViewModel
             { 
                 _serviceName = value;
                 OnPropertyChanged();
-
-                ClearErrors();
-                if (string.IsNullOrWhiteSpace(_serviceName))
-                {
-                    AddError("Service name field cannot be empty.");
-                }
-                if (_serviceName.Length != _serviceName.Trim().Length)
-                {
-                    AddError("Service name have leading or trailing white-spaces.");
-                }
+                Validate();
             }
         }
 
@@ -46,16 +39,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _login = value;
                 OnPropertyChanged();
-
-                ClearErrors();
-                if (string.IsNullOrWhiteSpace(_login))
-                {
-                    AddError("Login field cannot be empty.");
-                }
-                if (_login.Length != _login.Trim().Length)
-                {
-                    AddError("Login have leading or trailing white-spaces.");
-                }
+                Validate();
             }
         }
 
@@ -66,16 +50,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-
-                ClearErrors();
-                if (string.IsNullOrWhiteSpace(_password))
-                {
-                    AddError("Password field cannot be empty.");
-                }
-                if (_password.Length != _password.Trim().Length)
-                {
-                    AddError("Password have leading or trailing white-spaces.");
-                }
+                Validate();
             }
         }
 
@@ -90,9 +65,49 @@ namespace SnailPass_Desktop.ViewModel
             _id = Guid.NewGuid().ToString();
             _userId = _identity.CurrentUser.ID;
 
-            AddError("Please enter the service name", nameof(ServiceName));
-            AddError("Please enter the login", nameof(Login));
-            AddError("Please enter the password", nameof(Password));
+            //Service name validation
+            AddValidationRule(nameof(ServiceName), "Service name field cannot be empty.", () =>
+            {
+                return !string.IsNullOrEmpty(_serviceName);
+            });
+            AddValidationRule(nameof(ServiceName), "Service name have leading or trailing white-spaces.", () =>
+            {
+                return _serviceName?.Length == _serviceName?.Trim().Length;
+            });
+            AddValidationRule(nameof(ServiceName), "Service name cannot be longer than 300 symbols.", () =>
+            {
+                return _serviceName?.Length < 301;
+            });
+
+            //Login validation
+            AddValidationRule(nameof(Login), "Login field cannot be empty.", () =>
+            {
+                return !string.IsNullOrEmpty(_login);
+            });
+            AddValidationRule(nameof(Login), "Login have leading or trailing white-spaces.", () =>
+            {
+                return _login?.Length == _login?.Trim().Length;
+            });
+            AddValidationRule(nameof(Login), "Login cannot be longer than 300 symbols.", () =>
+            {
+                return _login?.Length < 301;
+            });
+
+            //Password validation
+            AddValidationRule(nameof(Password), "Password field cannot be empty.", () =>
+            {
+                return !string.IsNullOrEmpty(_password);
+            });
+            AddValidationRule(nameof(Password), "Password have leading or trailing white-spaces.", () =>
+            {
+                return _password?.Length == _password?.Trim().Length;
+            });
+            AddValidationRule(nameof(Password), "Password cannot be longer than 300 symbols.", () =>
+            {
+                return _password?.Length < 301;
+            });
+
+            Validate(null);
         }
 
         public AccountModel CreateModel()
@@ -111,5 +126,7 @@ namespace SnailPass_Desktop.ViewModel
 
             return accountModel;
         }
+
+
     }
 }

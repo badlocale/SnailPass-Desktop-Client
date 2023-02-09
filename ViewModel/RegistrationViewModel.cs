@@ -12,7 +12,6 @@ namespace SnailPass_Desktop.ViewModel
     public class RegistrationViewModel : ErrorViewModel
     {
         private string _id;
-        private string _username;
         private string _email;
         private string _hint;
 
@@ -42,7 +41,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _email = value.Trim();
                 OnPropertyChanged();
-                ValidateEmail();
+                Validate();
             }
         }
 
@@ -53,7 +52,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-                ValidatePassword();
+                Validate();
             }
         }
 
@@ -64,6 +63,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _hint = value;
                 OnPropertyChanged();
+                Validate();
             }
         }
 
@@ -98,39 +98,40 @@ namespace SnailPass_Desktop.ViewModel
             NavigateLoginCommand = new NavigateCommand<LoginViewModel>(navigationStore, 
                 () => new LoginViewModel(navigationStore, identityStore, userRestApi, repository, encryptor, logger, 
                 dialogService, synchronizationService, modeStore), "Logging");
-        }
 
-        public void ValidateEmail()
-        {
-            ClearErrors(nameof(Email));
-
-            if (string.IsNullOrWhiteSpace(Email))
+            //E-mail validation
+            AddValidationRule(nameof(Email), "E-mail field cannot be empty.", () =>
             {
-                AddError("E-mail field cannot be empty.", nameof(Email));
-                return;
-            }
-
-            if (!new EmailAddressAttribute().IsValid(_email))
+                return !string.IsNullOrEmpty(_email);
+            });
+            AddValidationRule(nameof(Email), "E-mail have leading or trailing white-spaces.", () =>
             {
-                AddError("E-mail address is not correct.", nameof(Email));
-            }
-        }
-
-        public void ValidatePassword()
-        {
-            ClearErrors(nameof(Password));
-
-            if (_password.Length == 0)
+                return _email?.Length == _email?.Trim().Length;
+            });
+            AddValidationRule(nameof(Email), "Entered text is not e-mail.", () =>
             {
-                AddError("Password field cannot be empty.", nameof(Password));
-                return;
-            }
-
-            int minPasswordLenght = 10;
-            if (_password.Length < minPasswordLenght)
+                return new EmailAddressAttribute().IsValid(_email);
+            });
+            AddValidationRule(nameof(Email), "E-mail address cannot be longer than 255 symbols.", () =>
             {
-                AddError($"Password cannot be less than {minPasswordLenght} symbols", nameof(Password));
-            }
+                return _email?.Length < 256;
+            });
+
+            //Password validation
+            AddValidationRule(nameof(Password), "Password field cannot be empty.", () =>
+            {
+                return !(_password?.Length == 0);
+            });
+            AddValidationRule(nameof(Password), "Password cannot be less than 10 symbols.", () =>
+            {
+                return _password?.Length > 10;
+            });
+            AddValidationRule(nameof(Password), "Password cannot be longer than 300 symbols.", () =>
+            {
+                return _password?.Length < 301;
+            });
+
+            Validate(null);
         }
     }
 }

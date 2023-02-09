@@ -11,7 +11,6 @@ namespace SnailPass_Desktop.ViewModel
 {
     public class LoginViewModel : ErrorViewModel
     {
-        private string _id;
         private string _email;
         private string? _hint;
         private SecureString _password;
@@ -31,7 +30,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _email = value.Trim();
                 OnPropertyChanged();
-                ValidateEmail();
+                Validate();
             }
         }
 
@@ -42,7 +41,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-                ValidatePassword();
+                Validate();
             }
         }
 
@@ -82,26 +81,28 @@ namespace SnailPass_Desktop.ViewModel
             NavigateRegistrationCommand = new NavigateCommand<RegistrationViewModel>(navigationStore, 
                 () => new RegistrationViewModel(navigationStore, identityStore, userRestApi, repository, encryptor, logger, 
                 dialogService, synchronizationService, modeStore), "Registration");
-        }
 
-        public void ValidateEmail()
-        {
-            ClearErrors(nameof(Email));
-
-            if (string.IsNullOrWhiteSpace(_email))
+            //E-mail validation
+            AddValidationRule(nameof(Email), "E-mail field cannot be empty.", () =>
             {
-                AddError("E-mail field cannot be empty.", nameof(Email));
-            }
-        }
-
-        public void ValidatePassword()
-        {
-            ClearErrors(nameof(Password));
-
-            if (_password == null || _password.Length == 0)
+                return !string.IsNullOrEmpty(_email);
+            });
+            AddValidationRule(nameof(Email), "E-mail address cannot be longer than 255 symbols.", () =>
             {
-                AddError("Password field cannot be empty.", nameof(Password));
-            }
+                return _email?.Length < 256;
+            });
+
+            //Password validation
+            AddValidationRule(nameof(Password), "Password field cannot be empty.", () =>
+            {
+                return !(_password?.Length == 0);
+            });
+            AddValidationRule(nameof(Password), "Password cannot be longer than 300 symbols.", () =>
+            {
+                return _password?.Length < 301;
+            });
+
+            Validate(null);
         }
     }
 }

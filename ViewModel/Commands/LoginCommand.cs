@@ -39,13 +39,6 @@ namespace SnailPass_Desktop.ViewModel.Commands
         public override async void Execute(object? parameter)
         {
             _viewModel.ErrorMessage = string.Empty;
-            _viewModel.ValidateEmail();
-            _viewModel.ValidatePassword();
-
-            if (_viewModel.HasErrors)
-            {
-                return;
-            }
 
             UserModel? user = null;
             _identity.Master = _viewModel.Password;

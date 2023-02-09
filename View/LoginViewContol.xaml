@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:SnailPass_Desktop.View"
              xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="300">
+             d:DesignHeight="450" d:DesignWidth="300"
+             x:Name="root">
     <DockPanel Grid.Row="1"
                Width="220"
                Margin="0, 10, 0, 15">
@@ -70,6 +71,18 @@
                     Template="{StaticResource ResourceKey=BigButton}"
                     Command="{Binding LoginCommand}"
                     Content="LOGIN">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=root, Path=DataContext.HasErrors, 
+                                                   UpdateSourceTrigger=PropertyChanged}"
+                                         Value="True">
+                                <Setter Property="IsEnabled" 
+                                        Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
         </Border>
     </DockPanel>

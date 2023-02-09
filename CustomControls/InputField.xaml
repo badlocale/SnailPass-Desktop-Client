@@ -51,7 +51,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding ErrorContent}"
-                               Foreground="{StaticResource ResourceKey=ErrorColor}"/>
+                               Foreground="{StaticResource ResourceKey=ErrorColor}"
+                               TextWrapping="WrapWithOverflow"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

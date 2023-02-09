@@ -1,4 +1,5 @@
-﻿using SnailPass_Desktop.Model;
+﻿using Newtonsoft.Json.Linq;
+using SnailPass_Desktop.Model;
 
 namespace SnailPass_Desktop.ViewModel
 {
@@ -15,12 +16,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _serviceName = value;
                 OnPropertyChanged();
-
-                ClearErrors();
-                if (_serviceName.Length != _serviceName.Trim().Length)
-                {
-                    AddError("Service name have leading or trailing white-spaces.");
-                }
+                Validate();
             }
         }
 
@@ -31,12 +27,7 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _login = value;
                 OnPropertyChanged();
-
-                ClearErrors();
-                if (_login.Length != _login.Trim().Length)
-                {
-                    AddError("Login have leading or trailing white-spaces.");
-                }
+                Validate();
             }
         }
 
@@ -47,13 +38,43 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-
-                ClearErrors();
-                if (_password.Length != _password.Trim().Length)
-                {
-                    AddError("Password have leading or trailing white-spaces.");
-                }
+                Validate();
             }
+        }
+
+        public EditAccountViewModel()
+        {
+            //Service name validation
+            AddValidationRule(nameof(ServiceName), "Service name have leading or trailing white-spaces.", () =>
+            {
+                return _serviceName?.Length == _serviceName?.Trim().Length; ;
+            });
+            AddValidationRule(nameof(ServiceName), "Service name cannot be longer than 300 symbols.", () =>
+            {
+                return _serviceName?.Length < 301;
+            });
+
+            //Login validation
+            AddValidationRule(nameof(Login), "Login have leading or trailing white-spaces.", () =>
+            {
+                return _login?.Length == _login?.Trim().Length;
+            });
+            AddValidationRule(nameof(Login), "Login cannot be longer than 300 symbols.", () =>
+            {
+                return _login?.Length < 301;
+            });
+
+            //Password validation
+            AddValidationRule(nameof(Password), "Password have leading or trailing white-spaces.", () =>
+            {
+                return _password?.Length == _password?.Trim().Length; ;
+            });
+            AddValidationRule(nameof(Password), "Password cannot be longer than 300 symbols.", () =>
+            {
+                return _password?.Length < 301;
+            });
+
+            Validate(null);
         }
 
         public AccountModel CreateModel()
