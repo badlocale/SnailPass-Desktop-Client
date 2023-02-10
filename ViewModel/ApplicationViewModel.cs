@@ -36,7 +36,7 @@ namespace SnailPass_Desktop.ViewModel
             IAccountRepository accountRepository, ICustomFieldRepository customFieldRepository, 
             IDialogService dialogService, ILogger logger, IAccountRestApi accountRestApi, 
             ICustomFieldRestApi customFieldRestApi, ISynchronizationService synchronizationService, 
-            ICryptographyService cryptographyService)
+            ICryptographyService cryptographyService, IApplicationModeStore applicationModeStore)
         {
             _navigationStore = navigationStore;
             _dialogService = dialogService;
@@ -50,7 +50,7 @@ namespace SnailPass_Desktop.ViewModel
             NavigateAccountsCommand = new NavigateCommand<AccountsViewModel>(navigationStore, 
                 () => new AccountsViewModel(identity, accountRepository, customFieldRepository, 
                 dialogService, logger, cryptographyService, synchronizationService, 
-                accountRestApi, customFieldRestApi), null);
+                accountRestApi, customFieldRestApi, applicationModeStore), null);
             NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore, 
                 () => new NotesViewModel(identity, navigationStore, logger), null);
 

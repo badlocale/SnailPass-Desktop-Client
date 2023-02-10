@@ -19,6 +19,7 @@ namespace SnailPass_Desktop.ViewModel
         private string _searchBarText = string.Empty;
         private AccountModel _selectedAccount = null;
         private EncryptableFieldModel _selectedField = null;
+        private bool _isNetworkFunctionsEnabled;
 
         private IAccountRepository _accountRepository;
         private ICustomFieldRepository _customFieldRepository;
@@ -58,6 +59,16 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
+        public bool IsNetworkFunctionsEnabled
+        {
+            get { return _isNetworkFunctionsEnabled; }
+            set
+            {
+                _isNetworkFunctionsEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand DeleteFieldCommand { get; set; }
         public ICommand AddAccountCommand { get; set; }
@@ -71,7 +82,7 @@ namespace SnailPass_Desktop.ViewModel
         public AccountsViewModel(IUserIdentityStore identity, IAccountRepository accountRepository, 
             ICustomFieldRepository customFieldRepository, IDialogService dialogService, ILogger logger,
             ICryptographyService cryptographyService, ISynchronizationService synchronizationService,
-            IAccountRestApi accountRestApi, ICustomFieldRestApi customFieldRestApi)
+            IAccountRestApi accountRestApi, ICustomFieldRestApi customFieldRestApi, IApplicationModeStore applicationModeStore)
         {
             _identity = identity;
             _accountRepository = accountRepository;
@@ -82,6 +93,7 @@ namespace SnailPass_Desktop.ViewModel
 
             _accounts = new ObservableCollection<AccountModel>();
             _fields = new ObservableCollection<EncryptableFieldModel>();
+            _isNetworkFunctionsEnabled = !applicationModeStore.IsLocalMode;
 
             DeleteAccountCommand = new DeleteAccountCommand(this, accountRestApi, synchronizationService,
                 identity, logger);

@@ -21,6 +21,9 @@ namespace SnailPass_Desktop.CustomControls
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register("Value", typeof(string), typeof(CryptedFieldWithHeader), new PropertyMetadata(string.Empty));
 
+        public static readonly DependencyProperty IsButtonsEnabledProperty =
+            DependencyProperty.Register("IsButtonsEnabled", typeof(bool), typeof(CryptedFieldWithHeader), new PropertyMetadata(false));
+
         public static readonly DependencyPropertyKey HintProperty =
             DependencyProperty.RegisterReadOnly("Hint", typeof(string), typeof(CryptedFieldWithHeader), new PropertyMetadata(string.Empty));
 
@@ -54,6 +57,12 @@ namespace SnailPass_Desktop.CustomControls
         public string Value
         {
             get { return (string)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
+
+        public bool IsButtonsEnabled
+        {
+            get { return (bool)GetValue(IsButtonsEnabledProperty); }
             set { SetValue(ValueProperty, value); }
         }
 

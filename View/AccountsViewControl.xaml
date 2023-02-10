@@ -234,14 +234,16 @@
                         CornerRadius="10, 10, 0, 0">
                     <Button x:Name="AddButton"
                             Style="{StaticResource ResourceKey=AddNewButton}"
-                            Command="{Binding AddAccountCommand}">
+                            Command="{Binding AddAccountCommand}"
+                            IsEnabled="{Binding IsNetworkFunctionsEnabled}">
                     </Button>
                 </Border>
 
                 <Border Grid.Column="1"
                         Grid.Row="2">
                     <Button x:Name="EditButton"
-                            Command="{Binding EditAccountCommand}">
+                            Command="{Binding EditAccountCommand}"
+                            IsEnabled="{Binding IsNetworkFunctionsEnabled}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Style.Setters>
@@ -290,7 +292,8 @@
                 <Border Grid.Column="2"
                         Grid.Row="2">
                     <Button x:Name="DeleteButton"
-                            Command="{Binding DeleteAccountCommand}">
+                            Command="{Binding DeleteAccountCommand}"
+                            IsEnabled="{Binding IsNetworkFunctionsEnabled}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Style.Setters>
@@ -475,7 +478,9 @@
                                         DeleteCommand="{Binding Path=DataContext.DeleteFieldCommand, 
                                                                 ElementName=userControl}"
                                         EditCommand="{Binding Path=DataContext.EditFieldCommand, 
-                                                              ElementName=userControl}"/>
+                                                              ElementName=userControl}"
+                                        IsButtonsEnabled="{Binding Path=DataContext.IsNetworkFunctionsEnabled,
+                                                                   ElementName=userControl}"/>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -508,7 +513,8 @@
                         HorizontalAlignment="Stretch"
                         Margin="5"
                         Style="{StaticResource ResourceKey=AddFieldButton}"
-                        Command="{Binding AddFieldCommand}">
+                        Command="{Binding AddFieldCommand}"
+                        IsEnabled="{Binding IsNetworkFunctionsEnabled}">
                 </Button>
             </Grid>
         </Border>

@@ -57,9 +57,15 @@
                                 <Setter Property="IsEnabled" Value="False"/>
                                 <Setter Property="Opacity" Value="0.5"/>
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding IsButtonsEnabled, Mode=OneWay,
+                                                           RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}"
+                                         Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </DataTrigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background"
-                                                Value="{StaticResource ResourceKey=ActivePanelColor}"/>
+                                        Value="{StaticResource ResourceKey=ActivePanelColor}"/>
                                 <Setter Property="Height" Value="100"/>
                                 <Setter Property="Margin" Value="10"/>
                             </Trigger>
@@ -116,6 +122,12 @@
                                 <Setter Property="IsEnabled" Value="False"/>
                                 <Setter Property="Opacity" Value="0.5"/>
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding IsButtonsEnabled, Mode=OneWay,
+                                                           RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}"
+                                         Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </DataTrigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background"
                                         Value="{StaticResource ResourceKey=ActivePanelColor}"/>
@@ -127,9 +139,9 @@
                 </Border.Style>
 
                 <Button Name="DeleteButton"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Command="{Binding DeleteCommand, ElementName=root}">
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding DeleteCommand, ElementName=root}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Setters>
