@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="View\Res\Fonts\Uncut-Sans-Regular.otf" />
     <None Remove="View\Res\Images\Logo.png" />
   </ItemGroup>
 
@@ -17,7 +16,8 @@
     <PackageReference Include="Autofac" Version="6.4.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.9" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Serilog" Version="2.12.0" />
@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="View\Res\Fonts\UncutSans\Uncut-Sans-Regular.otf" />
     <Resource Include="View\Res\Images\Logo.png" />
   </ItemGroup>
 

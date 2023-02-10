@@ -1,4 +1,5 @@
 ﻿using SnailPass_Desktop.View.Dialogs;
+using SnailPass_Desktop.ViewModel;
 using SnailPass_Desktop.ViewModel.Factories;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SnailPass_Desktop.ViewModel.Services
+namespace SnailPass_Desktop.Services
 {
     public class DialogService : IDialogService
     {

@@ -1,8 +1,8 @@
 ﻿using Serilog;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Interfaces;
+using SnailPass_Desktop.Services;
 using SnailPass_Desktop.ViewModel.Commands;
-using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

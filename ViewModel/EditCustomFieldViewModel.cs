@@ -34,21 +34,29 @@ namespace SnailPass_Desktop.ViewModel
             //Field name validation
             AddValidationRule(nameof(FieldName), "Field name have leading or trailing white-spaces.", () =>
             {
-                return _fieldName?.Length == _fieldName?.Trim().Length; ;
+                if (_fieldName == null) 
+                    return true;
+                return _fieldName.Length == _fieldName.Trim().Length; ;
             });
             AddValidationRule(nameof(FieldName), "Field name cannot be longer than 300 symbols.", () =>
             {
-                return _fieldName?.Length < 301;
+                if (_fieldName == null) 
+                    return true;
+                return _fieldName.Length < 301;
             });
 
             //Value validation
             AddValidationRule(nameof(Value), "Value field have leading or trailing white-spaces.", () =>
             {
-                return _value?.Length == _value?.Trim().Length;
+                if (_value == null) 
+                    return true;
+                return _value.Length == _value.Trim().Length;
             });
             AddValidationRule(nameof(Value), "Value field cannot be longer than 300 symbols.", () =>
             {
-                return _value?.Length < 301;
+                if (_value == null) 
+                    return true;
+                return _value.Length < 301;
             });
 
             Validate(null);

@@ -56,9 +56,13 @@
               "target": "Package",
               "version": "[6.0.1, )"
             },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.Extensions.Logging": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Xaml.Behaviors.Wpf": {
               "target": "Package",

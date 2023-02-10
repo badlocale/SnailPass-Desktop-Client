@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace SnailPass_Desktop.Model.Cryptography
+namespace SnailPass_Desktop.Services
 {
     public class CryptographyService : ICryptographyService
     {
@@ -15,7 +16,7 @@ namespace SnailPass_Desktop.Model.Cryptography
         private IUserIdentityStore _identity;
         private ILogger _logger;
 
-        public CryptographyService(ISymmetricCryptographer cryptographer, IKeyGenerator encryptor, 
+        public CryptographyService(ISymmetricCryptographer cryptographer, IKeyGenerator encryptor,
             IUserIdentityStore identity, ILogger logger)
         {
             _cryptographer = cryptographer;
@@ -33,9 +34,9 @@ namespace SnailPass_Desktop.Model.Cryptography
                 return;
             }
 
-            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email, 
+            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email,
                 CryptoConstants.ENC_KEY_ITERATIONS_COUNT);
-            
+
             foreach (PropertyInfo property in properties)
             {
                 string? plaintext = property.GetValue(model) as string;
@@ -62,7 +63,7 @@ namespace SnailPass_Desktop.Model.Cryptography
                 return;
             }
 
-            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email, 
+            string encKey = _encryptor.Encrypt(_identity.Master, _identity.CurrentUser.Email,
                 CryptoConstants.ENC_KEY_ITERATIONS_COUNT);
 
             foreach (PropertyInfo property in properties)
@@ -83,7 +84,7 @@ namespace SnailPass_Desktop.Model.Cryptography
                     string encryptedValue = _cryptographer.Decrypt(ciphertext, encKey, nonce);
                     property.SetValue(model, encryptedValue);
                 }
-                
+
             }
         }
 

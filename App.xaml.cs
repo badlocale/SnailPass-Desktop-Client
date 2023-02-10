@@ -1,9 +1,15 @@
 ﻿using Autofac;
+using Microsoft.Extensions.DependencyInjection;
+using SnailPass_Desktop.Data.API;
+using SnailPass_Desktop.Model.Interfaces;
+using SnailPass_Desktop.Services;
 using SnailPass_Desktop.View;
 using SnailPass_Desktop.View.Dialogs;
 using SnailPass_Desktop.ViewModel;
-using SnailPass_Desktop.ViewModel.Services;
+using System.Net.Http.Headers;
+using System;
 using System.Windows;
+using System.Configuration;
 
 namespace SnailPass_Desktop
 {

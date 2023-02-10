@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Data
+namespace SnailPass_Desktop.Services
 {
     public class SynchronizationService : ISynchronizationService
     {
@@ -22,10 +22,10 @@ namespace SnailPass_Desktop.Data
         private IApplicationModeStore _modeStore;
         private ILogger _logger;
 
-        public SynchronizationService(IUserRestApi userRestApi, IAccountRestApi accountRestApi, 
-            ICustomFieldRestApi customFieldRestApi, IAccountRepository accountRepository, 
-            ICustomFieldRepository customFieldRepository, IUserRepository userRepository, 
-            IUserIdentityStore identity, IKeyGenerator encryptor, 
+        public SynchronizationService(IUserRestApi userRestApi, IAccountRestApi accountRestApi,
+            ICustomFieldRestApi customFieldRestApi, IAccountRepository accountRepository,
+            ICustomFieldRepository customFieldRepository, IUserRepository userRepository,
+            IUserIdentityStore identity, IKeyGenerator encryptor,
             IApplicationModeStore modeStore, ILogger logger)
         {
             _userRestApi = userRestApi;
@@ -52,7 +52,7 @@ namespace SnailPass_Desktop.Data
 
             if (fields != null)
             {
-                _accountRepository.DeleteAllByEmail(accountID);//Delete
+                _accountRepository.DeleteAllByAccountID(accountID);
 
                 foreach (EncryptableFieldModel account in fields)
                 {
@@ -73,7 +73,7 @@ namespace SnailPass_Desktop.Data
 
             if (accounts != null)
             {
-                _accountRepository.DeleteAllByEmail(email);
+                _accountRepository.DeleteAllByAccountID(email);
 
                 foreach (AccountModel account in accounts)
                 {
@@ -84,7 +84,7 @@ namespace SnailPass_Desktop.Data
         }
 
         private async Task SynchronizeUserDataAsync(string email)
-         {
+        {
             if (email == null)
             {
                 throw new ArgumentNullException(nameof(email));
@@ -101,6 +101,7 @@ namespace SnailPass_Desktop.Data
             if (!_modeStore.IsLocalMode)
             {
                 _logger.Information("Synchronization started.");
+
                 Task user = SynchronizeUserDataAsync(email);
                 Task accounts = SynchronizeAccountsDataAsync(email);
                 Task aggregateTask = Task.WhenAll(user, accounts);

@@ -36,9 +36,18 @@
                     Grid.Row="0"
                     HorizontalAlignment="Right"
                     Margin="0, 0, 10, 0"
-                    FontSize="13"
-                    Content="X"
-                    Click="btnClose_Click"/>
+                    Click="btnClose_Click">
+                <Rectangle HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Width="15"
+                               Height="15"
+                               Fill="{StaticResource ResourceKey=LightTextColor}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform"
+                                 Visual="{StaticResource ResourceKey=CloseWindowVectorIcon}"/>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
 
             <DockPanel x:Name="body"
                         Grid.Row="1"

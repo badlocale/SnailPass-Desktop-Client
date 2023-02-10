@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using SnailPass_Desktop.Model;
+﻿using SnailPass_Desktop.Model;
 
 namespace SnailPass_Desktop.ViewModel
 {
@@ -47,30 +46,42 @@ namespace SnailPass_Desktop.ViewModel
             //Service name validation
             AddValidationRule(nameof(ServiceName), "Service name have leading or trailing white-spaces.", () =>
             {
+                if (_serviceName == null)
+                    return true;
                 return _serviceName?.Length == _serviceName?.Trim().Length; ;
             });
             AddValidationRule(nameof(ServiceName), "Service name cannot be longer than 300 symbols.", () =>
             {
+                if (_serviceName == null)
+                    return true;
                 return _serviceName?.Length < 301;
             });
 
             //Login validation
             AddValidationRule(nameof(Login), "Login have leading or trailing white-spaces.", () =>
             {
+                if (_login == null)
+                    return true;
                 return _login?.Length == _login?.Trim().Length;
             });
             AddValidationRule(nameof(Login), "Login cannot be longer than 300 symbols.", () =>
             {
+                if (_login == null)
+                    return true;
                 return _login?.Length < 301;
             });
 
             //Password validation
             AddValidationRule(nameof(Password), "Password have leading or trailing white-spaces.", () =>
             {
+                if (_password == null)
+                    return true;
                 return _password?.Length == _password?.Trim().Length; ;
             });
             AddValidationRule(nameof(Password), "Password cannot be longer than 300 symbols.", () =>
             {
+                if (_password == null)
+                    return true;
                 return _password?.Length < 301;
             });
 

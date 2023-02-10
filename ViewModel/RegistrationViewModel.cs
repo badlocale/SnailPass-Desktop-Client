@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using SnailPass_Desktop.Model.Interfaces;
+using SnailPass_Desktop.Services;
 using SnailPass_Desktop.ViewModel.Commands;
-using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
 using System.ComponentModel.DataAnnotations;
 using System.Security;
@@ -90,14 +90,14 @@ namespace SnailPass_Desktop.ViewModel
         public RegistrationViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore, 
             IUserRestApi userRestApi, IUserRepository repository, IKeyGenerator encryptor, 
             ILogger logger, IDialogService dialogService, ISynchronizationService synchronizationService, 
-            IApplicationModeStore modeStore)
+            IApplicationModeStore modeStore, IAuthenticationService authenticationService)
         {
             _logger = logger;
 
-            RegistrationCommand = new RegistrationCommand(this, userRestApi, encryptor, logger);
+            RegistrationCommand = new RegistrationCommand(this, userRestApi, encryptor, logger, authenticationService);
             NavigateLoginCommand = new NavigateCommand<LoginViewModel>(navigationStore, 
                 () => new LoginViewModel(navigationStore, identityStore, userRestApi, repository, encryptor, logger, 
-                dialogService, synchronizationService, modeStore), "Logging");
+                dialogService, synchronizationService, modeStore, authenticationService), "Logging");
 
             //E-mail validation
             AddValidationRule(nameof(Email), "E-mail field cannot be empty.", () =>

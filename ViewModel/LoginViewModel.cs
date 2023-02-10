@@ -1,8 +1,8 @@
 ﻿using Serilog;
 using Serilog.Core;
 using SnailPass_Desktop.Model.Interfaces;
+using SnailPass_Desktop.Services;
 using SnailPass_Desktop.ViewModel.Commands;
-using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
 using System.Security;
 using System.Windows.Input;
@@ -12,7 +12,6 @@ namespace SnailPass_Desktop.ViewModel
     public class LoginViewModel : ErrorViewModel
     {
         private string _email;
-        private string? _hint;
         private SecureString _password;
 
         private string _errorMessage;
@@ -72,15 +71,14 @@ namespace SnailPass_Desktop.ViewModel
         public LoginViewModel(INavigationStore navigationStore, IUserIdentityStore identityStore, 
             IUserRestApi userRestApi, IUserRepository repository, IKeyGenerator encryptor, 
             ILogger logger, IDialogService dialogService, ISynchronizationService synchronizationService, 
-            IApplicationModeStore modeStore)
+            IApplicationModeStore modeStore, IAuthenticationService authenticationService)
         {
             _logger = logger;
 
-            LoginCommand = new LoginCommand(this, identityStore, userRestApi, repository, encryptor, logger, dialogService, 
-                synchronizationService, modeStore);
+            LoginCommand = new LoginCommand(this, identityStore, authenticationService);
             NavigateRegistrationCommand = new NavigateCommand<RegistrationViewModel>(navigationStore, 
                 () => new RegistrationViewModel(navigationStore, identityStore, userRestApi, repository, encryptor, logger, 
-                dialogService, synchronizationService, modeStore), "Registration");
+                dialogService, synchronizationService, modeStore, authenticationService), "Registration");
 
             //E-mail validation
             AddValidationRule(nameof(Email), "E-mail field cannot be empty.", () =>

@@ -81,7 +81,7 @@ namespace SnailPass_Desktop.Data.Repositories
             return accounts;
         }
 
-        public void DeleteAllByEmail(string email)
+        public void DeleteAllByAccountID(string accountId)
         {
             using var connection = GetConnection();
             using (var command = new SqliteCommand())
@@ -96,7 +96,7 @@ namespace SnailPass_Desktop.Data.Repositories
                                           "WHERE users.email = @email" +
                                       ");";
 
-                command.Parameters.Add("@email", SqliteType.Text).Value = email;
+                command.Parameters.Add("@email", SqliteType.Text).Value = accountId;
 
                 command.ExecuteNonQuery();
             }

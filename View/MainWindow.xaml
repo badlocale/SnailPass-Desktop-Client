@@ -25,90 +25,123 @@
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
+        <Border Panel.ZIndex="1"
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="2"
+                Background="Black"
+                Opacity="0.8"
+                Visibility="Hidden"/>
         
         <Border Style="{StaticResource HeaderBorderStyle}"
                 MouseDown="TopMenu_MouseDown"/>
         <Border Style="{StaticResource BodyBorderStyle}"/>
 
         <Grid Name="TopMenu"
-              Grid.Row="0"
-              Grid.ColumnSpan="2">
+                  Grid.Row="0"
+                  Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <StackPanel Grid.Column="0"
                         Orientation="Horizontal">
-                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="File"/>
-                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Edit"/>
-                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="View"/>
-                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Account"/>
-                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Window"/>
-                    <Button Template="{StaticResource ResourceKey=TopMenuButton}" Content="Help"/>
             </StackPanel>
-            
+
             <StackPanel Grid.Column="1"
-                        Orientation="Horizontal"
-                        FlowDirection="RightToLeft"
-                        Margin="0, 0, 10, 0">
-                
+                            Orientation="Horizontal"
+                            FlowDirection="RightToLeft"
+                            Margin="0, 0, 10, 0">
+
                 <Button x:Name="btnClose"
-                        Template="{StaticResource ResourceKey=TopMenuSmallButton}"
-                        FontSize="13"
-                        Content="X"
-                        Click="BtnClose_Click"/>
-                
+                            Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                            Margin="0, 0, 10, 0"
+                            Click="BtnClose_Click">
+                    <Rectangle HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Width="15"
+                                   Height="15"
+                                   Fill="{StaticResource ResourceKey=LightTextColor}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform"
+                                             Visual="{StaticResource ResourceKey=CloseWindowVectorIcon}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
                 <Button x:Name="btnMaximize"
-                        Template="{StaticResource ResourceKey=TopMenuSmallButton}"
-                        FontSize="18"
-                        Content="^"
-                        Click="BtnMaximize_Click"/>
-                
+                            Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                            Margin="0, 0, 10, 0"
+                            Click="BtnMaximize_Click">
+                    <Rectangle HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Width="15"
+                                   Height="15"
+                                   Fill="{StaticResource ResourceKey=LightTextColor}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform"
+                                             Visual="{StaticResource ResourceKey=MaximizeWindowVectorIcon}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
                 <Button x:Name="btnMinimize"
-                        Template="{StaticResource ResourceKey=TopMenuSmallButton}"
-                        FontSize="18"
-                        Content="-"
-                        Click="BtnMinimize_Click"/>
+                            Template="{StaticResource ResourceKey=TopMenuSmallButton}"
+                            Margin="0, 0, 10, 0"
+                            Click="BtnMinimize_Click">
+                    <Rectangle HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Width="15"
+                                   Height="15"
+                                   Fill="{StaticResource ResourceKey=LightTextColor}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform"
+                                             Visual="{StaticResource ResourceKey=MinimizeWindowVectorIcon}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
             </StackPanel>
         </Grid>
 
         <Grid Name="SlideMenu"
-              Grid.Column="0"
-              Grid.Row="1">
+                  Grid.Column="0"
+                  Grid.Row="1">
             <Border BorderThickness="0, 0, 1, 0"
-                    CornerRadius="0, 0, 0, 6"
-                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                    Background="{StaticResource ResourceKey=SecondBackground}"/>
+                        CornerRadius="0, 0, 0, 6"
+                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                        Background="{StaticResource ResourceKey=SecondBackground}"/>
 
             <StackPanel Orientation="Vertical">
                 <RadioButton x:Name="HomePage"
-                             GroupName="LeftMenu"
-                             Command="{Binding NavigateHomeCommand}"
-                             Style="{StaticResource ResourceKey=LeftMenuButton}"
-                             Tag="{StaticResource ResourceKey=LightTextColor}">
+                                 GroupName="LeftMenu"
+                                 Command="{Binding NavigateHomeCommand}"
+                                 Style="{StaticResource ResourceKey=LeftMenuButton}"
+                                 Tag="{StaticResource ResourceKey=LightTextColor}">
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Margin="15, 0, 0, 0"
-                                   Width="22" 
-                                   Height="22"
-                                   Fill="{StaticResource ResourceKey=LightTextColor}">
+                                       Width="22" 
+                                       Height="22"
+                                       Fill="{StaticResource ResourceKey=LightTextColor}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Uniform" 
-                                             Visual="{StaticResource ResourceKey=HomeVectorIcon}"/>
+                                                 Visual="{StaticResource ResourceKey=HomeVectorIcon}"/>
                             </Rectangle.OpacityMask>
                         </Rectangle>
 
                         <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}"
-                                   Text="Home"/>
+                                       Text="Home"/>
                     </StackPanel>
                 </RadioButton>
 
                 <RadioButton x:Name="PasswordsPage"
-                             GroupName="LeftMenu"
-                             Command="{Binding NavigateAccountsCommand}"
-                             IsChecked="True"
-                             Style="{StaticResource ResourceKey=LeftMenuButton}"
-                             Tag="{StaticResource ResourceKey=LightTextColor}">
+                                 GroupName="LeftMenu"
+                                 Command="{Binding NavigateAccountsCommand}"
+                                 IsChecked="True"
+                                 Style="{StaticResource ResourceKey=LeftMenuButton}"
+                                 Tag="{StaticResource ResourceKey=LightTextColor}">
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Margin="15, 0, 0, 0"
                                    Width="22"
@@ -142,15 +175,15 @@
                         </Rectangle>
 
                         <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}"
-                                   Text="Notes"/>
+                                       Text="Notes"/>
                     </StackPanel>
                 </RadioButton>
             </StackPanel>
         </Grid>
 
-        <Border x:Name="Content"
-                Grid.Column="1"
-                Grid.Row="1">
+        <Border x:Name="WindowContent"
+                    Grid.Column="1"
+                    Grid.Row="1">
             <ContentControl Content="{Binding CurrentViewModel}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">

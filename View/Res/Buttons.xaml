@@ -36,40 +36,27 @@
 
     <ControlTemplate x:Key="TopMenuSmallButton"
                      TargetType="Button">
-        <Grid Name="Btn"
-              Margin="2, 0, 2, 0">
-            <Border Width="24"
-                    Height="24"
-                    CornerRadius="7">
-                <Label Content="{TemplateBinding Content}"
-                       Background="Transparent"
-                       FontSize="{TemplateBinding FontSize}"
-                       VerticalAlignment="Center"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Foreground="{StaticResource ResourceKey=DarkTextColor}"
-                       FontFamily="{StaticResource ResourceKey=MainFont}"
-                       FontWeight="DemiBold"
-                       Cursor="Hand"
-                       HorizontalAlignment="Center">
-                </Label>
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Background"
-                                Value="{StaticResource ResourceKey=PassiveButtonColor}"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                                           AncestorType={x:Type Button}},
-                                                           Path=IsMouseOver}"
-                                         Value="true">
-                                <Setter Property="Background"
-                                        Value="{StaticResource ResourceKey=ActiveButtonColor}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-            </Border>
-        </Grid>
+        <Border Width="24"
+                Height="24"
+                CornerRadius="5">
+            <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Background"
+                                Value="Transparent"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                               AncestorType={x:Type Button}},
+                                               Path=IsMouseOver}"
+                                     Value="true">
+                            <Setter Property="Background"
+                                    Value="{StaticResource ResourceKey=ActivePanelColor}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
     </ControlTemplate>
 
     <ControlTemplate x:Key="BigButton" TargetType="Button">

@@ -1,15 +1,19 @@
 ﻿using Autofac;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-using SnailPass_Desktop.Data;
 using SnailPass_Desktop.Data.API;
 using SnailPass_Desktop.Data.Repositories;
 using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Model.Interfaces;
+using SnailPass_Desktop.Services;
 using SnailPass_Desktop.ViewModel;
 using SnailPass_Desktop.ViewModel.Factories;
-using SnailPass_Desktop.ViewModel.Services;
 using SnailPass_Desktop.ViewModel.Stores;
+using System;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace SnailPass_Desktop
 {
@@ -22,9 +26,11 @@ namespace SnailPass_Desktop
             builder.RegisterType<UserRepository>().As<IUserRepository>().SingleInstance();
             builder.RegisterType<AccountRepository>().As<IAccountRepository>().SingleInstance();
             builder.RegisterType<CustomFieldRepository>().As<ICustomFieldRepository>().SingleInstance();
+
             builder.RegisterType<UserApi>().As<IUserRestApi>().SingleInstance();
             builder.RegisterType<AccountApi>().As<IAccountRestApi>().SingleInstance();
             builder.RegisterType<CustomFieldsApi>().As<ICustomFieldRestApi>().SingleInstance();
+
             builder.RegisterType<Pbkdf2Encryptor>().As<IKeyGenerator>().SingleInstance();
             builder.RegisterType<AesCbcCryptographer>().As<ISymmetricCryptographer>().InstancePerDependency();
             builder.RegisterType<NavigationStore>().As<INavigationStore>().InstancePerLifetimeScope();
@@ -33,6 +39,7 @@ namespace SnailPass_Desktop
             builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
             builder.RegisterType<SynchronizationService>().As<ISynchronizationService>().SingleInstance();
             builder.RegisterType<CryptographyService>().As<ICryptographyService>().InstancePerDependency();
+            builder.RegisterType<AuthenticationService>().As<IAuthenticationService>().SingleInstance();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
             builder.Register<ILogger>((c, p) =>
             {

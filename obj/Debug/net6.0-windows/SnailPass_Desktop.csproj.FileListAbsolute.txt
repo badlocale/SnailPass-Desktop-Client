@@ -112,3 +112,6 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\SQLitePCLRaw.batteries_v2.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\SQLitePCLRaw.core.dll
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\SQLitePCLRaw.provider.e_sqlite3.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\TokenExpiredDialog.g.cs
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\TokenExpiredDialog.baml
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Http.dll

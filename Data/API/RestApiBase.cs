@@ -13,7 +13,7 @@ namespace SnailPass_Desktop.Data.API
         public static event EventHandler ServerNotResponding;
 
         protected static HttpClient HttpClient = null;
-        private static string _token = null;
+        private static string? _token = null;
 
         protected HttpResponseMessage? Responce;
 
@@ -40,15 +40,18 @@ namespace SnailPass_Desktop.Data.API
             }
         }
 
-        public RestApiBase(ILogger logger)
+        static RestApiBase()
         {
-            _logger = logger;
-
             HttpClient = new HttpClient();
             HttpClient.Timeout = TimeSpan.FromSeconds(900);
             HttpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["base_api_url"]);
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        public RestApiBase(ILogger logger)
+        {
+            _logger = logger;
         }
 
         public void Dispose()
@@ -58,19 +61,19 @@ namespace SnailPass_Desktop.Data.API
 
         private void OnTokenIxpired()
         {
-            _logger.Information("Token expired.");
+            _logger.Warning("Token expired.");
             TokenExpired?.Invoke(this, EventArgs.Empty);
         }
 
         protected void OnServerNotResponding()
         {
-            _logger.Information("Server is not responding.");
+            _logger.Warning("Server is not responding.");
             ServerNotResponding?.Invoke(this, EventArgs.Empty);
         }
 
         protected void CheckIsTokenExpired(HttpStatusCode? code)
         {
-            if (code != null && code == HttpStatusCode.Unauthorized)
+            if (code == HttpStatusCode.Unauthorized)
             {
                 OnTokenIxpired();
             }

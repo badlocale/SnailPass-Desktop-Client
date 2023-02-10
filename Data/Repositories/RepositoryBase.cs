@@ -14,8 +14,6 @@ namespace SnailPass_Desktop.Data.Repositories
 
         public RepositoryBase()
         {
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Repositories", "localdata.db"); //TODO ref path
-
             _connectionString = $"Data Source=localdata.db;";
         }
 
