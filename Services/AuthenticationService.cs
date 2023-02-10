@@ -84,6 +84,8 @@ namespace SnailPass_Desktop.Services
         {
             _logger.Information($"Execute logging for E-mail: \"{email}\".");
 
+            _identity.Master = password;
+
             LoggingResult viaNetworkResult = await LoginViaNetwork(email, password);
             if (viaNetworkResult.IsSuccess)
             {
@@ -124,6 +126,7 @@ namespace SnailPass_Desktop.Services
                 }
                 else
                 {
+                    _identity.CurrentUser = user;
                     isSuccess = true;
                     _logger.Error($"Successful logging for: {email}.");
                 }
@@ -174,6 +177,7 @@ namespace SnailPass_Desktop.Services
                     }
                     else
                     {
+                        _identity.CurrentUser = user;
                         isSuccess = true;
                     }
                 }

@@ -92,7 +92,8 @@ namespace SnailPass_Desktop.Services
 
             UserModel user;
             (_, user) = await _userRestApi.GetUserAsync(email);
-            user.Password = _keyGenerator.Encrypt(_identity.Master, email, CryptoConstants.LOCAL_ITERATIONS_COUNT);
+            user.Password = _keyGenerator.Encrypt(_identity.Master, email, 
+                CryptoConstants.LOCAL_ITERATIONS_COUNT);
             _userRepository.AddOrReplace(user);
         }
 

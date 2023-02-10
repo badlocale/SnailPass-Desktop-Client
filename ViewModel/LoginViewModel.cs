@@ -75,7 +75,7 @@ namespace SnailPass_Desktop.ViewModel
         {
             _logger = logger;
 
-            LoginCommand = new LoginCommand(this, identityStore, authenticationService);
+            LoginCommand = new LoginCommand(this, authenticationService);
             NavigateRegistrationCommand = new NavigateCommand<RegistrationViewModel>(navigationStore, 
                 () => new RegistrationViewModel(navigationStore, identityStore, userRestApi, repository, encryptor, logger, 
                 dialogService, synchronizationService, modeStore, authenticationService), "Registration");
