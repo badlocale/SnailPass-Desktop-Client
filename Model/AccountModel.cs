@@ -4,7 +4,7 @@ using System;
 
 namespace SnailPass_Desktop.Model
 {
-    public class AccountModel
+    public class AccountModel : ICloneable
     {
         [JsonProperty("id")]
         public string ID { get; set; }
@@ -57,6 +57,11 @@ namespace SnailPass_Desktop.Model
             return $"ID: {ID}, Serivce name: {ServiceName}, Login: {Login}, Password(enc): {Password}, " +
                 $"Is favorite: {IsFavorite}, Is deleted: {IsDeleted}, " +
                 $"Creation time: {CreationTime}, Update time: {UpdateTime}, User ID: {UserId}";
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

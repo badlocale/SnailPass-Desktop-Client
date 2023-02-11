@@ -32,7 +32,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
         public async override void Execute(object? parameter)
         {
-            EncryptableFieldModel selectedField = _viewModel.SelectedField;
+            EncryptableFieldModel selectedField = (EncryptableFieldModel)_viewModel.SelectedField.Clone();
             EncryptableFieldModel newData;
 
             EditCustomFieldViewModel? dialogVM = _dialogService.ShowDialog<EditCustomFieldViewModel>();

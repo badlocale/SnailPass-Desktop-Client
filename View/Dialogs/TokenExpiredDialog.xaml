@@ -3,10 +3,95 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SnailPass_Desktop.View.Dialogs"
+             xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             Height="220"
+             Width="300"
+             x:Name="root">
+    <Border BorderBrush="{StaticResource ResourceKey=BorderColor}"
+            BorderThickness="1"
+            CornerRadius="7">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource HeaderBorderStyle}"
+                    MouseDown="TopMenu_MouseDown"/>
+            <Border Style="{StaticResource BodyBorderStyle}"/>
+
+            <TextBlock Text="Session time is over"
+                       Foreground="{StaticResource ResourceKey=DarkTextColor}"
+                       FontSize="15"
+                       FontFamily="{StaticResource ResourceKey=MainFont}"
+                       FontWeight="DemiBold"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Margin="15, 0, 0, 0"
+                       MouseDown="TopMenu_MouseDown"/>
+
+            <DockPanel x:Name="Body"
+                        Grid.Row="1"
+                        Width="260"
+                        Margin="0, 10, 0, 15">
+                
+                <TextBlock DockPanel.Dock="Top"
+                           Margin="0, 10, 0, 0"
+                           Style="{StaticResource ResourceKey=CommonTextStyle}"
+                           TextWrapping="Wrap"
+                           Text="Session is over, but if you want to continue, 
+                                 please enter your password again"/>
+
+                <customControls:BindablePasswordBox x:Name="Password"
+                                                    DockPanel.Dock="Top"
+                                                    Password="{Binding Password, ValidatesOnNotifyDataErrors=True, 
+                                                               Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Height="auto"
+                                                    Margin="0, 15, 0, 0"/>
+
+                <Grid DockPanel.Dock="Top"
+                      Margin="0, 17, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0"
+                            Height="34"
+                            Width="110"
+                            VerticalAlignment="Bottom">
+                        <Button x:Name="btnConfirm"
+                            Template="{StaticResource ResourceKey=BigButton}"
+                            Click="BtnConfirm_Click"
+                            Content="ENTER">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=root, Path=DataContext.HasErrors, 
+                                                               UpdateSourceTrigger=PropertyChanged}"
+                                                 Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Border>
+
+                    <Border Grid.Column="1"
+                            Height="34"
+                            Width="110"
+                            VerticalAlignment="Bottom">
+                        <Button x:Name="btnDeny"
+                            Template="{StaticResource ResourceKey=BigButton}"
+                            Click="BtnDeny_Click"
+                            Content="QUIT">
+                        </Button>
+                    </Border>
+                </Grid>
+            </DockPanel>
+        </Grid>
+    </Border>
 </UserControl>

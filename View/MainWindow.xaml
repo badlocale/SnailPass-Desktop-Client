@@ -16,6 +16,9 @@
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="160" Width="200" MaxWidth="250"/>
@@ -33,7 +36,8 @@
                 Grid.RowSpan="2"
                 Background="Black"
                 Opacity="0.8"
-                Visibility="Hidden"/>
+                Visibility="{Binding IsDialogOpened, 
+                             Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}"/>
         
         <Border Style="{StaticResource HeaderBorderStyle}"
                 MouseDown="TopMenu_MouseDown"/>

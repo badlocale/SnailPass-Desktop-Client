@@ -42,6 +42,9 @@
     <Compile Update="View\Dialogs\ResistrationSuccessDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Dialogs\ServerNotRespondingDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Dialogs\TokenExpiredDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +96,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Dialogs\ResistrationSuccessDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Dialogs\ServerNotRespondingDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Dialogs\TokenExpiredDialog.xaml">

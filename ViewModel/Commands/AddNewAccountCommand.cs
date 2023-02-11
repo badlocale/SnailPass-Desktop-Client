@@ -40,7 +40,6 @@ namespace SnailPass_Desktop.ViewModel.Commands
                 _logger.Information($"Execute 'add new account' for user: \"{_identity.CurrentUser.Email}\".");
 
                 AccountModel model = dialogVM.CreateModel();
-
                 _cryptographyService.Encrypt(model);
                 HttpStatusCode? code = await _accountsRestApi.PostAccountAsync(model);
                 if (code == HttpStatusCode.Created)

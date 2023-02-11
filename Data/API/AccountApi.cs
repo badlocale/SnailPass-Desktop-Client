@@ -21,7 +21,7 @@ namespace SnailPass_Desktop.Data.API
         {
             try
             {
-                Responce = await HttpClient.GetAsync("records");
+                ResponseMessage = await HttpClient.GetAsync("records");
             }
             catch (HttpRequestException)
             {
@@ -30,20 +30,20 @@ namespace SnailPass_Desktop.Data.API
             }
 
             IEnumerable<AccountModel>? accounts = null;
-            if (Responce.IsSuccessStatusCode)
+            if (ResponseMessage.IsSuccessStatusCode)
             {
-                string jsonString = Responce.Content.ReadAsStringAsync().Result;
+                string jsonString = ResponseMessage.Content.ReadAsStringAsync().Result;
                 accounts = JsonConvert.DeserializeObject<List<AccountModel>>(jsonString);
             }
 
-            _logger.Information($"Getting accounts status: {Responce.StatusCode}");
+            _logger.Information($"Getting accounts status: {ResponseMessage.StatusCode}");
 
             if (accounts == null)
             {
-                return (Responce.StatusCode, new List<AccountModel>());
+                return (ResponseMessage.StatusCode, new List<AccountModel>());
             }
 
-            return (Responce.StatusCode, accounts);
+            return (ResponseMessage.StatusCode, accounts);
         }
 
         public async Task<HttpStatusCode?> PostAccountAsync(AccountModel account)
@@ -52,23 +52,23 @@ namespace SnailPass_Desktop.Data.API
             {
                 string jsonAccount = JsonConvert.SerializeObject(account);
                 StringContent content = new StringContent(jsonAccount, Encoding.UTF8, "application/json");
-                Responce = await HttpClient.PostAsync("records", content);
+                ResponseMessage = await HttpClient.PostAsync("records", content);
             }
             catch (HttpRequestException)
             {
                 OnServerNotResponding();
                 return null;
             }
-            _logger.Information($"Adding account status: {Responce?.StatusCode}");
+            _logger.Information($"Adding account status: {ResponseMessage?.StatusCode}");
 
-            return Responce?.StatusCode;
+            return ResponseMessage?.StatusCode;
         }
 
         public async Task<HttpStatusCode?> DeleteAccountAsync(string accountID)
         {
             try
             {
-                Responce = await HttpClient.DeleteAsync($"records?id={accountID}");
+                ResponseMessage = await HttpClient.DeleteAsync($"records?id={accountID}");
             }
             catch (HttpRequestException)
             {
@@ -76,9 +76,9 @@ namespace SnailPass_Desktop.Data.API
                 return null;
             }
 
-            _logger.Information($"Deleting account status: {Responce.StatusCode}");
+            _logger.Information($"Deleting account status: {ResponseMessage.StatusCode}");
 
-            return Responce.StatusCode;
+            return ResponseMessage.StatusCode;
         }
 
         public async Task<HttpStatusCode?> PatchAccountAsync(AccountModel account)
@@ -87,16 +87,16 @@ namespace SnailPass_Desktop.Data.API
             {
                 string jsonAccount = JsonConvert.SerializeObject(account);
                 StringContent content = new StringContent(jsonAccount, Encoding.UTF8, "application/json");
-                Responce = await HttpClient.PatchAsync("records", content);
+                ResponseMessage = await HttpClient.PatchAsync("records", content);
             }
             catch (HttpRequestException)
             {
                 OnServerNotResponding();
                 return null;
             }
-            _logger.Information($"Patching account status: {Responce?.StatusCode}");
+            _logger.Information($"Patching account status: {ResponseMessage?.StatusCode}");
 
-            return Responce?.StatusCode;
+            return ResponseMessage?.StatusCode;
         }
     }
 }

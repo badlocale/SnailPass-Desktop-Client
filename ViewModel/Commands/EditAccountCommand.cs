@@ -43,7 +43,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
             if (dialogVM != null)
             {
                 AccountModel newData = dialogVM.CreateModel();
-                AccountModel selectedAccount = _viewModel.SelectedAccount;
+                AccountModel selectedAccount = (AccountModel)_viewModel.SelectedAccount.Clone();
 
                 _logger.Information($"Execute 'edit account data' for user: \"{_identity.CurrentUser.Email}\".");
 

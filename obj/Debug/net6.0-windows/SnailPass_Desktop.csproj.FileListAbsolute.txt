@@ -115,3 +115,5 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\TokenExpiredDialog.g.cs
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\TokenExpiredDialog.baml
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\bin\Debug\net6.0-windows\Microsoft.Extensions.Http.dll
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\ServerNotRespondingDialog.g.cs
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\ServerNotRespondingDialog.baml

@@ -32,6 +32,8 @@ namespace SnailPass_Desktop.ViewModel
             {
                 return _password?.Length < 301;
             });
+
+            Validate(null);
         }
     }
 }

@@ -5,9 +5,9 @@ using System.Windows.Input;
 namespace SnailPass_Desktop.View.Dialogs
 {
     [DialogContent]
-    public partial class TokenExpiredDialog : UserControl
+    public partial class ServerNotRespondingDialog : UserControl
     {
-        public TokenExpiredDialog()
+        public ServerNotRespondingDialog()
         {
             InitializeComponent();
         }
@@ -20,12 +20,22 @@ namespace SnailPass_Desktop.View.Dialogs
             }
         }
 
-        private void BtnDeny_Click(object sender, RoutedEventArgs e)
+        private void btnQuit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        private void BtnConfirm_Click(object sender, RoutedEventArgs e)
+        private void btnContinue_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = Parent as Window;
+
+            if (window != null)
+            {
+                window.DialogResult = false;
+            }
+        }
+
+        private void btnConnent_Click(object sender, RoutedEventArgs e)
         {
             Window window = Parent as Window;
 

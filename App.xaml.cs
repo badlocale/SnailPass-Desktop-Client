@@ -65,6 +65,7 @@ namespace SnailPass_Desktop
             DialogService.RegisterDialog<AddCustomFieldViewModel, AddCustomFieldDialog>();
             DialogService.RegisterDialog<EditAccountViewModel, EditAccountDialog>();
             DialogService.RegisterDialog<EditCustomFieldViewModel, EditCustomFieldDialog>();
+            DialogService.RegisterDialog<TokenExpiredViewModel, TokenExpiredDialog>();
         }
     }
 }

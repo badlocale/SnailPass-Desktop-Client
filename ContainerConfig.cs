@@ -50,14 +50,15 @@ namespace SnailPass_Desktop
                     .CreateLogger();
             }).SingleInstance();
 
-            builder.RegisterType<LoginViewModel>().AsSelf().InstancePerDependency();
-            builder.RegisterType<StartupViewModel>().AsSelf().InstancePerDependency();
-            builder.RegisterType<AccountsViewModel>().AsSelf().InstancePerDependency();
-            builder.RegisterType<ApplicationViewModel>().AsSelf().InstancePerDependency();
-            builder.RegisterType<AddNewAccountViewModel>().AsSelf().InstancePerDependency();
-            builder.RegisterType<AddCustomFieldViewModel>().AsSelf().InstancePerDependency();
-            builder.RegisterType<EditAccountViewModel>().AsSelf().InstancePerDependency();
-            builder.RegisterType<EditCustomFieldViewModel>().AsSelf().InstancePerDependency();
+            builder.RegisterType<LoginViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<StartupViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<AccountsViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<ApplicationViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<AddNewAccountViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<AddCustomFieldViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<EditAccountViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<EditCustomFieldViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<TokenExpiredViewModel>().AsSelf().SingleInstance();
 
             return builder.Build();
         }

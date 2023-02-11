@@ -59,12 +59,12 @@ namespace SnailPass_Desktop.Services
             else if (code == HttpStatusCode.Conflict)
             {
                 errorMessage = "User with such E-mail is already exists";
-                _logger.Information($"Such E-mail already registered. Http code: {code}.");
+                _logger.Warning($"Such E-mail already registered. Http code: {code}.");
             }
             else if (code == HttpStatusCode.BadRequest)
             {
                 errorMessage = "This E-mail is not valid for registration";
-                _logger.Information($"Non-valid data for registraion. Http code: {code}.");
+                _logger.Warning($"Non-valid data for registraion. Http code: {code}.");
             }
             else if (code != null)
             {
@@ -84,8 +84,6 @@ namespace SnailPass_Desktop.Services
         {
             _logger.Information($"Execute logging for E-mail: \"{email}\".");
 
-            _identity.Master = password;
-
             LoggingResult viaNetworkResult = await LoginViaNetwork(email, password);
             if (viaNetworkResult.IsSuccess)
             {
@@ -97,14 +95,16 @@ namespace SnailPass_Desktop.Services
             {
                 return localResult;
             }
-            else
-            {
-                return viaNetworkResult;
-            }
+
+            return new LoggingResult(false, null, 
+                viaNetworkResult.ErrorMessage ?? localResult.ErrorMessage, null);
         }
 
-        private async Task<LoggingResult> LoginViaNetwork(string email, SecureString password)
+        public async Task<LoggingResult> LoginViaNetwork(string email, SecureString password)
         {
+            SecureString oldMaster = _identity.Master;
+            _identity.Master = password;
+
             string? errorMessage = null;
             bool isSuccess = false;
             bool isLocally = false;
@@ -113,9 +113,12 @@ namespace SnailPass_Desktop.Services
             string apiKey = _keyGenerator.Encrypt(password, email,
                 CryptoConstants.NETWORK_ITERATIONS_COUNT);
 
+            _logger.Information($"Trying to logging via the network for user: \"{email}\".");
+
             HttpStatusCode? code = await _userRestApi.LoginAsync(email, apiKey);
             if (code == HttpStatusCode.OK)
             {
+                _applicationModeStore.IsLocalMode = false;
                 await _synchronizationService.SynchronizeAsync(email);
                 user = _userRepository.GetByEmail(email);
 
@@ -134,7 +137,7 @@ namespace SnailPass_Desktop.Services
             else if (code == HttpStatusCode.Unauthorized)
             {
                 errorMessage = $"Not correct E-mail or password";
-                _logger.Error($"Not corrent E-mail or password. Http code: {code}.");
+                _logger.Warning($"Not corrent E-mail or password. Http code: {code}.");
             }
             else if (code != null)
             {
@@ -147,18 +150,26 @@ namespace SnailPass_Desktop.Services
                 _logger.Error($"Null http code. Server not avalible.");
             }
 
+            if (!isSuccess)
+            {
+                _identity.Master = oldMaster;
+            }
+
             return new LoggingResult(isSuccess, isLocally, errorMessage, user);
         }
 
-        private LoggingResult LoginLocally(string email, SecureString password)
+        public LoggingResult LoginLocally(string email, SecureString password)
         {
+            SecureString oldMaster = _identity.Master;
+            _identity.Master = password;
+
             bool isSuccess = false;
             UserModel? user = null;
 
             string localRepositoryKey = _keyGenerator.Encrypt(password, email,
                 CryptoConstants.LOCAL_ITERATIONS_COUNT);
 
-            _logger.Information($"Try to local authentication.");
+            _logger.Information($"Trying to logging locally for user: \"{email}\".");
 
             bool isUserValid = _userRepository.AuthenticateLocally(localRepositoryKey, email);
             if (isUserValid)
@@ -187,6 +198,11 @@ namespace SnailPass_Desktop.Services
                 _logger.Information($"User with E-mail [{email}] is not authenticated locally.");
             }
 
+            if (!isSuccess)
+            {
+                _identity.Master = oldMaster;
+            }
+
             return new LoggingResult(isSuccess, true, null, user);
         }
     }
@@ -205,8 +221,7 @@ namespace SnailPass_Desktop.Services
 
     public class LoggingResult
     {
-        public LoggingResult(bool isSuccess, bool isLocally, string? errorMessage,
-            UserModel? user)
+        public LoggingResult(bool isSuccess, bool? isLocally, string? errorMessage, UserModel? user)
         {
             IsSuccess = isSuccess;
             IsLocally = isLocally;
@@ -215,7 +230,7 @@ namespace SnailPass_Desktop.Services
         }
 
         public bool IsSuccess { get; set; }
-        public bool IsLocally { get; set; }
+        public bool? IsLocally { get; set; }
         public string? ErrorMessage { get; set; }
         public UserModel? User { get; set; }
     }

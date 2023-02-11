@@ -4,6 +4,7 @@ using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.Services;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Stores;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -114,6 +115,9 @@ namespace SnailPass_Desktop.ViewModel
 
             FieldsCollectionView = CollectionViewSource.GetDefaultView(_fields);
 
+            applicationModeStore.LocalModeDisabled += LocalModeDisabledHandler;
+            applicationModeStore.LocalModeEnabled += LocalModeEnabledHandler;
+
             LoadAccounts();
         }
 
@@ -168,6 +172,16 @@ namespace SnailPass_Desktop.ViewModel
                     account.Login.Contains(SearchBarText);
             }
             return false;
+        }
+
+        private void LocalModeEnabledHandler(object? s, EventArgs args)
+        {
+            IsNetworkFunctionsEnabled = false;
+        }
+
+        private void LocalModeDisabledHandler(object? s, EventArgs args)
+        {
+            IsNetworkFunctionsEnabled = true;
         }
     }
 }

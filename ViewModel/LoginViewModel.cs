@@ -93,7 +93,7 @@ namespace SnailPass_Desktop.ViewModel
             //Password validation
             AddValidationRule(nameof(Password), "Password field cannot be empty.", () =>
             {
-                return !(_password?.Length == 0);
+                return _password?.Length != 0;
             });
             AddValidationRule(nameof(Password), "Password cannot be longer than 300 symbols.", () =>
             {

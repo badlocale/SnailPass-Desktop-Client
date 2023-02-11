@@ -235,7 +235,8 @@
                     <Button x:Name="AddButton"
                             Style="{StaticResource ResourceKey=AddNewButton}"
                             Command="{Binding AddAccountCommand}"
-                            IsEnabled="{Binding IsNetworkFunctionsEnabled}">
+                            IsEnabled="{Binding IsNetworkFunctionsEnabled, 
+                                        UpdateSourceTrigger=PropertyChanged}">
                     </Button>
                 </Border>
 
@@ -243,7 +244,8 @@
                         Grid.Row="2">
                     <Button x:Name="EditButton"
                             Command="{Binding EditAccountCommand}"
-                            IsEnabled="{Binding IsNetworkFunctionsEnabled}">
+                            IsEnabled="{Binding IsNetworkFunctionsEnabled, 
+                                        UpdateSourceTrigger=PropertyChanged}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Style.Setters>
@@ -293,7 +295,8 @@
                         Grid.Row="2">
                     <Button x:Name="DeleteButton"
                             Command="{Binding DeleteAccountCommand}"
-                            IsEnabled="{Binding IsNetworkFunctionsEnabled}">
+                            IsEnabled="{Binding IsNetworkFunctionsEnabled, 
+                                        UpdateSourceTrigger=PropertyChanged}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Style.Setters>
@@ -514,7 +517,8 @@
                         Margin="5"
                         Style="{StaticResource ResourceKey=AddFieldButton}"
                         Command="{Binding AddFieldCommand}"
-                        IsEnabled="{Binding IsNetworkFunctionsEnabled}">
+                        IsEnabled="{Binding IsNetworkFunctionsEnabled, 
+                                    UpdateSourceTrigger=PropertyChanged}">
                 </Button>
             </Grid>
         </Border>

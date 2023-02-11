@@ -8,7 +8,7 @@ namespace SnailPass_Desktop.ViewModel.Stores
         public event EventHandler LocalModeEnabled;
         public event EventHandler LocalModeDisabled;
 
-        ILogger _logger;
+        private ILogger _logger;
 
         private bool isLocalMode = false;
 

@@ -15,7 +15,7 @@ namespace SnailPass_Desktop.Data.API
         protected static HttpClient HttpClient = null;
         private static string? _token = null;
 
-        protected HttpResponseMessage? Responce;
+        private HttpResponseMessage? _responceMessage;
 
         protected ILogger _logger;
 
@@ -30,13 +30,13 @@ namespace SnailPass_Desktop.Data.API
             }
         }
 
-        public HttpResponseMessage? ResponseMessage
+        protected HttpResponseMessage? ResponseMessage
         {
-            get { return Responce; }
+            get { return _responceMessage; }
             set
             {
-                Responce = value;
-                CheckIsTokenExpired(Responce?.StatusCode);
+                _responceMessage = value;
+                CheckIsTokenExpired(_responceMessage?.StatusCode);
             }
         }
 

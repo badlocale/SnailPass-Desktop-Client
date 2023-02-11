@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
 using SnailPass_Desktop.Model.Cryptography;
+using System;
 
 namespace SnailPass_Desktop.Model
 {
-    public class EncryptableFieldModel
+    public class EncryptableFieldModel : ICloneable
     {
         private bool _isDeletable = true;
 
@@ -40,6 +41,11 @@ namespace SnailPass_Desktop.Model
         public override string ToString()
         {
             return $"ID: {ID}, Field name: {FieldName}, Value: {Value}, Account ID: {AccountId}, IsDeletable: {IsDeletable}";
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

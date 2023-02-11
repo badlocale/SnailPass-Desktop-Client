@@ -23,9 +23,9 @@ namespace SnailPass_Desktop.Data.API
         {
             try
             {
-                Responce = await HttpClient.GetAsync($"additional_fields?id={accountID}");
+                ResponseMessage = await HttpClient.GetAsync($"additional_fields?id={accountID}");
 
-                CheckIsTokenExpired(Responce?.StatusCode);
+                CheckIsTokenExpired(ResponseMessage?.StatusCode);
             }
             catch (HttpRequestException)
             {
@@ -34,20 +34,20 @@ namespace SnailPass_Desktop.Data.API
             }
 
             IEnumerable<EncryptableFieldModel>? field = null;
-            if (Responce.IsSuccessStatusCode)
+            if (ResponseMessage.IsSuccessStatusCode)
             {
-                string jsonString = Responce.Content.ReadAsStringAsync().Result;
+                string jsonString = ResponseMessage.Content.ReadAsStringAsync().Result;
                 field = JsonConvert.DeserializeObject<IEnumerable<EncryptableFieldModel>>(jsonString);
             }
 
-            _logger.Information($"Getting custom field status: {Responce.StatusCode}");
+            _logger.Information($"Getting custom field status: {ResponseMessage.StatusCode}");
 
             if (field == null)
             {
-                return (Responce.StatusCode, new List<EncryptableFieldModel>());
+                return (ResponseMessage.StatusCode, new List<EncryptableFieldModel>());
             }
 
-            return (Responce.StatusCode, field);
+            return (ResponseMessage.StatusCode, field);
         }
 
         public async Task<HttpStatusCode?> PostCustomFieldAsync(EncryptableFieldModel field)
@@ -56,7 +56,7 @@ namespace SnailPass_Desktop.Data.API
             {
                 string jsonField = JsonConvert.SerializeObject(field);
                 StringContent content = new StringContent(jsonField, Encoding.UTF8, "application/json");
-                Responce = await HttpClient.PostAsync("additional_fields", content);
+                ResponseMessage = await HttpClient.PostAsync("additional_fields", content);
             }
             catch (HttpRequestException)
             {
@@ -64,16 +64,16 @@ namespace SnailPass_Desktop.Data.API
                 return null;
             }
 
-            _logger.Information($"Adding custom field status: {Responce.StatusCode}");
+            _logger.Information($"Adding custom field status: {ResponseMessage.StatusCode}");
 
-            return Responce.StatusCode;
+            return ResponseMessage.StatusCode;
         }
 
         public async Task<HttpStatusCode?> DeleteCustomFieldAsync(string fieldID)
         {
             try
             {
-                Responce = await HttpClient.DeleteAsync($"additional_fields?id={fieldID}");
+                ResponseMessage = await HttpClient.DeleteAsync($"additional_fields?id={fieldID}");
             }
             catch (HttpRequestException)
             {
@@ -81,9 +81,9 @@ namespace SnailPass_Desktop.Data.API
                 return null;
             }
 
-            _logger.Information($"Deleting custom field status: {Responce.StatusCode}");
+            _logger.Information($"Deleting custom field status: {ResponseMessage.StatusCode}");
 
-            return Responce.StatusCode;
+            return ResponseMessage.StatusCode;
         }
 
         public async Task<HttpStatusCode?> PatchCustomFieldAsync(EncryptableFieldModel field)
@@ -92,7 +92,7 @@ namespace SnailPass_Desktop.Data.API
             {
                 string jsonField = JsonConvert.SerializeObject(field);
                 StringContent content = new StringContent(jsonField, Encoding.UTF8, "application/json");
-                Responce = await HttpClient.PatchAsync("additional_fields", content);
+                ResponseMessage = await HttpClient.PatchAsync("additional_fields", content);
             }
             catch (HttpRequestException)
             {
@@ -100,9 +100,9 @@ namespace SnailPass_Desktop.Data.API
                 return null;
             }
 
-            _logger.Information($"Patching custom field status: {Responce.StatusCode}");
+            _logger.Information($"Patching custom field status: {ResponseMessage.StatusCode}");
 
-            return Responce.StatusCode;
+            return ResponseMessage.StatusCode;
         }
     }
 }
