@@ -1,8 +1,10 @@
 ﻿using Autofac.Core;
 using Newtonsoft.Json.Linq;
 using SnailPass_Desktop.Model;
+using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
+using System.Windows.Input;
 using System.Xml.Linq;
 
 namespace SnailPass_Desktop.ViewModel
@@ -20,6 +22,8 @@ namespace SnailPass_Desktop.ViewModel
         private string _password;
 
         private IUserIdentityStore _identity;
+
+        public ICommand ResetState { get; }
 
         public string ServiceName
         {
@@ -126,7 +130,5 @@ namespace SnailPass_Desktop.ViewModel
 
             return accountModel;
         }
-
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using SnailPass_Desktop.View.Dialogs;
+﻿using Serilog;
+using SnailPass_Desktop.View.Dialogs;
 using SnailPass_Desktop.ViewModel;
 using SnailPass_Desktop.ViewModel.Factories;
 using System;
@@ -12,9 +13,17 @@ namespace SnailPass_Desktop.Services
 {
     public class DialogService : IDialogService
     {
-        private IViewModelFactory _viewModelFactory;
+        public event EventHandler DialogOpened;
+        public event EventHandler DialogClosed;
+
         private static IEnumerable<Type> _dialogTypes;
         private static Dictionary<Type, Type> _mappings = new();
+        private List<Type> _openedDialogsTypes = new();
+
+        private IViewModelFactory _viewModelFactory;
+        private ILogger _logger;
+
+        public bool IsAllDialogsClosed => !_openedDialogsTypes.Any();
 
         static DialogService()
         {
@@ -23,9 +32,10 @@ namespace SnailPass_Desktop.Services
                            select t;
         }
 
-        public DialogService(IViewModelFactory viewModelFactory)
+        public DialogService(IViewModelFactory viewModelFactory, ILogger logger)
         {
             _viewModelFactory = viewModelFactory;
+            _logger = logger;
         }
 
         public static void RegisterDialog<TViewModel, TView>()
@@ -38,6 +48,12 @@ namespace SnailPass_Desktop.Services
         public bool? ShowDialog(string name, Action<string>? callback = null)
         {
             Type dialogContentType = _dialogTypes.First(t => t.Name == $"{name}");
+            if (_openedDialogsTypes.Any(d => d == dialogContentType))
+            {
+                _logger.Warning($"Dialog window with type {dialogContentType.Name} is already opend.");
+                return null;
+            }
+
             DialogWindow window = ShowDialogInternal(dialogContentType, callback);
 
             return window.DialogResult;
@@ -47,6 +63,12 @@ namespace SnailPass_Desktop.Services
             where TViewModel : ViewModelBase
         {
             Type dialogContentType = _mappings[typeof(TViewModel)];
+            if (_openedDialogsTypes.Any(d => d == dialogContentType))
+            {
+                _logger.Warning($"Dialog window with type {dialogContentType.Name} is already opend.");
+                return null;
+            }
+
             DialogWindow window = ShowDialogInternal(dialogContentType, callback, typeof(TViewModel));
 
             bool? result = window.DialogResult;
@@ -80,17 +102,31 @@ namespace SnailPass_Desktop.Services
             EventHandler closeEventHandler = null;
             closeEventHandler = (sender, args) =>
             {
+                _openedDialogsTypes.Remove(contentType);
                 if (callback != null)
                 {
                     callback(dialog.DialogResult?.ToString());
                 }
+                OnDialogClosed();
                 dialog.Closed -= closeEventHandler;
             };
             dialog.Closed += closeEventHandler;
 
+            _openedDialogsTypes.Add(contentType);
+            OnDialogOpend();
             dialog.ShowDialog();
 
             return dialog;
+        }
+
+        private void OnDialogOpend()
+        {
+            DialogOpened?.Invoke(this, new EventArgs());
+        }
+
+        private void OnDialogClosed()
+        {
+            DialogClosed?.Invoke(this, new EventArgs());
         }
     }
 }

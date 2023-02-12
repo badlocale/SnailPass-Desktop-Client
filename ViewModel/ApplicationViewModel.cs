@@ -18,7 +18,6 @@ namespace SnailPass_Desktop.ViewModel
         private IDialogService _dialogService;
         private IAuthenticationService _authenticationService;
         private IUserIdentityStore _identity;
-        private IApplicationModeStore _applicationModeStore;
 
         public bool IsDialogOpened
         {
@@ -45,11 +44,12 @@ namespace SnailPass_Desktop.ViewModel
             _dialogService = dialogService;
             _authenticationService = authenticationService;
             _identity = identity;
-            _applicationModeStore = applicationModeStore;
 
             _navigationStore.CurrentViewModelChange += CurrentViewModelChangeHandler;
             RestApiBase.TokenExpired += TokenExpiredEventHandler;
             RestApiBase.ServerNotResponding += ServerNotRespondingHandler;
+            _dialogService.DialogOpened += DialogOpenedHandler;
+            _dialogService.DialogClosed += DialogClosedHandler;
 
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore,
                 () => new HomeViewModel(identity, navigationStore, logger), null);
@@ -70,51 +70,40 @@ namespace SnailPass_Desktop.ViewModel
 
         private async void TokenExpiredEventHandler(object? sender, EventArgs args)
         {
-            if (!IsDialogOpened)
+            while (true)
             {
-                IsDialogOpened = true;
-                while (true)
+                TokenExpiredViewModel? dialogVM = _dialogService.ShowDialog<TokenExpiredViewModel>();
+                if (dialogVM != null)
                 {
-                    TokenExpiredViewModel? dialogVM = _dialogService.ShowDialog<TokenExpiredViewModel>();
-                    if (dialogVM != null)
+                    LoggingResult result = await _authenticationService.Login
+                        (_identity.CurrentUser.Email, dialogVM.Password);
+                    if (result.IsSuccess)
                     {
-                        LoggingResult result = await _authenticationService.Login
-                            (_identity.CurrentUser.Email, dialogVM.Password);
-                        if (result.IsSuccess)
-                        {
-                            break;
-                        }
+                        break;
                     }
                 }
-                IsDialogOpened = false;
             }
         }
 
         private async void ServerNotRespondingHandler(object? sender, EventArgs args)
         {
-            if (!IsDialogOpened)
+            bool? dialogResult = _dialogService.ShowDialog("ServerNotRespondingDialog");
+            if (dialogResult == true)
             {
-                IsDialogOpened = true;
-                {
-                    while (true)
-                    {
-                        bool? dialogResult = _dialogService.ShowDialog("ServerNotRespondingDialog");
-                        if (dialogResult == true)
-                        {
-                            LoggingResult loggingResult = await _authenticationService.LoginViaNetwork
-                                (_identity.CurrentUser.Email, _identity.Master);
-                            if (loggingResult.IsSuccess)
-                            {
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            _applicationModeStore.IsLocalMode = true;
-                            break;
-                        }
-                    }
-                }
+                LoggingResult loggingResult = await _authenticationService.LoginViaNetwork
+                    (_identity.CurrentUser.Email, _identity.Master);
+            }
+        }
+
+        private void DialogOpenedHandler(object? sender, EventArgs args)
+        {
+            IsDialogOpened = true;
+        }
+
+        private void DialogClosedHandler(object? sender, EventArgs args)
+        {
+            if (_dialogService.IsAllDialogsClosed)
+            {
                 IsDialogOpened = false;
             }
         }

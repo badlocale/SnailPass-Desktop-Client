@@ -10,6 +10,6 @@ namespace SnailPass_Desktop.ViewModel.Stores
     {
         public event EventHandler LocalModeEnabled;
         public event EventHandler LocalModeDisabled;
-        bool IsLocalMode { get; set; }
+        bool IsLocalMode { get; }
     }
 }

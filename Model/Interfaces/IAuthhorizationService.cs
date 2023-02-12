@@ -1,4 +1,5 @@
 ﻿using SnailPass_Desktop.Services;
+using System;
 using System.Security;
 using System.Threading.Tasks;
 
@@ -6,6 +7,9 @@ namespace SnailPass_Desktop.Model.Interfaces
 {
     public interface IAuthenticationService
     {
+        public event EventHandler LoggedViaNetwork;
+        public event EventHandler LoggedLocally;
+
         public Task<RegistrationResult> Register(string email, SecureString password, string hint);
         public Task<LoggingResult> Login(string email, SecureString password);
         public Task<LoggingResult> LoginViaNetwork(string email, SecureString password);

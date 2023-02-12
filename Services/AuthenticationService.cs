@@ -13,6 +13,9 @@ namespace SnailPass_Desktop.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
+        public event EventHandler LoggedViaNetwork;
+        public event EventHandler LoggedLocally;
+
         private IKeyGenerator _keyGenerator;
         private ILogger _logger;
         private IUserRestApi _userRestApi;
@@ -20,11 +23,10 @@ namespace SnailPass_Desktop.Services
         private ISynchronizationService _synchronizationService;
         private IUserRepository _userRepository;
         private IDialogService _dialogService;
-        private IApplicationModeStore _applicationModeStore;
 
         public AuthenticationService(IKeyGenerator keyGenerator, ILogger logger, IUserRestApi userRestApi,
             IUserIdentityStore identity, ISynchronizationService synchronizationService, IUserRepository userRepository,
-            IDialogService dialogService, IApplicationModeStore applicationModeStore)
+            IDialogService dialogService)
         {
             _keyGenerator = keyGenerator;
             _logger = logger;
@@ -33,7 +35,6 @@ namespace SnailPass_Desktop.Services
             _synchronizationService = synchronizationService;
             _userRepository = userRepository;
             _dialogService = dialogService;
-            _applicationModeStore = applicationModeStore;
         }
 
         public async Task<RegistrationResult> Register(string email, SecureString password, string hint)
@@ -118,7 +119,6 @@ namespace SnailPass_Desktop.Services
             HttpStatusCode? code = await _userRestApi.LoginAsync(email, apiKey);
             if (code == HttpStatusCode.OK)
             {
-                _applicationModeStore.IsLocalMode = false;
                 await _synchronizationService.SynchronizeAsync(email);
                 user = _userRepository.GetByEmail(email);
 
@@ -129,9 +129,10 @@ namespace SnailPass_Desktop.Services
                 }
                 else
                 {
-                    _identity.CurrentUser = user;
                     isSuccess = true;
-                    _logger.Error($"Successful logging for: {email}.");
+                    OnLoggedViaNetwork();
+                    _identity.CurrentUser = user;
+                    _logger.Information($"Successful network logging for: {email}.");
                 }
             }
             else if (code == HttpStatusCode.Unauthorized)
@@ -176,10 +177,9 @@ namespace SnailPass_Desktop.Services
             {
                 _logger.Information($"User with E-mail [{email}] is authenticated locally.");
 
-                bool? isLocalMode = _dialogService.ShowDialog("LocalModeDialog");
-                if (isLocalMode == true)
+                bool? isLocalModeConfirmed = _dialogService.ShowDialog("LocalModeDialog");
+                if (isLocalModeConfirmed == true)
                 {
-                    _applicationModeStore.IsLocalMode = true;
                     user = _userRepository.GetByEmail(email);
 
                     if (user == null)
@@ -188,8 +188,10 @@ namespace SnailPass_Desktop.Services
                     }
                     else
                     {
-                        _identity.CurrentUser = user;
                         isSuccess = true;
+                        OnLoggedLocally();
+                        _identity.CurrentUser = user;
+                        _logger.Information($"Successful local logging for: {email}.");
                     }
                 }
             }
@@ -204,6 +206,16 @@ namespace SnailPass_Desktop.Services
             }
 
             return new LoggingResult(isSuccess, true, null, user);
+        }
+
+        private void OnLoggedViaNetwork()
+        {
+            LoggedViaNetwork?.Invoke(this, new EventArgs());
+        }
+
+        private void OnLoggedLocally()
+        {
+            LoggedLocally?.Invoke(this, new EventArgs());
         }
     }
 

@@ -19,14 +19,12 @@ namespace SnailPass_Desktop.Services
         private IAccountRepository _accountRepository;
         private IUserIdentityStore _identity;
         private IKeyGenerator _keyGenerator;
-        private IApplicationModeStore _modeStore;
         private ILogger _logger;
 
         public SynchronizationService(IUserRestApi userRestApi, IAccountRestApi accountRestApi,
             ICustomFieldRestApi customFieldRestApi, IAccountRepository accountRepository,
             ICustomFieldRepository customFieldRepository, IUserRepository userRepository,
-            IUserIdentityStore identity, IKeyGenerator encryptor,
-            IApplicationModeStore modeStore, ILogger logger)
+            IUserIdentityStore identity, IKeyGenerator encryptor, ILogger logger)
         {
             _userRestApi = userRestApi;
             _accountRestApi = accountRestApi;
@@ -36,7 +34,6 @@ namespace SnailPass_Desktop.Services
             _userRepository = userRepository;
             _identity = identity;
             _keyGenerator = encryptor;
-            _modeStore = modeStore;
             _logger = logger;
         }
 
@@ -99,22 +96,15 @@ namespace SnailPass_Desktop.Services
 
         public async Task SynchronizeAsync(string email)
         {
-            if (!_modeStore.IsLocalMode)
-            {
-                _logger.Information("Synchronization started.");
+            _logger.Information("Synchronization started.");
 
-                Task user = SynchronizeUserDataAsync(email);
-                Task accounts = SynchronizeAccountsDataAsync(email);
-                Task aggregateTask = Task.WhenAll(user, accounts);
-                await aggregateTask.ConfigureAwait(false);
-                aggregateTask.Wait();
+            Task user = SynchronizeUserDataAsync(email);
+            Task accounts = SynchronizeAccountsDataAsync(email);
+            Task aggregateTask = Task.WhenAll(user, accounts);
+            await aggregateTask.ConfigureAwait(false);
+            aggregateTask.Wait();
 
-                _logger.Information("Data has been loaded from server.");
-            }
-            else
-            {
-                _logger.Information("Can`t synchronize, client in local mode.");
-            }
+            _logger.Information("Data has been loaded from server.");
         }
     }
 }

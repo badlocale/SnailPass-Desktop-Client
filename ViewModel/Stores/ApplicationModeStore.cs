@@ -1,4 +1,6 @@
 ﻿using Serilog;
+using SnailPass_Desktop.Data.API;
+using SnailPass_Desktop.Model.Interfaces;
 using System;
 
 namespace SnailPass_Desktop.ViewModel.Stores
@@ -22,23 +24,52 @@ namespace SnailPass_Desktop.ViewModel.Stores
             }
         }
 
-        public ApplicationModeStore(ILogger logger)
+        public ApplicationModeStore(ILogger logger, IAuthenticationService authenticationService)
         {
             _logger = logger;
+
+            RestApiBase.ServerNotResponding += ServerNotRespondingHandler;
+            authenticationService.LoggedLocally += LoggedLocallyHandler;
+            authenticationService.LoggedViaNetwork += LoggedViaNetworkHandler;
         }
 
         private void OnModeChanged()
         {
             if (isLocalMode == true)
             {
-                LocalModeEnabled?.Invoke(this, EventArgs.Empty);
+                OnLocalModeEnabled();
                 _logger.Debug("Application has been switched to local mode.");
             }
             else
             {
-                LocalModeDisabled?.Invoke(this, EventArgs.Empty);
+                OnLocalModeDisabled();
                 _logger.Debug("Applicatio has been switched to network mode.");
             }
+        }
+
+        private void OnLocalModeEnabled()
+        {
+            LocalModeEnabled?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnLocalModeDisabled()
+        {
+            LocalModeDisabled?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ServerNotRespondingHandler(object? sender, EventArgs args)
+        {
+            IsLocalMode = true;
+        }
+
+        private void LoggedLocallyHandler(object? sender, EventArgs args)
+        {
+            IsLocalMode = true;
+        }
+
+        private void LoggedViaNetworkHandler(object? sender, EventArgs args)
+        {
+            IsLocalMode = false;
         }
     }
 }
