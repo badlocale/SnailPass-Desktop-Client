@@ -1,4 +1,8 @@
 # SnailPass
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/95579070/223737062-93cc4505-c52e-40bb-bee7-b822bd6cabb7.svg" width=25% height=25%>
+</p>
+
 SnailPass is a simple client-server password manager, that I'm writing with my colleagues to make for ourselves a convenient, custom environment for storing passwords.
 Now is proposed to make applications for two platforms. The client for each of the platforms is located in different repositories:
 - Windows (you are here now)
