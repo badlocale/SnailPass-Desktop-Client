@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 namespace SnailPass_Desktop.View.Dialogs
 {
     [DialogContent]
-    public partial class AddNewAccountDialog : UserControl
+    public partial class AddAccountDialog : UserControl
     {
-        public AddNewAccountDialog()
+        public AddAccountDialog()
         {
             InitializeComponent();
         }

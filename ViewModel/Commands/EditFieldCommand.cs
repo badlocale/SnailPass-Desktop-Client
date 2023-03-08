@@ -56,7 +56,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
                 _cryptographyService.Encrypt(selectedField);
 
-                HttpStatusCode? code = await _customFieldRestApi.PatchCustomFieldAsync(selectedField);
+                HttpStatusCode? code = await _customFieldRestApi.PutCustomFieldAsync(selectedField);
                 if (code == HttpStatusCode.OK)
                 {
                     await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);

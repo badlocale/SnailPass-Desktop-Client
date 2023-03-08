@@ -64,7 +64,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
                 _cryptographyService.Encrypt(selectedAccount);
 
-                HttpStatusCode? code = await _accountsRestApi.PatchAccountAsync(selectedAccount);
+                HttpStatusCode? code = await _accountsRestApi.PutAccountAsync(selectedAccount);
                 if (code == HttpStatusCode.OK)
                 {
                     await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);

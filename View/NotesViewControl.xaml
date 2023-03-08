@@ -1,12 +1,327 @@
-﻿<UserControl x:Class="SnailPass_Desktop.View.NotesViewControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SnailPass_Desktop.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+﻿<UserControl
+    x:Class="SnailPass_Desktop.View.NotesViewControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="root"
+    d:DesignHeight="450"
+    d:DesignWidth="700"
+    mc:Ignorable="d">
+    <Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Grid.Column="0"
+                Margin="4"
+                Background="{StaticResource ResourceKey=SecondBackground}"
+                BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                BorderThickness="1"
+                CornerRadius="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80*" />
+                        <ColumnDefinition Width="20*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        x:Name="NoteListBorder"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="5,5,5,0"
+                        Background="{StaticResource ResourceKey=MainBackground}"
+                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="5">
+                        <Grid>
+                            <Border
+                                Name="mask"
+                                Background="{StaticResource ResourceKey=MainBackground}"
+                                CornerRadius="7" />
+                            <ListBox
+                                x:Name="NoteList"
+                                Margin="0"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                d:ItemsSource="{d:SampleData ItemCount=5}"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                ItemsSource="{Binding NotesCollectionView}"
+                                SelectedItem="{Binding SelectedNote}">
+                                <ListBox.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=mask}" />
+                                </ListBox.OpacityMask>
+                                <ListBox.Template>
+                                    <ControlTemplate TargetType="{x:Type ListBox}">
+                                        <Border
+                                            x:Name="Bd"
+                                            Margin="-1"
+                                            Padding="0"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            SnapsToDevicePixels="true">
+                                            <ScrollViewer Padding="0" Focusable="false">
+                                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </ScrollViewer>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ListBox.Template>
+
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <Border BorderBrush="{StaticResource ResourceKey=BorderColor}" BorderThickness="0,0,0,1">
+                                                        <Border
+                                                            Name="ItemBorder"
+                                                            Padding="4,0,0,0"
+                                                            Background="Transparent"
+                                                            SnapsToDevicePixels="true">
+                                                            <ContentPresenter />
+                                                        </Border>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource ResourceKey=NearMainBackground}" />
+                                                            <Setter TargetName="ItemBorder" Property="Padding" Value="10,0,0,0" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource ResourceKey=SecondBackground}" />
+                                                            <Setter TargetName="ItemBorder" Property="Padding" Value="10,0,0,0" />
+                                                            <Setter TargetName="ItemBorder" Property="BorderThickness" Value="5,0,0,0" />
+                                                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource ResourceKey=PanelBorderColor2}" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Height="35">
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                FontWeight="SemiBold"
+                                                Foreground="{StaticResource ResourceKey=LightTextColor}"
+                                                Text="{Binding Name}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </Border>
+
+                    <Border
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                        BorderThickness="0"
+                        CornerRadius="10, 10, 0, 0">
+                        <Button
+                            x:Name="AddButton"
+                            Command="{Binding AddNoteCommand}"
+                            IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource ResourceKey=AddNewButton}" />
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="2">
+                        <Button
+                            x:Name="DeleteButton"
+                            Command="{Binding DeleteNoteCommand}"
+                            IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Setters>
+                                        <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border
+                                                        Margin="2,5,5,5"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5">
+                                                        <Rectangle
+                                                            Grid.Column="0"
+                                                            Width="25"
+                                                            Height="25"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Fill="{StaticResource ResourceKey=LightTextColor}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=BinVectorIcon}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style.Setters>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Opacity" Value="1" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Border>
+                </Grid>
+            </Border>
+
+
+            <Border
+                Grid.Column="1"
+                Margin="0,4,4,4"
+                Background="{StaticResource ResourceKey=SecondBackground}"
+                BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                BorderThickness="1"
+                CornerRadius="10">
+                <Grid Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+
+                    <i:Interaction.Triggers>
+                        <i:DataTrigger
+                            Binding="{Binding SelectedNote}"
+                            Comparison="NotEqual"
+                            Value="{x:Null}">
+                            <i:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                        </i:DataTrigger>
+                        <i:DataTrigger
+                            Binding="{Binding SelectedNote}"
+                            Comparison="Equal"
+                            Value="{x:Null}">
+                            <i:ChangePropertyAction PropertyName="Visibility" Value="Hidden" />
+                        </i:DataTrigger>
+                    </i:Interaction.Triggers>
+
+                    <Border
+                        Grid.Row="0"
+                        Margin="5"
+                        Background="{StaticResource ResourceKey=MainBackground}"
+                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="5">
+                        <TextBox
+                            Foreground="{StaticResource ResourceKey=LightTextColor}"
+                            Margin="0"
+                            Padding="20,0,0,0"
+                            BorderThickness="0"
+                            Style="{StaticResource ResourceKey=OpenTextBox}"
+                            Text="{Binding NoteName, UpdateSourceTrigger=PropertyChanged}" />
+                    </Border>
+
+                    <Rectangle
+                        Grid.Column="0"
+                        Width="15"
+                        Height="15"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Fill="{StaticResource ResourceKey=LightTextColor}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=NoteLabel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+
+                    <Border
+                        Grid.Row="1"
+                        Margin="5,0,5,0"
+                        Background="{StaticResource ResourceKey=MainBackground}"
+                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="5">
+                        <TextBox
+                            Foreground="{StaticResource ResourceKey=LightTextColor}"
+                            Height="auto"
+                            Margin="0"
+                            Padding="4, 6, 4, 6"
+                            BorderThickness="0"
+                            Style="{StaticResource ResourceKey=OpenTextBox}"
+                            Text="{Binding NoteContent, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap" />
+                    </Border>
+
+                    <Border Grid.Row="2">
+                        <Button
+                            x:Name="EditButton"
+                            Command="{Binding EditNoteCommand}"
+                            IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Setters>
+                                        <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border
+                                                        Margin="5,4,4,4"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="10">
+                                                        <Rectangle
+                                                            Grid.Column="0"
+                                                            Width="25"
+                                                            Height="25"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Fill="{StaticResource ResourceKey=LightTextColor}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=EditVectorIcon}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style.Setters>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Opacity" Value="1" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </UserControl>

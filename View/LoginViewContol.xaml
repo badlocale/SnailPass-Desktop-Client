@@ -1,84 +1,93 @@
-﻿<UserControl x:Class="SnailPass_Desktop.View.LoginViewContol"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SnailPass_Desktop.View"
-             xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="300"
-             x:Name="root">
-    <DockPanel Grid.Row="1"
-               Width="220"
-               Margin="0, 10, 0, 15">
+﻿<UserControl
+    x:Class="SnailPass_Desktop.View.LoginViewContol"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="root"
+    d:DesignHeight="450"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <DockPanel
+        Grid.Row="1"
+        Width="220"
+        Margin="0,10,0,15">
 
-        <TextBlock DockPanel.Dock="Top"
-                   Text="SnailPass"
-                   Foreground="{StaticResource ResourceKey=LightTextColor}"
-                   FontSize="30"
-                   FontFamily="{StaticResource ResourceKey=MainFont}"
-                   FontWeight="DemiBold"
-                   HorizontalAlignment="Center"/>
+        <TextBlock
+            HorizontalAlignment="Center"
+            DockPanel.Dock="Top"
+            FontFamily="{StaticResource ResourceKey=MainFont}"
+            FontSize="30"
+            FontWeight="DemiBold"
+            Foreground="{StaticResource ResourceKey=LightTextColor}"
+            Text="SnailPass" />
 
-        <Image DockPanel.Dock="Top"
-               Source="{StaticResource ResourceKey=Logo}"
-               Height="100"
-               Width="160"
-               Margin="-10, 0, 0, 0"/>
+        <Viewbox
+            Width="180"
+            Height="120"
+            Margin="0,5,0,0"
+            DockPanel.Dock="Top"
+            Stretch="Uniform">
+            <ContentControl Content="{StaticResource ResourceKey=Logo}" />
+        </Viewbox>
 
-        <TextBlock DockPanel.Dock="Top"
-                   Text="E-mail"
-                   Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+        <TextBlock
+            DockPanel.Dock="Top"
+            Style="{StaticResource ResourceKey=HeaderTextStyle}"
+            Text="E-mail" />
 
-        <customControls:InputField x:Name="emailInputField"
-                                   DockPanel.Dock="Top"
-                                   Text="{Binding Email, ValidatesOnNotifyDataErrors=True, 
-                                          UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                   Icon="{StaticResource ResourceKey=MailVectorIcon}"/>
+        <customControls:InputField
+            x:Name="emailInputField"
+            DockPanel.Dock="Top"
+            Icon="{StaticResource ResourceKey=MailVectorIcon}"
+            Text="{Binding Email, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-        <TextBlock DockPanel.Dock="Top"
-                   Text="Master password"
-                   Style="{StaticResource ResourceKey=HeaderTextStyle}"/>
+        <TextBlock
+            DockPanel.Dock="Top"
+            Style="{StaticResource ResourceKey=HeaderTextStyle}"
+            Text="Master password" />
 
 
-        <customControls:BindablePasswordBox x:Name="passwordBox"
-                                            DockPanel.Dock="Top"
-                                            Password="{Binding Password, ValidatesOnNotifyDataErrors=True,
-                                                       Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Height="auto"
-                                            Margin="0, 5, 0, 0"/>
+        <customControls:BindablePasswordBox
+            x:Name="passwordBox"
+            Height="auto"
+            Margin="0,5,0,0"
+            DockPanel.Dock="Top"
+            Password="{Binding Password, ValidatesOnNotifyDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <TextBlock DockPanel.Dock="Top"
-                   Text="{Binding ErrorMessage}"
-                   Height="36"
-                   Style="{StaticResource ResourceKey=ImportantTextStyle}"/>
+        <TextBlock
+            Height="36"
+            DockPanel.Dock="Top"
+            Style="{StaticResource ResourceKey=ImportantTextStyle}"
+            Text="{Binding ErrorMessage}" />
 
-        <Button x:Name="btnSingUp"
-                DockPanel.Dock="Bottom"
-                Template="{StaticResource ResourceKey=LinkButton}"
-                Command="{Binding NavigateRegistrationCommand}"
-                Height="auto"
-                Content="Sign up"
-                Width="80"
-                Margin="0, 10, 0, 0"/>
+        <Button
+            x:Name="btnSingUp"
+            Width="80"
+            Height="auto"
+            Margin="0,10,0,0"
+            Command="{Binding NavigateRegistrationCommand}"
+            Content="Sign up"
+            DockPanel.Dock="Bottom"
+            Template="{StaticResource ResourceKey=LinkButton}" />
 
-        <Border DockPanel.Dock="Bottom"
-                VerticalAlignment="Bottom"
-                Height="34"
-                Width="100"
-                Panel.ZIndex="1">
-            <Button x:Name="btnLoginIn"
-                    Template="{StaticResource ResourceKey=BigButton}"
-                    Command="{Binding LoginCommand}"
-                    Content="LOGIN">
+        <Border
+            Width="100"
+            Height="34"
+            VerticalAlignment="Bottom"
+            Panel.ZIndex="1"
+            DockPanel.Dock="Bottom">
+            <Button
+                x:Name="btnLoginIn"
+                Command="{Binding LoginCommand}"
+                Content="LOGIN"
+                Template="{StaticResource ResourceKey=BigButton}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=root, Path=DataContext.HasErrors, 
-                                                   UpdateSourceTrigger=PropertyChanged}"
-                                         Value="True">
-                                <Setter Property="IsEnabled" 
-                                        Value="False"/>
+                            <DataTrigger Binding="{Binding ElementName=root, Path=DataContext.HasErrors, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

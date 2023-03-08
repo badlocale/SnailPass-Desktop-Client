@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class AddNewAccountViewModel : ErrorViewModel
+    public class AddAccountViewModel : ErrorViewModel
     {
         private string _id;
         private string _serviceName;
@@ -22,8 +22,6 @@ namespace SnailPass_Desktop.ViewModel
         private string _password;
 
         private IUserIdentityStore _identity;
-
-        public ICommand ResetState { get; }
 
         public string ServiceName
         {
@@ -58,7 +56,7 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public AddNewAccountViewModel(IUserIdentityStore identity)
+        public AddAccountViewModel(IUserIdentityStore identity)
         {
             _identity = identity;
 

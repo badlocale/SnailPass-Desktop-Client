@@ -1,77 +1,79 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--Borders-->
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Borders  -->
     <Style x:Key="HeaderBorderStyle" TargetType="Border">
-        <Setter Property="Grid.Row" Value="0"/>
-        <Setter Property="Grid.ColumnSpan" Value="2"/>
-        <Setter Property="Background" Value="{StaticResource ResourceKey=HeaderBackground}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}"/>
-        <Setter Property="BorderThickness" Value="0, 0, 0, 1"/>
-        <Setter Property="CornerRadius" Value="6, 6, 0, 0"/>
+        <Setter Property="Grid.Row" Value="0" />
+        <Setter Property="Grid.ColumnSpan" Value="2" />
+        <Setter Property="Background" Value="{StaticResource ResourceKey=HeaderBackground}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="CornerRadius" Value="6, 6, 0, 0" />
     </Style>
 
     <Style x:Key="BodyBorderStyle" TargetType="Border">
-        <Setter Property="Grid.Row" Value="1"/>
-        <Setter Property="Grid.Column" Value="0"/>
-        <Setter Property="Grid.ColumnSpan" Value="2"/>
-        <Setter Property="Background" Value="{StaticResource ResourceKey=MainBackground}"/>
-        <Setter Property="CornerRadius" Value="0, 0, 6, 6"/>
+        <Setter Property="Grid.Row" Value="1" />
+        <Setter Property="Grid.Column" Value="0" />
+        <Setter Property="Grid.ColumnSpan" Value="2" />
+        <Setter Property="Background" Value="{StaticResource ResourceKey=MainBackground}" />
+        <Setter Property="CornerRadius" Value="0, 0, 6, 6" />
     </Style>
 
-    <!--TextBlocks-->
+    <!--  TextBlocks  -->
     <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource ResourceKey=LightTextColor}"/>
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
-        <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Margin" Value="0, 10, 0, 0"/>
-        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        <Setter Property="Foreground" Value="{StaticResource ResourceKey=LightTextColor}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="0,10,0,0" />
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
     </Style>
 
     <Style x:Key="CommonTextStyle" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource ResourceKey=DarkTextColor}"/>
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
-        <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Margin" Value="2, 2, 0, 0"/>
+        <Setter Property="Foreground" Value="{StaticResource ResourceKey=DarkTextColor}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="2,2,0,0" />
     </Style>
 
     <Style x:Key="ImportantTextStyle" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource ResourceKey=ErrorColor}"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
-        <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Margin" Value="5, 5, 0, 0"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{StaticResource ResourceKey=ErrorColor}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="5,5,0,0" />
+        <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
 
-    <!--TextBoxes-->
+    <!--  TextBoxes  -->
     <Style x:Key="OpenTextBox" TargetType="TextBox">
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
-        <Setter Property="Foreground" Value="{StaticResource ResourceKey=DarkTextColor}"/>
-        <Setter Property="CaretBrush" Value="{StaticResource ResourceKey=SoftGreyColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}"/>
-        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
-        <Setter Property="Height" Value="22"/>
-        <Setter Property="Margin" Value="0, 5, 0, 0"/>
-        <Setter Property="Padding" Value="23, 0, 0, 0"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
+        <Setter Property="Foreground" Value="{StaticResource ResourceKey=DarkTextColor}" />
+        <Setter Property="CaretBrush" Value="{StaticResource ResourceKey=SoftGreyColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Margin" Value="0,5,0,0" />
+        <Setter Property="Padding" Value="23,0,0,0" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
 
-    <Style x:Key="SearchBarTextBox" TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-        <Setter Property="Height" Value="22"/>
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}"/>
-        <Setter Property="Foreground" Value="{StaticResource ResourceKey=LightTextColor}"/>
-        <Setter Property="CaretBrush" Value="{StaticResource ResourceKey=SoftGreyColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
+    <Style
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        x:Key="SearchBarTextBox"
+        TargetType="TextBox">
+        <Setter Property="Height" Value="22" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
+        <Setter Property="Foreground" Value="{StaticResource ResourceKey=LightTextColor}" />
+        <Setter Property="CaretBrush" Value="{StaticResource ResourceKey=SoftGreyColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
     </Style>
 </ResourceDictionary>

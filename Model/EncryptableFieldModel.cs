@@ -12,7 +12,7 @@ namespace SnailPass_Desktop.Model
         public string ID { get; set; }
 
         [CryptableField]
-        [JsonProperty("field_name")]
+        [JsonProperty("name")]
         public string FieldName { get; set; }
 
         [CryptableField]

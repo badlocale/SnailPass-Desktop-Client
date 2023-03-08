@@ -31,8 +31,8 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.Parameters.Add("@login", SqliteType.Text).Value = (object)account.Login ?? (object)DBNull.Value;
                 command.Parameters.Add("@encrypted_password", SqliteType.Text).Value = account.Password;
                 command.Parameters.Add("@user_id", SqliteType.Text).Value = account.UserId;
-                command.Parameters.Add("@is_favorite", SqliteType.Text).Value = (object)account.IsFavorite;
-                command.Parameters.Add("@is_deleted", SqliteType.Text).Value = (object)account.IsDeleted;
+                command.Parameters.Add("@is_favorite", SqliteType.Text).Value = account.IsFavorite;
+                command.Parameters.Add("@is_deleted", SqliteType.Text).Value = account.IsDeleted;
                 command.Parameters.Add("@creation_time", SqliteType.Text).Value = account.CreationTime;
                 command.Parameters.Add("@update_time", SqliteType.Text).Value = account.UpdateTime;
 
@@ -40,7 +40,7 @@ namespace SnailPass_Desktop.Data.Repositories
             }
         }
 
-        public IEnumerable<AccountModel> GetByUserID(string userId)
+        public IEnumerable<AccountModel> GetByUserId(string userId)
         {
             List<AccountModel> accounts = new List<AccountModel>();
 
@@ -81,7 +81,7 @@ namespace SnailPass_Desktop.Data.Repositories
             return accounts;
         }
 
-        public void DeleteAllByAccountID(string accountId)
+        public void DeleteAllByUsersEmail(string usersEmail)
         {
             using var connection = GetConnection();
             using (var command = new SqliteCommand())
@@ -96,7 +96,7 @@ namespace SnailPass_Desktop.Data.Repositories
                                           "WHERE users.email = @email" +
                                       ");";
 
-                command.Parameters.Add("@email", SqliteType.Text).Value = accountId;
+                command.Parameters.Add("@email", SqliteType.Text).Value = usersEmail;
 
                 command.ExecuteNonQuery();
             }

@@ -18,7 +18,7 @@ namespace SnailPass_Desktop.Model
         public string Login { get; set; }
 
         [CryptableField]
-        [JsonProperty("encrypted_password")]
+        [JsonProperty("password")]
         public string Password { get; set; }
 
         [JsonProperty("is_favorite")]

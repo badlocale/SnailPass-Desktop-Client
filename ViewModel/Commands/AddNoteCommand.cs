@@ -1,56 +1,60 @@
-﻿using Serilog;
+﻿using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.Services;
 using SnailPass_Desktop.ViewModel.Stores;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
+using Serilog;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
-    public class AddNewAccountCommand : CommandBase
+    public class AddNoteCommand : CommandBase
     {
-        private AccountsViewModel _viewModel;
+        private NotesViewModel _viewModel;
         private IDialogService _dialogService;
         private ILogger _logger;
-        private IAccountRestApi _accountsRestApi;
+        private INoteRestApi _noteRestApi;
         private IUserIdentityStore _identity;
         private ICryptographyService _cryptographyService;
         private ISynchronizationService _synchronizationService;
 
-        public AddNewAccountCommand(AccountsViewModel viewModel, IDialogService dialogService, 
-            ILogger logger, IAccountRestApi accountRestApi, IUserIdentityStore identity, 
+        public AddNoteCommand(NotesViewModel viewModel, IDialogService dialogService,
+            ILogger logger, INoteRestApi noteRestApi, IUserIdentityStore identity,
             ICryptographyService cryptographyService, ISynchronizationService synchronizationService)
         {
             _viewModel = viewModel;
             _dialogService = dialogService;
             _logger = logger;
-            _accountsRestApi = accountRestApi;
+            _noteRestApi = noteRestApi;
             _identity = identity;
             _cryptographyService = cryptographyService;
-            _synchronizationService = synchronizationService;   
+            _synchronizationService = synchronizationService;
         }
 
         public override async void Execute(object? parameter)
         {
-            AddNewAccountViewModel dialogVM = _dialogService.ShowDialog<AddNewAccountViewModel>();
+            AddNoteViewModel dialogVM = _dialogService.ShowDialog<AddNoteViewModel>();
 
             if (dialogVM != null)
             {
-                _logger.Information($"Execute 'add new account' for user: \"{_identity.CurrentUser.Email}\".");
+                _logger.Information($"Execute 'add new note' for user: \"{_identity.CurrentUser.Email}\".");
 
-                AccountModel model = dialogVM.CreateModel();
+                NoteModel model = dialogVM.CreateModel();
                 _cryptographyService.Encrypt(model);
-                HttpStatusCode? code = await _accountsRestApi.PostAccountAsync(model);
+                HttpStatusCode? code = await _noteRestApi.PostNoteAsync(model);
                 if (code == HttpStatusCode.Created)
                 {
                     await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
-                    _viewModel.LoadAccounts();
+                    _viewModel.LoadNotes();
                 }
             }
             else
             {
-                _logger.Information("Dialog 'add new account' cancelled.");
+                _logger.Information("Dialog 'add new note' cancelled.");
             }
         }
     }

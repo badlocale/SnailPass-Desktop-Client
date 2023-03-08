@@ -1,23 +1,22 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--Backgrounds-->
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Backgrounds  -->
     <SolidColorBrush x:Key="MainBackground">#f0f8ff</SolidColorBrush>
     <SolidColorBrush x:Key="NearMainBackground">#e5f3ff</SolidColorBrush>
     <SolidColorBrush x:Key="HeaderBackground">#CFDEF2</SolidColorBrush>
     <SolidColorBrush x:Key="SecondBackground">#DBEBFF</SolidColorBrush>
 
-    <!--Grey-->
+    <!--  Grey  -->
     <SolidColorBrush x:Key="SoftGreyColor">#d3d3d3</SolidColorBrush>
     <SolidColorBrush x:Key="SemiVisibleTextColor">#bebebe</SolidColorBrush>
     <SolidColorBrush x:Key="BorderColor">#bccace</SolidColorBrush>
-    <!--#a9a9a9 Old-->
+    <!--  #a9a9a9 Old  -->
     <SolidColorBrush x:Key="LightTextColor">#808080</SolidColorBrush>
     <SolidColorBrush x:Key="DarkTextColor">#454545</SolidColorBrush>
 
-    <!--Error-->
+    <!--  Error  -->
     <SolidColorBrush x:Key="ErrorColor">#ff2b2b</SolidColorBrush>
 
-    <!--Buttons-->
+    <!--  Buttons  -->
     <SolidColorBrush x:Key="PassiveButtonColor">#c2c2c2</SolidColorBrush>
     <SolidColorBrush x:Key="ActiveButtonColor">#8D93A6</SolidColorBrush>
     <SolidColorBrush x:Key="PanelColor">#CFDFF3</SolidColorBrush>
@@ -26,6 +25,6 @@
     <SolidColorBrush x:Key="PanelBorderColor">#3C7996</SolidColorBrush>
     <SolidColorBrush x:Key="PanelBorderColor2">#70AECB</SolidColorBrush>
 
-    <!--Icons-->
+    <!--  Icons  -->
     <SolidColorBrush x:Key="MenuIconColor">#929292</SolidColorBrush>
 </ResourceDictionary>

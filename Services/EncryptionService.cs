@@ -49,7 +49,6 @@ namespace SnailPass_Desktop.Services
                 }
 
                 (ciphertext, nonce) = _cryptographer.Encrypt(plaintext, encKey);
-                //nonce = Convert.FromBase64String(nonceStr);
                 property.SetValue(model, $"{ciphertext}:{nonce}");
             }
         }

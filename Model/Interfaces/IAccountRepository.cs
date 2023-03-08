@@ -5,7 +5,7 @@ namespace SnailPass_Desktop.Model.Interfaces
     public interface IAccountRepository
     {
         void AddOrReplace(AccountModel user);
-        IEnumerable<AccountModel> GetByUserID(string userId);
-        void DeleteAllByAccountID(string email);
+        IEnumerable<AccountModel> GetByUserId(string userId);
+        void DeleteAllByUsersEmail(string email);
     }
 }

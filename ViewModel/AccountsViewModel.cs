@@ -100,7 +100,7 @@ namespace SnailPass_Desktop.ViewModel
                 identity, logger);
             DeleteFieldCommand = new DeleteFieldCommand(this, customFieldRestApi, synchronizationService, 
                 identity, logger);
-            AddAccountCommand = new AddNewAccountCommand(this, dialogService, logger, accountRestApi, 
+            AddAccountCommand = new AddAccountCommand(this, dialogService, logger, accountRestApi, 
                 identity, cryptographyService, synchronizationService);
             AddFieldCommand = new AddFieldCommand(this, logger, dialogService, 
                 identity, customFieldRestApi, cryptographyService, synchronizationService);
@@ -123,7 +123,7 @@ namespace SnailPass_Desktop.ViewModel
 
         public void LoadAccounts()
         {
-            IEnumerable<AccountModel> accounts = _accountRepository.GetByUserID(_identity.CurrentUser.ID);
+            IEnumerable<AccountModel> accounts = _accountRepository.GetByUserId(_identity.CurrentUser.ID);
 
             _accounts.Clear();
 

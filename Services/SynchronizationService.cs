@@ -14,24 +14,28 @@ namespace SnailPass_Desktop.Services
         private IUserRestApi _userRestApi;
         private IAccountRestApi _accountRestApi;
         private ICustomFieldRestApi _customFieldRestApi;
+        private INoteRestApi _noteRestApi;
         private ICustomFieldRepository _customFieldRepository;
         private IUserRepository _userRepository;
         private IAccountRepository _accountRepository;
+        private INoteRepository _noteRepository;
         private IUserIdentityStore _identity;
         private IKeyGenerator _keyGenerator;
         private ILogger _logger;
 
-        public SynchronizationService(IUserRestApi userRestApi, IAccountRestApi accountRestApi,
-            ICustomFieldRestApi customFieldRestApi, IAccountRepository accountRepository,
-            ICustomFieldRepository customFieldRepository, IUserRepository userRepository,
+        public SynchronizationService(IUserRestApi userRestApi, IAccountRestApi accountRestApi, 
+            INoteRestApi noteRestApi, ICustomFieldRestApi customFieldRestApi, IAccountRepository accountRepository, 
+            INoteRepository noteRepository, ICustomFieldRepository customFieldRepository, IUserRepository userRepository,
             IUserIdentityStore identity, IKeyGenerator encryptor, ILogger logger)
         {
             _userRestApi = userRestApi;
             _accountRestApi = accountRestApi;
             _customFieldRestApi = customFieldRestApi;
+            _noteRestApi = noteRestApi;
             _customFieldRepository = customFieldRepository;
             _accountRepository = accountRepository;
             _userRepository = userRepository;
+            _noteRepository = noteRepository;
             _identity = identity;
             _keyGenerator = encryptor;
             _logger = logger;
@@ -49,7 +53,7 @@ namespace SnailPass_Desktop.Services
 
             if (fields != null)
             {
-                _accountRepository.DeleteAllByAccountID(accountID);
+                _accountRepository.DeleteAllByUsersEmail(accountID);
 
                 foreach (EncryptableFieldModel account in fields)
                 {
@@ -70,7 +74,7 @@ namespace SnailPass_Desktop.Services
 
             if (accounts != null)
             {
-                _accountRepository.DeleteAllByAccountID(email);
+                _accountRepository.DeleteAllByUsersEmail(email);
 
                 foreach (AccountModel account in accounts)
                 {
@@ -94,15 +98,37 @@ namespace SnailPass_Desktop.Services
             _userRepository.AddOrReplace(user);
         }
 
+        private async Task SynchronizeNotesDataAsync(string email)
+        {
+            if (email == null)
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
+            IEnumerable<NoteModel> notes;
+            (_, notes) = await _noteRestApi.GetNotesAsync();
+
+            if (notes != null)
+            {
+                _noteRepository.DeleteAllByUsersEmail(email);
+
+                foreach (NoteModel note in notes)
+                {
+                    _noteRepository.AddOrReplace(note);
+                }
+            }
+        }
+
         public async Task SynchronizeAsync(string email)
         {
             _logger.Information("Synchronization started.");
 
-            Task user = SynchronizeUserDataAsync(email);
-            Task accounts = SynchronizeAccountsDataAsync(email);
-            Task aggregateTask = Task.WhenAll(user, accounts);
-            await aggregateTask.ConfigureAwait(false);
-            aggregateTask.Wait();
+            Task userTask = SynchronizeUserDataAsync(email);
+            Task accountTask = SynchronizeAccountsDataAsync(email);
+            Task noteTask = SynchronizeNotesDataAsync(email);
+
+            await userTask.ConfigureAwait(false);
+            await Task.WhenAll(accountTask, noteTask).ConfigureAwait(false);
 
             _logger.Information("Data has been loaded from server.");
         }

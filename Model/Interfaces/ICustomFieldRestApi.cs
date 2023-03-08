@@ -9,6 +9,6 @@ namespace SnailPass_Desktop.Model.Interfaces
         public Task<(HttpStatusCode?, IEnumerable<EncryptableFieldModel>?)> GetCustomFieldsAsync(string accountID);
         public Task<HttpStatusCode?> PostCustomFieldAsync(EncryptableFieldModel customField);
         public Task<HttpStatusCode?> DeleteCustomFieldAsync(string fieldID);
-        public Task<HttpStatusCode?> PatchCustomFieldAsync(EncryptableFieldModel customField);
+        public Task<HttpStatusCode?> PutCustomFieldAsync(EncryptableFieldModel customField);
     }
 }

@@ -24,7 +24,10 @@
     <Compile Update="View\Dialogs\AddCustomFieldDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\Dialogs\AddNewAccountDialog.xaml.cs">
+    <Compile Update="View\Dialogs\AddAccountDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Dialogs\AddNoteDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Dialogs\DialogWindow.xaml.cs">
@@ -80,7 +83,10 @@
     <Page Update="View\Dialogs\AddCustomFieldDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Dialogs\AddNewAccountDialog.xaml">
+    <Page Update="View\Dialogs\AddAccountDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Dialogs\AddNoteDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Dialogs\DialogWindow.xaml">

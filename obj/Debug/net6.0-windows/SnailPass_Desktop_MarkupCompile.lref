@@ -2,8 +2,9 @@
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\App.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\CustomControls\CryptedFieldWithHeader.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\AccountsViewControl.xaml;;
+FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\AddAccountDialog.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\AddCustomFieldDialog.xaml;;
-FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\AddNewAccountDialog.xaml;;
+FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\AddNoteDialog.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\DialogWindow.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\EditAccountDialog.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\EditCustomFieldDialog.xaml;;
@@ -11,7 +12,6 @@ FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\Dialogs\
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\HomeViewControl.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\LoginViewContol.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\MainWindow.xaml;;
-FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\NotesViewControl.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\RegistrationViewControl.xaml;;
 FC:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\View\StartupWindow.xaml;;
 

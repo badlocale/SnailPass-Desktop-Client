@@ -26,10 +26,12 @@ namespace SnailPass_Desktop
             builder.RegisterType<UserRepository>().As<IUserRepository>().SingleInstance();
             builder.RegisterType<AccountRepository>().As<IAccountRepository>().SingleInstance();
             builder.RegisterType<CustomFieldRepository>().As<ICustomFieldRepository>().SingleInstance();
+            builder.RegisterType<NoteRepository>().As<INoteRepository>().SingleInstance();
 
             builder.RegisterType<UserApi>().As<IUserRestApi>().SingleInstance();
             builder.RegisterType<AccountApi>().As<IAccountRestApi>().SingleInstance();
             builder.RegisterType<CustomFieldsApi>().As<ICustomFieldRestApi>().SingleInstance();
+            builder.RegisterType<NoteApi>().As<INoteRestApi>().SingleInstance();
 
             builder.RegisterType<Pbkdf2Encryptor>().As<IKeyGenerator>().SingleInstance();
             builder.RegisterType<AesCbcCryptographer>().As<ISymmetricCryptographer>().InstancePerDependency();
@@ -53,12 +55,14 @@ namespace SnailPass_Desktop
             builder.RegisterType<LoginViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<StartupViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<AccountsViewModel>().AsSelf().InstancePerDependency();
+            builder.RegisterType<NotesViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<ApplicationViewModel>().AsSelf().InstancePerDependency();
-            builder.RegisterType<AddNewAccountViewModel>().AsSelf().InstancePerDependency();
+            builder.RegisterType<AddAccountViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<AddCustomFieldViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<EditAccountViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<EditCustomFieldViewModel>().AsSelf().InstancePerDependency();
             builder.RegisterType<TokenExpiredViewModel>().AsSelf().InstancePerDependency();
+            builder.RegisterType<AddNoteViewModel>().AsSelf().InstancePerDependency();
 
             return builder.Build();
         }

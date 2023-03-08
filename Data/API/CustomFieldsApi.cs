@@ -40,7 +40,7 @@ namespace SnailPass_Desktop.Data.API
                 field = JsonConvert.DeserializeObject<IEnumerable<EncryptableFieldModel>>(jsonString);
             }
 
-            _logger.Information($"Getting custom field status: {ResponseMessage.StatusCode}");
+            _logger.Information($"Getting custom fields status: {ResponseMessage.StatusCode}");
 
             if (field == null)
             {
@@ -64,7 +64,7 @@ namespace SnailPass_Desktop.Data.API
                 return null;
             }
 
-            _logger.Information($"Adding custom field status: {ResponseMessage.StatusCode}");
+            _logger.Information($"Posting custom field status: {ResponseMessage.StatusCode}");
 
             return ResponseMessage.StatusCode;
         }
@@ -86,13 +86,13 @@ namespace SnailPass_Desktop.Data.API
             return ResponseMessage.StatusCode;
         }
 
-        public async Task<HttpStatusCode?> PatchCustomFieldAsync(EncryptableFieldModel field)
+        public async Task<HttpStatusCode?> PutCustomFieldAsync(EncryptableFieldModel field)
         {
             try
             {
                 string jsonField = JsonConvert.SerializeObject(field);
                 StringContent content = new StringContent(jsonField, Encoding.UTF8, "application/json");
-                ResponseMessage = await HttpClient.PatchAsync("additional_fields", content);
+                ResponseMessage = await HttpClient.PutAsync("additional_fields", content);
             }
             catch (HttpRequestException)
             {

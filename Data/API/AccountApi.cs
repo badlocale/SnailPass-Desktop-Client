@@ -59,7 +59,8 @@ namespace SnailPass_Desktop.Data.API
                 OnServerNotResponding();
                 return null;
             }
-            _logger.Information($"Adding account status: {ResponseMessage?.StatusCode}");
+
+            _logger.Information($"Posting account status: {ResponseMessage?.StatusCode}");
 
             return ResponseMessage?.StatusCode;
         }
@@ -81,13 +82,13 @@ namespace SnailPass_Desktop.Data.API
             return ResponseMessage.StatusCode;
         }
 
-        public async Task<HttpStatusCode?> PatchAccountAsync(AccountModel account)
+        public async Task<HttpStatusCode?> PutAccountAsync(AccountModel account)
         {
             try
             {
                 string jsonAccount = JsonConvert.SerializeObject(account);
                 StringContent content = new StringContent(jsonAccount, Encoding.UTF8, "application/json");
-                ResponseMessage = await HttpClient.PatchAsync("records", content);
+                ResponseMessage = await HttpClient.PutAsync("records", content);
             }
             catch (HttpRequestException)
             {

@@ -1,0 +1,159 @@
+﻿<UserControl
+    x:Class="SnailPass_Desktop.View.Dialogs.AddAccountDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="root"
+    Width="700"
+    Height="360"
+    Background="Transparent"
+    mc:Ignorable="d">
+    <Border
+        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+        BorderThickness="1"
+        CornerRadius="7">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Border MouseDown="TopMenu_MouseDown" Style="{StaticResource HeaderBorderStyle}" />
+            <Border Style="{StaticResource BodyBorderStyle}" />
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="15,0,0,0"
+                VerticalAlignment="Center"
+                FontFamily="{StaticResource ResourceKey=MainFont}"
+                FontSize="15"
+                FontWeight="DemiBold"
+                Foreground="{StaticResource ResourceKey=DarkTextColor}"
+                MouseDown="TopMenu_MouseDown"
+                Text="Add new account data" />
+
+            <Button
+                x:Name="btnClose"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,0,10,0"
+                HorizontalAlignment="Right"
+                Click="BtnClose_Click"
+                Template="{StaticResource ResourceKey=TopMenuSmallButton}">
+                <Rectangle
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{StaticResource ResourceKey=LightTextColor}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=CloseWindowVectorIcon}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <DockPanel
+                x:Name="Body"
+                Grid.Row="1"
+                Width="260"
+                Margin="0,10,0,15">
+
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    Style="{StaticResource ResourceKey=HeaderTextStyle}"
+                    Text="Service name" />
+
+                <customControls:InputField
+                    x:Name="serviceNameInputField"
+                    DockPanel.Dock="Top"
+                    Icon="{StaticResource ResourceKey=ServiceVectorIcon}"
+                    Text="{Binding ServiceName, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    Style="{StaticResource ResourceKey=HeaderTextStyle}"
+                    Text="Login" />
+
+                <customControls:InputField
+                    x:Name="loginInputField"
+                    DockPanel.Dock="Top"
+                    Icon="{StaticResource ResourceKey=AccountVectorIcon}"
+                    ImageHeight="18"
+                    ImageWidth="20"
+                    Text="{Binding Login, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    Style="{StaticResource ResourceKey=HeaderTextStyle}"
+                    Text="Password" />
+
+                <customControls:InputField
+                    x:Name="passwordInputField"
+                    DockPanel.Dock="Top"
+                    Icon="{StaticResource ResourceKey=KeyVectorIcon}"
+                    Text="{Binding Password, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+                <Border
+                    Width="120"
+                    Height="34"
+                    VerticalAlignment="Bottom"
+                    DockPanel.Dock="Bottom">
+                    <Button
+                        x:Name="btnConfirm"
+                        Click="BtnConfirm_Click"
+                        Content="ADD"
+                        Template="{StaticResource ResourceKey=BigButton}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="IsEnabled" Value="True" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=root, Path=DataContext.HasErrors, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Border>
+            </DockPanel>
+
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="-1,10,0,10"
+                BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                BorderThickness="2,0,0,0" />
+
+            <DockPanel
+                x:Name="g"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="260"
+                Margin="0,10,0,15">
+                <TextBlock DockPanel.Dock="Top"
+                            Style="{StaticResource ResourceKey=HeaderTextStyle}"
+                               HorizontalAlignment="Stretch"
+                               TextAlignment="Center">
+                        PASSWORD GENERATOR
+                </TextBlock>                
+                <Border
+                    Width="120"
+                    Height="34"
+                    VerticalAlignment="Bottom"
+                    DockPanel.Dock="Bottom">
+                    <Button
+                        x:Name="btnGenerate"
+                        Content="GENERATE"
+                        Template="{StaticResource ResourceKey=BigButton}" />
+                </Border>
+            </DockPanel>
+        </Grid>
+    </Border>
+</UserControl>

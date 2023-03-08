@@ -38,7 +38,8 @@ namespace SnailPass_Desktop.ViewModel
             IDialogService dialogService, ILogger logger, IAccountRestApi accountRestApi,
             ICustomFieldRestApi customFieldRestApi, ISynchronizationService synchronizationService,
             ICryptographyService cryptographyService, IApplicationModeStore applicationModeStore,
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService, INoteRepository noteRepository,
+            INoteRestApi noteRestApi)
         {
             _navigationStore = navigationStore;
             _dialogService = dialogService;
@@ -58,7 +59,8 @@ namespace SnailPass_Desktop.ViewModel
                 dialogService, logger, cryptographyService, synchronizationService,
                 accountRestApi, customFieldRestApi, applicationModeStore), null);
             NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore,
-                () => new NotesViewModel(identity, navigationStore, logger), null);
+                () => new NotesViewModel(identity, noteRepository, cryptographyService, logger, 
+                applicationModeStore, dialogService, noteRestApi, synchronizationService), null);
 
             NavigateAccountsCommand.Execute(null);
         }
