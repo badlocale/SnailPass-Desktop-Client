@@ -76,6 +76,7 @@ namespace SnailPass_Desktop.ViewModel
         public ICommand AddFieldCommand { get; set; }
         public ICommand EditAccountCommand { get; set; }
         public ICommand EditFieldCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         public ICollectionView AccountsCollectionView { get; }
         public ICollectionView FieldsCollectionView { get; }
@@ -108,6 +109,7 @@ namespace SnailPass_Desktop.ViewModel
                 identity, cryptographyService, synchronizationService);
             EditFieldCommand = new EditFieldCommand(this, logger, dialogService,
                 identity, customFieldRestApi, cryptographyService, synchronizationService);
+            RefreshCommand = new RefreshCommand(this, logger, identity, synchronizationService);
 
             AccountsCollectionView = CollectionViewSource.GetDefaultView(_accounts);
             AccountsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(AccountModel.ServiceName)));

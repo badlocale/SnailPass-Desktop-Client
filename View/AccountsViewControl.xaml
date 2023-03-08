@@ -90,7 +90,8 @@
             CornerRadius="10">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="60*" />
+                    <ColumnDefinition Width="40*" />
+                    <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="20*" />
                 </Grid.ColumnDefinitions>
@@ -102,7 +103,7 @@
 
                 <Border
                     Grid.Row="0"
-                    Grid.ColumnSpan="3"
+                    Grid.ColumnSpan="4"
                     Margin="0,5,0,0"
                     HorizontalAlignment="Center"
                     Background="Transparent"
@@ -119,7 +120,7 @@
 
                 <Border
                     Grid.Row="1"
-                    Grid.ColumnSpan="3"
+                    Grid.ColumnSpan="4"
                     Margin="5,5,5,0"
                     Background="{StaticResource ResourceKey=MainBackground}"
                     BorderBrush="{StaticResource ResourceKey=BorderColor}"
@@ -282,6 +283,57 @@
                                                         Fill="{StaticResource ResourceKey=LightTextColor}">
                                                         <Rectangle.OpacityMask>
                                                             <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=EditVectorIcon}" />
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style.Setters>
+
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter Property="Opacity" Value="1" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="3">
+                    <Button
+                        x:Name="refreshButton"
+                        Command="{Binding RefreshCommand}"
+                        IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Setters>
+                                    <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border
+                                                    Margin="2,5,5,5"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5">
+                                                    <Rectangle
+                                                        Grid.Column="0"
+                                                        Width="25"
+                                                        Height="25"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Fill="{StaticResource ResourceKey=LightTextColor}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=RefreshIcon}" />
                                                         </Rectangle.OpacityMask>
                                                     </Rectangle>
                                                 </Border>
