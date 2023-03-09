@@ -6,10 +6,41 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Configurations>Debug;Release;1</Configurations>
+    <ApplicationIcon>SnailPassLogoBorders.ico</ApplicationIcon>
+    <Title>SnailPass</Title>
+    <PackageProjectUrl>https://github.com/badlocale/SnailPass-Desktop-Client</PackageProjectUrl>
+    <PackageIcon>SnailPassNewLogo.svg</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/badlocale/SnailPass-Desktop-Client</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='1|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="View\Res\Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SnailPassLogoBorders.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\SnailPassNewLogo.svg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +58,13 @@
 
   <ItemGroup>
     <Resource Include="View\Res\Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

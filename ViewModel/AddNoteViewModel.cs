@@ -37,7 +37,7 @@ namespace SnailPass_Desktop.ViewModel
         {
             _identity = identity;
 
-            _content = "PUDGE"; //
+            _content = " "; //
             _isFavorite = false;
             _isDeleted = false;
             _creationTime = DateTime.Now;

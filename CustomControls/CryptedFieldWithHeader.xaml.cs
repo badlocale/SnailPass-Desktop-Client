@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -82,9 +84,13 @@ namespace SnailPass_Desktop.CustomControls
             IsCopied = Clipboard.GetText() == Value;
         }
 
-        private void CryptedValueField_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void CryptedValueField_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Clipboard.SetText(Value);
+            try
+            {
+                Clipboard.SetText(Value);
+            }
+            catch (COMException) { }
         }
     }
 }

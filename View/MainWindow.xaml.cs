@@ -12,9 +12,6 @@ namespace SnailPass_Desktop
         {
             InitializeComponent();
             IntPtr hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
-            var attribute = RoundedWindowParams.DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
-            var preference = RoundedWindowParams.DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-            RoundedWindowParams.DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
         }
 
         private void TopMenu_MouseDown(object sender, MouseButtonEventArgs e)

@@ -4,6 +4,7 @@ using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using SnailPass_Desktop.Data.API;
 using SnailPass_Desktop.Data.Repositories;
+using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Cryptography;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.Services;
@@ -41,6 +42,7 @@ namespace SnailPass_Desktop
             builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
             builder.RegisterType<SynchronizationService>().As<ISynchronizationService>().SingleInstance();
             builder.RegisterType<CryptographyService>().As<ICryptographyService>().InstancePerDependency();
+            builder.RegisterType<PasswordGenerator>().As<IPasswordGenerator>().InstancePerDependency();
             builder.RegisterType<AuthenticationService>().As<IAuthenticationService>().SingleInstance();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
             builder.Register<ILogger>((c, p) =>

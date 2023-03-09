@@ -8,6 +8,6 @@ namespace SnailPass_Desktop.Model.Interfaces
 {
     public interface IPasswordGenerator
     {
-
+        public string Generate(int lenght, bool isLowercase, bool isUppercase, bool isDigits, bool isSpecials);
     }
 }

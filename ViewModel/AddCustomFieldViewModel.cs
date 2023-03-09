@@ -53,7 +53,7 @@ namespace SnailPass_Desktop.ViewModel
             //Value validation
             AddValidationRule(nameof(Value), "Value field cannot be empty.", () =>
             {
-                return !string.IsNullOrEmpty(_fieldName);
+                return !string.IsNullOrEmpty(_value);
             });
             AddValidationRule(nameof(Value), "Value field have leading or trailing white-spaces.", () =>
             {

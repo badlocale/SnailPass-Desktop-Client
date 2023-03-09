@@ -35,6 +35,11 @@ namespace SnailPass_Desktop.ViewModel
 
                 if (value != null)
                 {
+                    if (value.Content == " ") //DEL
+                    {
+                        value.Content = String.Empty;
+                    }
+
                     NoteName = value.Name;
                     NoteContent = value.Content;
                 }

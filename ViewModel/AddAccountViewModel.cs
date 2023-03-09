@@ -1,6 +1,7 @@
 ﻿using Autofac.Core;
 using Newtonsoft.Json.Linq;
 using SnailPass_Desktop.Model;
+using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
@@ -21,7 +22,11 @@ namespace SnailPass_Desktop.ViewModel
         private string _userId;
         private string _password;
 
-        private IUserIdentityStore _identity;
+        private int _lenght;
+        private bool _isLowercase;
+        private bool _isUppercase;
+        private bool _isDigits;
+        private bool _isSpecials;
 
         public string ServiceName
         {
@@ -56,16 +61,71 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public AddAccountViewModel(IUserIdentityStore identity)
+        public int Lenght
         {
-            _identity = identity;
+            get { return _lenght; }
+            set
+            {
+                _lenght = (int)Math.Round((double)value, 0);
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsLowercase
+        {
+            get { return _isLowercase; }
+            set
+            {
+                _isLowercase = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsUppercase
+        {
+            get { return _isUppercase; }
+            set
+            {
+                _isUppercase = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsDigits
+        {
+            get { return _isDigits; }
+            set
+            {
+                _isDigits = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsSpecials
+        {
+            get { return _isSpecials; }
+            set
+            {
+                _isSpecials = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand GeneratePasswordCommand { get; set; }
+
+        public AddAccountViewModel(IUserIdentityStore identity, IPasswordGenerator passwordGenerator)
+        {
+            int defaultPassLength = 6;
+            Lenght = defaultPassLength;
 
             _isFavorite = false;
             _isDeleted = false;
             _creationTime = DateTime.Now;
             _updateTime = DateTime.Now;
             _id = Guid.NewGuid().ToString();
-            _userId = _identity.CurrentUser.ID;
+            _userId = identity.CurrentUser.ID;
+
+            GeneratePasswordCommand = new GeneratePasswordCommand(this, passwordGenerator);
 
             //Service name validation
             AddValidationRule(nameof(ServiceName), "Service name field cannot be empty.", () =>

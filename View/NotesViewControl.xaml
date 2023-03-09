@@ -231,10 +231,10 @@
                         BorderThickness="1"
                         CornerRadius="5">
                         <TextBox
-                            Foreground="{StaticResource ResourceKey=LightTextColor}"
                             Margin="0"
                             Padding="20,0,0,0"
                             BorderThickness="0"
+                            Foreground="{StaticResource ResourceKey=LightTextColor}"
                             Style="{StaticResource ResourceKey=OpenTextBox}"
                             Text="{Binding NoteName, UpdateSourceTrigger=PropertyChanged}" />
                     </Border>
@@ -260,11 +260,11 @@
                         BorderThickness="1"
                         CornerRadius="5">
                         <TextBox
-                            Foreground="{StaticResource ResourceKey=LightTextColor}"
                             Height="auto"
                             Margin="0"
-                            Padding="4, 6, 4, 6"
+                            Padding="4,6,4,6"
                             BorderThickness="0"
+                            Foreground="{StaticResource ResourceKey=LightTextColor}"
                             Style="{StaticResource ResourceKey=OpenTextBox}"
                             Text="{Binding NoteContent, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="Wrap" />

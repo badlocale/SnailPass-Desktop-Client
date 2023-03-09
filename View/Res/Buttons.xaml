@@ -231,4 +231,46 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Border
+                        x:Name="checkBoxBorder"
+                        Width="25"
+                        Height="25"
+                        Background="{StaticResource ResourceKey=MainBackground}"
+                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="5">
+                        <Grid>
+                            <Rectangle
+                                x:Name="mark"
+                                Width="15"
+                                Height="15"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="Transparent">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=CheckIcon}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="mark" Property="Fill" Value="Red" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="mark" Property="Fill" Value="Transparent" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource ResourceKey=PanelBorderColor2}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

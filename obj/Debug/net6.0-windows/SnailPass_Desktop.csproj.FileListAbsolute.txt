@@ -119,3 +119,4 @@ C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddNoteDialog.g.cs
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddAccountDialog.baml
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\View\Dialogs\AddNoteDialog.baml
+C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\SnailPass_Desktop_Content.g.cs
