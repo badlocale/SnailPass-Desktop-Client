@@ -260,7 +260,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="mark" Property="Fill" Value="Red" />
+                            <Setter TargetName="mark" Property="Fill" Value="{StaticResource ResourceKey=PanelBorderColor2}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
                             <Setter TargetName="mark" Property="Fill" Value="Transparent" />
