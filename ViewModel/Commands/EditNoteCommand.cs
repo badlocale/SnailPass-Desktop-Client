@@ -42,13 +42,13 @@ namespace SnailPass_Desktop.ViewModel.Commands
 
             _logger.Information($"Execute editing for note with ID: \"{note.ID}\".");
 
-            _cryptographyService.Encrypt(note);
+            await _cryptographyService.EncryptAsync(note);
 
             HttpStatusCode? code = await _noteRestApi.PutNoteAsync(note);
             if (code == HttpStatusCode.OK)
             {
                 await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
-                _viewModel.LoadNotes();
+                _viewModel.LoadNotesAsync();
             }
         }
     }

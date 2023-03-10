@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Services
 {
@@ -23,6 +24,11 @@ namespace SnailPass_Desktop.Services
             _encryptor = encryptor;
             _identity = identity;
             _logger = logger;
+        }
+
+        public async Task EncryptAsync<ModelType>(ModelType model)
+        {
+            await Task.Run(() => Encrypt(model));
         }
 
         public void Encrypt<ModelType>(ModelType model)
@@ -51,6 +57,11 @@ namespace SnailPass_Desktop.Services
                 (ciphertext, nonce) = _cryptographer.Encrypt(plaintext, encKey);
                 property.SetValue(model, $"{ciphertext}:{nonce}");
             }
+        }
+
+        public async Task DecryptAsync<ModelType>(ModelType model)
+        {
+            await Task.Run(() => Decrypt(model));
         }
 
         public void Decrypt<ModelType>(ModelType model)

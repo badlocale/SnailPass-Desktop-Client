@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Data.Sqlite;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using SnailPass_Desktop.Model.Interfaces;
-using System.Windows.Markup;
+using System.Diagnostics;
 
 namespace SnailPass_Desktop.Data.Repositories
 {
@@ -15,6 +14,8 @@ namespace SnailPass_Desktop.Data.Repositories
     {
         public async void AddOrReplace(AccountModel account)
         {
+            Stopwatch stopwatch = new();
+            stopwatch.Start();
             using var connection = GetConnection();
             using (SqliteCommand command = new SqliteCommand())
             {
@@ -37,6 +38,12 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.Parameters.Add("@update_time", SqliteType.Text).Value = account.UpdateTime;
 
                 await command.ExecuteNonQueryAsync();
+                stopwatch.Stop();
+                TimeSpan ts = stopwatch.Elapsed;
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                Console.WriteLine($"Accounts: {elapsedTime}");
             }
         }
 

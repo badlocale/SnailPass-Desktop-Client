@@ -1,7 +1,12 @@
 ﻿using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Core;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Data.Repositories
@@ -10,6 +15,9 @@ namespace SnailPass_Desktop.Data.Repositories
     {
         public async void AddOrReplace(EncryptableFieldModel customField)
         {
+            Stopwatch stopwatch = new();//
+            stopwatch.Start();//
+
             using var connection = GetConnection();
             using (SqliteCommand command = new())
             {
@@ -26,6 +34,13 @@ namespace SnailPass_Desktop.Data.Repositories
 
                 await command.ExecuteNonQueryAsync();
             }
+
+            stopwatch.Stop();//
+            TimeSpan ts = stopwatch.Elapsed;//
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);//
+            Console.WriteLine($"Fields: {elapsedTime}");//
         }
 
         public async Task<IEnumerable<EncryptableFieldModel>> GetByAccountID(string accountId)

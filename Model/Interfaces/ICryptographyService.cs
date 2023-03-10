@@ -9,6 +9,8 @@ namespace SnailPass_Desktop.Model.Interfaces
     public interface ICryptographyService
     {
         void Encrypt<ModelType>(ModelType model);
+        Task EncryptAsync<ModelType>(ModelType model);
         void Decrypt<ModelType>(ModelType model);
+        Task DecryptAsync<ModelType>(ModelType model);
     }
 }

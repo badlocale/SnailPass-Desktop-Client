@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -119,7 +121,7 @@ namespace SnailPass_Desktop.ViewModel
 
             applicationModeStore.LocalModeDisabled += LocalModeDisabledHandler;
             applicationModeStore.LocalModeEnabled += LocalModeEnabledHandler;
-
+            
             LoadAccountsAsync();
         }
 
@@ -129,9 +131,15 @@ namespace SnailPass_Desktop.ViewModel
 
             _accounts.Clear();
 
+            List<Task> tasks = new();
             foreach (AccountModel account in accounts)
             {
-                _cryptographyService.Decrypt(account);
+                tasks.Add(_cryptographyService.DecryptAsync(account));
+            }
+            await Task.WhenAll(tasks);
+
+            foreach (AccountModel account in accounts)
+            {
                 _accounts.Add(account);
             }
 
@@ -157,13 +165,17 @@ namespace SnailPass_Desktop.ViewModel
             passwordField.IsDeletable = false;
             _fields.Add(passwordField);
 
+            List<Task> tasks = new();
             foreach (EncryptableFieldModel field in customFields)
             {
-                _cryptographyService.Decrypt(field);
+                tasks.Add(_cryptographyService.DecryptAsync(field));
+            }
+            await Task.WhenAll(tasks);
+
+            foreach (EncryptableFieldModel field in customFields)
+            {
                 _fields.Add(field);
             }
-
-            _logger.Information("Custom fields list loaded.");
         }
 
         private bool FilterWithSearchBar(object obj)

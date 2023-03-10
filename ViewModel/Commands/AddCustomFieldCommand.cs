@@ -43,7 +43,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
                     $"or e-mail [{_identity.CurrentUser.Email}]. Field name: [{model.FieldName}].");
 
                 model.AccountId = _viewModel.SelectedAccount.ID;
-                _cryptographyService.Encrypt(model);
+                await _cryptographyService.EncryptAsync(model);
 
                 HttpStatusCode? code = await _customFieldRestApi.PostCustomFieldAsync(model);
                 if (code == HttpStatusCode.Created)

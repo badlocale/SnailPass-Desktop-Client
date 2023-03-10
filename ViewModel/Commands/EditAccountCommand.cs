@@ -62,7 +62,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
                     selectedAccount.Password = newData.Password;
                 }
 
-                _cryptographyService.Encrypt(selectedAccount);
+                await _cryptographyService.EncryptAsync(selectedAccount);
 
                 HttpStatusCode? code = await _accountsRestApi.PutAccountAsync(selectedAccount);
                 if (code == HttpStatusCode.OK)

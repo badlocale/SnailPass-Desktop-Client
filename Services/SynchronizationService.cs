@@ -76,9 +76,6 @@ namespace SnailPass_Desktop.Services
             {
                 _accountRepository.DeleteAllByUsersEmail(email);
 
-                Stopwatch stopwatchFields = new();
-                stopwatchFields.Start();
-
                 List<Task> tasks = new List<Task>();
                 foreach (AccountModel account in accounts)
                 {
@@ -86,14 +83,6 @@ namespace SnailPass_Desktop.Services
                     tasks.Add(SynchronizeFieldsDataAsync(account.ID));
                 }
                 await Task.WhenAll(tasks).ConfigureAwait(false);
-
-                stopwatchFields.Stop();
-                TimeSpan tsFields = stopwatchFields.Elapsed;
-                stopwatchFields.Reset();
-                string elapsedTimeFields = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        tsFields.Hours, tsFields.Minutes, tsFields.Seconds,
-                        tsFields.Milliseconds / 10);
-                _logger.Debug($"Fields entire time: {elapsedTimeFields}");
             }
         }
 

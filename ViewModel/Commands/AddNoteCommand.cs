@@ -44,12 +44,12 @@ namespace SnailPass_Desktop.ViewModel.Commands
                 _logger.Information($"Execute 'add new note' for user: \"{_identity.CurrentUser.Email}\".");
 
                 NoteModel model = dialogVM.CreateModel();
-                _cryptographyService.Encrypt(model);
+                await _cryptographyService.EncryptAsync(model);
                 HttpStatusCode? code = await _noteRestApi.PostNoteAsync(model);
                 if (code == HttpStatusCode.Created)
                 {
                     await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
-                    _viewModel.LoadNotes();
+                    _viewModel.LoadNotesAsync();
                 }
             }
             else

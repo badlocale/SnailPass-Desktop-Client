@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -113,18 +114,24 @@ namespace SnailPass_Desktop.ViewModel
             applicationModeStore.LocalModeDisabled += LocalModeDisabledHandler;
             applicationModeStore.LocalModeEnabled += LocalModeEnabledHandler;
 
-            LoadNotes();
+            LoadNotesAsync();
         }
 
-        public void LoadNotes()
+        public async void LoadNotesAsync()
         {
             IEnumerable<NoteModel> notes = _noteRepository.GetByUserId(_identity.CurrentUser.ID);
 
             _notes.Clear();
 
+            List<Task> tasks = new();
             foreach (NoteModel note in notes)
             {
-                _cryptographyService.Decrypt(note);
+                tasks.Add(_cryptographyService.DecryptAsync(note));
+            }
+            await Task.WhenAll(tasks);
+
+            foreach (NoteModel note in notes)
+            {
                 _notes.Add(note);
             }
 
