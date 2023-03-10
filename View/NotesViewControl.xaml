@@ -6,8 +6,8 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="root"
-    d:DesignHeight="450"
-    d:DesignWidth="700"
+    d:DesignHeight="530"
+    d:DesignWidth="800"
     mc:Ignorable="d">
     <Border>
         <Grid>
@@ -203,7 +203,7 @@
                 CornerRadius="10">
                 <Grid Visibility="Visible">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
                         <RowDefinition />
                         <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
@@ -232,8 +232,10 @@
                         CornerRadius="5">
                         <TextBox
                             Margin="0"
-                            Padding="20,0,0,0"
+                            Padding="26,0,0,0"
                             BorderThickness="0"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
                             Foreground="{StaticResource ResourceKey=LightTextColor}"
                             Style="{StaticResource ResourceKey=OpenTextBox}"
                             Text="{Binding NoteName, UpdateSourceTrigger=PropertyChanged}" />
@@ -241,8 +243,8 @@
 
                     <Rectangle
                         Grid.Column="0"
-                        Width="15"
-                        Height="15"
+                        Width="20"
+                        Height="20"
                         Margin="10,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"

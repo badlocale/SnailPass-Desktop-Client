@@ -20,7 +20,9 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
-    <Border CornerRadius="8">
+    <Border CornerRadius="6"
+            BorderThickness="1"
+            BorderBrush="{StaticResource ResourceKey=BorderColor}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
@@ -41,7 +43,8 @@
                 Grid.ColumnSpan="2"
                 Panel.ZIndex="1"
                 Background="Black"
-                Opacity="0.8"
+                CornerRadius="6"
+                Opacity="0.5"
                 Visibility="{Binding IsDialogOpened, Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}" />
 
             <Border MouseDown="TopMenu_MouseDown" Style="{StaticResource HeaderBorderStyle}" />
@@ -196,6 +199,7 @@
 
             <Border
                 x:Name="WindowContent"
+                CornerRadius="6"
                 Grid.Row="1"
                 Grid.Column="1">
                 <ContentControl Content="{Binding CurrentViewModel}">
