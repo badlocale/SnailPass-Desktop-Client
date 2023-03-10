@@ -120,12 +120,12 @@ namespace SnailPass_Desktop.ViewModel
             applicationModeStore.LocalModeDisabled += LocalModeDisabledHandler;
             applicationModeStore.LocalModeEnabled += LocalModeEnabledHandler;
 
-            LoadAccounts();
+            LoadAccountsAsync();
         }
 
-        public void LoadAccounts()
+        public async void LoadAccountsAsync()
         {
-            IEnumerable<AccountModel> accounts = _accountRepository.GetByUserId(_identity.CurrentUser.ID);
+            IEnumerable<AccountModel> accounts = await _accountRepository.GetByUserId(_identity.CurrentUser.ID);
 
             _accounts.Clear();
 
@@ -138,14 +138,14 @@ namespace SnailPass_Desktop.ViewModel
             _logger.Information("Accounts list loaded.");
         }
 
-        public void LoadFields()
+        public async void LoadFields()
         {
             if (SelectedAccount == null)
             {
                 return;
             }
 
-            IEnumerable<EncryptableFieldModel> customFields = _customFieldRepository.GetByAccountID(_selectedAccount.ID);
+            IEnumerable<EncryptableFieldModel> customFields = await _customFieldRepository.GetByAccountID(_selectedAccount.ID);
 
             _fields.Clear();
 

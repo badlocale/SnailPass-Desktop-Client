@@ -18,7 +18,7 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.CommandText = "REPLACE INTO notes (id, name, content, user_id, is_favorite, " +
                                                           "is_deleted, creation_time, update_time) " +
                                       "VALUES (@id, @name, @content, @user_id, " +
-                                      "@is_favorite, @is_deleted, @creation_time, @update_time)";
+                                      "@is_favorite, @is_deleted, @creation_time, @update_time);";
 
                 command.Parameters.Add("@id", SqliteType.Text).Value = note.ID;
                 command.Parameters.Add("@name", SqliteType.Text).Value = note.Name;

@@ -5,6 +5,7 @@ using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Services
@@ -71,16 +72,28 @@ namespace SnailPass_Desktop.Services
 
             IEnumerable<AccountModel> accounts;
             (_, accounts) = await _accountRestApi.GetAccountsAsync();
-
             if (accounts != null)
             {
                 _accountRepository.DeleteAllByUsersEmail(email);
 
+                Stopwatch stopwatchFields = new();
+                stopwatchFields.Start();
+
+                List<Task> tasks = new List<Task>();
                 foreach (AccountModel account in accounts)
                 {
                     _accountRepository.AddOrReplace(account);
-                    await SynchronizeFieldsDataAsync(account.ID);
+                    tasks.Add(SynchronizeFieldsDataAsync(account.ID));
                 }
+                await Task.WhenAll(tasks).ConfigureAwait(false);
+
+                stopwatchFields.Stop();
+                TimeSpan tsFields = stopwatchFields.Elapsed;
+                stopwatchFields.Reset();
+                string elapsedTimeFields = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                        tsFields.Hours, tsFields.Minutes, tsFields.Seconds,
+                        tsFields.Milliseconds / 10);
+                _logger.Debug($"Fields entire time: {elapsedTimeFields}");
             }
         }
 
@@ -93,8 +106,10 @@ namespace SnailPass_Desktop.Services
 
             UserModel user;
             (_, user) = await _userRestApi.GetUserAsync(email);
+
             user.Password = _keyGenerator.Encrypt(_identity.Master, email, 
                 CryptoConstants.LOCAL_ITERATIONS_COUNT);
+
             _userRepository.AddOrReplace(user);
         }
 
@@ -126,9 +141,7 @@ namespace SnailPass_Desktop.Services
             Task userTask = SynchronizeUserDataAsync(email);
             Task accountTask = SynchronizeAccountsDataAsync(email);
             Task noteTask = SynchronizeNotesDataAsync(email);
-
-            await userTask.ConfigureAwait(false);
-            await Task.WhenAll(accountTask, noteTask).ConfigureAwait(false);
+            await Task.WhenAll(userTask, accountTask, noteTask).ConfigureAwait(false);
 
             _logger.Information("Data has been loaded from server.");
         }

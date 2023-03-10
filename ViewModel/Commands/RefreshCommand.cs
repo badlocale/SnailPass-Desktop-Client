@@ -1,6 +1,8 @@
 ﻿using Serilog;
 using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Stores;
+using System;
+using System.Diagnostics;
 
 namespace SnailPass_Desktop.ViewModel.Commands
 {
@@ -25,7 +27,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
         {
             _logger.Information($"Execute refresh command for user: \"{_identity.CurrentUser.Email}\".");
             await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
-            _viewModel.LoadAccounts();
+            _viewModel.LoadAccountsAsync();
         }
     }
 }

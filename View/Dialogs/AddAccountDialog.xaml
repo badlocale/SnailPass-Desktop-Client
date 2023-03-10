@@ -197,15 +197,15 @@
                                 BorderThickness="1"
                                 CornerRadius="5">
                                 <TextBox
-                                    VerticalAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    HorizontalAlignment="Stretch"
-                                    HorizontalContentAlignment="Center"
-                                    MaxLength="2"
                                     Margin="0"
                                     Padding="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
                                     BorderThickness="0"
                                     Foreground="{StaticResource ResourceKey=LightTextColor}"
+                                    MaxLength="2"
                                     Style="{StaticResource ResourceKey=OpenTextBox}"
                                     Text="{Binding Lenght, Mode=TwoWay}" />
                             </Border>

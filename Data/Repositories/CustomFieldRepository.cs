@@ -2,12 +2,13 @@
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Data.Repositories
 {
     public class CustomFieldRepository : RepositoryBase, ICustomFieldRepository
     {
-        public void AddOrReplace(EncryptableFieldModel customField)
+        public async void AddOrReplace(EncryptableFieldModel customField)
         {
             using var connection = GetConnection();
             using (SqliteCommand command = new())
@@ -23,11 +24,11 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.Parameters.Add("@value", SqliteType.Text).Value = customField.Value;
                 command.Parameters.Add("@account_id", SqliteType.Text).Value = customField.AccountId;
 
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
         }
 
-        public IEnumerable<EncryptableFieldModel> GetByAccountID(string accountId)
+        public async Task<IEnumerable<EncryptableFieldModel>> GetByAccountID(string accountId)
         {
             List<EncryptableFieldModel> fields = new();
 
@@ -42,8 +43,9 @@ namespace SnailPass_Desktop.Data.Repositories
 
                 command.Parameters.Add("@account_id", SqliteType.Text).Value = accountId;
 
-                using (var reader = command.ExecuteReader())
+                using (Task<SqliteDataReader> task = command.ExecuteReaderAsync())
                 {
+                    SqliteDataReader reader = await task.ConfigureAwait(false);
                     while (reader.Read())
                     {
                         EncryptableFieldModel model = new EncryptableFieldModel()
@@ -62,7 +64,7 @@ namespace SnailPass_Desktop.Data.Repositories
             return fields;
         }
 
-        public void DeleteAllByEmail(string email)
+        public async void DeleteAllByEmail(string email)
         {
             using var connection = GetConnection();
             using (var command = new SqliteCommand())
@@ -80,7 +82,7 @@ namespace SnailPass_Desktop.Data.Repositories
 
                 command.Parameters.Add("@email", SqliteType.Text).Value = email;
 
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
         }
     }

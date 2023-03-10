@@ -13,7 +13,7 @@ namespace SnailPass_Desktop.Data.Repositories
 {
     public class AccountRepository : RepositoryBase, IAccountRepository
     {
-        public void AddOrReplace(AccountModel account)
+        public async void AddOrReplace(AccountModel account)
         {
             using var connection = GetConnection();
             using (SqliteCommand command = new SqliteCommand())
@@ -36,11 +36,11 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.Parameters.Add("@creation_time", SqliteType.Text).Value = account.CreationTime;
                 command.Parameters.Add("@update_time", SqliteType.Text).Value = account.UpdateTime;
 
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
         }
 
-        public IEnumerable<AccountModel> GetByUserId(string userId)
+        public async Task<IEnumerable<AccountModel>> GetByUserId(string userId)
         {
             List<AccountModel> accounts = new List<AccountModel>();
 
@@ -56,8 +56,9 @@ namespace SnailPass_Desktop.Data.Repositories
 
                 command.Parameters.Add("@user_id", SqliteType.Text).Value = userId;
 
-                using (var reader = command.ExecuteReader())
+                using (Task<SqliteDataReader> task = command.ExecuteReaderAsync())
                 {
+                    SqliteDataReader reader = await task.ConfigureAwait(false);
                     while (reader.Read())
                     {
                         AccountModel account = new AccountModel()
@@ -81,7 +82,7 @@ namespace SnailPass_Desktop.Data.Repositories
             return accounts;
         }
 
-        public void DeleteAllByUsersEmail(string usersEmail)
+        public async void DeleteAllByUsersEmail(string usersEmail)
         {
             using var connection = GetConnection();
             using (var command = new SqliteCommand())
@@ -98,7 +99,7 @@ namespace SnailPass_Desktop.Data.Repositories
 
                 command.Parameters.Add("@email", SqliteType.Text).Value = usersEmail;
 
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
         }
     }
