@@ -8,14 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class AccountsViewModel : ViewModelBase
+    public class AccountsViewModel : ViewModelBase, IRefreshable
     {
         private readonly ObservableCollection<AccountModel> _accounts;
         private readonly ObservableCollection<EncryptableFieldModel> _fields;
@@ -23,6 +22,8 @@ namespace SnailPass_Desktop.ViewModel
         private AccountModel _selectedAccount = null;
         private EncryptableFieldModel _selectedField = null;
         private bool _isNetworkFunctionsEnabled;
+        private string? _updationTime;
+        private string? _creationTime;
 
         private IAccountRepository _accountRepository;
         private ICustomFieldRepository _customFieldRepository;
@@ -47,7 +48,14 @@ namespace SnailPass_Desktop.ViewModel
             set 
             {
                 _selectedAccount = value;
-                LoadFields();
+
+                if (_selectedAccount != null)
+                {
+                    UpdationTime = DateTime.Parse(_selectedAccount.UpdateTime).ToShortDateString();
+                    CreationTime = DateTime.Parse(_selectedAccount.CreationTime).ToShortDateString();
+                }
+
+                LoadFieldsAsync();
                 OnPropertyChanged();
             }
         }
@@ -68,6 +76,26 @@ namespace SnailPass_Desktop.ViewModel
             set
             {
                 _isNetworkFunctionsEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string? UpdationTime
+        {
+            get { return _updationTime; }
+            set
+            {
+                _updationTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string? CreationTime
+        {
+            get { return _creationTime; }
+            set
+            {
+                _creationTime = value;
                 OnPropertyChanged();
             }
         }
@@ -125,7 +153,7 @@ namespace SnailPass_Desktop.ViewModel
             LoadAccountsAsync();
         }
 
-        public async void LoadAccountsAsync()
+        public async Task LoadAccountsAsync()
         {
             IEnumerable<AccountModel> accounts = await _accountRepository.GetByUserId(_identity.CurrentUser.ID);
 
@@ -146,7 +174,7 @@ namespace SnailPass_Desktop.ViewModel
             _logger.Information("Accounts list loaded.");
         }
 
-        public async void LoadFields()
+        public async Task LoadFieldsAsync()
         {
             if (SelectedAccount == null)
             {
@@ -196,6 +224,11 @@ namespace SnailPass_Desktop.ViewModel
         private void LocalModeDisabledHandler(object? s, EventArgs args)
         {
             IsNetworkFunctionsEnabled = true;
+        }
+
+        public async Task RefreshAsync(object? args)
+        {
+            await LoadAccountsAsync();
         }
     }
 }

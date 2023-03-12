@@ -19,6 +19,14 @@ namespace SnailPass_Desktop.ViewModel.Commands
             _passwordGenerator = passwordGenerator;
         }
 
+        public override bool CanExecute(object? parameter)
+        {
+            return _viewModel.IsLowercase || 
+                _viewModel.IsUppercase || 
+                _viewModel.IsDigits || 
+                _viewModel.IsSpecials;
+        }
+
         public override void Execute(object? parameter)
         {
             _viewModel.Password = _passwordGenerator.Generate(_viewModel.Lenght, 

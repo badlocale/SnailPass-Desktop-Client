@@ -5,6 +5,7 @@ using SnailPass_Desktop.Services;
 using SnailPass_Desktop.ViewModel.Commands;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
+using System.Reflection;
 using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
@@ -13,11 +14,14 @@ namespace SnailPass_Desktop.ViewModel
     {
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
         private bool _isDialogOpened = false;
+        private bool _isLocalMode = false;
+        private string _version;
 
         private INavigationStore _navigationStore;
         private IDialogService _dialogService;
         private IAuthenticationService _authenticationService;
         private IUserIdentityStore _identity;
+        private IApplicationModeStore _applicationModeStore;
 
         public bool IsDialogOpened
         {
@@ -29,9 +33,30 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
+        public bool IsLocalMode
+        {
+            get { return _isLocalMode; }
+            set
+            {
+                _isLocalMode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Version
+        {
+            get { return _version; }
+            set 
+            {
+                _version = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand NavigateHomeCommand { get; set; }
         public ICommand NavigateAccountsCommand { get; set; }
         public ICommand NavigateNotesCommand { get; set; }
+        public ICommand ConnectCommand { get; set; }
 
         public ApplicationViewModel(INavigationStore navigationStore, IUserIdentityStore identity,
             IAccountRepository accountRepository, ICustomFieldRepository customFieldRepository,
@@ -45,12 +70,18 @@ namespace SnailPass_Desktop.ViewModel
             _dialogService = dialogService;
             _authenticationService = authenticationService;
             _identity = identity;
+            _applicationModeStore = applicationModeStore;
+
+            _isLocalMode = _applicationModeStore.IsLocalMode;
+            _version = "v" + Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "undefined";
 
             _navigationStore.CurrentViewModelChange += CurrentViewModelChangeHandler;
             RestApiBase.TokenExpired += TokenExpiredEventHandler;
             RestApiBase.ServerNotResponding += ServerNotRespondingHandler;
             _dialogService.DialogOpened += DialogOpenedHandler;
             _dialogService.DialogClosed += DialogClosedHandler;
+            _applicationModeStore.LocalModeEnabled += LocalModeEnabledHadler;
+            _applicationModeStore.LocalModeDisabled += LocalModeDisabledHadler;
 
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore,
                 () => new HomeViewModel(identity, navigationStore, logger), null);
@@ -61,6 +92,7 @@ namespace SnailPass_Desktop.ViewModel
             NavigateNotesCommand = new NavigateCommand<NotesViewModel>(navigationStore,
                 () => new NotesViewModel(identity, noteRepository, cryptographyService, logger, 
                 applicationModeStore, dialogService, noteRestApi, synchronizationService), null);
+            ConnectCommand = new ConnectCommand(authenticationService, identity);
 
             NavigateAccountsCommand.Execute(null);
         }
@@ -92,8 +124,7 @@ namespace SnailPass_Desktop.ViewModel
             bool? dialogResult = _dialogService.ShowDialog("ServerNotRespondingDialog");
             if (dialogResult == true)
             {
-                LoggingResult loggingResult = await _authenticationService.LoginViaNetwork
-                    (_identity.CurrentUser.Email, _identity.Master);
+                await _authenticationService.LoginViaNetwork(_identity.CurrentUser.Email, _identity.Master);
             }
         }
 
@@ -108,6 +139,16 @@ namespace SnailPass_Desktop.ViewModel
             {
                 IsDialogOpened = false;
             }
+        }
+
+        private void LocalModeEnabledHadler(object? sender, EventArgs args)
+        {
+            IsLocalMode = true;
+        }
+
+        private void LocalModeDisabledHadler(object? sender, EventArgs args)
+        {
+            IsLocalMode = false;
         }
     }
 }

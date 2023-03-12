@@ -76,10 +76,14 @@ namespace SnailPass_Desktop.Services
             {
                 _accountRepository.DeleteAllByUsersEmail(email);
 
-                List<Task> tasks = new List<Task>();
                 foreach (AccountModel account in accounts)
                 {
                     _accountRepository.AddOrReplace(account);
+                }
+
+                List<Task> tasks = new List<Task>();
+                foreach (AccountModel account in accounts)
+                {
                     tasks.Add(SynchronizeFieldsDataAsync(account.ID));
                 }
                 await Task.WhenAll(tasks).ConfigureAwait(false);

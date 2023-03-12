@@ -68,7 +68,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
                 if (code == HttpStatusCode.OK)
                 {
                     await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
-                    _viewModel.LoadAccountsAsync();
+                    await _viewModel.LoadAccountsAsync();
                 }
             }
             else

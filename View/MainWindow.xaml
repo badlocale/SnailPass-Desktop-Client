@@ -20,9 +20,10 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
-    <Border CornerRadius="6"
-            BorderThickness="1"
-            BorderBrush="{StaticResource ResourceKey=BorderColor}">
+    <Border
+        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+        BorderThickness="1"
+        CornerRadius="6.5">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
@@ -41,6 +42,7 @@
                 Grid.RowSpan="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
+                Margin="-1"
                 Panel.ZIndex="1"
                 Background="Black"
                 CornerRadius="6"
@@ -56,13 +58,31 @@
                 Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Orientation="Horizontal" />
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ResourceKey=CommonTextStyle}"
+                    TextAlignment="Center">
+                    SnailPass
+                </TextBlock>
+
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ResourceKey=CommonTextStyle}"
+                    Text="{Binding Version}"
+                    TextAlignment="Center" />
 
                 <StackPanel
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Margin="0,0,10,0"
                     FlowDirection="RightToLeft"
                     Orientation="Horizontal">
@@ -120,88 +140,98 @@
                 </StackPanel>
             </Grid>
 
-            <Grid
-                Name="SlideMenu"
+            <Border
                 Grid.Row="1"
-                Grid.Column="0">
-                <Border
-                    Background="{StaticResource ResourceKey=SecondBackground}"
-                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                    BorderThickness="0,0,1,0"
-                    CornerRadius="0, 0, 0, 6" />
+                Grid.Column="0"
+                Background="{StaticResource ResourceKey=SecondBackground}"
+                BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                BorderThickness="0,0,1,0"
+                CornerRadius="0, 0, 0, 6">
+                <DockPanel Name="SlideMenu" LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                        <RadioButton
+                            x:Name="HomePage"
+                            Command="{Binding NavigateHomeCommand}"
+                            GroupName="LeftMenu"
+                            Style="{StaticResource ResourceKey=LeftMenuButton}"
+                            Tag="{StaticResource ResourceKey=LightTextColor}">
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle
+                                    Width="22"
+                                    Height="22"
+                                    Margin="15,0,0,0"
+                                    Fill="{StaticResource ResourceKey=LightTextColor}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=HomeVectorIcon}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
 
-                <StackPanel Orientation="Vertical">
-                    <RadioButton
-                        x:Name="HomePage"
-                        Command="{Binding NavigateHomeCommand}"
-                        GroupName="LeftMenu"
-                        Style="{StaticResource ResourceKey=LeftMenuButton}"
-                        Tag="{StaticResource ResourceKey=LightTextColor}">
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle
-                                Width="22"
-                                Height="22"
-                                Margin="15,0,0,0"
-                                Fill="{StaticResource ResourceKey=LightTextColor}">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=HomeVectorIcon}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
+                                <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}" Text="Home" />
+                            </StackPanel>
+                        </RadioButton>
 
-                            <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}" Text="Home" />
-                        </StackPanel>
-                    </RadioButton>
+                        <RadioButton
+                            x:Name="PasswordsPage"
+                            Command="{Binding NavigateAccountsCommand}"
+                            GroupName="LeftMenu"
+                            IsChecked="True"
+                            Style="{StaticResource ResourceKey=LeftMenuButton}"
+                            Tag="{StaticResource ResourceKey=LightTextColor}">
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle
+                                    Width="22"
+                                    Height="22"
+                                    Margin="15,0,0,0"
+                                    Fill="{StaticResource ResourceKey=LightTextColor}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=AccauntKeysVectorIcon}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
 
-                    <RadioButton
-                        x:Name="PasswordsPage"
-                        Command="{Binding NavigateAccountsCommand}"
-                        GroupName="LeftMenu"
-                        IsChecked="True"
-                        Style="{StaticResource ResourceKey=LeftMenuButton}"
-                        Tag="{StaticResource ResourceKey=LightTextColor}">
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle
-                                Width="22"
-                                Height="22"
-                                Margin="15,0,0,0"
-                                Fill="{StaticResource ResourceKey=LightTextColor}">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=AccauntKeysVectorIcon}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
+                                <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}" Text="Accounts" />
+                            </StackPanel>
+                        </RadioButton>
 
-                            <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}" Text="Accounts" />
-                        </StackPanel>
-                    </RadioButton>
+                        <RadioButton
+                            x:Name="NotesPage"
+                            Command="{Binding NavigateNotesCommand}"
+                            GroupName="LeftMenu"
+                            Style="{StaticResource ResourceKey=LeftMenuButton}"
+                            Tag="{StaticResource ResourceKey=LightTextColor}">
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle
+                                    Width="22"
+                                    Height="22"
+                                    Margin="15,0,0,0"
+                                    Fill="{StaticResource ResourceKey=LightTextColor}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=NoteVectorIcon}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
 
-                    <RadioButton
-                        x:Name="NotesPage"
-                        Command="{Binding NavigateNotesCommand}"
-                        GroupName="LeftMenu"
-                        Style="{StaticResource ResourceKey=LeftMenuButton}"
-                        Tag="{StaticResource ResourceKey=LightTextColor}">
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle
-                                Width="22"
-                                Height="22"
-                                Margin="15,0,0,0"
-                                Fill="{StaticResource ResourceKey=LightTextColor}">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=NoteVectorIcon}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
+                                <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}" Text="Notes" />
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
 
-                            <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}" Text="Notes" />
-                        </StackPanel>
-                    </RadioButton>
-                </StackPanel>
-            </Grid>
-
+                    <Border
+                        Height="32"
+                        Margin="10"
+                        DockPanel.Dock="Bottom">
+                        <Button
+                            x:Name="btnConnent"
+                            Command="{Binding ConnectCommand}"
+                            Content="CONNECT"
+                            Template="{StaticResource ResourceKey=BigButton}"
+                            Visibility="{Binding IsLocalMode, Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}" />
+                    </Border>
+                </DockPanel>
+            </Border>
             <Border
                 x:Name="WindowContent"
-                CornerRadius="6"
                 Grid.Row="1"
-                Grid.Column="1">
+                Grid.Column="1"
+                CornerRadius="6">
                 <ContentControl Content="{Binding CurrentViewModel}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">

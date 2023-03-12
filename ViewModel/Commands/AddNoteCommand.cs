@@ -49,7 +49,7 @@ namespace SnailPass_Desktop.ViewModel.Commands
                 if (code == HttpStatusCode.Created)
                 {
                     await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
-                    _viewModel.LoadNotesAsync();
+                    await _viewModel.LoadNotesAsync();
                 }
             }
             else

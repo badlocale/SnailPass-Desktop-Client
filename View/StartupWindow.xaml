@@ -40,9 +40,10 @@
         </Style>
     </Window.Style>
 
-    <Border CornerRadius="7"
-            BorderThickness="1"
-            BorderBrush="{StaticResource ResourceKey=BorderColor}">
+    <Border
+        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+        BorderThickness="1"
+        CornerRadius="6.5">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />

@@ -14,35 +14,46 @@ using System.Windows.Input;
 
 namespace SnailPass_Desktop.ViewModel
 {
-    public class NotesViewModel : ViewModelBase
+    public class NotesViewModel : ViewModelBase, IRefreshable
     {
         private ObservableCollection<NoteModel> _notes;
-        private NoteModel _selectedNote;
+        private NoteModel? _selectedNote;
+        private string _searchBarText = string.Empty;
         private bool _isNetworkFunctionsEnabled;
-        private string _noteName;
-        private string _noteContent;
+        private string? _noteName;
+        private string? _noteContent;
+        private string? _updationTime;
+        private string? _creationTime;
 
         private INoteRepository _noteRepository;
         private IUserIdentityStore _identity;
         private ILogger _logger;
         private ICryptographyService _cryptographyService;
 
-        public NoteModel SelectedNote
+        public string SearchBarText
+        {
+            get { return _searchBarText; }
+            set
+            {
+                _searchBarText = value;
+                OnPropertyChanged();
+                NotesCollectionView.Refresh();
+            }
+        }
+
+        public NoteModel? SelectedNote
         {
             get { return _selectedNote; }
             set
             {
                 _selectedNote = value;
 
-                if (value != null)
+                if (_selectedNote != null)
                 {
-                    if (value.Content == " ") //DEL
-                    {
-                        value.Content = String.Empty;
-                    }
-
-                    NoteName = value.Name;
-                    NoteContent = value.Content;
+                    NoteName = _selectedNote.Name;
+                    NoteContent = _selectedNote.Content;
+                    UpdationTime = DateTime.Parse(_selectedNote.UpdateTime).ToShortDateString();
+                    CreationTime = DateTime.Parse(_selectedNote.CreationTime).ToShortDateString();
                 }
                 else
                 {
@@ -64,7 +75,7 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public string NoteName
+        public string? NoteName
         {
             get { return _noteName; }
             set
@@ -74,7 +85,7 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
-        public string NoteContent
+        public string? NoteContent
         {
             get { return _noteContent; }
             set
@@ -84,9 +95,30 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
+        public string? UpdationTime
+        {
+            get { return _updationTime; }
+            set
+            {
+                _updationTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string? CreationTime
+        {
+            get { return _creationTime; }
+            set
+            {
+                _creationTime = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand AddNoteCommand { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
         public ICommand EditNoteCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         public ICollectionView NotesCollectionView { get; }
 
@@ -108,6 +140,10 @@ namespace SnailPass_Desktop.ViewModel
                 identity, logger);
             EditNoteCommand = new EditNoteCommand(this, logger, noteRestApi, identity, 
                 cryptographyService, synchronizationService);
+            RefreshCommand = new RefreshCommand(this, logger, identity, synchronizationService);
+
+            NotesCollectionView = CollectionViewSource.GetDefaultView(_notes);
+            NotesCollectionView.Filter = FilterWithSearchBar;
 
             NotesCollectionView = CollectionViewSource.GetDefaultView(_notes);
 
@@ -117,7 +153,7 @@ namespace SnailPass_Desktop.ViewModel
             LoadNotesAsync();
         }
 
-        public async void LoadNotesAsync()
+        public async Task LoadNotesAsync()
         {
             IEnumerable<NoteModel> notes = _noteRepository.GetByUserId(_identity.CurrentUser.ID);
 
@@ -138,6 +174,15 @@ namespace SnailPass_Desktop.ViewModel
             _logger.Information("Notes list loaded.");
         }
 
+        private bool FilterWithSearchBar(object obj)
+        {
+            if (obj is NoteModel note)
+            {
+                return note.Name.Contains(SearchBarText);
+            }
+            return false;
+        }
+
         private void LocalModeEnabledHandler(object? s, EventArgs args)
         {
             IsNetworkFunctionsEnabled = false;
@@ -146,6 +191,11 @@ namespace SnailPass_Desktop.ViewModel
         private void LocalModeDisabledHandler(object? s, EventArgs args)
         {
             IsNetworkFunctionsEnabled = true;
+        }
+
+        public async Task RefreshAsync(object? args)
+        {
+            await LoadNotesAsync();
         }
     }
 }

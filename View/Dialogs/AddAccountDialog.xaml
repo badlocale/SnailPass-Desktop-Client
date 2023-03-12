@@ -13,7 +13,7 @@
     <Border
         BorderBrush="{StaticResource ResourceKey=BorderColor}"
         BorderThickness="1"
-        CornerRadius="7">
+        CornerRadius="6.5">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
@@ -183,7 +183,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                Margin="0"
+                                Margin="5, 0 ,0 ,0"
                                 FontSize="12"
                                 Style="{StaticResource ResourceKey=HeaderTextStyle}"
                                 Text="Password length"
@@ -212,10 +212,14 @@
                             <Slider
                                 Grid.Row="1"
                                 Grid.Column="0"
+                                Margin="5, 2, 2 ,2"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Center"
+                                Foreground="{StaticResource ResourceKey=BorderColor}"
                                 Maximum="50"
                                 Minimum="6"
+                                TickFrequency="1"
+                                TickPlacement="BottomRight"
                                 Value="{Binding Lenght, Mode=TwoWay}" />
                         </Grid>
                     </Border>
@@ -223,6 +227,7 @@
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
+                        Margin="10"
                         Style="{StaticResource ResourceKey=HeaderTextStyle}"
                         Text="a-z" />
                     <CheckBox
@@ -237,6 +242,7 @@
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="0"
+                        Margin="10"
                         Style="{StaticResource ResourceKey=HeaderTextStyle}"
                         Text="A-Z" />
                     <CheckBox
@@ -251,6 +257,7 @@
                     <TextBlock
                         Grid.Row="3"
                         Grid.Column="0"
+                        Margin="10"
                         Style="{StaticResource ResourceKey=HeaderTextStyle}"
                         Text="0-9" />
                     <CheckBox
@@ -265,6 +272,7 @@
                     <TextBlock
                         Grid.Row="4"
                         Grid.Column="0"
+                        Margin="10"
                         Style="{StaticResource ResourceKey=HeaderTextStyle}"
                         Text="~!@#$%^ and ect." />
                     <CheckBox

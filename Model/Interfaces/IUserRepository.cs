@@ -6,7 +6,7 @@
         void AddOrReplace(UserModel user);
         bool IsUsernameExist(string username);
         bool IsEmailExist(string email);
-        UserModel GetById(string id);
-        UserModel GetByEmail(string email);
+        UserModel? GetById(string id);
+        UserModel? GetByEmail(string email);
     }
 }

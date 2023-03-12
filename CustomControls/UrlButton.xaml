@@ -9,9 +9,7 @@
     mc:Ignorable="d">
     <UserControl.Template>
         <ControlTemplate>
-            <Grid
-                Height="50"
-                Background="Transparent">
+            <Grid Height="50" Background="Transparent">
                 <Border
                     x:Name="Link"
                     Padding="4"

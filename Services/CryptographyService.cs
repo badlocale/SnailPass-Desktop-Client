@@ -49,9 +49,9 @@ namespace SnailPass_Desktop.Services
                 string? ciphertext = null;
                 string? nonce = null;
 
-                if (string.IsNullOrEmpty(plaintext))
+                if (plaintext == null)
                 {
-                    continue;
+                    plaintext = string.Empty;
                 }
 
                 (ciphertext, nonce) = _cryptographer.Encrypt(plaintext, encKey);

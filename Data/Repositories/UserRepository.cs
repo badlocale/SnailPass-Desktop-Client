@@ -106,7 +106,7 @@ namespace SnailPass_Desktop.Data.Repositories
 
         public UserModel? GetByEmail(string email)
         {
-            UserModel user = null;
+            UserModel? user = null;
 
             using var connection = GetConnection();
             using (var command = new SqliteCommand())
@@ -138,7 +138,7 @@ namespace SnailPass_Desktop.Data.Repositories
 
         public UserModel GetById(string id)
         {
-            UserModel user = null;
+            UserModel? user = null;
 
             using var connection = GetConnection();
             using (var command = new SqliteCommand())

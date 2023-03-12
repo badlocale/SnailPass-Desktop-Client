@@ -11,12 +11,19 @@
     mc:Ignorable="d">
     <Border>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*" />
                 <ColumnDefinition Width="50*" />
             </Grid.ColumnDefinitions>
 
             <Border
+                x:Name="SearchBar"
+                Grid.Row="0"
                 Grid.Column="0"
                 Margin="4"
                 Background="{StaticResource ResourceKey=SecondBackground}"
@@ -25,17 +32,98 @@
                 CornerRadius="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80*" />
-                        <ColumnDefinition Width="20*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle
+                        Grid.Column="0"
+                        Width="20"
+                        Height="20"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Fill="{StaticResource ResourceKey=LightTextColor}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=SearchVectorIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+
+                    <Grid Grid.Column="1">
+                        <TextBox
+                            x:Name="SearchBarFilterText"
+                            Grid.Column="1"
+                            Margin="5,4,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource ResourceKey=SearchBarTextBox}"
+                            Text="{Binding SearchBarText, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Margin="7,4,7,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Resources>
+                                        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+                                    </Style.Resources>
+                                    <Setter Property="Height" Value="22" />
+                                    <Setter Property="FontSize" Value="15" />
+                                    <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
+                                    <Setter Property="FontWeight" Value="Regular" />
+                                    <Setter Property="FontStyle" Value="Italic" />
+                                    <Setter Property="Text" Value="Search..." />
+                                    <Setter Property="Foreground" Value="{StaticResource ResourceKey=SemiVisibleTextColor}" />
+                                    <Setter Property="FontWeight" Value="Regular" />
+                                    <Setter Property="FontStyle" Value="Italic" />
+                                    <Setter Property="Visibility" Value="{Binding ElementName=SearchBarFilterText, Path=Text.IsEmpty, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                    <Setter Property="IsHitTestVisible" Value="False" />
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Margin="4,0,4,4"
+                Background="{StaticResource ResourceKey=SecondBackground}"
+                BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                BorderThickness="1"
+                CornerRadius="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
                         <RowDefinition />
-                        <RowDefinition Height="60" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
                     <Border
+                        Grid.Row="0"
+                        Grid.ColumnSpan="4"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Center"
+                        Background="Transparent"
+                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                        BorderThickness="0">
+                        <TextBlock
+                            Width="100"
+                            Margin="0"
+                            FontFamily="{StaticResource ResourceKey=MainFont}"
+                            FontSize="20"
+                            Foreground="{StaticResource ResourceKey=LightTextColor}"
+                            Style="{StaticResource ResourceKey=LeftMenuButtonText}"
+                            Text="Notes"
+                            TextAlignment="Center" />
+                    </Border>
+
+                    <Border
                         x:Name="NoteListBorder"
+                        Grid.Row="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="3"
                         Margin="5,5,5,0"
@@ -140,61 +228,114 @@
                             Style="{StaticResource ResourceKey=AddNewButton}" />
                     </Border>
 
-                    <Border Grid.Row="2" Grid.Column="2">
-                        <Button
-                            x:Name="DeleteButton"
-                            Command="{Binding DeleteNoteCommand}"
-                            IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Style.Setters>
-                                        <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Border
-                                                        Margin="2,5,5,5"
-                                                        Background="{TemplateBinding Background}"
-                                                        BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                                                        BorderThickness="1"
-                                                        CornerRadius="5">
-                                                        <Rectangle
-                                                            Grid.Column="0"
-                                                            Width="25"
-                                                            Height="25"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Fill="{StaticResource ResourceKey=LightTextColor}">
-                                                            <Rectangle.OpacityMask>
-                                                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=BinVectorIcon}" />
-                                                            </Rectangle.OpacityMask>
-                                                        </Rectangle>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style.Setters>
+                    <Button
+                        x:Name="DeleteButton"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Command="{Binding DeleteNoteCommand}"
+                        IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Setters>
+                                    <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border
+                                                    Margin="2,5,5,5"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5">
+                                                    <Rectangle
+                                                        Width="25"
+                                                        Height="25"
+                                                        Margin="10"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Fill="{StaticResource ResourceKey=LightTextColor}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=BinVectorIcon}" />
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style.Setters>
 
-                                    <Style.Triggers>
-                                        <Trigger Property="IsEnabled" Value="False">
-                                            <Setter Property="Opacity" Value="0.5" />
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled" Value="True">
-                                            <Setter Property="Opacity" Value="1" />
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-                    </Border>
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter Property="Opacity" Value="1" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button
+                        x:Name="refreshButton"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Command="{Binding RefreshCommand}"
+                        IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Setters>
+                                    <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border
+                                                    Margin="2,5,5,5"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5">
+                                                    <Rectangle
+                                                        Width="25"
+                                                        Height="25"
+                                                        Margin="10"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Fill="{StaticResource ResourceKey=LightTextColor}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=RefreshIcon}" />
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style.Setters>
+
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter Property="Opacity" Value="1" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </Grid>
             </Border>
 
 
             <Border
+                Grid.Row="0"
+                Grid.RowSpan="2"
                 Grid.Column="1"
                 Margin="0,4,4,4"
                 Background="{StaticResource ResourceKey=SecondBackground}"
@@ -205,7 +346,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition />
-                        <RowDefinition Height="60" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
                     <i:Interaction.Triggers>
@@ -233,9 +375,9 @@
                         <TextBox
                             Margin="0"
                             Padding="26,0,0,0"
-                            BorderThickness="0"
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Center"
+                            BorderThickness="0"
                             Foreground="{StaticResource ResourceKey=LightTextColor}"
                             Style="{StaticResource ResourceKey=OpenTextBox}"
                             Text="{Binding NoteName, UpdateSourceTrigger=PropertyChanged}" />
@@ -272,7 +414,34 @@
                             TextWrapping="Wrap" />
                     </Border>
 
-                    <Border Grid.Row="2">
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Height="auto"
+                            Margin="5,3,5,0"
+                            HorizontalAlignment="Right"
+                            Foreground="{StaticResource ResourceKey=SemiVisibleTextColor}"
+                            Style="{StaticResource ResourceKey=CommonTextStyle}"
+                            Text="{Binding CreationTime, UpdateSourceTrigger=PropertyChanged, StringFormat=Created: {0}}"
+                            TextAlignment="Center" />
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Height="auto"
+                            Margin="5,3,5,0"
+                            HorizontalAlignment="Right"
+                            Foreground="{StaticResource ResourceKey=SemiVisibleTextColor}"
+                            Style="{StaticResource ResourceKey=CommonTextStyle}"
+                            Text="{Binding UpdationTime, UpdateSourceTrigger=PropertyChanged, StringFormat=Updated: {0}}"
+                            TextAlignment="Center" />
+                    </Grid>
+
+                    <Border Grid.Row="3">
                         <Button
                             x:Name="EditButton"
                             Command="{Binding EditNoteCommand}"
@@ -285,15 +454,15 @@
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="Button">
                                                     <Border
-                                                        Margin="5,4,4,4"
+                                                        Margin="5,0,5,5"
                                                         Background="{TemplateBinding Background}"
                                                         BorderBrush="{StaticResource ResourceKey=BorderColor}"
                                                         BorderThickness="1"
-                                                        CornerRadius="10">
+                                                        CornerRadius="5">
                                                         <Rectangle
-                                                            Grid.Column="0"
                                                             Width="25"
                                                             Height="25"
+                                                            Margin="10"
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
                                                             Fill="{StaticResource ResourceKey=LightTextColor}">
