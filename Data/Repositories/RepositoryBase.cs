@@ -64,7 +64,7 @@ namespace SnailPass_Desktop.Data.Repositories
                                       "is_deleted BOOLEAN," +
                                       "creation_time DATETIME NOT NULL," +
                                       "update_time DATETIME NOT NULL," +
-                                      "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE" +
+                                      "FOREIGN KEY(user_id) REFERENCES users(id)" +
                                   ");";
             command.ExecuteNonQuery();
         }
@@ -82,7 +82,7 @@ namespace SnailPass_Desktop.Data.Repositories
                                       "is_deleted BOOLEAN," +
                                       "creation_time DATETIME NOT NULL," +
                                       "update_time DATETIME NOT NULL," +
-                                      "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE" +
+                                      "FOREIGN KEY(user_id) REFERENCES users(id)" +
                                   ");";
             command.ExecuteNonQuery();
         }

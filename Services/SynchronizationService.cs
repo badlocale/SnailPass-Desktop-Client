@@ -6,12 +6,15 @@ using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SnailPass_Desktop.Services
 {
     public class SynchronizationService : ISynchronizationService
     {
+        private Stopwatch _stopwatch;
+
         private IUserRestApi _userRestApi;
         private IAccountRestApi _accountRestApi;
         private ICustomFieldRestApi _customFieldRestApi;
@@ -49,17 +52,12 @@ namespace SnailPass_Desktop.Services
                 throw new ArgumentNullException(nameof(accountID));
             }
 
-            IEnumerable<EncryptableFieldModel?> fields;
+            IEnumerable<EncryptableFieldModel>? fields;
             (_, fields) = await _customFieldRestApi.GetCustomFieldsAsync(accountID);
 
             if (fields != null)
             {
-                _accountRepository.DeleteAllByUsersEmail(accountID);
-
-                foreach (EncryptableFieldModel account in fields)
-                {
-                    _customFieldRepository.AddOrReplace(account);
-                }
+                _customFieldRepository.RepaceAll(fields);
             }
         }
 
@@ -70,16 +68,14 @@ namespace SnailPass_Desktop.Services
                 throw new ArgumentNullException(nameof(email));
             }
 
-            IEnumerable<AccountModel> accounts;
+            IEnumerable<AccountModel>? accounts;
             (_, accounts) = await _accountRestApi.GetAccountsAsync();
+
             if (accounts != null)
             {
-                _accountRepository.DeleteAllByUsersEmail(email);
+                _logger.Debug($"Sync serivce: {accounts.Count()} accounts loaded from server.");
 
-                foreach (AccountModel account in accounts)
-                {
-                    _accountRepository.AddOrReplace(account);
-                }
+                _accountRepository.RepaceAll(accounts);
 
                 List<Task> tasks = new List<Task>();
                 foreach (AccountModel account in accounts)
@@ -97,7 +93,7 @@ namespace SnailPass_Desktop.Services
                 throw new ArgumentNullException(nameof(email));
             }
 
-            UserModel user;
+            UserModel? user;
             (_, user) = await _userRestApi.GetUserAsync(email);
 
             user.Password = _keyGenerator.Encrypt(_identity.Master, email, 
@@ -113,17 +109,14 @@ namespace SnailPass_Desktop.Services
                 throw new ArgumentNullException(nameof(email));
             }
 
-            IEnumerable<NoteModel> notes;
+            IEnumerable<NoteModel>? notes;
             (_, notes) = await _noteRestApi.GetNotesAsync();
 
             if (notes != null)
             {
-                _noteRepository.DeleteAllByUsersEmail(email);
+                _logger.Debug($"Sync serivce: {notes.Count()} notes loaded from server.");
 
-                foreach (NoteModel note in notes)
-                {
-                    _noteRepository.AddOrReplace(note);
-                }
+                _noteRepository.ReplaceAll(notes);
             }
         }
 

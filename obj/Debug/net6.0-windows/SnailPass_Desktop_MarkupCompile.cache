@@ -1,7 +1,7 @@
 ﻿SnailPass_Desktop
 
 
-winexe
+exe
 C#
 .cs
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\obj\Debug\net6.0-windows\
@@ -12,7 +12,7 @@ TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\iZelton\source\repos\SnailPass_Desctop\SnailPass_Desctop\App.xaml
 28534489942
 1-1510742072
-104-334348928
+105-807578692
 2301643724003
 CustomControls\BindablePasswordBox.xaml;CustomControls\CryptedFieldWithHeader.xaml;CustomControls\InputField.xaml;CustomControls\UrlButton.xaml;View\AccountsViewControl.xaml;View\Dialogs\AddAccountDialog.xaml;View\Dialogs\AddCustomFieldDialog.xaml;View\Dialogs\AddNoteDialog.xaml;View\Dialogs\DialogWindow.xaml;View\Dialogs\EditAccountDialog.xaml;View\Dialogs\EditCustomFieldDialog.xaml;View\Dialogs\LocalModeDialog.xaml;View\Dialogs\ResistrationSuccessDialog.xaml;View\Dialogs\ServerNotRespondingDialog.xaml;View\Dialogs\TokenExpiredDialog.xaml;View\HomeViewControl.xaml;View\LoginViewContol.xaml;View\MainWindow.xaml;View\NotesViewControl.xaml;View\RegistrationViewControl.xaml;View\Res\Buttons.xaml;View\Res\Colors.xaml;View\Res\Fonts\Fonts.xaml;View\Res\Icons\Icons.xaml;View\Res\Images\Images.xaml;View\Res\Slider.xaml;View\Res\WindowElements.xaml;View\StartupWindow.xaml;
 

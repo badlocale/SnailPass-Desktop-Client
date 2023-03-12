@@ -18,7 +18,7 @@
                     BorderThickness="2"
                     CornerRadius="24"
                     MouseDown="Link_MouseDown">
-                    <DockPanel>
+                    <DockPanel Margin="5,0,0,0">
                         <Rectangle
                             Grid.Column="0"
                             Width="26"

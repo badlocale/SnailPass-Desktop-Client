@@ -157,8 +157,6 @@ namespace SnailPass_Desktop.ViewModel
         {
             IEnumerable<NoteModel> notes = _noteRepository.GetByUserId(_identity.CurrentUser.ID);
 
-            _notes.Clear();
-
             List<Task> tasks = new();
             foreach (NoteModel note in notes)
             {
@@ -166,6 +164,7 @@ namespace SnailPass_Desktop.ViewModel
             }
             await Task.WhenAll(tasks);
 
+            _notes.Clear();
             foreach (NoteModel note in notes)
             {
                 _notes.Add(note);

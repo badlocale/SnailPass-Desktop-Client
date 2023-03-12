@@ -1,19 +1,64 @@
 ﻿using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Logging;
-using Serilog;
-using Serilog.Core;
 using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Linq;
+using System.Text;
 
 namespace SnailPass_Desktop.Data.Repositories
 {
     public class CustomFieldRepository : RepositoryBase, ICustomFieldRepository
     {
-        public async void AddOrReplace(EncryptableFieldModel customField)
+        public void RepaceAll(IEnumerable<EncryptableFieldModel> fields)
+        {
+            if (fields.Count() < 1)
+            {
+                return;
+            }
+
+            string accountId = fields.First().AccountId;
+
+            if (fields.Any(acc => acc.AccountId != accountId))
+            {
+                throw new RepositoryException("Not all account fields belong to the same account");
+            }
+
+            using SqliteConnection connection = GetConnection();
+            connection.Open();
+            using (SqliteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SqliteCommand deleteCommand = connection.CreateCommand())
+                {
+
+                    deleteCommand.CommandText = "DELETE " +
+                                                "FROM additional_fields " +
+                                                "WHERE additional_fields.account_id = @accountId;";
+                    deleteCommand.Parameters.Add("@accountId", SqliteType.Text).Value = accountId;
+
+                    deleteCommand.ExecuteNonQuery();
+                }
+
+                using (SqliteCommand insertCommand = connection.CreateCommand())
+                {
+                    StringBuilder sb = new();
+                    sb.Append("INSERT INTO additional_fields (id, field_name, value, account_id) " +
+                              "VALUES");
+                    foreach (EncryptableFieldModel field in fields)
+                    {
+                        sb.Append($"('{field.ID}', '{field.FieldName}', '{field.Value}', " +
+                            $"'{field.AccountId}'),");
+                    }
+                    sb.Remove(sb.Length - 1, 1).Append(";");
+                    insertCommand.CommandText = sb.ToString();
+
+                    insertCommand.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+            }
+        }
+
+        public void AddOrReplace(EncryptableFieldModel customField)
         {
             using var connection = GetConnection();
             using (SqliteCommand command = new())
@@ -29,11 +74,11 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.Parameters.Add("@value", SqliteType.Text).Value = customField.Value;
                 command.Parameters.Add("@account_id", SqliteType.Text).Value = customField.AccountId;
 
-                await command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
             }
         }
 
-        public async Task<IEnumerable<EncryptableFieldModel>> GetByAccountID(string accountId)
+        public IEnumerable<EncryptableFieldModel> GetByAccountID(string accountId)
         {
             List<EncryptableFieldModel> fields = new();
 
@@ -48,9 +93,8 @@ namespace SnailPass_Desktop.Data.Repositories
 
                 command.Parameters.Add("@account_id", SqliteType.Text).Value = accountId;
 
-                using (Task<SqliteDataReader> task = command.ExecuteReaderAsync())
+                using (SqliteDataReader reader = command.ExecuteReader())
                 {
-                    SqliteDataReader reader = await task.ConfigureAwait(false);
                     while (reader.Read())
                     {
                         EncryptableFieldModel model = new EncryptableFieldModel()
@@ -69,7 +113,7 @@ namespace SnailPass_Desktop.Data.Repositories
             return fields;
         }
 
-        public async void DeleteAllByEmail(string email)
+        public void DeleteAllByEmail(string email)
         {
             using var connection = GetConnection();
             using (var command = new SqliteCommand())
@@ -87,7 +131,7 @@ namespace SnailPass_Desktop.Data.Repositories
 
                 command.Parameters.Add("@email", SqliteType.Text).Value = email;
 
-                await command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
             }
         }
     }

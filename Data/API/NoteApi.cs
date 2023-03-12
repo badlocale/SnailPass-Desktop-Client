@@ -18,7 +18,7 @@ namespace SnailPass_Desktop.Data.API
 
         }
 
-        public async Task<(HttpStatusCode?, IEnumerable<NoteModel>)> GetNotesAsync()
+        public async Task<(HttpStatusCode?, IEnumerable<NoteModel>?)> GetNotesAsync()
         {
             try
             {

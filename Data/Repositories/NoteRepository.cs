@@ -3,15 +3,68 @@ using SnailPass_Desktop.Model;
 using SnailPass_Desktop.Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace SnailPass_Desktop.Data.Repositories
 {
     public class NoteRepository : RepositoryBase, INoteRepository
     {
+        public void ReplaceAll(IEnumerable<NoteModel> notes)
+        {
+            if (notes.Count() < 1)
+            {
+                return;
+            }
+
+            string userId = notes.First().UserId;
+
+            if (notes.Any(acc => acc.UserId != userId))
+            {
+                throw new RepositoryException("Not all notes belong to the same user");
+            }
+
+            using SqliteConnection connection = GetConnection();
+            connection.Open();
+            using (SqliteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SqliteCommand deleteCommand = connection.CreateCommand())
+                {
+
+                    deleteCommand.CommandText = "DELETE " +
+                                                "FROM notes " +
+                                                "WHERE notes.user_id = @userId;";
+                    deleteCommand.Parameters.Add("@userId", SqliteType.Text).Value = userId;
+
+                    Console.WriteLine("NoteRepository:ReplaceAll:deleteCommand " + deleteCommand.ExecuteNonQuery());
+                }
+
+                using (SqliteCommand insertCommand = connection.CreateCommand())
+                {
+                    StringBuilder sb = new();
+                    sb.Append("INSERT INTO notes (id, name, content, user_id, is_favorite, " +
+                              "is_deleted, creation_time, update_time) " +
+                              "VALUES");
+                    foreach (NoteModel note in notes)
+                    {
+                        sb.Append($"('{note.ID}', '{note.Name}', '{note.Content}', " +
+                            $"'{note.UserId}', '{note.IsFavorite}', '{note.IsDeleted}', " +
+                            $"'{note.CreationTime}', '{note.UpdateTime}'),");
+                    }
+                    sb.Remove(sb.Length - 1, 1).Append(";");
+                    insertCommand.CommandText = sb.ToString();
+
+                    Console.WriteLine("NoteRepository:ReplaceAll:insertCommand " + insertCommand.ExecuteNonQuery());
+                }
+
+                transaction.Commit();
+            }
+        }
+
         public void AddOrReplace(NoteModel note)
         {
             using var connection = GetConnection();
-            using (SqliteCommand command = new SqliteCommand())
+            using (SqliteCommand command = new())
             {
                 connection.Open();
                 command.Connection = connection;
@@ -45,7 +98,7 @@ namespace SnailPass_Desktop.Data.Repositories
                 command.CommandText = "SELECT id, name, content, is_favorite, is_deleted, " +
                                              "creation_time, update_time " +
                                       "FROM notes " +
-                                      "WHERE user_id = @user_id AND is_deleted = 0;";
+                                      "WHERE user_id = @user_id AND is_deleted = 'False';";
 
                 command.Parameters.Add("@user_id", SqliteType.Text).Value = userId;
 

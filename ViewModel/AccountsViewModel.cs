@@ -155,9 +155,8 @@ namespace SnailPass_Desktop.ViewModel
 
         public async Task LoadAccountsAsync()
         {
-            IEnumerable<AccountModel> accounts = await _accountRepository.GetByUserId(_identity.CurrentUser.ID);
-
-            _accounts.Clear();
+            IEnumerable<AccountModel> accounts = 
+                _accountRepository.GetByUserId(_identity.CurrentUser.ID);
 
             List<Task> tasks = new();
             foreach (AccountModel account in accounts)
@@ -166,6 +165,7 @@ namespace SnailPass_Desktop.ViewModel
             }
             await Task.WhenAll(tasks);
 
+            _accounts.Clear();
             foreach (AccountModel account in accounts)
             {
                 _accounts.Add(account);
@@ -181,7 +181,8 @@ namespace SnailPass_Desktop.ViewModel
                 return;
             }
 
-            IEnumerable<EncryptableFieldModel> customFields = await _customFieldRepository.GetByAccountID(_selectedAccount.ID);
+            IEnumerable<EncryptableFieldModel> customFields = 
+                _customFieldRepository.GetByAccountID(_selectedAccount.ID);
 
             _fields.Clear();
 
@@ -204,6 +205,8 @@ namespace SnailPass_Desktop.ViewModel
             {
                 _fields.Add(field);
             }
+
+            _logger.Information("Fields list loaded.");
         }
 
         private bool FilterWithSearchBar(object obj)
