@@ -454,7 +454,7 @@
                     BorderThickness="1"
                     CornerRadius="5">
                     <TextBlock
-                        Width="100"
+                        Width="auto"
                         Margin="4"
                         FontFamily="{StaticResource ResourceKey=MainFont}"
                         FontSize="20"

@@ -34,8 +34,8 @@
             <DockPanel
                 x:Name="Body"
                 Grid.Row="1"
-                Width="260"
-                Margin="0,10,0,15"
+                Width="auto"
+                Margin="20,10,20,15"
                 LastChildFill="False">
                 <TextBlock
                     Margin="0,10,0,0"

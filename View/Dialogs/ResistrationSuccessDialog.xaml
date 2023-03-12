@@ -1,11 +1,63 @@
-﻿<UserControl x:Class="SnailPass_Desktop.View.Dialogs.ResistrationSuccessDialog"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+﻿<UserControl
+    x:Class="SnailPass_Desktop.View.Dialogs.ResistrationSuccessDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="280"
+    Height="180"
+    mc:Ignorable="d">
+    <Border
+        BorderBrush="{StaticResource ResourceKey=BorderColor}"
+        BorderThickness="1"
+        CornerRadius="7">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border MouseDown="TopMenu_MouseDown" Style="{StaticResource HeaderBorderStyle}" />
+            <Border Style="{StaticResource BodyBorderStyle}" />
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="15,0,0,0"
+                VerticalAlignment="Center"
+                FontFamily="{StaticResource ResourceKey=MainFont}"
+                FontSize="15"
+                FontWeight="DemiBold"
+                Foreground="{StaticResource ResourceKey=DarkTextColor}"
+                MouseDown="TopMenu_MouseDown"
+                Text="Congratulations!" />
+
+            <DockPanel
+                x:Name="Body"
+                Grid.Row="1"
+                Width="auto"
+                Margin="20,10,20,15"
+                LastChildFill="False">
+                <TextBlock
+                    Margin="0,10,0,0"
+                    DockPanel.Dock="Top"
+                    Style="{StaticResource ResourceKey=CommonTextStyle}"
+                    TextWrapping="Wrap">
+                    Your account registered on the server.<LineBreak />
+                    To confirm registration go to the spam tab of your e-mailbox :)
+                    and and click the button "Confirm" inside the mail.</TextBlock>
+
+                <Border
+                    Width="120"
+                    Height="32"
+                    Margin="10,10,10,0"
+                    DockPanel.Dock="Bottom">
+                    <Button
+                        x:Name="btnOk"
+                        Click="btnOk_Click"
+                        Content="OK"
+                        Template="{StaticResource ResourceKey=BigButton}" />
+                </Border>
+            </DockPanel>
+        </Grid>
+    </Border>
 </UserControl>
