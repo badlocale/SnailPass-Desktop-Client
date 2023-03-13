@@ -27,4 +27,7 @@
 
     <!--  Icons  -->
     <SolidColorBrush x:Key="MenuIconColor">#929292</SolidColorBrush>
+
+    <Color x:Key="SliderColor1">#DBEBFF</Color>
+    <Color x:Key="SliderColor2">#70AECB</Color>
 </ResourceDictionary>

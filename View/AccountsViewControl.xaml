@@ -132,13 +132,15 @@
                         x:Name="AccountsList"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Left"
-                        d:ItemsSource="{d:SampleData ItemCount=5}"
+                        d:ItemsSource="{d:SampleData ItemCount=25}"
                         Background="Transparent"
                         BorderThickness="0"
                         ItemsSource="{Binding AccountsCollectionView}"
                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                        SelectedItem="{Binding SelectedAccount}">
+                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        SelectedItem="{Binding SelectedAccount}"
+            >
+
                         <ListBox.Template>
                             <ControlTemplate TargetType="{x:Type ListBox}">
                                 <Border

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -33,6 +33,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="View\Res\ScrollBar.xaml" />
+    <Page Remove="View\Res\Slider.xaml" />
+    <Page Remove="View\Res\WindowElements.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="SnailPassLogoBorders.ico" />
   </ItemGroup>
 
@@ -58,6 +64,18 @@
 
   <ItemGroup>
     <Resource Include="View\Res\Images\Logo.png" />
+    <Resource Include="View\Res\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="View\Res\WindowElements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\Res\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

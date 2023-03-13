@@ -142,6 +142,8 @@
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.VerticalScrollBarVisibility="Visible"
                                 Background="Transparent"
                                 BorderBrush="Transparent"
                                 ItemsSource="{Binding NotesCollectionView}"

@@ -137,7 +137,7 @@ namespace SnailPass_Desktop.Services
             }
             else if (code == HttpStatusCode.Unauthorized)
             {
-                errorMessage = $"Not correct E-mail or password";
+                errorMessage = $"Incorrect credentials";
                 _logger.Warning($"Not corrent E-mail or password. Http code: {code}.");
             }
             else if (code != null)

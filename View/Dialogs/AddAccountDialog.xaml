@@ -212,7 +212,8 @@
                             <Slider
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Margin="5, 2, 2 ,2"
+                                Style="{StaticResource ResourceKey=CustomSliderStyle}"
+                                Margin="5, 2, 5 ,2"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Center"
                                 Foreground="{StaticResource ResourceKey=BorderColor}"

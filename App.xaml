@@ -12,6 +12,7 @@
                 <ResourceDictionary x:Name="ImagesDictionary" Source="view/res/images/Images.xaml" />
                 <ResourceDictionary x:Name="BaseWindowElements" Source="view/res/WindowElements.xaml" />
                 <ResourceDictionary x:Name="SliderDictionary" Source="view/res/Slider.xaml" />
+                <ResourceDictionary x:Name="ScrollBar" Source="view/res/ScrollBar.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
