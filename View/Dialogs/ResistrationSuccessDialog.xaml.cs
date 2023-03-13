@@ -33,7 +33,12 @@ namespace SnailPass_Desktop.View.Dialogs
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Window window = Parent as Window;
+
+            if (window != null)
+            {
+                window.DialogResult = true;
+            }
         }
     }
 }
