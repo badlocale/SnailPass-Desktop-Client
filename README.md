@@ -4,7 +4,7 @@
 </p>
 
 SnailPass is a simple client-server password manager, that I'm writing with my colleagues to make for ourselves a convenient, custom environment for storing passwords.
-Now is proposed to make applications for two platforms. The client for each of the platforms is located in different repositories:
+Now is proposed to make the applications for two platforms. The client for each of the platforms is located in different repositories:
 - Windows (you are here now)
 - [Android](https://github.com/IlyaYDen/SnailPasswordManager)
 <!-- -->
@@ -23,10 +23,11 @@ Application written using WPF framework (MVVM) and several external libraries:
 - Serilog for logging.
 - Microsoft.Data.Sqlite for manage data.
 <!-- -->
-I intentionally used common SQL queries instead EF as an experiment this time. :)
+I intentionally used common SQL queries instead of EF as an experiment this time. :)
 
 # Screenshots
 #### Login interface
-![LoggingScreen](https://user-images.githubusercontent.com/95579070/204347287-8c84d3cf-d271-40c8-aab5-f13a84e7530d.png)
+![ScrLogin](https://user-images.githubusercontent.com/95579070/224582764-527316b4-96fd-4bb4-b33e-f03699386b44.png)
 #### Main window interface
-![image](https://user-images.githubusercontent.com/95579070/217944712-53c77519-634a-4cb5-b10c-dcf5b23058d2.png)
+![ScrGen](https://user-images.githubusercontent.com/95579070/224582767-afbb7d36-9eab-41fb-b9c4-c3e17f9b3aae.png)
+![ScrNotes](https://user-images.githubusercontent.com/95579070/224582768-7273c1d3-d537-4b11-850e-0119a2a0cf64.png)
