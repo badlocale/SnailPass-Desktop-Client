@@ -12,52 +12,45 @@ namespace SnailPass_Desktop.Data.Repositories
 {
     public class AccountRepository : RepositoryBase, IAccountRepository
     {
-        public void RepaceAll(IEnumerable<AccountModel> accounts)
+        public void RepaceAll(IEnumerable<AccountModel> accounts, string usersEmail)
         {
-            if (accounts.Count() < 1)
-            {
-                return;
-            }
-
-            string userId = accounts.First().UserId;
-
-            if (accounts.Any(acc => acc.UserId != userId))
-            {
-                throw new RepositoryException("Not all accounts belong to the same user");
-            }
-
             using SqliteConnection connection = GetConnection();
             connection.Open();
             using (SqliteTransaction transaction = connection.BeginTransaction())
             {
                 using (SqliteCommand deleteCommand = connection.CreateCommand())
                 {
-
                     deleteCommand.CommandText = "DELETE " +
                                                 "FROM accounts " +
-                                                "WHERE accounts.user_id = @userId;";
-                    deleteCommand.Parameters.Add("@userId", SqliteType.Text).Value = userId;
-
+                                                "WHERE accounts.user_id IN (" +
+                                                    "SELECT user_id " +
+                                                    "FROM users " +
+                                                    "WHERE users.email = @email" +
+                                                ");";
+                    deleteCommand.Parameters.Add("@email", SqliteType.Text).Value = usersEmail;
                     deleteCommand.ExecuteNonQuery();
                 }
 
-                using (SqliteCommand insertCommand = connection.CreateCommand())
+                if (accounts.Count() > 0)
                 {
-                    StringBuilder sb = new();
-                    sb.Append("INSERT INTO accounts (id, service_name, login, " +
-                              "encrypted_password, user_id, is_favorite, is_deleted, " +
-                              "creation_time, update_time) " +
-                              "VALUES");
-                    foreach (AccountModel account in accounts)
+                    using (SqliteCommand insertCommand = connection.CreateCommand())
                     {
-                        sb.Append($"('{account.ID}', '{account.ServiceName}', '{account.Login}', " +
-                            $"'{account.Password}', '{account.UserId}', '{account.IsFavorite}', " +
-                            $"'{account.IsDeleted}', '{account.CreationTime}', '{account.UpdateTime}'),");
-                    }
-                    sb.Remove(sb.Length - 1, 1).Append(";");
-                    insertCommand.CommandText = sb.ToString();
+                        StringBuilder sb = new();
+                        sb.Append("INSERT INTO accounts (id, service_name, login, " +
+                                  "encrypted_password, user_id, is_favorite, is_deleted, " +
+                                  "creation_time, update_time) " +
+                                  "VALUES");
+                        foreach (AccountModel account in accounts)
+                        {
+                            sb.Append($"('{account.ID}', '{account.ServiceName}', '{account.Login}', " +
+                                $"'{account.Password}', '{account.UserId}', '{account.IsFavorite}', " +
+                                $"'{account.IsDeleted}', '{account.CreationTime}', '{account.UpdateTime}'),");
+                        }
+                        sb.Remove(sb.Length - 1, 1).Append(";");
+                        insertCommand.CommandText = sb.ToString();
 
-                    insertCommand.ExecuteNonQuery();
+                        insertCommand.ExecuteNonQuery();
+                    }
                 }
 
                 transaction.Commit();

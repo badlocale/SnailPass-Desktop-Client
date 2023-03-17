@@ -10,51 +10,44 @@ namespace SnailPass_Desktop.Data.Repositories
 {
     public class NoteRepository : RepositoryBase, INoteRepository
     {
-        public void ReplaceAll(IEnumerable<NoteModel> notes)
+        public void ReplaceAll(IEnumerable<NoteModel> notes, string usersEmail)
         {
-            if (notes.Count() < 1)
-            {
-                return;
-            }
-
-            string userId = notes.First().UserId;
-
-            if (notes.Any(acc => acc.UserId != userId))
-            {
-                throw new RepositoryException("Not all notes belong to the same user");
-            }
-
             using SqliteConnection connection = GetConnection();
             connection.Open();
             using (SqliteTransaction transaction = connection.BeginTransaction())
             {
                 using (SqliteCommand deleteCommand = connection.CreateCommand())
                 {
-
                     deleteCommand.CommandText = "DELETE " +
                                                 "FROM notes " +
-                                                "WHERE notes.user_id = @userId;";
-                    deleteCommand.Parameters.Add("@userId", SqliteType.Text).Value = userId;
-
-                    Console.WriteLine("NoteRepository:ReplaceAll:deleteCommand " + deleteCommand.ExecuteNonQuery());
+                                                "WHERE notes.user_id IN (" +
+                                                    "SELECT user_id " +
+                                                    "FROM users " +
+                                                    "WHERE users.email = @email" +
+                                                ");";
+                    deleteCommand.Parameters.Add("@email", SqliteType.Text).Value = usersEmail;
+                    deleteCommand.ExecuteNonQuery();
                 }
 
-                using (SqliteCommand insertCommand = connection.CreateCommand())
+                if (notes.Count() > 0)
                 {
-                    StringBuilder sb = new();
-                    sb.Append("INSERT INTO notes (id, name, content, user_id, is_favorite, " +
-                              "is_deleted, creation_time, update_time) " +
-                              "VALUES");
-                    foreach (NoteModel note in notes)
+                    using (SqliteCommand insertCommand = connection.CreateCommand())
                     {
-                        sb.Append($"('{note.ID}', '{note.Name}', '{note.Content}', " +
-                            $"'{note.UserId}', '{note.IsFavorite}', '{note.IsDeleted}', " +
-                            $"'{note.CreationTime}', '{note.UpdateTime}'),");
-                    }
-                    sb.Remove(sb.Length - 1, 1).Append(";");
-                    insertCommand.CommandText = sb.ToString();
+                        StringBuilder sb = new();
+                        sb.Append("INSERT INTO notes (id, name, content, user_id, is_favorite, " +
+                                  "is_deleted, creation_time, update_time) " +
+                                  "VALUES");
+                        foreach (NoteModel note in notes)
+                        {
+                            sb.Append($"('{note.ID}', '{note.Name}', '{note.Content}', " +
+                                $"'{note.UserId}', '{note.IsFavorite}', '{note.IsDeleted}', " +
+                                $"'{note.CreationTime}', '{note.UpdateTime}'),");
+                        }
+                        sb.Remove(sb.Length - 1, 1).Append(";");
+                        insertCommand.CommandText = sb.ToString();
 
-                    Console.WriteLine("NoteRepository:ReplaceAll:insertCommand " + insertCommand.ExecuteNonQuery());
+                        insertCommand.ExecuteNonQuery();
+                    }
                 }
 
                 transaction.Commit();

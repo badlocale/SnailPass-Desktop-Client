@@ -6,8 +6,8 @@ namespace SnailPass_Desktop.Model.Interfaces
     public interface ICustomFieldRepository
     {
         void AddOrReplace(EncryptableFieldModel field);
-        void RepaceAll(IEnumerable<EncryptableFieldModel> fields);
+        void RepaceAll(IEnumerable<EncryptableFieldModel> fields, string accountId);
         IEnumerable<EncryptableFieldModel> GetByAccountID(string userID);
-        void DeleteAllByEmail(string email);
+        void DeleteAllByUsersEmail(string email);
     }
 }

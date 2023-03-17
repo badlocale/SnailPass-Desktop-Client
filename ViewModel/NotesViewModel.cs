@@ -177,7 +177,10 @@ namespace SnailPass_Desktop.ViewModel
         {
             if (obj is NoteModel note)
             {
-                return note.Name.Contains(SearchBarText);
+                string name = note.Name.ToLower();
+                string searchBarText = SearchBarText.ToLower();
+
+                return name.Contains(searchBarText);
             }
             return false;
         }

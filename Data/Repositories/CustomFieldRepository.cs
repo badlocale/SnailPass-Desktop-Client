@@ -9,20 +9,8 @@ namespace SnailPass_Desktop.Data.Repositories
 {
     public class CustomFieldRepository : RepositoryBase, ICustomFieldRepository
     {
-        public void RepaceAll(IEnumerable<EncryptableFieldModel> fields)
+        public void RepaceAll(IEnumerable<EncryptableFieldModel> fields, string accountId)
         {
-            if (fields.Count() < 1)
-            {
-                return;
-            }
-
-            string accountId = fields.First().AccountId;
-
-            if (fields.Any(acc => acc.AccountId != accountId))
-            {
-                throw new RepositoryException("Not all account fields belong to the same account");
-            }
-
             using SqliteConnection connection = GetConnection();
             connection.Open();
             using (SqliteTransaction transaction = connection.BeginTransaction())
@@ -38,20 +26,23 @@ namespace SnailPass_Desktop.Data.Repositories
                     deleteCommand.ExecuteNonQuery();
                 }
 
-                using (SqliteCommand insertCommand = connection.CreateCommand())
+                if (fields.Count() > 0)
                 {
-                    StringBuilder sb = new();
-                    sb.Append("INSERT INTO additional_fields (id, field_name, value, account_id) " +
-                              "VALUES");
-                    foreach (EncryptableFieldModel field in fields)
+                    using (SqliteCommand insertCommand = connection.CreateCommand())
                     {
-                        sb.Append($"('{field.ID}', '{field.FieldName}', '{field.Value}', " +
-                            $"'{field.AccountId}'),");
-                    }
-                    sb.Remove(sb.Length - 1, 1).Append(";");
-                    insertCommand.CommandText = sb.ToString();
+                        StringBuilder sb = new();
+                        sb.Append("INSERT INTO additional_fields (id, field_name, value, account_id) " +
+                                  "VALUES");
+                        foreach (EncryptableFieldModel field in fields)
+                        {
+                            sb.Append($"('{field.ID}', '{field.FieldName}', '{field.Value}', " +
+                                $"'{field.AccountId}'),");
+                        }
+                        sb.Remove(sb.Length - 1, 1).Append(";");
+                        insertCommand.CommandText = sb.ToString();
 
-                    insertCommand.ExecuteNonQuery();
+                        insertCommand.ExecuteNonQuery();
+                    }
                 }
 
                 transaction.Commit();
@@ -113,7 +104,7 @@ namespace SnailPass_Desktop.Data.Repositories
             return fields;
         }
 
-        public void DeleteAllByEmail(string email)
+        public void DeleteAllByUsersEmail(string email)
         {
             using var connection = GetConnection();
             using (var command = new SqliteCommand())

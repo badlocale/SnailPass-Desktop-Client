@@ -5,7 +5,6 @@ using SnailPass_Desktop.Model.Interfaces;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,8 +12,6 @@ namespace SnailPass_Desktop.Services
 {
     public class SynchronizationService : ISynchronizationService
     {
-        private Stopwatch _stopwatch;
-
         private IUserRestApi _userRestApi;
         private IAccountRestApi _accountRestApi;
         private ICustomFieldRestApi _customFieldRestApi;
@@ -57,7 +54,7 @@ namespace SnailPass_Desktop.Services
 
             if (fields != null)
             {
-                _customFieldRepository.RepaceAll(fields);
+                _customFieldRepository.RepaceAll(fields, accountID);
             }
         }
 
@@ -75,7 +72,7 @@ namespace SnailPass_Desktop.Services
             {
                 _logger.Debug($"Sync serivce: {accounts.Count()} accounts loaded from server.");
 
-                _accountRepository.RepaceAll(accounts);
+                _accountRepository.RepaceAll(accounts, email);
 
                 List<Task> tasks = new List<Task>();
                 foreach (AccountModel account in accounts)
@@ -116,7 +113,7 @@ namespace SnailPass_Desktop.Services
             {
                 _logger.Debug($"Sync serivce: {notes.Count()} notes loaded from server.");
 
-                _noteRepository.ReplaceAll(notes);
+                _noteRepository.ReplaceAll(notes, email);
             }
         }
 

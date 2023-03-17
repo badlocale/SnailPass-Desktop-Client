@@ -213,8 +213,12 @@ namespace SnailPass_Desktop.ViewModel
         {
             if (obj is AccountModel account)
             {
-                return account.ServiceName.Contains(SearchBarText) ||
-                    account.Login.Contains(SearchBarText);
+                string serviceName = account.ServiceName.ToLower();
+                string login = account.Login.ToLower();
+                string searchBarText = SearchBarText.ToLower();
+
+                return serviceName.Contains(searchBarText) ||
+                    login.Contains(searchBarText);
             }
             return false;
         }
