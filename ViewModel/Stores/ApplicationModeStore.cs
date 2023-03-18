@@ -1,9 +1,9 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Data.API;
-using SnailPass_Desktop.Model.Interfaces;
+using SnailPass.Data.API;
+using SnailPass.Model.Interfaces;
 using System;
 
-namespace SnailPass_Desktop.ViewModel.Stores
+namespace SnailPass.ViewModel.Stores
 {
     public class ApplicationModeStore : IApplicationModeStore
     {

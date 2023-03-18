@@ -3,21 +3,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using SnailPass.Services;
-using SnailPass_Desktop.Data.API;
-using SnailPass_Desktop.Data.Repositories;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Cryptography;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Services;
-using SnailPass_Desktop.ViewModel;
-using SnailPass_Desktop.ViewModel.Factories;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.Data.API;
+using SnailPass.Data.Repositories;
+using SnailPass.Model;
+using SnailPass.Model.Cryptography;
+using SnailPass.Model.Interfaces;
+using SnailPass.Services;
+using SnailPass.ViewModel;
+using SnailPass.ViewModel.Factories;
+using SnailPass.ViewModel.Stores;
 using System;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace SnailPass_Desktop
+namespace SnailPass
 {
     public static class ContainerConfig
     {

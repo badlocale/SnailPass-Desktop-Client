@@ -1,7 +1,7 @@
 ﻿using Serilog;
-using SnailPass_Desktop.View.Dialogs;
-using SnailPass_Desktop.ViewModel;
-using SnailPass_Desktop.ViewModel.Factories;
+using SnailPass.View.Dialogs;
+using SnailPass.ViewModel;
+using SnailPass.ViewModel.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SnailPass_Desktop.Services
+namespace SnailPass.Services
 {
     public class DialogService : IDialogService
     {

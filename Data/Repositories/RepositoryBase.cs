@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 
-namespace SnailPass_Desktop.Data.Repositories
+namespace SnailPass.Data.Repositories
 {
     public abstract class RepositoryBase
     {

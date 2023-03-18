@@ -1,4 +1,4 @@
-﻿using SnailPass_Desktop.Model.Interfaces;
+﻿using SnailPass.Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
-namespace SnailPass_Desktop.Model
+namespace SnailPass.Model
 {
     public class PasswordGenerator : IPasswordGenerator
     {

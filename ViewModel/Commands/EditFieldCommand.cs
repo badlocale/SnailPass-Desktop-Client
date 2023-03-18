@@ -1,11 +1,11 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Services;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.Model;
+using SnailPass.Model.Interfaces;
+using SnailPass.Services;
+using SnailPass.ViewModel.Stores;
 using System.Net;
 
-namespace SnailPass_Desktop.ViewModel.Commands
+namespace SnailPass.ViewModel.Commands
 {
     public class EditFieldCommand : CommandBase
     {

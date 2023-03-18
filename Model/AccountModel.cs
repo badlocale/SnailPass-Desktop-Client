@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using SnailPass_Desktop.Model.Cryptography;
+using SnailPass.Model.Cryptography;
 using System;
 
-namespace SnailPass_Desktop.Model
+namespace SnailPass.Model
 {
     public class AccountModel : ICloneable
     {

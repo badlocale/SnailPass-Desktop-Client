@@ -1,14 +1,14 @@
 ﻿using Autofac.Core;
 using Newtonsoft.Json.Linq;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.ViewModel.Commands;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.Model;
+using SnailPass.Model.Interfaces;
+using SnailPass.ViewModel.Commands;
+using SnailPass.ViewModel.Stores;
 using System;
 using System.Windows.Input;
 using System.Xml.Linq;
 
-namespace SnailPass_Desktop.ViewModel
+namespace SnailPass.ViewModel
 {
     public class AddAccountViewModel : ErrorViewModel
     {

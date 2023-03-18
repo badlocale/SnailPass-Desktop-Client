@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Data
+namespace SnailPass.Data
 {
     public class RepositoryException : Exception
     {

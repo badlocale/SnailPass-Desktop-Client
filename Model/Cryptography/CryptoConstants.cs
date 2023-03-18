@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Model.Cryptography
+namespace SnailPass.Model.Cryptography
 {
     public static class CryptoConstants
     {

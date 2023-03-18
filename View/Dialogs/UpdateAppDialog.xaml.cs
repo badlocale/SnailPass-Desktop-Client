@@ -1,4 +1,4 @@
-﻿using SnailPass_Desktop.View.Dialogs;
+﻿using SnailPass.View.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

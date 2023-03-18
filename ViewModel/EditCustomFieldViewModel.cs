@@ -1,6 +1,6 @@
-﻿using SnailPass_Desktop.Model;
+﻿using SnailPass.Model;
 
-namespace SnailPass_Desktop.ViewModel
+namespace SnailPass.ViewModel
 {
     public class EditCustomFieldViewModel : ErrorViewModel
     {

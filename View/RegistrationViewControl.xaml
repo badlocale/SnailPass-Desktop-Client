@@ -1,10 +1,10 @@
 ﻿<UserControl
-    x:Class="SnailPass_Desktop.View.RegistrationViewControl"
+    x:Class="SnailPass.View.RegistrationViewControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:customControls="clr-namespace:SnailPass_Desktop.CustomControls"
+    xmlns:customControls="clr-namespace:SnailPass.CustomControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:SnailPass_Desktop.View"
+    xmlns:local="clr-namespace:SnailPass.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="root"
     d:DesignHeight="400"

@@ -1,14 +1,14 @@
-﻿using SnailPass_Desktop.Model;
+﻿using SnailPass.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Data.Sqlite;
 using System.Threading.Tasks;
-using SnailPass_Desktop.Model.Interfaces;
+using SnailPass.Model.Interfaces;
 using System.Diagnostics;
 
-namespace SnailPass_Desktop.Data.Repositories
+namespace SnailPass.Data.Repositories
 {
     public class AccountRepository : RepositoryBase, IAccountRepository
     {

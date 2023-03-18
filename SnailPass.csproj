@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Configurations>Debug;Release</Configurations>
-    <ApplicationIcon>SnailPass.ico</ApplicationIcon>
     <Title>SnailPass</Title>
     <PackageProjectUrl>https://github.com/badlocale/SnailPass-Desktop-Client</PackageProjectUrl>
     <PackageIcon>SnailPassNewLogo.svg</PackageIcon>
@@ -15,14 +14,23 @@
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>en</NeutralLanguage>
     <Version>$(VersionPrefix)0.1.0</Version>
+    <ApplicationIcon>SnailPass.ico</ApplicationIcon>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <SignAssembly>False</SignAssembly>
+    <Product>$(AssemblyName) Manager</Product>
+    <Authors>Ilya K.</Authors>
+    <Description>A simple client-server password manager application for Windows</Description>
+    <AssemblyVersion></AssemblyVersion>
+    <FileVersion></FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

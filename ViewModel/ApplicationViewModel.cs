@@ -1,14 +1,14 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Data.API;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Services;
-using SnailPass_Desktop.ViewModel.Commands;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.Data.API;
+using SnailPass.Model.Interfaces;
+using SnailPass.Services;
+using SnailPass.ViewModel.Commands;
+using SnailPass.ViewModel.Stores;
 using System;
 using System.Reflection;
 using System.Windows.Input;
 
-namespace SnailPass_Desktop.ViewModel
+namespace SnailPass.ViewModel
 {
     public class ApplicationViewModel : ViewModelBase
     {

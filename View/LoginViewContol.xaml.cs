@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 
-namespace SnailPass_Desktop.View
+namespace SnailPass.View
 {
     public partial class LoginViewContol : UserControl
     {

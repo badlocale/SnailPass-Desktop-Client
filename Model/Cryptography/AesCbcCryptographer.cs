@@ -3,9 +3,9 @@ using System.IO;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
-using SnailPass_Desktop.Model.Interfaces;
+using SnailPass.Model.Interfaces;
 
-namespace SnailPass_Desktop.Model.Cryptography
+namespace SnailPass.Model.Cryptography
 {
     public class AesCbcCryptographer : CryptographerBase, ISymmetricCryptographer
     {

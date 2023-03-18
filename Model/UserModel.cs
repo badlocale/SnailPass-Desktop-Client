@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SnailPass_Desktop.Model
+namespace SnailPass.Model
 {
     public class UserModel
     {

@@ -1,7 +1,7 @@
-﻿using SnailPass_Desktop.Model;
+﻿using SnailPass.Model;
 using System.Security;
 
-namespace SnailPass_Desktop.ViewModel.Stores
+namespace SnailPass.ViewModel.Stores
 {
     public interface IUserIdentityStore
     {

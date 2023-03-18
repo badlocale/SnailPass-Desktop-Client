@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace SnailPass_Desktop.Model.Cryptography
+namespace SnailPass.Model.Cryptography
 {
     public class CryptographerBase
     {

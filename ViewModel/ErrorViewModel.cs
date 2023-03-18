@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace SnailPass_Desktop.ViewModel
+namespace SnailPass.ViewModel
 {
     public class ErrorViewModel : ViewModelBase, INotifyDataErrorInfo
     {

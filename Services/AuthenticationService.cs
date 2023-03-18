@@ -1,15 +1,15 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Cryptography;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.Model;
+using SnailPass.Model.Cryptography;
+using SnailPass.Model.Interfaces;
+using SnailPass.ViewModel.Stores;
 using System;
 using System.Net;
 using System.Net.Http;
 using System.Security;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Services
+namespace SnailPass.Services
 {
     public class AuthenticationService : IAuthenticationService
     {

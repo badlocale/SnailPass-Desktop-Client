@@ -1,8 +1,8 @@
-﻿using SnailPass_Desktop.ViewModel;
+﻿using SnailPass.ViewModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SnailPass_Desktop.View
+namespace SnailPass.View
 {
     public partial class AccountsViewControl : UserControl
     {

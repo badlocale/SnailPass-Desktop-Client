@@ -1,4 +1,4 @@
-﻿namespace SnailPass_Desktop.Model.Interfaces
+﻿namespace SnailPass.Model.Interfaces
 {
     public interface IUserRepository
     {

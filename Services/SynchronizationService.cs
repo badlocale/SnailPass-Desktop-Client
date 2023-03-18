@@ -1,14 +1,14 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Cryptography;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.Model;
+using SnailPass.Model.Cryptography;
+using SnailPass.Model.Interfaces;
+using SnailPass.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Services
+namespace SnailPass.Services
 {
     public class SynchronizationService : ISynchronizationService
     {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Data.Sqlite;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Interfaces;
+using SnailPass.Model;
+using SnailPass.Model.Interfaces;
 using System;
 
-namespace SnailPass_Desktop.Data.Repositories
+namespace SnailPass.Data.Repositories
 {
     public class UserRepository : RepositoryBase, IUserRepository
     {

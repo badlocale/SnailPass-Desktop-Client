@@ -1,8 +1,8 @@
 ﻿using Serilog;
 using SnailPass.Services;
-using SnailPass_Desktop.Services;
-using SnailPass_Desktop.ViewModel.Factories;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.Services;
+using SnailPass.ViewModel.Factories;
+using SnailPass.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.ViewModel
+namespace SnailPass.ViewModel
 {
     public class StartupViewModel : ViewModelBase
     {

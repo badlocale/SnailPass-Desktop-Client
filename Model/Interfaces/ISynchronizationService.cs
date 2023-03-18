@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Model.Interfaces
+namespace SnailPass.Model.Interfaces
 {
     public interface ISynchronizationService
     {

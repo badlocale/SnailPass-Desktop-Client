@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SnailPass_Desktop.View.Dialogs
+namespace SnailPass.View.Dialogs
 {
     [DialogContent]
     public partial class AddCustomFieldDialog : UserControl

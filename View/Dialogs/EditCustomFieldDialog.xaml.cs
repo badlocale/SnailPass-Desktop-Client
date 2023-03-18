@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SnailPass_Desktop.View.Dialogs
+namespace SnailPass.View.Dialogs
 {
     [DialogContent]
     public partial class EditCustomFieldDialog : UserControl

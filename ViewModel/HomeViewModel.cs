@@ -1,12 +1,12 @@
 ﻿using Serilog;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.ViewModel
+namespace SnailPass.ViewModel
 {
     public class HomeViewModel : ViewModelBase
     {

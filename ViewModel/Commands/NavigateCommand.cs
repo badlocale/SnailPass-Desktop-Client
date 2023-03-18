@@ -1,7 +1,7 @@
-﻿using SnailPass_Desktop.ViewModel.Stores;
+﻿using SnailPass.ViewModel.Stores;
 using System;
 
-namespace SnailPass_Desktop.ViewModel.Commands
+namespace SnailPass.ViewModel.Commands
 {
     public class NavigateCommand<TViewModel> : CommandBase
         where TViewModel : ViewModelBase

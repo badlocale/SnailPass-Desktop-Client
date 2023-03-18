@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Interfaces;
+using SnailPass.Model;
+using SnailPass.Model.Interfaces;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Serilog;
 
-namespace SnailPass_Desktop.Data.API
+namespace SnailPass.Data.API
 {
     public class AccountApi : RestApiBase, IAccountRestApi
     {

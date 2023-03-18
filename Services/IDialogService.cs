@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SnailPass_Desktop.ViewModel;
+using SnailPass.ViewModel;
 
-namespace SnailPass_Desktop.Services
+namespace SnailPass.Services
 {
     public interface IDialogService
     {

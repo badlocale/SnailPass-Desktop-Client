@@ -1,11 +1,11 @@
 ﻿using Autofac;
 using Microsoft.Extensions.DependencyInjection;
-using SnailPass_Desktop.Data.API;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Services;
-using SnailPass_Desktop.View;
-using SnailPass_Desktop.View.Dialogs;
-using SnailPass_Desktop.ViewModel;
+using SnailPass.Data.API;
+using SnailPass.Model.Interfaces;
+using SnailPass.Services;
+using SnailPass.View;
+using SnailPass.View.Dialogs;
+using SnailPass.ViewModel;
 using System.Net.Http.Headers;
 using System;
 using System.Windows;
@@ -14,7 +14,7 @@ using AutoUpdaterDotNET;
 using SnailPass.Services;
 using System.Reflection;
 
-namespace SnailPass_Desktop
+namespace SnailPass
 {
     public partial class App : Application
     {

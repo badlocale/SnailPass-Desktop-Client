@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace SnailPass_Desktop.ViewModel.Commands
+namespace SnailPass.ViewModel.Commands
 {
     public abstract class CommandBase : ICommand
     {

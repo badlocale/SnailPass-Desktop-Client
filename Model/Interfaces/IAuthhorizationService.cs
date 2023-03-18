@@ -1,9 +1,9 @@
-﻿using SnailPass_Desktop.Services;
+﻿using SnailPass.Services;
 using System;
 using System.Security;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Model.Interfaces
+namespace SnailPass.Model.Interfaces
 {
     public interface IAuthenticationService
     {

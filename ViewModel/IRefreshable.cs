@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.ViewModel
+namespace SnailPass.ViewModel
 {
     public interface IRefreshable
     {

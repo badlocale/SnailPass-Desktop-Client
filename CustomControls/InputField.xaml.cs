@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
-namespace SnailPass_Desktop.CustomControls
+namespace SnailPass.CustomControls
 {
     public partial class InputField : UserControl
     {

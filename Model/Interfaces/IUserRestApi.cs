@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.Model.Interfaces
+namespace SnailPass.Model.Interfaces
 {
     public interface IUserRestApi
     {

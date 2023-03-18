@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SnailPass_Desktop.CustomControls
+namespace SnailPass.CustomControls
 {
     public partial class UrlButton : UserControl
     {

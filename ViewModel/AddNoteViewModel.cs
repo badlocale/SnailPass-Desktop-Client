@@ -1,13 +1,13 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.Model;
+using SnailPass.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.ViewModel
+namespace SnailPass.ViewModel
 {
     public class AddNoteViewModel : ErrorViewModel
     {

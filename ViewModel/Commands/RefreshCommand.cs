@@ -1,10 +1,10 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.ViewModel.Stores;
+using SnailPass.Model.Interfaces;
+using SnailPass.ViewModel.Stores;
 using System;
 using System.Diagnostics;
 
-namespace SnailPass_Desktop.ViewModel.Commands
+namespace SnailPass.ViewModel.Commands
 {
     public class RefreshCommand : CommandBase
     {

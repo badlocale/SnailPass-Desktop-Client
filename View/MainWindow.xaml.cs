@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using SnailPass_Desktop.View;
+using SnailPass.View;
 
-namespace SnailPass_Desktop
+namespace SnailPass
 {
     public partial class MainWindow : Window
     {

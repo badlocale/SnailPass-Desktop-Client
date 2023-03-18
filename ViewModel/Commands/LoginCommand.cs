@@ -1,7 +1,7 @@
-﻿using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Services;
+﻿using SnailPass.Model.Interfaces;
+using SnailPass.Services;
 
-namespace SnailPass_Desktop.ViewModel.Commands
+namespace SnailPass.ViewModel.Commands
 {
     public class LoginCommand : CommandBase
     {

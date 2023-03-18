@@ -1,12 +1,12 @@
-﻿using SnailPass_Desktop.Model;
+﻿using SnailPass.Model;
 using System;
 using System.Net.Mail;
 using System.Net;
 using Serilog;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Services;
+using SnailPass.Model.Interfaces;
+using SnailPass.Services;
 
-namespace SnailPass_Desktop.ViewModel.Commands
+namespace SnailPass.ViewModel.Commands
 {
     public class RegistrationCommand : CommandBase
     {

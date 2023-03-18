@@ -1,5 +1,5 @@
 ﻿using Serilog;
-using SnailPass_Desktop.Model;
+using SnailPass.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.ViewModel.Stores
+namespace SnailPass.ViewModel.Stores
 {
     public class UserIdentityStore : IUserIdentityStore
     {

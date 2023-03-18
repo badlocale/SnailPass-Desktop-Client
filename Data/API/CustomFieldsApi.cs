@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Interfaces;
+using SnailPass.Model;
+using SnailPass.Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Serilog;
 
-namespace SnailPass_Desktop.Data.API
+namespace SnailPass.Data.API
 {
     public class CustomFieldsApi : RestApiBase, ICustomFieldRestApi
     {

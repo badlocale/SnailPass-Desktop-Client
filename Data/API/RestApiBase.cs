@@ -5,7 +5,7 @@ using Serilog;
 using System.Configuration;
 using System.Net;
 
-namespace SnailPass_Desktop.Data.API
+namespace SnailPass.Data.API
 {
     public abstract class RestApiBase
     {

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SnailPass_Desktop.View
+namespace SnailPass.View
 {
     /// <summary>
     /// Логика взаимодействия для HomeViewControl.xaml

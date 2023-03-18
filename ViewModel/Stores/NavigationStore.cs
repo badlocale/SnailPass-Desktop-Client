@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SnailPass_Desktop.ViewModel.Stores
+namespace SnailPass.ViewModel.Stores
 {
     internal class NavigationStore : INavigationStore
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnailPass_Desktop.View.Dialogs
+namespace SnailPass.View.Dialogs
 {
     public class DialogContentAttribute : Attribute { }
 }

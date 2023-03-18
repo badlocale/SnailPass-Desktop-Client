@@ -1,12 +1,12 @@
 ﻿using Microsoft.Data.Sqlite;
-using SnailPass_Desktop.Model;
-using SnailPass_Desktop.Model.Interfaces;
+using SnailPass.Model;
+using SnailPass.Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SnailPass_Desktop.Data.Repositories
+namespace SnailPass.Data.Repositories
 {
     public class NoteRepository : RepositoryBase, INoteRepository
     {

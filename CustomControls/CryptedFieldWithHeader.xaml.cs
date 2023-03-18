@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SnailPass_Desktop.CustomControls
+namespace SnailPass.CustomControls
 {
     public partial class CryptedFieldWithHeader : UserControl
     {

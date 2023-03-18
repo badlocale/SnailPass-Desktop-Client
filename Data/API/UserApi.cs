@@ -9,11 +9,11 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Serilog;
-using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Model;
+using SnailPass.Model.Interfaces;
+using SnailPass.Model;
 using System.Configuration;
 
-namespace SnailPass_Desktop.Data.API
+namespace SnailPass.Data.API
 {
     public class UserApi : RestApiBase, IUserRestApi
     {

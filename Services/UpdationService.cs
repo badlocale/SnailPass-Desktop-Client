@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoUpdaterDotNET;
 using Serilog;
-using SnailPass_Desktop.Services;
+using SnailPass.Services;
 using System.Windows;
 using System.Configuration;
 using System.Threading.Tasks;

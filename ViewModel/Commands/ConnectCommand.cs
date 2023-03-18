@@ -1,8 +1,8 @@
-﻿using SnailPass_Desktop.Model.Interfaces;
-using SnailPass_Desktop.Services;
-using SnailPass_Desktop.ViewModel.Stores;
+﻿using SnailPass.Model.Interfaces;
+using SnailPass.Services;
+using SnailPass.ViewModel.Stores;
 
-namespace SnailPass_Desktop.ViewModel.Commands
+namespace SnailPass.ViewModel.Commands
 {
     public class ConnectCommand : CommandBase
     {
