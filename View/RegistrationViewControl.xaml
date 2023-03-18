@@ -22,7 +22,7 @@
 
         <customControls:InputField
             DockPanel.Dock="Top"
-            Icon="{StaticResource ResourceKey=MailVectorIcon}"
+            Icon="{StaticResource ResourceKey=MailIcon}"
             Text="{Binding Email, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
         <TextBlock
@@ -44,7 +44,7 @@
 
         <customControls:InputField
             DockPanel.Dock="Top"
-            Icon="{StaticResource ResourceKey=HintVectorIcon}"
+            Icon="{StaticResource ResourceKey=HintIcon}"
             Text="{Binding Hint, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
         <TextBlock

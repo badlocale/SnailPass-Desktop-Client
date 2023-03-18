@@ -1,4 +1,6 @@
 ﻿using Serilog;
+using SnailPass.Services;
+using SnailPass_Desktop.Services;
 using SnailPass_Desktop.ViewModel.Factories;
 using SnailPass_Desktop.ViewModel.Stores;
 using System;
@@ -15,8 +17,10 @@ namespace SnailPass_Desktop.ViewModel
     {
         private readonly INavigationStore _navigationStore;
         private readonly ILogger _logger;
+        private readonly IDialogService _dialogService;
 
         private bool _isViewVisible = true;
+        private bool _isDialogOpened = false;
 
         public bool IsViewVisible
         {
@@ -28,18 +32,35 @@ namespace SnailPass_Desktop.ViewModel
             }
         }
 
+        public bool IsDialogOpened
+        {
+            get { return _isDialogOpened; }
+            set
+            {
+                _isDialogOpened = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
         public string HeaderName => _navigationStore.TextHeader;
 
-        public StartupViewModel(INavigationStore navigationStore, ILogger logger, IViewModelFactory viewModelFactory)
+        public StartupViewModel(INavigationStore navigationStore, ILogger logger, IViewModelFactory viewModelFactory,
+            IUpdationService updationService, IDialogService dialogService)
         {
             navigationStore.CurrentViewModel = viewModelFactory.Create(typeof(LoginViewModel));
 
             _navigationStore = navigationStore;
             _logger = logger;
+            _dialogService = dialogService;
+
             _navigationStore.CurrentViewModelChange += OnCurrentViewModelChange;
             _navigationStore.TextHeaderChange += OnTextHeaderChange;
             _navigationStore.CurrentViewModel.PropertyChanged += OnPropertyChangedVisibilityHandler;
+            _dialogService.DialogOpened +=DialogOpenedHandler;
+            _dialogService.DialogClosed += DialogClosedHandler;
+
+            updationService.StartAsync();
         }
 
         private void OnPropertyChangedVisibilityHandler(object? s, PropertyChangedEventArgs e) 
@@ -47,6 +68,19 @@ namespace SnailPass_Desktop.ViewModel
             if (e.PropertyName == "IsViewVisible")
             {
                 IsViewVisible = false;
+            }
+        }
+
+        private void DialogOpenedHandler(object? sender, EventArgs args)
+        {
+            IsDialogOpened = true;
+        }
+
+        private void DialogClosedHandler(object? sender, EventArgs args)
+        {
+            if (_dialogService.IsAllDialogsClosed)
+            {
+                IsDialogOpened = false;
             }
         }
 

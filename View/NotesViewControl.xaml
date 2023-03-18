@@ -44,7 +44,7 @@
                         VerticalAlignment="Center"
                         Fill="{StaticResource ResourceKey=LightTextColor}">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=SearchVectorIcon}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=SearchIcon}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
 
@@ -257,7 +257,7 @@
                                                         VerticalAlignment="Center"
                                                         Fill="{StaticResource ResourceKey=LightTextColor}">
                                                         <Rectangle.OpacityMask>
-                                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=BinVectorIcon}" />
+                                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=BinIcon}" />
                                                         </Rectangle.OpacityMask>
                                                     </Rectangle>
                                                 </Border>
@@ -394,7 +394,7 @@
                         VerticalAlignment="Center"
                         Fill="{StaticResource ResourceKey=LightTextColor}">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=NoteLabel}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=NoteLabelIcon}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
 
@@ -469,7 +469,7 @@
                                                             VerticalAlignment="Center"
                                                             Fill="{StaticResource ResourceKey=LightTextColor}">
                                                             <Rectangle.OpacityMask>
-                                                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=EditVectorIcon}" />
+                                                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=EditIcon}" />
                                                             </Rectangle.OpacityMask>
                                                         </Rectangle>
                                                     </Border>

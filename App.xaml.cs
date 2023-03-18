@@ -10,6 +10,9 @@ using System.Net.Http.Headers;
 using System;
 using System.Windows;
 using System.Configuration;
+using AutoUpdaterDotNET;
+using SnailPass.Services;
+using System.Reflection;
 
 namespace SnailPass_Desktop
 {

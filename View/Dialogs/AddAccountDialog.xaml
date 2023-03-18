@@ -54,7 +54,7 @@
                     VerticalAlignment="Center"
                     Fill="{StaticResource ResourceKey=LightTextColor}">
                     <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=CloseWindowVectorIcon}" />
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=CloseWindowIcon}" />
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
@@ -73,7 +73,7 @@
                 <customControls:InputField
                     x:Name="serviceNameInputField"
                     DockPanel.Dock="Top"
-                    Icon="{StaticResource ResourceKey=ServiceVectorIcon}"
+                    Icon="{StaticResource ResourceKey=ServiceIcon}"
                     Text="{Binding ServiceName, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
                 <TextBlock
@@ -84,7 +84,7 @@
                 <customControls:InputField
                     x:Name="loginInputField"
                     DockPanel.Dock="Top"
-                    Icon="{StaticResource ResourceKey=AccountVectorIcon}"
+                    Icon="{StaticResource ResourceKey=AccountIcon}"
                     ImageHeight="18"
                     ImageWidth="20"
                     Text="{Binding Login, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -97,7 +97,7 @@
                 <customControls:InputField
                     x:Name="passwordInputField"
                     DockPanel.Dock="Top"
-                    Icon="{StaticResource ResourceKey=KeyVectorIcon}"
+                    Icon="{StaticResource ResourceKey=KeyIcon}"
                     Text="{Binding Password, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
                 <Border

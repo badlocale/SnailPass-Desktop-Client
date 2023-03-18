@@ -44,7 +44,7 @@
                                Fill="{StaticResource ResourceKey=LightTextColor}">
                     <Rectangle.OpacityMask>
                         <VisualBrush Stretch="Uniform"
-                                 Visual="{StaticResource ResourceKey=CloseWindowVectorIcon}"/>
+                                 Visual="{StaticResource ResourceKey=CloseWindowIcon}"/>
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
@@ -68,7 +68,7 @@
                                            DockPanel.Dock="Top"
                                            Text="{Binding FieldName, ValidatesOnNotifyDataErrors=True, 
                                                   UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                           Icon="{StaticResource ResourceKey=FieldNameVectorIcon}"/>
+                                           Icon="{StaticResource ResourceKey=FieldNameIcon}"/>
 
                 <TextBlock DockPanel.Dock="Top"
                            Text="Field value"
@@ -78,7 +78,7 @@
                                            DockPanel.Dock="Top"
                                            Text="{Binding Value, ValidatesOnNotifyDataErrors=True, 
                                                   UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                           Icon="{StaticResource ResourceKey=FieldValueVectorIcon}"/>
+                                           Icon="{StaticResource ResourceKey=FieldValueIcon}"/>
 
                 <Border DockPanel.Dock="Bottom"
                         VerticalAlignment="Bottom"

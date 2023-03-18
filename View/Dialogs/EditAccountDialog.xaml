@@ -44,7 +44,7 @@
                                Fill="{StaticResource ResourceKey=LightTextColor}">
                     <Rectangle.OpacityMask>
                         <VisualBrush Stretch="Uniform"
-                                 Visual="{StaticResource ResourceKey=CloseWindowVectorIcon}"/>
+                                 Visual="{StaticResource ResourceKey=CloseWindowIcon}"/>
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
@@ -69,7 +69,7 @@
                                            DockPanel.Dock="Top"
                                            Text="{Binding ServiceName, ValidatesOnNotifyDataErrors=True, 
                                                   UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                           Icon="{StaticResource ResourceKey=ServiceVectorIcon}"/>
+                                           Icon="{StaticResource ResourceKey=ServiceIcon}"/>
 
                 <TextBlock DockPanel.Dock="Top"
                            Text="Login"
@@ -79,7 +79,7 @@
                                            DockPanel.Dock="Top"
                                            Text="{Binding Login, ValidatesOnNotifyDataErrors=True, 
                                                   UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                           Icon="{StaticResource ResourceKey=AccountVectorIcon}"
+                                           Icon="{StaticResource ResourceKey=AccountIcon}"
                                            ImageHeight="18"
                                            ImageWidth="20"/>
 
@@ -91,7 +91,7 @@
                                            DockPanel.Dock="Top"
                                            Text="{Binding Password, ValidatesOnNotifyDataErrors=True, 
                                                   UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                           Icon="{StaticResource ResourceKey=KeyVectorIcon}"/>
+                                           Icon="{StaticResource ResourceKey=KeyIcon}"/>
 
                 <Border DockPanel.Dock="Bottom"
                         VerticalAlignment="Bottom"

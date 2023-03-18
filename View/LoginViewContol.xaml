@@ -40,7 +40,7 @@
         <customControls:InputField
             x:Name="emailInputField"
             DockPanel.Dock="Top"
-            Icon="{StaticResource ResourceKey=MailVectorIcon}"
+            Icon="{StaticResource ResourceKey=MailIcon}"
             Text="{Binding Email, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
         <TextBlock

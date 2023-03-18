@@ -17,12 +17,12 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
 
     <Window.Visibility>
         <Binding
-            Converter="{StaticResource BooleanToVisibility}"
+            Converter="{StaticResource BoolToVisibilityConverter}"
             Mode="TwoWay"
             Path="IsViewVisible" />
     </Window.Visibility>
@@ -49,6 +49,18 @@
                 <RowDefinition Height="30" />
                 <RowDefinition />
             </Grid.RowDefinitions>
+
+            <Border
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="-1"
+                Panel.ZIndex="1"
+                Background="Black"
+                CornerRadius="7"
+                Opacity="0.5"
+                Visibility="{Binding IsDialogOpened, Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}" />
 
             <Border Style="{StaticResource HeaderBorderStyle}" />
             <Border Style="{StaticResource BodyBorderStyle}" />
@@ -86,7 +98,7 @@
                             VerticalAlignment="Center"
                             Fill="{StaticResource ResourceKey=LightTextColor}">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=CloseWindowVectorIcon}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=CloseWindowIcon}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
@@ -103,7 +115,7 @@
                             VerticalAlignment="Center"
                             Fill="{StaticResource ResourceKey=LightTextColor}">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=MinimizeWindowVectorIcon}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=MinimizeWindowIcon}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>

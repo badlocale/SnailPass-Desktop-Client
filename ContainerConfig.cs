@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+using SnailPass.Services;
 using SnailPass_Desktop.Data.API;
 using SnailPass_Desktop.Data.Repositories;
 using SnailPass_Desktop.Model;
@@ -44,6 +45,7 @@ namespace SnailPass_Desktop
             builder.RegisterType<CryptographyService>().As<ICryptographyService>().InstancePerDependency();
             builder.RegisterType<PasswordGenerator>().As<IPasswordGenerator>().InstancePerDependency();
             builder.RegisterType<AuthenticationService>().As<IAuthenticationService>().SingleInstance();
+            builder.RegisterType<UpdationService>().As<IUpdationService>().InstancePerLifetimeScope();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
             builder.Register<ILogger>((c, p) =>
             {

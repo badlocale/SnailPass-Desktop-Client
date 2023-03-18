@@ -114,6 +114,7 @@ namespace SnailPass_Desktop.Services
 
             _openedDialogsTypes.Add(contentType);
             OnDialogOpend();
+            dialog.Activate();
             dialog.ShowDialog();
 
             return dialog;

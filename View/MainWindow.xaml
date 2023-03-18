@@ -99,7 +99,7 @@
                             VerticalAlignment="Center"
                             Fill="{StaticResource ResourceKey=LightTextColor}">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=CloseWindowVectorIcon}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=CloseWindowIcon}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
@@ -116,7 +116,7 @@
                             VerticalAlignment="Center"
                             Fill="{StaticResource ResourceKey=LightTextColor}">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=MaximizeWindowVectorIcon}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=MaximizeWindowIcon}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
@@ -133,7 +133,7 @@
                             VerticalAlignment="Center"
                             Fill="{StaticResource ResourceKey=LightTextColor}">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=MinimizeWindowVectorIcon}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=MinimizeWindowIcon}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
@@ -162,7 +162,7 @@
                                     Margin="15,0,0,0"
                                     Fill="{StaticResource ResourceKey=LightTextColor}">
                                     <Rectangle.OpacityMask>
-                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=HomeVectorIcon}" />
+                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=HomeIcon}" />
                                     </Rectangle.OpacityMask>
                                 </Rectangle>
 
@@ -184,7 +184,7 @@
                                     Margin="15,0,0,0"
                                     Fill="{StaticResource ResourceKey=LightTextColor}">
                                     <Rectangle.OpacityMask>
-                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=AccauntKeysVectorIcon}" />
+                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=AccauntKeysIcon}" />
                                     </Rectangle.OpacityMask>
                                 </Rectangle>
 
@@ -205,7 +205,7 @@
                                     Margin="15,0,0,0"
                                     Fill="{StaticResource ResourceKey=LightTextColor}">
                                     <Rectangle.OpacityMask>
-                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=NoteVectorIcon}" />
+                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=NoteIcon}" />
                                     </Rectangle.OpacityMask>
                                 </Rectangle>
 

@@ -176,7 +176,7 @@
                             VerticalAlignment="Center"
                             Fill="{StaticResource ResourceKey=LightTextColor}">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=AddNewVectorIcon}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=AddNewIcon}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Border>
@@ -213,7 +213,7 @@
                             VerticalAlignment="Center"
                             Fill="{StaticResource ResourceKey=LightTextColor}">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=AddNewVectorIcon}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=AddNewIcon}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Border>

@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <Configurations>Debug;Release;1</Configurations>
-    <ApplicationIcon>SnailPassLogoBorders.ico</ApplicationIcon>
+    <Configurations>Debug;Release</Configurations>
+    <ApplicationIcon>SnailPass.ico</ApplicationIcon>
     <Title>SnailPass</Title>
     <PackageProjectUrl>https://github.com/badlocale/SnailPass-Desktop-Client</PackageProjectUrl>
     <PackageIcon>SnailPassNewLogo.svg</PackageIcon>
@@ -14,6 +14,7 @@
     <RepositoryUrl>https://github.com/badlocale/SnailPass-Desktop-Client</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>en</NeutralLanguage>
+    <Version>$(VersionPrefix)0.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,10 +22,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='1|AnyCPU'">
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
@@ -39,18 +36,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="SnailPassLogoBorders.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\..\Desktop\SnailPassNewLogo.svg">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <Content Include="SnailPass.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.7.7" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.9" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
