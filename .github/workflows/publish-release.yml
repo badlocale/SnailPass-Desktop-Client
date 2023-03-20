@@ -1,13 +1,13 @@
+
 name: SnailPass release
 
 on:
   push:
-    branches: [ "master" ]
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  deploy:
+  steps:
     runs-on: windows-latest
     env:
       PROJECT_PATH: SnailPass.csproj
@@ -18,9 +18,11 @@ jobs:
       with:
         fetch-depth: 0
 
-    - id: get-version
-      uses: battila7/get-version-action@v2
-        
+    - name: Set release version env
+      run: |
+        chcp 65001 #set code page to utf-8
+        echo ("VERSION=" + $env:GITHUB_REF.Substring(11)) >> $env:GITHUB_ENV
+
     - name: Install .NET Core
       uses: actions/setup-dotnet@v3
       with:
@@ -36,13 +38,13 @@ jobs:
       run: dotnet build ${{ env.PROJECT_PATH }} -c Release -p:PublishSingleFile=true --no-restore 
 
     - name: Publish project
-      run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile --no-build
+      run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
 
     - name: Generate SnailPass.zip
       uses: thedoctor0/zip-release@0.7.1
       with:
         type: "zip"
-        path: "/bin/Release/net6.0-windows/win-x64/publish"
+        path: "D:/a/SnailPass-Desktop-Client/SnailPass-Desktop-Client/bin/Release/net6.0-windows/win-x64/publish/"
         filename: "SnailPass.zip"
 
     - name: Generate UpdateInfo.xml
@@ -50,17 +52,15 @@ jobs:
         ni UpdateInfo.xml
         ac UpdateInfo.xml -Value '<?xml version="1.0" encoding="UTF-8"?>'
         ac UpdateInfo.xml -Value "<item>"
-        ac UpdateInfo.xml -Value "`t<version>${{ deploy.get-version.outputs.version }}</version>"
+        ac UpdateInfo.xml -Value "`t<version>${{ env.VERSION }}</version>"
         ac UpdateInfo.xml -Value "`t<url>https://github.com/badlocale/SnailPass-Desktop-Client/releases/latest/download/SnailPass.zip</url>"
         ac UpdateInfo.xml -Value "`t<mandatory>false</mandatory>"
         ac UpdateInfo.xml -Value "</item>"
-
+    
     - name: Create a Release
-      uses: "marvinpinto/action-automatic-releases@latest"
+      uses: softprops/action-gh-release@v1
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: true
-        prerelease: false
+        body_path: CHANGELOG.md
         files: |
           UpdateInfo.xml
           CHANGELOG.md

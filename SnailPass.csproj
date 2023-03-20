@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/badlocale/SnailPass-Desktop-Client</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>$(VersionPrefix)0.0.1.0</Version>
+    <Version>$(VersionPrefix)0.1.1.0</Version>
     <ApplicationIcon>SnailPass.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
