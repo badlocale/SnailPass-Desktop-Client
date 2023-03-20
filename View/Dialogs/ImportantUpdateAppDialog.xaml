@@ -41,7 +41,7 @@
                 <TextBlock
                     DockPanel.Dock="Top"
                     Style="{StaticResource ResourceKey=CommonTextStyle}"
-                    Text="We have prepared a new update, this update is very important and cannot be ignored."
+                    Text="We have prepared a new update, this update is very important and can`t be ignored."
                     TextWrapping="Wrap" />
 
                 <Grid Margin="0,17,0,0" DockPanel.Dock="Top">

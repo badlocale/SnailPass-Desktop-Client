@@ -36,8 +36,7 @@
                 <TextBlock Margin="0, 10, 0 , 0"
                            Style="{StaticResource ResourceKey=CommonTextStyle}"
                            TextWrapping="Wrap"
-                           Text="The application cannot connect to the server, 
-                                 but you can use it in &quot;read-only&quot; mode."/>
+                           Text="The application can`t connect to the server,                                   but you can use it in &quot;read-only&quot; mode."/>
 
                 <Grid Margin="0, 17, 0, 0">
                     <Grid.ColumnDefinitions>

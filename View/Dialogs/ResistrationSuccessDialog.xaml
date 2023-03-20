@@ -29,7 +29,7 @@
                 FontWeight="DemiBold"
                 Foreground="{StaticResource ResourceKey=DarkTextColor}"
                 MouseDown="TopMenu_MouseDown"
-                Text="Congratulations!" />
+                Text="E-mail confirmation" />
 
             <DockPanel
                 x:Name="Body"
@@ -42,9 +42,9 @@
                     DockPanel.Dock="Top"
                     Style="{StaticResource ResourceKey=CommonTextStyle}"
                     TextWrapping="Wrap">
-                    Your account registered on the server.<LineBreak />
-                    To confirm registration go to the spam tab of your e-mailbox :)
-                    and and click the button "Confirm" inside the mail.</TextBlock>
+                    <Run Text="Alomost Done." />
+                    <LineBreak />
+                    <Run Text="To start using the application, you have to confirm your email address. Check your mail for confirmation letter. " /></TextBlock>
 
                 <Border
                     Width="120"
