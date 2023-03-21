@@ -40,12 +40,8 @@ jobs:
     - name: Publish project
       run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
 
-    - name: Generate SnailPass.zip
-      uses: thedoctor0/zip-release@0.7.1
-      with:
-        type: "zip"
-        path: "D:/a/SnailPass-Desktop-Client/SnailPass-Desktop-Client/bin/Release/net6.0-windows/win-x64/publish/"
-        filename: "SnailPass.zip"
+    - name: Compress published build
+      run: Compress-Archive -DestinationPath SnailPass.zip -path D:/a/SnailPass-Desktop-Client/SnailPass-Desktop-Client/bin/Release/net6.0-windows/win-x64/publish/*
 
     - name: Generate UpdateInfo.xml
       run: |

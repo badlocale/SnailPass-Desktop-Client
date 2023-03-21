@@ -140,6 +140,11 @@ namespace SnailPass.Services
                 errorMessage = $"Incorrect credentials";
                 _logger.Warning($"Not corrent E-mail or password. Http code: {code}.");
             }
+            else if (code == HttpStatusCode.Forbidden)
+            {
+                errorMessage = "Access Denied. Email isn't confirmed. Confirmation letter will be resended.";
+                _logger.Warning($"Email isn't confirmed. Http code: {code}.");
+            }
             else if (code != null)
             {
                 errorMessage = $"Some error with code \"{code}\"";
