@@ -44,89 +44,148 @@ namespace SnailPass.Services
 
         private async Task SynchronizeFieldsDataAsync(string accountID)
         {
-            if (accountID == null)
+            try
             {
-                throw new ArgumentNullException(nameof(accountID));
+                if (accountID == null)
+                {
+                    throw new ArgumentNullException(nameof(accountID));
+                }
+
+                IEnumerable<EncryptableFieldModel>? fields;
+                (_, fields) = await _customFieldRestApi.GetCustomFieldsAsync(accountID);
+
+                if (fields != null)
+                {
+                    _customFieldRepository.RepaceAll(fields, accountID);
+                }
+                else
+                {
+                    throw new NullReferenceException("Null fields list returned from API.");
+                }
             }
-
-            IEnumerable<EncryptableFieldModel>? fields;
-            (_, fields) = await _customFieldRestApi.GetCustomFieldsAsync(accountID);
-
-            if (fields != null)
+            catch
             {
-                _customFieldRepository.RepaceAll(fields, accountID);
+                throw;
             }
         }
 
         private async Task SynchronizeAccountsDataAsync(string email)
         {
-            if (email == null)
+            try
             {
-                throw new ArgumentNullException(nameof(email));
-            }
-
-            IEnumerable<AccountModel>? accounts;
-            (_, accounts) = await _accountRestApi.GetAccountsAsync();
-
-            if (accounts != null)
-            {
-                _logger.Debug($"Sync serivce: {accounts.Count()} accounts loaded from server.");
-
-                _accountRepository.RepaceAll(accounts, email);
-
-                List<Task> tasks = new List<Task>();
-                foreach (AccountModel account in accounts)
+                if (email == null)
                 {
-                    tasks.Add(SynchronizeFieldsDataAsync(account.ID));
+                    throw new ArgumentNullException(nameof(email));
                 }
-                await Task.WhenAll(tasks).ConfigureAwait(false);
+
+                IEnumerable<AccountModel>? accounts;
+                (_, accounts) = await _accountRestApi.GetAccountsAsync();
+
+                if (accounts != null)
+                {
+                    _logger.Debug($"Sync serivce: {accounts.Count()} accounts loaded from server.");
+
+                    _accountRepository.RepaceAll(accounts, email);
+
+                    List<Task> tasks = new List<Task>();
+                    foreach (AccountModel account in accounts)
+                    {
+                        tasks.Add(SynchronizeFieldsDataAsync(account.ID));
+                    }
+                    await Task.WhenAll(tasks).ConfigureAwait(false);
+                }
+                else
+                {
+                    throw new NullReferenceException("Null accounts list returned from API.");
+                }
+            }
+            catch
+            {
+                throw;
             }
         }
 
         private async Task SynchronizeUserDataAsync(string email)
         {
-            if (email == null)
+            try
             {
-                throw new ArgumentNullException(nameof(email));
+                if (email == null)
+                {
+                    throw new ArgumentNullException(nameof(email));
+                }
+
+                UserModel? user;
+                (_, user) = await _userRestApi.GetUserAsync(email);
+
+                if (user != null)
+                {
+                    user.Password = _keyGenerator.Encrypt(_identity.Master, email, 
+                        CryptoConstants.LOCAL_ITERATIONS_COUNT);
+
+                    _userRepository.AddOrReplace(user);
+                }
+                else
+                {
+                    throw new NullReferenceException("Null user returned from API.");
+                }
             }
-
-            UserModel? user;
-            (_, user) = await _userRestApi.GetUserAsync(email);
-
-            user.Password = _keyGenerator.Encrypt(_identity.Master, email, 
-                CryptoConstants.LOCAL_ITERATIONS_COUNT);
-
-            _userRepository.AddOrReplace(user);
+            catch
+            {
+                throw;
+            }
         }
 
         private async Task SynchronizeNotesDataAsync(string email)
         {
-            if (email == null)
+            try
             {
-                throw new ArgumentNullException(nameof(email));
+                if (email == null)
+                {
+                    throw new ArgumentNullException(nameof(email));
+                }
+
+                IEnumerable<NoteModel>? notes;
+                (_, notes) = await _noteRestApi.GetNotesAsync();
+
+                if (notes != null)
+                {
+                    _logger.Debug($"Sync serivce: {notes.Count()} notes loaded from server.");
+
+                    _noteRepository.ReplaceAll(notes, email);
+                }
+                else
+                {
+                    throw new NullReferenceException("Null notes list returned from API.");
+                }
             }
-
-            IEnumerable<NoteModel>? notes;
-            (_, notes) = await _noteRestApi.GetNotesAsync();
-
-            if (notes != null)
+            catch
             {
-                _logger.Debug($"Sync serivce: {notes.Count()} notes loaded from server.");
-
-                _noteRepository.ReplaceAll(notes, email);
+                throw;
             }
         }
 
-        public async Task SynchronizeAsync(string email)
+        public async Task<bool> SynchronizeAsync(string email)
         {
-            _logger.Information("Synchronization started.");
+            try
+            {
+                bool isSuccess = false;
 
-            Task userTask = SynchronizeUserDataAsync(email);
-            Task accountTask = SynchronizeAccountsDataAsync(email);
-            Task noteTask = SynchronizeNotesDataAsync(email);
-            await Task.WhenAll(userTask, accountTask, noteTask).ConfigureAwait(false);
+                _logger.Information("Synchronization started.");
 
-            _logger.Information("Data has been loaded from server.");
+                Task userTask = SynchronizeUserDataAsync(email);
+                Task accountTask = SynchronizeAccountsDataAsync(email);
+                Task noteTask = SynchronizeNotesDataAsync(email);
+                await userTask;
+                await Task.WhenAll(accountTask, noteTask).ConfigureAwait(false);
+
+                _logger.Information("Data has been loaded from server.");
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

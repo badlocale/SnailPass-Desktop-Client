@@ -11,6 +11,9 @@ namespace SnailPass.View
         public LoginViewContol()
         {
             InitializeComponent();
+
+            TextBlock obj = FindName("SnailPass") as TextBlock;
+            Console.WriteLine(obj.FontFamily);
         }
     }
 }

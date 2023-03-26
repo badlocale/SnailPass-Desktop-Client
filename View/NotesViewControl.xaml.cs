@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace SnailPass.View
 {
-    /// <summary>
-    /// Interaction logic for NotesViewControl.xaml
-    /// </summary>
     public partial class NotesViewControl : UserControl
     {
         public NotesViewControl()

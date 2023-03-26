@@ -2,6 +2,7 @@
 using SnailPass.Data.API;
 using SnailPass.Model.Interfaces;
 using SnailPass.Services;
+using SnailPass.Services.Exceptions;
 using SnailPass.ViewModel.Commands;
 using SnailPass.ViewModel.Stores;
 using System;
@@ -106,15 +107,23 @@ namespace SnailPass.ViewModel
         {
             while (true)
             {
-                TokenExpiredViewModel? dialogVM = _dialogService.ShowDialog<TokenExpiredViewModel>();
-                if (dialogVM != null)
+                try
                 {
-                    LoggingResult result = await _authenticationService.Login
-                        (_identity.CurrentUser.Email, dialogVM.Password);
-                    if (result.IsSuccess)
+                    TokenExpiredViewModel? dialogVM = _dialogService.ShowDialog<TokenExpiredViewModel>();
+
+                    if (dialogVM != null)
                     {
-                        break;
+                        LoggingResult result = await _authenticationService.Login
+                            (_identity.CurrentUser.Email, dialogVM.Password);
+                        if (result.IsSuccess)
+                        {
+                            break;
+                        }
                     }
+                }
+                catch (DialogDuplicatedException)
+                {
+                    return;
                 }
             }
         }

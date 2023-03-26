@@ -24,7 +24,7 @@
             <TextBlock Text="Give a name for the new note"
                        Foreground="{StaticResource ResourceKey=DarkTextColor}"
                        FontSize="15"
-                       FontFamily="{StaticResource ResourceKey=MainFont}"
+                       FontFamily="{StaticResource ResourceKey=JbmMedium}"
                        FontWeight="DemiBold"
                        Grid.Column="0"
                        VerticalAlignment="Center"

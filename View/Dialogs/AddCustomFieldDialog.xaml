@@ -25,7 +25,7 @@
             <TextBlock Text="Add additional account data"
                        Foreground="{StaticResource ResourceKey=DarkTextColor}"
                        FontSize="15"
-                       FontFamily="{StaticResource ResourceKey=MainFont}"
+                       FontFamily="{StaticResource ResourceKey=JbmMedium}"
                        FontWeight="DemiBold"
                        Grid.Column="0"
                        VerticalAlignment="Center"

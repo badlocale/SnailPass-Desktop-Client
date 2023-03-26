@@ -6,9 +6,9 @@ using SnailPass.View;
 
 namespace SnailPass
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow_Old : Window
     {
-        public MainWindow()
+        public MainWindow_Old()
         {
             InitializeComponent();
             IntPtr hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
@@ -22,17 +22,17 @@ namespace SnailPass
             }
         }
 
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+        private void BtnMaximize_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
             {

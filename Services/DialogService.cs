@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using SnailPass.Services.Exceptions;
 using SnailPass.View.Dialogs;
 using SnailPass.ViewModel;
 using SnailPass.ViewModel.Factories;
@@ -51,7 +52,7 @@ namespace SnailPass.Services
             if (_openedDialogsTypes.Any(d => d == dialogContentType))
             {
                 _logger.Warning($"Dialog window with type {dialogContentType.Name} is already opend.");
-                return null;
+                throw new DialogDuplicatedException("Dialog window with type {dialogContentType.Name} is already opend.");
             }
 
             DialogWindow window = ShowDialogInternal(dialogContentType, callback);
@@ -66,7 +67,7 @@ namespace SnailPass.Services
             if (_openedDialogsTypes.Any(d => d == dialogContentType))
             {
                 _logger.Warning($"Dialog window with type {dialogContentType.Name} is already opend.");
-                return null;
+                throw new DialogDuplicatedException("Dialog window with type {dialogContentType.Name} is already opend.");
             }
 
             DialogWindow window = ShowDialogInternal(dialogContentType, callback, typeof(TViewModel));

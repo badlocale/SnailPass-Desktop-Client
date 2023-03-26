@@ -4,6 +4,6 @@ namespace SnailPass.Model.Interfaces
 {
     public interface ISynchronizationService
     {
-        public Task SynchronizeAsync(string email);
+        public Task<bool> SynchronizeAsync(string email);
     } 
 }

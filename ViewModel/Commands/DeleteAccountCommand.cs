@@ -45,7 +45,10 @@ namespace SnailPass.ViewModel.Commands
             HttpStatusCode? code = await _accountRestApi.DeleteAccountAsync(account.ID);
             if (code == HttpStatusCode.OK)
             {
-                await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
+                if (await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email) == false)
+                {
+                    return;
+                }
                 await _viewModel.LoadAccountsAsync();
             }
         }

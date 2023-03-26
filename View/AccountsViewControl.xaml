@@ -7,8 +7,8 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="userControl"
-    d:DesignHeight="450"
-    d:DesignWidth="700"
+    d:DesignHeight="720"
+    d:DesignWidth="955"
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -16,7 +16,9 @@
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -24,240 +26,267 @@
             x:Name="SearchBar"
             Grid.Row="0"
             Grid.Column="0"
-            Margin="4"
-            Background="{StaticResource ResourceKey=SecondBackground}"
-            BorderBrush="{StaticResource ResourceKey=BorderColor}"
-            BorderThickness="1"
-            CornerRadius="10">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+            Grid.ColumnSpan="2"
+            Margin="25,25,175,20"
+            HorizontalAlignment="Stretch">
+            <customcontrols:SearchBar Text="{Binding SearchBarText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+        </Border>
 
+        <Grid
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="25,0,25,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                FontFamily="{StaticResource JbmRegular}"
+                FontSize="20"
+                Foreground="{StaticResource Color2}"
+                Text="Accounts" />
+
+            <Button
+                x:Name="AddButton"
+                Grid.Column="1"
+                Margin="13,0,0,0"
+                VerticalAlignment="Center"
+                Command="{Binding AddAccountCommand}"
+                IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource ButtonStyle2}">
                 <Rectangle
-                    Grid.Column="0"
-                    Width="20"
-                    Height="20"
-                    Margin="10,0,0,0"
+                    Width="25"
+                    Height="25"
+                    Margin="20,10,20,10"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Fill="{StaticResource ResourceKey=LightTextColor}">
+                    Fill="{Binding ElementName=AddButton, Path=Foreground}"
+                    IsHitTestVisible="False">
                     <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=SearchIcon}" />
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource AddNewIcon}" />
                     </Rectangle.OpacityMask>
                 </Rectangle>
+            </Button>
 
-                <Grid Grid.Column="1">
-                    <TextBox
-                        x:Name="SearchBarFilterText"
-                        Grid.Column="1"
-                        Margin="5,4,0,0"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource ResourceKey=SearchBarTextBox}"
-                        Text="{Binding SearchBarText, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Margin="7,4,7,0">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Resources>
-                                    <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-                                </Style.Resources>
-                                <Setter Property="Height" Value="22" />
-                                <Setter Property="FontSize" Value="15" />
-                                <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
-                                <Setter Property="FontWeight" Value="Regular" />
-                                <Setter Property="FontStyle" Value="Italic" />
-                                <Setter Property="Text" Value="Search..." />
-                                <Setter Property="Foreground" Value="{StaticResource ResourceKey=SemiVisibleTextColor}" />
-                                <Setter Property="FontWeight" Value="Regular" />
-                                <Setter Property="FontStyle" Value="Italic" />
-                                <Setter Property="Visibility" Value="{Binding ElementName=SearchBarFilterText, Path=Text.IsEmpty, Converter={StaticResource BoolToVisibilityConverter}}" />
-                                <Setter Property="IsHitTestVisible" Value="False" />
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
-            </Grid>
-        </Border>
+            <Button
+                x:Name="FavoriteButton"
+                Grid.Column="2"
+                Margin="13,0,0,0"
+                VerticalAlignment="Center"
+                Style="{StaticResource ButtonStyle2}">
+                <Rectangle
+                    Width="25"
+                    Height="25"
+                    Margin="20,10,20,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding ElementName=FavoriteButton, Path=Foreground}"
+                    IsHitTestVisible="False">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource FavoriteIcon}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button
+                x:Name="RefreshButton"
+                Grid.Column="3"
+                Margin="13,0,0,0"
+                VerticalAlignment="Center"
+                Command="{Binding RefreshCommand}"
+                IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource ButtonStyle2}">
+                <Rectangle
+                    Width="25"
+                    Height="25"
+                    Margin="20,10,20,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding ElementName=RefreshButton, Path=Foreground}"
+                    IsHitTestVisible="False">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource RefreshIcon}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button
+                x:Name="BinButton"
+                Grid.Column="4"
+                Margin="13,0,0,0"
+                VerticalAlignment="Center"
+                Command="{Binding DeleteAccountCommand}"
+                IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource ButtonStyle2}">
+                <Rectangle
+                    Width="25"
+                    Height="25"
+                    Margin="20,10,20,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding ElementName=BinButton, Path=Foreground}"
+                    IsHitTestVisible="False">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource BinIcon}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </Grid>
 
         <Border
             x:Name="Accounts"
-            Grid.Row="1"
-            Grid.Column="0"
-            Margin="4,0,4,4"
-            Background="{StaticResource ResourceKey=SecondBackground}"
-            BorderBrush="{StaticResource ResourceKey=BorderColor}"
-            BorderThickness="1"
-            CornerRadius="10">
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            Grid.Column="0">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
                     <RowDefinition />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <Border
-                    Grid.Row="0"
-                    Grid.ColumnSpan="4"
-                    Margin="0,5,0,0"
-                    HorizontalAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                    BorderThickness="0">
-                    <TextBlock
-                        Width="100"
-                        Margin="0"
-                        FontFamily="{StaticResource ResourceKey=MainFont}"
-                        FontSize="20"
-                        Foreground="{StaticResource ResourceKey=LightTextColor}"
-                        Style="{StaticResource ResourceKey=LeftMenuButtonText}"
-                        Text="Accounts"
-                        TextAlignment="Center" />
-                </Border>
-
-                <Border
-                    Grid.Row="1"
-                    Grid.ColumnSpan="4"
-                    Margin="5,5,5,0"
-                    Background="{StaticResource ResourceKey=MainBackground}"
-                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                    BorderThickness="1"
-                    CornerRadius="5">
-                    <ListBox
-                        x:Name="AccountsList"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        d:ItemsSource="{d:SampleData ItemCount=25}"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        ItemsSource="{Binding AccountsCollectionView}"
-                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                        ScrollViewer.VerticalScrollBarVisibility="Visible"
-                        SelectedItem="{Binding SelectedAccount}">
-
-                        <ListBox.Template>
-                            <ControlTemplate TargetType="{x:Type ListBox}">
-                                <Border
-                                    x:Name="Bd"
-                                    Margin="0"
-                                    Padding="0"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="5"
-                                    SnapsToDevicePixels="true">
-                                    <ScrollViewer Padding="0" Focusable="false">
-                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                    </ScrollViewer>
-                                </Border>
-                            </ControlTemplate>
-                        </ListBox.Template>
-
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ListBoxItem">
-                                            <Border
-                                                Margin="-5,0,0,0"
-                                                BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                                                BorderThickness="0,0,0,1">
-                                                <Border
-                                                    Name="ItemBorder"
-                                                    Background="Transparent"
-                                                    SnapsToDevicePixels="true">
-                                                    <ContentPresenter Margin="10,0,0,0" />
-                                                </Border>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource ResourceKey=NearMainBackground}" />
-                                                    <Setter TargetName="ItemBorder" Property="Padding" Value="6,0,0,0" />
-                                                </Trigger>
-                                                <Trigger Property="IsSelected" Value="True">
-                                                    <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource ResourceKey=SecondBackground}" />
-                                                    <Setter TargetName="ItemBorder" Property="Padding" Value="6,0,0,0" />
-                                                    <Setter TargetName="ItemBorder" Property="BorderThickness" Value="5,0,0,0" />
-                                                    <Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource ResourceKey=PanelBorderColor2}" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-
-                        <ListBox.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.Panel>
-                                    <ItemsPanelTemplate>
-                                        <VirtualizingStackPanel HorizontalAlignment="Stretch" Orientation="Vertical" />
-                                    </ItemsPanelTemplate>
-                                </GroupStyle.Panel>
-
-                                <GroupStyle.ContainerStyle>
-                                    <Style TargetType="{x:Type GroupItem}">
-                                        <Setter Property="Foreground" Value="{StaticResource ResourceKey=DarkTextColor}" />
-                                        <Setter Property="FontSize" Value="14" />
-                                        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
-                                        <Setter Property="FontWeight" Value="SemiBold" />
-                                        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BorderColor}" />
-                                    </Style>
-                                </GroupStyle.ContainerStyle>
-
-                                <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <Border
-                                            Margin="0"
-                                            Background="{StaticResource ResourceKey=HeaderBackground}"
-                                            BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                                            BorderThickness="0,0,0,1">
-                                            <TextBlock
-                                                Margin="10,0,0,0"
-                                                HorizontalAlignment="Left"
-                                                FontSize="20"
-                                                FontWeight="SemiBold"
-                                                Foreground="{StaticResource ResourceKey=LightTextColor}"
-                                                Text="{Binding Name}" />
-                                        </Border>
-                                    </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                            </GroupStyle>
-                        </ListBox.GroupStyle>
-
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Height="35">
-                                    <TextBlock
-                                        Grid.Column="1"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="{StaticResource ResourceKey=LightTextColor}"
-                                        Text="{Binding Login}" />
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Border>
-
-                <Border
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="1"
-                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                <ListBox
+                    x:Name="AccountsList"
+                    d:ItemsSource="{d:SampleData ItemCount=25}"
                     BorderThickness="0"
-                    CornerRadius="10, 10, 0, 0">
-                    <Button
-                        x:Name="AddButton"
-                        Command="{Binding AddAccountCommand}"
-                        IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}"
-                        Style="{StaticResource ResourceKey=AddNewButton}" />
-                </Border>
+                    ItemsSource="{Binding AccountsCollectionView}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedAccount}">
+
+                    <ListBox.Template>
+                        <ControlTemplate TargetType="{x:Type ListBox}">
+                            <Border Padding="0" SnapsToDevicePixels="true">
+                                <ScrollViewer Padding="0" Focusable="false">
+                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+                    </ListBox.Template>
+
+                    <ListBox.ItemContainerStyle>
+                        <Style x:Name="ListBoxItemStyle" TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Grid>
+                                            <Border
+                                                Name="ItemBorder"
+                                                Margin="10,12,10,12"
+                                                Background="Transparent"
+                                                SnapsToDevicePixels="true">
+                                                <TextBlock
+                                                    Name="ItemName"
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    FontFamily="{StaticResource JbmLight}"
+                                                    FontSize="13"
+                                                    Foreground="{TemplateBinding Foreground}"
+                                                    Text="{Binding Login}" />
+                                            </Border>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.5" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="{StaticResource Color3}" />
+                                    <Setter Property="Opacity" Value="1" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel HorizontalAlignment="Stretch" Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="GroupItem">
+                                                <Grid Margin="25,8,4,8">
+                                                    <Border
+                                                        Background="{StaticResource Color2}"
+                                                        CornerRadius="4"
+                                                        Opacity="0.03" />
+                                                    <Border Margin="8">
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition />
+                                                                <RowDefinition />
+                                                            </Grid.RowDefinitions>
+                                                            <Grid Grid.Row="0">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition />
+                                                                    <ColumnDefinition Width="auto" />
+                                                                    <ColumnDefinition Width="auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock
+                                                                    Grid.Column="0"
+                                                                    HorizontalAlignment="Left"
+                                                                    FontFamily="{StaticResource JbmExtraBold}"
+                                                                    FontSize="18"
+                                                                    Foreground="{StaticResource Color2}"
+                                                                    Text="{Binding Path=Name}" />
+
+                                                            </Grid>
+                                                            <Grid Grid.Row="1" Margin="0,6,0,0">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="auto" />
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Border
+                                                                    Grid.Column="0"
+                                                                    Width="4"
+                                                                    Background="{StaticResource Color2}"
+                                                                    CornerRadius="2"
+                                                                    Opacity="0.1" />
+                                                                <ItemsPresenter Grid.Column="1" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground" Value="{StaticResource Color2}" />
+                                    <Setter Property="FontSize" Value="13" />
+                                    <Setter Property="FontFamily" Value="{StaticResource JbmLight}" />
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Border>
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            FontFamily="{StaticResource JbmExtraBold}"
+                                            FontSize="18"
+                                            Foreground="{StaticResource Color2}"
+                                            Text="{Binding Name}" />
+                                    </Border>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListBox.GroupStyle>
+                </ListBox>
 
                 <Button
                     x:Name="EditButton"
@@ -309,121 +338,14 @@
                         </Style>
                     </Button.Style>
                 </Button>
-
-                <Button
-                    x:Name="refreshButton"
-                    Grid.Row="2"
-                    Grid.Column="3"
-                    Command="{Binding RefreshCommand}"
-                    IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Setters>
-                                <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border
-                                                Margin="2,5,5,5"
-                                                Background="{TemplateBinding Background}"
-                                                BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                                                BorderThickness="1"
-                                                CornerRadius="5">
-                                                <Rectangle
-                                                    Width="25"
-                                                    Height="25"
-                                                    Margin="10"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Fill="{StaticResource ResourceKey=LightTextColor}">
-                                                    <Rectangle.OpacityMask>
-                                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=RefreshIcon}" />
-                                                    </Rectangle.OpacityMask>
-                                                </Rectangle>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style.Setters>
-
-                            <Style.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Opacity" Value="0.5" />
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="True">
-                                    <Setter Property="Opacity" Value="1" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-
-                <Button
-                    x:Name="DeleteButton"
-                    Grid.Row="2"
-                    Grid.Column="2"
-                    Command="{Binding DeleteAccountCommand}"
-                    IsEnabled="{Binding IsNetworkFunctionsEnabled, UpdateSourceTrigger=PropertyChanged}">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Setters>
-                                <Setter Property="Background" Value="{StaticResource ResourceKey=PanelColor}" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border
-                                                Margin="2,5,5,5"
-                                                Background="{TemplateBinding Background}"
-                                                BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                                                BorderThickness="1"
-                                                CornerRadius="5">
-                                                <Rectangle
-                                                    Width="25"
-                                                    Height="25"
-                                                    Margin="10"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Fill="{StaticResource ResourceKey=LightTextColor}">
-                                                    <Rectangle.OpacityMask>
-                                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=BinIcon}" />
-                                                    </Rectangle.OpacityMask>
-                                                </Rectangle>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style.Setters>
-
-                            <Style.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Opacity" Value="0.5" />
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="True">
-                                    <Setter Property="Opacity" Value="1" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
             </Grid>
         </Border>
 
         <Border
             x:Name="PasswordData"
-            Grid.Row="0"
+            Grid.Row="2"
             Grid.RowSpan="2"
-            Grid.Column="1"
-            Margin="0,4,4,4"
-            Background="{StaticResource ResourceKey=SecondBackground}"
-            BorderBrush="{StaticResource ResourceKey=BorderColor}"
-            BorderThickness="1"
-            CornerRadius="10">
+            Grid.Column="1">
             <Grid Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -457,7 +379,7 @@
                     <TextBlock
                         Width="auto"
                         Margin="4"
-                        FontFamily="{StaticResource ResourceKey=MainFont}"
+                        FontFamily="{StaticResource ResourceKey=JbmMedium}"
                         FontSize="20"
                         Foreground="{StaticResource ResourceKey=LightTextColor}"
                         Style="{StaticResource ResourceKey=LeftMenuButtonText}"
@@ -493,7 +415,7 @@
                                     <TextBlock
                                         Margin="0,10,0,0"
                                         HorizontalAlignment="Center"
-                                        FontFamily="{StaticResource ResourceKey=MainFont}"
+                                        FontFamily="{StaticResource ResourceKey=JbmMedium}"
                                         FontSize="15"
                                         FontWeight="DemiBold"
                                         Foreground="{StaticResource ResourceKey=LightTextColor}"
@@ -550,7 +472,7 @@
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                FontFamily="{StaticResource ResourceKey=MainFont}"
+                                FontFamily="{StaticResource ResourceKey=JbmMedium}"
                                 FontSize="15"
                                 FontWeight="DemiBold"
                                 Foreground="{StaticResource ResourceKey=LightTextColor}"

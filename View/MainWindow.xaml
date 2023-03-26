@@ -7,8 +7,8 @@
     xmlns:view="clr-namespace:SnailPass.View"
     xmlns:viewModel="clr-namespace:SnailPass.ViewModel"
     Title="MainWindow"
-    Width="1000"
-    Height="600"
+    Width="1280"
+    Height="720"
     MinWidth="520"
     MinHeight="100"
     AllowsTransparency="True"
@@ -20,216 +20,227 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
-    <Border
-        BorderBrush="{StaticResource ResourceKey=BorderColor}"
-        BorderThickness="1"
-        CornerRadius="6.5">
+    <Border>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition
-                    Width="200"
-                    MinWidth="160"
-                    MaxWidth="250" />
+                <ColumnDefinition Width="325" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
+                <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
             <Border
+                x:Name="BackgroundLeftPanel"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Background="{StaticResource Color1}">
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="12"
+                        Direction="0"
+                        Opacity="0.5"
+                        ShadowDepth="0"
+                        Color="{StaticResource GradientColor1}" />
+                </Border.Effect>
+            </Border>
+
+            <Border
+                x:Name="BackgroundRightPanel"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Panel.ZIndex="-1">
+                <Border.Background>
+                    <LinearGradientBrush ColorInterpolationMode="ScRgbLinearInterpolation" StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Offset="0.007" Color="{StaticResource GradientColor2}" />
+                        <GradientStop Offset="1" Color="{StaticResource GradientColor3}" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <DockPanel
                 Grid.Row="0"
                 Grid.RowSpan="2"
                 Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Margin="-1"
-                Panel.ZIndex="1"
-                Background="Black"
-                CornerRadius="6"
-                Opacity="0.5"
-                Visibility="{Binding IsDialogOpened, Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}" />
-
-            <Border MouseDown="TopMenu_MouseDown" Style="{StaticResource HeaderBorderStyle}" />
-            <Border Style="{StaticResource BodyBorderStyle}" />
-
-            <Grid
-                Name="TopMenu"
-                Grid.Row="0"
-                Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                LastChildFill="False">
+                <Grid
+                    Margin="0,50,0,0"
+                    HorizontalAlignment="Center"
+                    DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        FontFamily="{StaticResource JbmMedium}"
+                        FontSize="16"
+                        Foreground="{StaticResource Color2}"
+                        Text="Snail" />
+                    <TextBlock
+                        Grid.Column="1"
+                        FontFamily="{StaticResource JbmMedium}"
+                        FontSize="16"
+                        Foreground="{StaticResource Color3}"
+                        Text="Pass" />
+                </Grid>
 
                 <TextBlock
                     Grid.Column="0"
-                    Margin="10,0,0,0"
+                    Margin="0,10,0,0"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource ResourceKey=CommonTextStyle}"
-                    TextAlignment="Center">
-                    SnailPass
-                </TextBlock>
+                    DockPanel.Dock="Top"
+                    FontFamily="{StaticResource JbmMedium}"
+                    FontSize="12"
+                    Foreground="{StaticResource Color2}"
+                    Text="simple password manager" />
+
+                <Viewbox
+                    Width="100"
+                    Margin="0,28,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    DockPanel.Dock="Top"
+                    Stretch="Uniform">
+                    <ContentControl Content="{StaticResource Logo}" />
+                </Viewbox>
+
+                <RadioButton
+                    Name="HomeRadioButton"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    DockPanel.Dock="Top"
+                    GroupName="LeftMenu"
+                    Style="{StaticResource RadioButtonStyle1}">
+                    <Grid Margin="105,90,0,0" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle
+                            Grid.Column="0"
+                            Width="19"
+                            Height="16"
+                            Fill="{Binding ElementName=HomeRadioButton, Path=Foreground}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource HomeIcon}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="20.6,0,0,0"
+                            FontFamily="{StaticResource JbmExtraLight}"
+                            FontSize="16.2"
+                            Foreground="{Binding ElementName=HomeRadioButton, Path=Foreground}"
+                            Text="Home" />
+                    </Grid>
+                </RadioButton>
+
+                <RadioButton
+                    Name="AccountsRadioButton"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateAccountsCommand}"
+                    DockPanel.Dock="Top"
+                    GroupName="LeftMenu"
+                    Style="{StaticResource RadioButtonStyle1}">
+                    <Grid Margin="105,34,0,0" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle
+                            Grid.Column="0"
+                            Width="17"
+                            Height="16"
+                            Margin="0,3,0,0"
+                            VerticalAlignment="Top"
+                            Fill="{Binding ElementName=AccountsRadioButton, Path=Foreground}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource AccountIcon}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="22.6,0,0,0"
+                            FontFamily="{StaticResource JbmExtraLight}"
+                            FontSize="16.2"
+                            Foreground="{Binding ElementName=AccountsRadioButton, Path=Foreground}"
+                            Text="Accounts" />
+                    </Grid>
+                </RadioButton>
+
+                <RadioButton
+                    Name="NotesRadioButton"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateNotesCommand}"
+                    DockPanel.Dock="Top"
+                    GroupName="LeftMenu"
+                    Style="{StaticResource RadioButtonStyle1}">
+                    <Grid Margin="105,34,0,0" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle
+                            Grid.Column="0"
+                            Width="17"
+                            Height="16"
+                            Fill="{Binding ElementName=NotesRadioButton, Path=Foreground}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource NoteIcon}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="22.6,0,0,0"
+                            FontFamily="{StaticResource JbmExtraLight}"
+                            FontSize="16.2"
+                            Foreground="{Binding ElementName=NotesRadioButton, Path=Foreground}"
+                            Text="Notes" />
+                    </Grid>
+                </RadioButton>
 
                 <TextBlock
-                    Grid.Column="1"
-                    Margin="5,0,0,0"
+                    Margin="0,0,0,12.5"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource ResourceKey=CommonTextStyle}"
-                    Text="{Binding Version}"
-                    TextAlignment="Center" />
+                    DockPanel.Dock="Bottom"
+                    FontFamily="{StaticResource JbmLight}"
+                    FontSize="11"
+                    Foreground="{StaticResource Color2}"
+                    Text="v2.0.0.0" />
 
-                <StackPanel
-                    Grid.Column="2"
-                    Margin="0,0,10,0"
-                    FlowDirection="RightToLeft"
-                    Orientation="Horizontal">
+                <Grid
+                    Margin="127,0,0,32"
+                    HorizontalAlignment="Left"
+                    DockPanel.Dock="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle
+                        Grid.Column="0"
+                        Width="19.4"
+                        Height="19.4"
+                        Fill="{StaticResource Color4}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=LogoutIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="5.5,0,0,0"
+                        FontFamily="{StaticResource JbmRegular}"
+                        FontSize="13"
+                        Foreground="{StaticResource Color4}"
+                        Text="Logout" />
+                </Grid>
+            </DockPanel>
 
-                    <Button
-                        x:Name="btnClose"
-                        Margin="0,0,10,0"
-                        Click="BtnClose_Click"
-                        Template="{StaticResource ResourceKey=TopMenuSmallButton}">
-                        <Rectangle
-                            Width="15"
-                            Height="15"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Fill="{StaticResource ResourceKey=LightTextColor}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=CloseWindowIcon}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-
-                    <Button
-                        x:Name="btnMaximize"
-                        Margin="0,0,10,0"
-                        Click="BtnMaximize_Click"
-                        Template="{StaticResource ResourceKey=TopMenuSmallButton}">
-                        <Rectangle
-                            Width="15"
-                            Height="15"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Fill="{StaticResource ResourceKey=LightTextColor}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=MaximizeWindowIcon}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-
-                    <Button
-                        x:Name="btnMinimize"
-                        Margin="0,0,10,0"
-                        Click="BtnMinimize_Click"
-                        Template="{StaticResource ResourceKey=TopMenuSmallButton}">
-                        <Rectangle
-                            Width="15"
-                            Height="15"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Fill="{StaticResource ResourceKey=LightTextColor}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=MinimizeWindowIcon}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                </StackPanel>
-            </Grid>
-
-            <Border
-                Grid.Row="1"
-                Grid.Column="0"
-                Background="{StaticResource ResourceKey=SecondBackground}"
-                BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                BorderThickness="0,0,1,0"
-                CornerRadius="0, 0, 0, 6">
-                <DockPanel Name="SlideMenu" LastChildFill="False">
-                    <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
-                        <RadioButton
-                            x:Name="HomePage"
-                            Command="{Binding NavigateHomeCommand}"
-                            GroupName="LeftMenu"
-                            Style="{StaticResource ResourceKey=LeftMenuButton}"
-                            Tag="{StaticResource ResourceKey=LightTextColor}">
-                            <StackPanel Orientation="Horizontal">
-                                <Rectangle
-                                    Width="22"
-                                    Height="22"
-                                    Margin="15,0,0,0"
-                                    Fill="{StaticResource ResourceKey=LightTextColor}">
-                                    <Rectangle.OpacityMask>
-                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=HomeIcon}" />
-                                    </Rectangle.OpacityMask>
-                                </Rectangle>
-
-                                <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}" Text="Home" />
-                            </StackPanel>
-                        </RadioButton>
-
-                        <RadioButton
-                            x:Name="PasswordsPage"
-                            Command="{Binding NavigateAccountsCommand}"
-                            GroupName="LeftMenu"
-                            IsChecked="True"
-                            Style="{StaticResource ResourceKey=LeftMenuButton}"
-                            Tag="{StaticResource ResourceKey=LightTextColor}">
-                            <StackPanel Orientation="Horizontal">
-                                <Rectangle
-                                    Width="22"
-                                    Height="22"
-                                    Margin="15,0,0,0"
-                                    Fill="{StaticResource ResourceKey=LightTextColor}">
-                                    <Rectangle.OpacityMask>
-                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=AccauntKeysIcon}" />
-                                    </Rectangle.OpacityMask>
-                                </Rectangle>
-
-                                <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}" Text="Accounts" />
-                            </StackPanel>
-                        </RadioButton>
-
-                        <RadioButton
-                            x:Name="NotesPage"
-                            Command="{Binding NavigateNotesCommand}"
-                            GroupName="LeftMenu"
-                            Style="{StaticResource ResourceKey=LeftMenuButton}"
-                            Tag="{StaticResource ResourceKey=LightTextColor}">
-                            <StackPanel Orientation="Horizontal">
-                                <Rectangle
-                                    Width="22"
-                                    Height="22"
-                                    Margin="15,0,0,0"
-                                    Fill="{StaticResource ResourceKey=LightTextColor}">
-                                    <Rectangle.OpacityMask>
-                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=NoteIcon}" />
-                                    </Rectangle.OpacityMask>
-                                </Rectangle>
-
-                                <TextBlock Style="{StaticResource ResourceKey=LeftMenuButtonText}" Text="Notes" />
-                            </StackPanel>
-                        </RadioButton>
-                    </StackPanel>
-
-                    <Border
-                        Height="32"
-                        Margin="10"
-                        DockPanel.Dock="Bottom">
-                        <Button
-                            x:Name="btnConnent"
-                            Command="{Binding ConnectCommand}"
-                            Content="CONNECT"
-                            Template="{StaticResource ResourceKey=BigButton}"
-                            Visibility="{Binding IsLocalMode, Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}" />
-                    </Border>
-                </DockPanel>
-            </Border>
             <Border
                 x:Name="WindowContent"
-                Grid.Row="1"
+                Grid.Row="0"
+                Grid.RowSpan="2"
                 Grid.Column="1"
                 CornerRadius="6">
                 <ContentControl Content="{Binding CurrentViewModel}">
@@ -247,15 +258,73 @@
                 </ContentControl>
             </Border>
 
-            <GridSplitter
-                Grid.Row="2"
-                Grid.Column="0"
-                Width="4"
-                Margin="0,0,-2,0"
+            <DockPanel
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,8,10,0"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Stretch"
-                Background="Transparent"
-                ShowsPreview="False" />
+                VerticalAlignment="Top"
+                LastChildFill="False">
+                <Button
+                    Name="CloseButton"
+                    Margin="25"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="CloseButton_Click"
+                    DockPanel.Dock="Right"
+                    Style="{StaticResource ButtonStyle1}">
+                    <Rectangle
+                        Width="16"
+                        Height="16"
+                        Fill="{Binding ElementName=CloseButton, Path=Foreground}"
+                        Opacity="0.75">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource CloseWindowIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+                <Button
+                    Name="MaximizeButton"
+                    Margin="25,25,0,25"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="MaximizeButton_Click"
+                    DockPanel.Dock="Right"
+                    Style="{StaticResource ButtonStyle1}">
+                    <Rectangle
+                        Width="16"
+                        Height="16"
+                        Fill="{Binding ElementName=MaximizeButton, Path=Foreground}"
+                        Opacity="0.75">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource MaximizeWindowIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+                <Button
+                    Name="MinimizeButton"
+                    Margin="25,25,0,25"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="MinimizeButton_Click"
+                    DockPanel.Dock="Right"
+                    Style="{StaticResource ButtonStyle1}">
+                    <Rectangle
+                        Width="16"
+                        Height="16"
+                        Fill="{Binding ElementName=MinimizeButton, Path=Foreground}"
+                        Opacity="0.75">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource MinimizeWindowIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </DockPanel>
         </Grid>
     </Border>
 </Window>

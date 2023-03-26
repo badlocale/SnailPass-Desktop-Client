@@ -30,7 +30,7 @@
                 CornerRadius="5, 5, 0, 0">
                 <TextBlock
                     Margin="10"
-                    FontFamily="{StaticResource ResourceKey=MainFont}"
+                    FontFamily="{StaticResource ResourceKey=JbmMedium}"
                     FontSize="15"
                     FontWeight="DemiBold"
                     Foreground="{StaticResource ResourceKey=LightTextColor}"
@@ -278,7 +278,7 @@
                             Height="22"
                             Margin="0,4,0,0"
                             HorizontalAlignment="Center"
-                            FontFamily="{StaticResource ResourceKey=MainFont}"
+                            FontFamily="{StaticResource ResourceKey=JbmMedium}"
                             FontSize="15"
                             FontStyle="Italic"
                             FontWeight="Regular"
@@ -297,7 +297,7 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource ResourceKey=MainFont}"
+                            FontFamily="{StaticResource ResourceKey=JbmMedium}"
                             FontSize="15"
                             FontWeight="DemiBold"
                             Foreground="{StaticResource ResourceKey=LightTextColor}"

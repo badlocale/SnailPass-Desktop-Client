@@ -35,16 +35,42 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\JetBrainsMono-ExtraBold.ttf" />
+    <None Remove="Fonts\JetBrainsMono-ExtraLight.ttf" />
+    <None Remove="Fonts\JetBrainsMono-Italic.ttf" />
+    <None Remove="Fonts\JetBrainsMono-Light.ttf" />
+    <None Remove="Fonts\JetBrainsMono-LightItalic.ttf" />
+    <None Remove="Fonts\JetBrainsMono-Medium.ttf" />
+    <None Remove="Fonts\JetBrainsMono-Regular.ttf" />
     <None Remove="View\Res\Images\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="View\Res\Fonts.xaml" />
     <Page Remove="View\Res\ScrollBar.xaml" />
     <Page Remove="View\Res\Slider.xaml" />
     <Page Remove="View\Res\WindowElements.xaml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\JetBrainsMono-ExtraBold.ttf">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\JetBrainsMono-ExtraLight.ttf">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\JetBrainsMono-Italic.ttf">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\JetBrainsMono-Light.ttf">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\JetBrainsMono-LightItalic.ttf">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\JetBrainsMono-Medium.ttf">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
     <Content Include="SnailPass.ico" />
   </ItemGroup>
 
@@ -63,6 +89,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\JetBrainsMono-Regular.ttf">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Res\Fonts.xaml" />
     <Resource Include="View\Res\Images\Logo.png" />
     <Resource Include="View\Res\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -79,10 +109,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="View\AccountsViewControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\AccountsViewControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\MainWindow_Old.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

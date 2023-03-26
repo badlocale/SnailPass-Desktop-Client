@@ -32,7 +32,7 @@
                 Grid.Column="0"
                 Margin="15,0,0,0"
                 VerticalAlignment="Center"
-                FontFamily="{StaticResource ResourceKey=MainFont}"
+                FontFamily="{StaticResource ResourceKey=JbmMedium}"
                 FontSize="15"
                 FontWeight="DemiBold"
                 Foreground="{StaticResource ResourceKey=DarkTextColor}"

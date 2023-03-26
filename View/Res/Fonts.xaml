@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <FontFamily x:Key="JbmExtraLight">/Fonts/#JetBrains Mono ExtraLight</FontFamily>
+    <FontFamily x:Key="JbmExtraBold">/Fonts/#JetBrains Mono ExtraBold</FontFamily>
+    <FontFamily x:Key="JbmItalic">/Fonts/#JetBrains Mono Italic</FontFamily>
+    <FontFamily x:Key="JbmLight">/Fonts/#JetBrains Mono Light</FontFamily>
+    <FontFamily x:Key="JbmLightItalic">/Fonts/#JetBrains Mono LightItalic</FontFamily>
+    <FontFamily x:Key="JbmMedium">/Fonts/#JetBrains Mono Medium</FontFamily>
+    <FontFamily x:Key="JbmRegular">/Fonts/#JetBrains Mono Regular</FontFamily>
+</ResourceDictionary>

@@ -41,7 +41,7 @@
                 BorderBrush="{StaticResource ResourceKey=BorderColor}"
                 BorderThickness="0,0,0,2"
                 CaretBrush="{StaticResource ResourceKey=SoftGreyColor}"
-                FontFamily="{DynamicResource ResourceKey=MainFont}"
+                FontFamily="{DynamicResource ResourceKey=JbmMedium}"
                 FontSize="15"
                 FontWeight="Medium"
                 Foreground="{StaticResource ResourceKey=DarkTextColor}"

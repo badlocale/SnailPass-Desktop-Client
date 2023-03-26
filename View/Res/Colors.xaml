@@ -30,4 +30,19 @@
 
     <Color x:Key="SliderColor1">#DBEBFF</Color>
     <Color x:Key="SliderColor2">#70AECB</Color>
+
+    <!--  SnailPass 2.0 Colors  -->
+    <SolidColorBrush x:Key="Color1">#323540</SolidColorBrush>
+    <SolidColorBrush x:Key="Color2">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="Color3">#56A4FF</SolidColorBrush>
+    <SolidColorBrush x:Key="Color4">#FFC0C0</SolidColorBrush>
+    <SolidColorBrush x:Key="Color5">#2E3034</SolidColorBrush>
+    <SolidColorBrush x:Key="Color6">#53565B</SolidColorBrush>
+    <SolidColorBrush x:Key="Color7Buttons">#292c30</SolidColorBrush>
+    <SolidColorBrush x:Key="Color8Buttons">#696b6e</SolidColorBrush>
+    <SolidColorBrush x:Key="Color9List">#D9D9D9</SolidColorBrush>
+
+    <Color x:Key="GradientColor1">#17191A</Color>
+    <Color x:Key="GradientColor2">#202327</Color>
+    <Color x:Key="GradientColor3">#2F3236</Color>
 </ResourceDictionary>

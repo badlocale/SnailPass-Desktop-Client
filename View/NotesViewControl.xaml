@@ -64,7 +64,7 @@
                                     </Style.Resources>
                                     <Setter Property="Height" Value="22" />
                                     <Setter Property="FontSize" Value="15" />
-                                    <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
+                                    <Setter Property="FontFamily" Value="{StaticResource ResourceKey=JbmMedium}" />
                                     <Setter Property="FontWeight" Value="Regular" />
                                     <Setter Property="FontStyle" Value="Italic" />
                                     <Setter Property="Text" Value="Search..." />
@@ -113,7 +113,7 @@
                         <TextBlock
                             Width="100"
                             Margin="0"
-                            FontFamily="{StaticResource ResourceKey=MainFont}"
+                            FontFamily="{StaticResource ResourceKey=JbmMedium}"
                             FontSize="20"
                             Foreground="{StaticResource ResourceKey=LightTextColor}"
                             Style="{StaticResource ResourceKey=LeftMenuButtonText}"
@@ -142,11 +142,11 @@
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
-                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                ScrollViewer.VerticalScrollBarVisibility="Visible"
                                 Background="Transparent"
                                 BorderBrush="Transparent"
                                 ItemsSource="{Binding NotesCollectionView}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.VerticalScrollBarVisibility="Visible"
                                 SelectedItem="{Binding SelectedNote}">
                                 <ListBox.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=mask}" />

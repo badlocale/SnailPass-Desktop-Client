@@ -44,7 +44,11 @@ namespace SnailPass.ViewModel.Commands
                 HttpStatusCode? code = await _accountsRestApi.PostAccountAsync(model);
                 if (code == HttpStatusCode.Created)
                 {
-                    await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
+                    if (await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email) == false)
+                    {
+                        return;
+                    }
+
                     await _viewModel.LoadAccountsAsync();
                 }
             }

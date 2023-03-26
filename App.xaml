@@ -5,7 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary x:Name="FontsDictionary" Source="view/res/fonts/Fonts.xaml" />
+                <ResourceDictionary x:Name="FontsDictionary" Source="view/res/Fonts.xaml" />
                 <ResourceDictionary x:Name="ColorsDictionary" Source="view/res/Colors.xaml" />
                 <ResourceDictionary x:Name="IconsDictionary" Source="view/res/icons/Icons.xaml" />
                 <ResourceDictionary x:Name="ButtonsDictionary" Source="view/res/Buttons.xaml" />
@@ -13,6 +13,8 @@
                 <ResourceDictionary x:Name="BaseWindowElements" Source="view/res/WindowElements.xaml" />
                 <ResourceDictionary x:Name="SliderDictionary" Source="view/res/Slider.xaml" />
                 <ResourceDictionary x:Name="ScrollBar" Source="view/res/ScrollBar.xaml" />
+
+                <ResourceDictionary x:Name="TextBlocks" Source="view/res/ScrollBar.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

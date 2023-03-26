@@ -101,7 +101,7 @@
                     DockPanel.Dock="Top">
                     <TextBlock
                         Margin="0"
-                        FontFamily="{StaticResource ResourceKey=MainFont}"
+                        FontFamily="{StaticResource ResourceKey=JbmMedium}"
                         FontSize="20"
                         Foreground="{StaticResource ResourceKey=LightTextColor}"
                         Style="{StaticResource ResourceKey=LeftMenuButtonText}">

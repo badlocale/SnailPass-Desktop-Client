@@ -43,7 +43,7 @@ namespace SnailPass.Data.API
         static RestApiBase()
         {
             HttpClient = new HttpClient();
-            HttpClient.Timeout = TimeSpan.FromSeconds(900);
+            HttpClient.Timeout = TimeSpan.FromSeconds(60);
             HttpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["base_api_url"]);
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

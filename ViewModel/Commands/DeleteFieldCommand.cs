@@ -42,7 +42,10 @@ namespace SnailPass.ViewModel.Commands
             HttpStatusCode? code = await _customFieldRestApi.DeleteCustomFieldAsync(field.ID);
             if (code == HttpStatusCode.OK)
             {
-                await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
+                if (await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email) == false)
+                {
+                    return;
+                }
                 await _viewModel.LoadFieldsAsync();
             }
         }

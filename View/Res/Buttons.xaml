@@ -10,7 +10,7 @@
                     Background="Transparent"
                     Content="{TemplateBinding Content}"
                     Cursor="Hand"
-                    FontFamily="{StaticResource ResourceKey=MainFont}"
+                    FontFamily="{StaticResource ResourceKey=JbmMedium}"
                     FontSize="{TemplateBinding FontSize}"
                     FontWeight="DemiBold"
                     Foreground="{StaticResource ResourceKey=DarkTextColor}" />
@@ -59,7 +59,7 @@
                 Background="Transparent"
                 Content="{TemplateBinding Content}"
                 Cursor="Hand"
-                FontFamily="{StaticResource ResourceKey=MainFont}"
+                FontFamily="{StaticResource ResourceKey=JbmMedium}"
                 FontSize="20"
                 FontWeight="DemiBold"
                 Foreground="{StaticResource ResourceKey=MainBackground}" />
@@ -89,7 +89,7 @@
                 Background="Transparent"
                 Content="{TemplateBinding Content}"
                 Cursor="Hand"
-                FontFamily="{StaticResource ResourceKey=MainFont}"
+                FontFamily="{StaticResource ResourceKey=JbmMedium}"
                 FontSize="15"
                 FontWeight="DemiBold"
                 Foreground="{StaticResource ResourceKey=LightTextColor}" />
@@ -150,7 +150,7 @@
     </Style>
 
     <Style x:Key="LeftMenuButtonText" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=MainFont}" />
+        <Setter Property="FontFamily" Value="{StaticResource ResourceKey=JbmMedium}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -271,5 +271,86 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <!--  SnailPass 1.0 Buttons  -->
+    <Style x:Key="ButtonStyle1" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource Color2}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Color3}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ButtonStyle2" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{StaticResource Color7Buttons}" CornerRadius="4">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Color2}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource Color8Buttons}" />
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="False">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect
+                            BlurRadius="3.2"
+                            Direction="315"
+                            Opacity="0.5"
+                            ShadowDepth="1.6"
+                            Color="{StaticResource GradientColor1}" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.8" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="RadioButtonStyle1" TargetType="RadioButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource Color2}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Color3}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Color3}" />
+                <Setter Property="BorderThickness" Value="2,0,0,0" />
+                <Setter Property="BorderBrush" Value="{StaticResource Color3}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

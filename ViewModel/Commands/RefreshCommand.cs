@@ -26,7 +26,12 @@ namespace SnailPass.ViewModel.Commands
         public async override void Execute(object? parameter)
         {
             _logger.Information($"Execute refresh command for user: \"{_identity.CurrentUser.Email}\".");
-            await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email);
+
+            if (await _synchronizationService.SynchronizeAsync(_identity.CurrentUser.Email) == false)
+            {
+                return;
+            }
+
             await _refreshable.RefreshAsync(null);
         }
     }

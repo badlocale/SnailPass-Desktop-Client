@@ -10,14 +10,16 @@
     d:DesignWidth="300"
     mc:Ignorable="d">
     <DockPanel
+        x:Name="DockP"
         Grid.Row="1"
         Width="220"
         Margin="0,10,0,15">
 
         <TextBlock
+            x:Name="SnailPass"
             HorizontalAlignment="Center"
             DockPanel.Dock="Top"
-            FontFamily="{StaticResource ResourceKey=MainFont}"
+            FontFamily="{StaticResource ResourceKey=JbmMedium}"
             FontSize="30"
             FontWeight="DemiBold"
             Foreground="{StaticResource ResourceKey=LightTextColor}"
@@ -34,6 +36,7 @@
 
         <TextBlock
             DockPanel.Dock="Top"
+            FontFamily="{StaticResource ResourceKey=JbmMedium}"
             Style="{StaticResource ResourceKey=HeaderTextStyle}"
             Text="E-mail" />
 
@@ -45,6 +48,7 @@
 
         <TextBlock
             DockPanel.Dock="Top"
+            FontFamily="{StaticResource ResourceKey=JbmMedium}"
             Style="{StaticResource ResourceKey=HeaderTextStyle}"
             Text="Master password" />
 
