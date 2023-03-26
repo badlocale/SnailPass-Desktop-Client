@@ -2,6 +2,7 @@
     x:Class="SnailPass.View.AccountsViewControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:SnailPass.View.Converters"
     xmlns:customcontrols="clr-namespace:SnailPass.CustomControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -220,6 +221,9 @@
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="GroupItem">
+                                                <ControlTemplate.Resources>
+                                                    <converters:StringToColorHashConverter x:Key="TextToColorConverter" />
+                                                </ControlTemplate.Resources>
                                                 <Grid Margin="25,8,4,8">
                                                     <Border
                                                         Background="{StaticResource Color2}"
@@ -238,13 +242,13 @@
                                                                     <ColumnDefinition Width="auto" />
                                                                 </Grid.ColumnDefinitions>
                                                                 <TextBlock
+                                                                    Name="HeaderText"
                                                                     Grid.Column="0"
                                                                     HorizontalAlignment="Left"
                                                                     FontFamily="{StaticResource JbmExtraBold}"
                                                                     FontSize="18"
-                                                                    Foreground="{StaticResource Color2}"
+                                                                    Foreground="{Binding Path=Name, Converter={StaticResource TextToColorConverter}}"
                                                                     Text="{Binding Path=Name}" />
-
                                                             </Grid>
                                                             <Grid Grid.Row="1" Margin="0,6,0,0">
                                                                 <Grid.ColumnDefinitions>
@@ -273,13 +277,16 @@
 
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
+                                    <DataTemplate.Resources>
+                                        <converters:StringToColorHashConverter x:Key="TextToColorConverter" />
+                                    </DataTemplate.Resources>
                                     <Border>
                                         <TextBlock
                                             Margin="10,0,0,0"
                                             HorizontalAlignment="Left"
                                             FontFamily="{StaticResource JbmExtraBold}"
                                             FontSize="18"
-                                            Foreground="{StaticResource Color2}"
+                                            Foreground="{Binding Name, Converter={StaticResource TextToColorConverter}}"
                                             Text="{Binding Name}" />
                                     </Border>
                                 </DataTemplate>

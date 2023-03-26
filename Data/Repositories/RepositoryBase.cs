@@ -33,7 +33,6 @@ namespace SnailPass.Data.Repositories
         {
             using SqliteCommand command = new();
             command.Connection = connection;
-            command.CommandText = "PRAGMA journal_mode=WAL;";
             command.ExecuteNonQuery();
         }
 
