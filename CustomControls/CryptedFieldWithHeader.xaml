@@ -7,307 +7,245 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="root"
     mc:Ignorable="d">
-    <Border
-        Background="{StaticResource ResourceKey=HeaderBackground}"
-        BorderBrush="{StaticResource ResourceKey=BorderColor}"
-        BorderThickness="1"
-        CornerRadius="5">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*" MinHeight="32" />
+            <RowDefinition Height="50*" MinHeight="32" />
+        </Grid.RowDefinitions>
+
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50*" MinHeight="25" />
-                <RowDefinition Height="50*" MinHeight="25" />
-            </Grid.RowDefinitions>
+            <TextBlock
+                FontFamily="{StaticResource JbmLight}"
+                FontSize="18"
+                Foreground="{StaticResource Color2}"
+                Text="{Binding Title, ElementName=root}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
 
-            <Border
-                Grid.Column="0"
-                Background="{StaticResource ResourceKey=HeaderBackground}"
-                CornerRadius="5, 5, 0, 0">
-                <TextBlock
-                    Margin="10"
-                    FontFamily="{StaticResource ResourceKey=JbmMedium}"
-                    FontSize="15"
-                    FontWeight="DemiBold"
-                    Foreground="{StaticResource ResourceKey=LightTextColor}"
-                    Text="{Binding Title, ElementName=root}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-            </Border>
-
-            <Border
-                Grid.Column="1"
-                Height="25"
-                BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                BorderThickness="1,0,0,0" />
-
-            <Border
-                x:Name="EditFieldButton"
-                Grid.Column="1"
-                Width="26"
-                Height="26"
-                Margin="5,0,5,0"
-                HorizontalAlignment="Right"
-                CornerRadius="13">
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsDeletable, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
-                                <Setter Property="IsEnabled" Value="False" />
-                                <Setter Property="Opacity" Value="0.5" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsButtonsEnabled, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
-                                <Setter Property="IsEnabled" Value="False" />
-                                <Setter Property="Opacity" Value="0.5" />
-                            </DataTrigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
-                                <Setter Property="Height" Value="100" />
-                                <Setter Property="Margin" Value="10" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-
-                <Button
-                    Name="EditButton"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding EditCommand, ElementName=root}">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Setters>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border
-                                                Width="26"
-                                                Height="26"
-                                                Background="Transparent">
-                                                <Rectangle
-                                                    Width="18"
-                                                    Height="18"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Fill="{StaticResource ResourceKey=LightTextColor}">
-                                                    <Rectangle.OpacityMask>
-                                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=EditIcon}" />
-                                                    </Rectangle.OpacityMask>
-                                                </Rectangle>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style.Setters>
+                <Border x:Name="EditFieldButton" Grid.Column="0">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsDeletable, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Setter Property="Opacity" Value="0.5" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsButtonsEnabled, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Setter Property="Opacity" Value="0.5" />
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
-                    </Button.Style>
-                </Button>
-            </Border>
+                    </Border.Style>
 
-            <Border
-                x:Name="BinButton"
-                Grid.Column="2"
-                Width="26"
-                Height="26"
-                Margin="0,0,5,0"
-                HorizontalAlignment="Right"
-                CornerRadius="13">
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsDeletable, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
-                                <Setter Property="IsEnabled" Value="False" />
-                                <Setter Property="Opacity" Value="0.5" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsButtonsEnabled, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
-                                <Setter Property="IsEnabled" Value="False" />
-                                <Setter Property="Opacity" Value="0.5" />
-                            </DataTrigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{StaticResource ResourceKey=ActivePanelColor}" />
-                                <Setter Property="Height" Value="100" />
-                                <Setter Property="Margin" Value="10" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-
-                <Button
-                    Name="DeleteButton"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding DeleteCommand, ElementName=root}">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Setters>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border
-                                                Width="26"
-                                                Height="26"
-                                                Background="Transparent">
-                                                <Rectangle
-                                                    Width="18"
-                                                    Height="18"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Fill="{StaticResource ResourceKey=LightTextColor}">
-                                                    <Rectangle.OpacityMask>
-                                                        <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=BinIcon}" />
-                                                    </Rectangle.OpacityMask>
-                                                </Rectangle>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style.Setters>
-                        </Style>
-                    </Button.Style>
-                </Button>
-            </Border>
-
-            <Border
-                Grid.Row="1"
-                Grid.ColumnSpan="3"
-                Background="{StaticResource ResourceKey=MainBackground}"
-                CornerRadius="0, 0, 5, 5" />
-
-            <Grid
-                x:Name="CryptedValueField"
-                Grid.Row="1"
-                Grid.ColumnSpan="3"
-                Background="Transparent"
-                MouseDown="CryptedValueField_MouseDown"
-                ToolTipOpening="IsCopiedTooltip_ToolTipOpening"
-                ToolTipService.InitialShowDelay="0"
-                ToolTipService.ShowDuration="120000">
-                <Grid.ToolTip>
-                    <ToolTip
-                        x:Name="IsCopiedTooltip"
-                        Background="{StaticResource ResourceKey=MainBackground}"
-                        Placement="Mouse">
-                        <ToolTip.Style>
-                            <Style TargetType="ToolTip">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ToolTip">
-                                            <Border
-                                                Background="{StaticResource ResourceKey=MainBackground}"
-                                                BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                                                BorderThickness="1"
-                                                CornerRadius="5">
-                                                <TextBlock x:Name="TooltipText" Margin="8">
-                                                    <TextBlock.Style>
-                                                        <Style BasedOn="{StaticResource ResourceKey=CommonTextStyle}" TargetType="TextBlock">
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding IsCopied, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="True">
-                                                                    <Setter Property="Text" Value="Copied!" />
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding IsCopied, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
-                                                                    <Setter Property="Text" Value="Click to copy!" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </TextBlock.Style>
-                                                </TextBlock>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ToolTip.Style>
-                    </ToolTip>
-                </Grid.ToolTip>
-
-                <Grid.Triggers>
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard Storyboard.Target="{Binding ElementName=HintField}">
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="Opacity"
-                                    From="1"
-                                    To="0"
-                                    Duration="0:0:0" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                        <RemoveStoryboard BeginStoryboardName="ValueStoryboard" />
-                        <BeginStoryboard>
-                            <Storyboard Storyboard.Target="{Binding ElementName=ValueField}">
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="Opacity"
-                                    To="1"
-                                    Duration="0:0:0" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard Storyboard.Target="{Binding ElementName=HintField}">
-                                <DoubleAnimation
-                                    BeginTime="0:0:1"
-                                    Storyboard.TargetProperty="Opacity"
-                                    From="0"
-                                    To="1"
-                                    Duration="0:0:2" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                        <BeginStoryboard x:Name="ValueStoryboard">
-                            <Storyboard Storyboard.Target="{Binding ElementName=ValueField}">
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="Opacity"
-                                    From="1"
-                                    To="0"
-                                    Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Grid.Triggers>
-
-                <Border
-                    x:Name="HintField"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                    <Border Width="auto" Height="35">
-                        <TextBlock
-                            Height="22"
-                            Margin="0,4,0,0"
-                            HorizontalAlignment="Center"
-                            FontFamily="{StaticResource ResourceKey=JbmMedium}"
-                            FontSize="15"
-                            FontStyle="Italic"
-                            FontWeight="Regular"
-                            Foreground="{StaticResource ResourceKey=SemiVisibleTextColor}"
-                            Opacity="1"
-                            Text="Hover over to open" />
-                    </Border>
+                    <Button
+                        Name="EditButton"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding EditCommand, ElementName=root}"
+                        Style="{StaticResource ButtonStyle3}">
+                        <Border
+                            Width="26"
+                            Height="19"
+                            Background="Transparent">
+                            <Rectangle
+                                Width="15"
+                                Height="15"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="{Binding ElementName=EditButton, Path=Foreground}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource SaveIcon}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Border>
+                    </Button>
                 </Border>
 
-                <Border
-                    x:Name="ValueField"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Opacity="0">
-                    <Border Width="auto" Height="35">
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource ResourceKey=JbmMedium}"
-                            FontSize="15"
-                            FontWeight="DemiBold"
-                            Foreground="{StaticResource ResourceKey=LightTextColor}"
-                            Opacity="1"
-                            Text="{Binding Value, ElementName=root}"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
-                    </Border>
+                <Border x:Name="BinButton" Grid.Column="1">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsDeletable, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Setter Property="Opacity" Value="0.5" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsButtonsEnabled, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Setter Property="Opacity" Value="0.5" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+
+                    <Button
+                        Name="DeleteButton"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding DeleteCommand, ElementName=root}"
+                        Style="{StaticResource ButtonStyle3}">
+                        <Border
+                            Width="26"
+                            Height="19"
+                            Background="Transparent">
+                            <Rectangle
+                                Width="15"
+                                Height="15"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="{Binding ElementName=DeleteButton, Path=Foreground}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource BinIcon}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Border>
+                    </Button>
                 </Border>
             </Grid>
         </Grid>
-    </Border>
+
+
+        <Border
+            Grid.Row="1"
+            Grid.ColumnSpan="10"
+            Background="{StaticResource Color2}"
+            CornerRadius="4"
+            Opacity="0.03" />
+
+        <Grid
+            x:Name="CryptedValueField"
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Background="Transparent"
+            MouseDown="CryptedValueField_MouseDown"
+            ToolTipOpening="IsCopiedTooltip_ToolTipOpening"
+            ToolTipService.InitialShowDelay="0"
+            ToolTipService.ShowDuration="120000">
+            <Grid.ToolTip>
+                <ToolTip
+                    x:Name="IsCopiedTooltip"
+                    Background="{StaticResource ResourceKey=MainBackground}"
+                    Placement="Mouse">
+                    <ToolTip.Style>
+                        <Style TargetType="ToolTip">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToolTip">
+                                        <Border
+                                            Background="{StaticResource ResourceKey=MainBackground}"
+                                            BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                                            BorderThickness="1"
+                                            CornerRadius="5">
+                                            <TextBlock x:Name="TooltipText" Margin="8">
+                                                <TextBlock.Style>
+                                                    <Style BasedOn="{StaticResource ResourceKey=CommonTextStyle}" TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsCopied, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="True">
+                                                                <Setter Property="Text" Value="Copied!" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsCopied, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:CryptedFieldWithHeader}}" Value="False">
+                                                                <Setter Property="Text" Value="Click to copy!" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToolTip.Style>
+                </ToolTip>
+            </Grid.ToolTip>
+
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard Storyboard.Target="{Binding ElementName=HintField}">
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="1"
+                                To="0"
+                                Duration="0:0:0" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="ValueStoryboard" />
+                    <BeginStoryboard>
+                        <Storyboard Storyboard.Target="{Binding ElementName=ValueField}">
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                To="1"
+                                Duration="0:0:0" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard Storyboard.Target="{Binding ElementName=HintField}">
+                            <DoubleAnimation
+                                BeginTime="0:0:1"
+                                Storyboard.TargetProperty="Opacity"
+                                From="0"
+                                To="1"
+                                Duration="0:0:2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                    <BeginStoryboard x:Name="ValueStoryboard">
+                        <Storyboard Storyboard.Target="{Binding ElementName=ValueField}">
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="1"
+                                To="0"
+                                Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+
+            <Border
+                x:Name="HintField"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Border Width="auto" Height="36">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource JbmLightItalic}"
+                        FontSize="13"
+                        FontStyle="Italic"
+                        FontWeight="Light"
+                        Foreground="{StaticResource Color2}"
+                        Opacity="0.7"
+                        Text="Hover over to reveal" />
+                </Border>
+            </Border>
+
+            <Border
+                x:Name="ValueField"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Opacity="0">
+                <Border Width="auto" Height="35">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource ResourceKey=JbmMedium}"
+                        FontSize="13"
+                        Foreground="{StaticResource Color2}"
+                        Opacity="1"
+                        Text="{Binding Value, ElementName=root}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </Border>
+            </Border>
+        </Grid>
+    </Grid>
 </UserControl>

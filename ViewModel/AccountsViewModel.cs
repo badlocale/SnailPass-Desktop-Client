@@ -186,6 +186,14 @@ namespace SnailPass.ViewModel
 
             _fields.Clear();
 
+            EncryptableFieldModel loginField = new EncryptableFieldModel();
+            loginField.ID = _selectedAccount.ID;
+            loginField.FieldName = "Login";
+            loginField.Value = _selectedAccount.Login;
+            loginField.AccountId = _selectedAccount.ID;
+            loginField.IsDeletable = false;
+            _fields.Add(loginField);
+
             EncryptableFieldModel passwordField = new EncryptableFieldModel();
             passwordField.ID = _selectedAccount.ID;
             passwordField.FieldName = "Password";   

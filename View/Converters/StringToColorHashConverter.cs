@@ -19,7 +19,12 @@ namespace SnailPass.View.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string text = value as string;
+            string? text = value as string;
+
+            if (text == null)
+            {
+                return new SolidColorBrush(Colors.White);
+            }
 
             long sum = 0;
             text.AsParallel().ForAll(c => sum += (byte)c);

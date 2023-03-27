@@ -16,5 +16,10 @@ namespace SnailPass.View
             ListBox listBox = sender as ListBox;
             listBox?.Focus();
         }
+
+        private void FieldsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
